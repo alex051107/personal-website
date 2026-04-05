@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Care Plan Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <nav class="site-nav nav-interior" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="../index.html" class="nav-brand">Zhenpeng Liu</a>
+            <div class="nav-mobile-overlay" id="navOverlay"></div>
+            <div class="nav-links" id="navLinks">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../index.html#research" class="nav-link">Research</a>
+                <a href="../index.html#projects" class="nav-link active">Projects</a>
+                <a href="../index.html#skills" class="nav-link">Skills</a>
+                <a href="../index.html#education" class="nav-link">Education</a>
+            </div>
+            <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <div class="breadcrumb fade-in-up">
+                    <a href="../index.html">Home</a>
+                    <span class="breadcrumb-separator">&rsaquo;</span>
+                    <a href="../index.html#projects">Projects</a>
+                    <span class="breadcrumb-separator">&rsaquo;</span>
+                    <span>Medical Care Plan</span>
+                </div>
+                <span class="eyebrow fade-in-up">FULL-STACK PROJECT</span>
+                <h1 class="fade-in-up">LLM-powered Medical Care Plan Generation</h1>
+                <p class="subtitle fade-in-up">Replacing a 20-40 minute manual pharmacist workflow with a structured, auditable generation pipeline</p>
+                <div class="page-meta fade-in-up">
+                    <div class="meta-item">
+                        <span class="meta-label">Duration</span>
+                        <span class="meta-value">Feb 2026 – Present</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Stack</span>
+                        <span class="meta-value">Django + DRF</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Infrastructure</span>
+                        <span class="meta-value">Docker / AWS-ready</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Status</span>
+                        <span class="meta-value">Active Development</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detail Content -->
+        <section class="detail-content">
+            <div class="container">
+
+                <!-- Motivation -->
+                <div class="detail-section detail-section--teal fade-in-up">
+                    <h2>Motivation</h2>
+                    <p>Pharmacists spend 20-40 minutes manually drafting care plans for each patient: reviewing medication orders, checking interactions, writing recommendations. This project replaces that workflow with a structured pipeline: validated intake, rule-based checks, LLM drafting, human review, and export. The system prioritizes correctness and traceability over free-form chat.</p>
+                </div>
+
+                <!-- Architecture Evolution -->
+                <div class="detail-section detail-section--teal fade-in-up">
+                    <h2>Architecture Evolution</h2>
+                    <p>Over a 16-day development sprint, the architecture evolved from a monolithic Django app to a production-ready microservice system:</p>
+
+                    <h3>Phase 1: Monolith (Days 1-4)</h3>
+                    <ul class="detail-list detail-list--teal">
+                        <li>Single Django application with synchronous LLM calls</li>
+                        <li>SQLite database, direct API integration</li>
+                        <li>Problem: LLM calls blocked the request thread (30-60 seconds)</li>
+                    </ul>
+
+                    <h3>Phase 2: Task Queue (Days 5-9)</h3>
+                    <ul class="detail-list detail-list--teal">
+                        <li>Added Celery + Redis for async LLM processing</li>
+                        <li>PostgreSQL migration for production reliability</li>
+                        <li>Status-driven lifecycle tracking (PENDING, PROCESSING, COMPLETED, FAILED)</li>
+                        <li>Retry/backoff on API failures</li>
+                    </ul>
+
+                    <h3>Phase 3: Production Architecture (Days 10-16)</h3>
+                    <ul class="detail-list detail-list--teal">
+                        <li>Adapter-style ingestion for multiple order sources (HL7, CSV, manual)</li>
+                        <li>Business-rule duplicate detection before LLM invocation</li>
+                        <li>Dockerized services (PostgreSQL + API + Worker containers)</li>
+                        <li>Structured for AWS deployment (ECS/Fargate)</li>
+                    </ul>
+                </div>
+
+                <!-- Technical Deep Dive -->
+                <div class="detail-section detail-section--teal fade-in-up">
+                    <h2>Technical Deep Dive</h2>
+
+                    <h3>API Design</h3>
+                    <p>Django REST Framework with strict schema validation and idempotent request handling. Key endpoints:</p>
+                    <ul class="detail-list detail-list--teal">
+                        <li><code>POST /api/orders/</code>: Create medication order (validated, deduplicated)</li>
+                        <li><code>POST /api/care-plans/generate/</code>: Trigger async care plan generation</li>
+                        <li><code>GET /api/care-plans/{id}/</code>: Retrieve care plan with status</li>
+                        <li><code>GET /api/care-plans/{id}/audit/</code>: Full audit trail</li>
+                    </ul>
+
+                    <h3>Error Hierarchy</h3>
+                    <p>Custom exception classes mapped to HTTP status codes, with structured error responses that include field-level validation errors, business rule violations, and system errors separately.</p>
+
+                    <h3>Data Model</h3>
+                    <div class="detail-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Fields</th>
+                                    <th>Purpose</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>MedicationOrder</td>
+                                    <td>patient_id, drug, dose, route, frequency, source</td>
+                                    <td>Incoming order from pharmacy system</td>
+                                </tr>
+                                <tr>
+                                    <td>CarePlan</td>
+                                    <td>order_id, status, content, llm_model, prompt_version</td>
+                                    <td>Generated care plan with lifecycle tracking</td>
+                                </tr>
+                                <tr>
+                                    <td>AuditLog</td>
+                                    <td>care_plan_id, action, timestamp, actor</td>
+                                    <td>Every state transition is logged</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Image Placeholder -->
+                <figure class="detail-figure fade-in-up">
+                    <img src="../images/medical-care-glass.png" alt="AI-powered healthcare system: glassmorphic isometric illustration of medical data flow through an intelligent care plan generator">
+                    <figcaption>Django + Celery/Redis architecture with adapter-style ingestion and audit trail.</figcaption>
+                </figure>
+
+                <!-- Tech Stack Tags -->
+                <div class="detail-section detail-section--teal fade-in-up">
+                    <h2>Tech Stack</h2>
+                    <div class="tag-list">
+                        <span class="tag">Django</span>
+                        <span class="tag">DRF</span>
+                        <span class="tag">Celery</span>
+                        <span class="tag">Redis</span>
+                        <span class="tag">PostgreSQL</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">AWS</span>
+                        <span class="tag">HL7</span>
+                    </div>
+                </div>
+
+                <!-- Related Navigation -->
+                <div class="related-nav fade-in-up">
+                    <a href="astro-forecast.html" class="related-nav-link related-nav-link--prev">
+                        <span class="related-nav-label">&larr; Previous</span>
+                        <span class="related-nav-title">Astro Forecasting</span>
+                    </a>
+                    <a href="../index.html#projects" class="related-nav-link related-nav-link--next">
+                        <span class="related-nav-label">Next &rarr;</span>
+                        <span class="related-nav-title">Back to Home</span>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="nav-brand">ZL</span>
+                    <p>Computational biology researcher at UNC Chapel Hill.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Navigate</h4>
+                        <a href="../index.html#about">About</a>
+                        <a href="../index.html#research">Research</a>
+                        <a href="../index.html#projects">Projects</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Connect</h4>
+                        <a href="mailto:zphengl@unc.edu">Email</a>
+                        <a href="https://github.com/ZhenpengLiu" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://linkedin.com/in/zhenpeng-liu" target="_blank" rel="noopener">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Zhenpeng Liu. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

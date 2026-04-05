@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astro Forecasting MLOps Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <nav class="site-nav nav-interior" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="../index.html" class="nav-brand">Zhenpeng Liu</a>
+            <div class="nav-mobile-overlay" id="navOverlay"></div>
+            <div class="nav-links" id="navLinks">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../index.html#research" class="nav-link">Research</a>
+                <a href="../index.html#projects" class="nav-link active">Projects</a>
+                <a href="../index.html#skills" class="nav-link">Skills</a>
+                <a href="../index.html#education" class="nav-link">Education</a>
+            </div>
+            <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <div class="breadcrumb fade-in-up">
+                    <a href="../index.html">Home</a>
+                    <span class="breadcrumb-separator">&rsaquo;</span>
+                    <a href="../index.html#projects">Projects</a>
+                    <span class="breadcrumb-separator">&rsaquo;</span>
+                    <span>Astro Forecasting</span>
+                </div>
+                <span class="eyebrow fade-in-up">DATA SCIENCE PROJECT</span>
+                <h1 class="fade-in-up">Astro Forecasting MLOps Platform</h1>
+                <p class="subtitle fade-in-up">LSTM-based exoplanet discovery trend forecasting with 7-dimensional habitability scoring</p>
+                <div class="page-meta fade-in-up">
+                    <div class="meta-item">
+                        <span class="meta-label">Duration</span>
+                        <span class="meta-value">May – Sep 2025</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Team</span>
+                        <span class="meta-value">4-member team lead</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Event</span>
+                        <span class="meta-value">UNC 48-hour Data Science Hackathon</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Data</span>
+                        <span class="meta-value">50,000+ NASA observations</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detail Content -->
+        <section class="detail-content">
+            <div class="container">
+
+                <!-- Overview -->
+                <div class="detail-section detail-section--navy fade-in-up">
+                    <h2>Overview</h2>
+                    <p>Led a 4-member team in UNC's 48-hour Data Science Hackathon. The challenge: analyze 30+ years of NASA exoplanet observations to forecast discovery trends and inform telescope resource allocation.</p>
+                </div>
+
+                <!-- Data Pipeline -->
+                <div class="detail-section detail-section--navy fade-in-up">
+                    <h2>Data Pipeline</h2>
+                    <p>Built a reproducible data and feature pipeline (pandas/NumPy) reconciling inconsistent observations across 30+ years of data:</p>
+                    <ul class="detail-list detail-list--navy">
+                        <li>Standardized discovery methods (radial velocity, transit, imaging, microlensing)</li>
+                        <li>Handled missing values in planetary parameters (mass, radius, orbital period, equilibrium temperature)</li>
+                        <li>Feature engineering: discovery rate by method, cumulative counts, seasonal patterns, technology capability indicators</li>
+                    </ul>
+                </div>
+
+                <!-- Forecasting Models -->
+                <div class="detail-section detail-section--navy fade-in-up">
+                    <h2>Forecasting Models</h2>
+                    <p>Compared multiple approaches:</p>
+                    <ul class="detail-list detail-list--navy">
+                        <li><strong>ARIMA/SARIMA</strong>: Traditional time-series baseline</li>
+                        <li><strong>Holt-Winters</strong>: Triple exponential smoothing for trend + seasonality</li>
+                        <li><strong>LSTM</strong> (PyTorch): Primary model, capturing non-linear patterns in discovery rates</li>
+                    </ul>
+                    <p>Result: 18% lower RMSE vs. baselines, MAPE within &plusmn;7%</p>
+                </div>
+
+                <!-- 7-Dimensional Habitability Scoring -->
+                <div class="detail-section detail-section--navy fade-in-up">
+                    <h2>7-Dimensional Habitability Scoring</h2>
+                    <p>Developed a composite habitability score incorporating:</p>
+                    <ol class="detail-list detail-list--navy">
+                        <li>Equilibrium temperature (proximity to 255K Earth reference)</li>
+                        <li>Stellar flux ratio</li>
+                        <li>Planet radius (Earth-like range: 0.8-1.6 R&#8853;)</li>
+                        <li>Orbital eccentricity (low = more stable climate)</li>
+                        <li>Host star metallicity</li>
+                        <li>Stellar type classification</li>
+                        <li>Orbital period (habitable zone proxy)</li>
+                    </ol>
+                    <p>Dynamic scoring handles incomplete multi-metric inputs by re-normalizing available dimensions.</p>
+                </div>
+
+                <!-- Validation -->
+                <div class="detail-section detail-section--navy fade-in-up">
+                    <h2>Validation</h2>
+                    <p>Validated forecasts against newly observed discoveries with ~70% match rate across multiple prediction horizons.</p>
+                </div>
+
+                <!-- Interactive Dashboard -->
+                <div class="detail-section detail-section--navy fade-in-up">
+                    <h2>Interactive Dashboard</h2>
+                    <p>Built with Plotly Dash featuring:</p>
+                    <ul class="detail-list detail-list--navy">
+                        <li>Trend visualization across discovery methods</li>
+                        <li>Residual diagnostics for model performance</li>
+                        <li>Feature-importance heatmaps</li>
+                        <li>Habitability score explorer with drill-down by planetary system</li>
+                    </ul>
+                </div>
+
+                <!-- Image Placeholder -->
+                <figure class="detail-figure fade-in-up">
+                    <img src="../images/astro-forecast.png" alt="Cumulative exoplanet discoveries from 1995-2030 with LSTM forecast, showing Transit, Radial Velocity, and Direct Imaging methods">
+                    <figcaption>LSTM forecasting results with habitability scoring overlay across 30 years of exoplanet discoveries.</figcaption>
+                </figure>
+
+                <!-- Metrics Grid -->
+                <div class="metrics-grid fade-in-up">
+                    <div class="metric-card">
+                        <span class="metric-value">50,000+</span>
+                        <span class="metric-label">Observations analyzed</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">18%</span>
+                        <span class="metric-label">RMSE improvement</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">&plusmn;7%</span>
+                        <span class="metric-label">MAPE accuracy</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value">~70%</span>
+                        <span class="metric-label">Forecast match rate</span>
+                    </div>
+                </div>
+
+                <!-- Tech Stack Tags -->
+                <div class="detail-section detail-section--navy fade-in-up">
+                    <h2>Tech Stack</h2>
+                    <div class="tag-list">
+                        <span class="tag">PyTorch</span>
+                        <span class="tag">LSTM</span>
+                        <span class="tag">Plotly Dash</span>
+                        <span class="tag">pandas</span>
+                        <span class="tag">NumPy</span>
+                        <span class="tag">NASA</span>
+                        <span class="tag">Holt-Winters</span>
+                        <span class="tag">ARIMA</span>
+                    </div>
+                </div>
+
+                <!-- Related Navigation -->
+                <div class="related-nav fade-in-up">
+                    <a href="../index.html#projects" class="related-nav-link related-nav-link--prev">
+                        <span class="related-nav-label">&larr; Previous</span>
+                        <span class="related-nav-title">Back to Home</span>
+                    </a>
+                    <a href="medical-care.html" class="related-nav-link related-nav-link--next">
+                        <span class="related-nav-label">Next &rarr;</span>
+                        <span class="related-nav-title">Medical Care Plan</span>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="nav-brand">ZL</span>
+                    <p>Computational biology researcher at UNC Chapel Hill.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Navigate</h4>
+                        <a href="../index.html#about">About</a>
+                        <a href="../index.html#research">Research</a>
+                        <a href="../index.html#projects">Projects</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Connect</h4>
+                        <a href="mailto:zphengl@unc.edu">Email</a>
+                        <a href="https://github.com/ZhenpengLiu" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://linkedin.com/in/zhenpeng-liu" target="_blank" rel="noopener">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Zhenpeng Liu. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

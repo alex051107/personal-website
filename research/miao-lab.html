@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miao Lab | UNC Chapel Hill</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <nav class="site-nav nav-interior" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="../index.html" class="nav-brand">Zhenpeng Liu</a>
+            <div class="nav-mobile-overlay" id="navOverlay"></div>
+            <div class="nav-links" id="navLinks">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../index.html#research" class="nav-link active">Research</a>
+                <a href="../index.html#projects" class="nav-link">Projects</a>
+                <a href="../index.html#skills" class="nav-link">Skills</a>
+                <a href="../index.html#education" class="nav-link">Education</a>
+            </div>
+            <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <div class="breadcrumb fade-in-up">
+                    <a href="../index.html">Home</a> &gt; <a href="../index.html#research">Research</a> &gt; <span>Miao Lab</span>
+                </div>
+                <p class="eyebrow fade-in-up">RESEARCH ASSISTANT</p>
+                <h1 class="fade-in-up">UNC Miao Lab</h1>
+                <p class="page-subtitle fade-in-up">Machine learning + molecular dynamics for protein-ligand binding kinetics</p>
+                <div class="meta-items fade-in-up">
+                    <span class="meta-item"><span class="status-dot status-dot--teal"></span>Jun 2025 – Present</span>
+                    <span class="meta-item">PI: Prof. Yinglong Miao</span>
+                    <span class="meta-item">UNC Chapel Hill</span>
+                    <span class="meta-item">Focus: LiGaMD3 Enhanced Sampling</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detail Content -->
+        <section class="detail-content">
+            <div class="container">
+
+                <!-- Research Context -->
+                <div class="detail-section detail-section--teal fade-in-up">
+                    <h2>Research Context</h2>
+                    <p>Predicting how tightly and how quickly a drug binds its target is central to drug design. While binding affinity (&Delta;G) is routinely computed, binding kinetics, the on-rate (k<sub>on</sub>) and off-rate (k<sub>off</sub>), remain extremely challenging. The Miao Lab developed LiGaMD3 (Ligand Gaussian accelerated Molecular Dynamics 3), an enhanced sampling method that can capture complete ligand binding and unbinding events within computationally accessible timescales.</p>
+                </div>
+
+                <!-- My Work -->
+                <div class="detail-section detail-section--teal fade-in-up">
+                    <h2>My Work</h2>
+
+                    <h3>Data Engineering Pipeline</h3>
+                    <p>Built a Python pipeline (pandas/NumPy) curating ~130 protein-ligand systems from KIND13 and PDBbind databases. Transformed 120,000+ MD time-series records into structured features including energy gradients, motion vectors, contact frequencies, and geometric descriptors. The pipeline handles multiple target systems:</p>
+                    <ul class="detail-list detail-list--teal">
+                        <li><strong>HSP90</strong> (Heat Shock Protein 90): Important cancer drug target, 8 ligand systems</li>
+                        <li><strong>CDK2</strong> (Cyclin-Dependent Kinase 2): Cell cycle regulation, 12 ligand systems</li>
+                        <li><strong>HIV Protease</strong>: Antiretroviral target, multiple inhibitor complexes</li>
+                    </ul>
+
+                    <h3>Feature Engineering from Dynamics</h3>
+                    <p>Leveraged LiGaMD3 trajectories to capture hidden intermediates and transition states that are invisible in static crystal structures. Applied PCA + K-Means clustering to identify representative low-energy conformational ensembles. Key features extracted:</p>
+                    <ul class="detail-list detail-list--teal">
+                        <li>Boost potentials and reweighting factors from GaMD</li>
+                        <li>Residue-ligand contact frequencies over time</li>
+                        <li>Binding site volume fluctuations</li>
+                        <li>Interaction fingerprint time-series (hydrogen bonds, hydrophobic contacts, salt bridges)</li>
+                    </ul>
+
+                    <h3>Predictive Modeling</h3>
+                    <p>Developed ML models (scikit-learn + PyTorch) fusing 3D structural descriptors with trajectory-derived transition features. Validated improved prediction of k<sub>on</sub>/k<sub>off</sub> signals versus static-only baselines.</p>
+                </div>
+
+                <!-- Image Placeholder -->
+                <figure class="detail-figure fade-in-up">
+                    <img src="../images/miao-lab-fes.png" alt="2D Free Energy Surface showing bound and unbound states, and ML-predicted vs experimental log(k_off) scatter plot">
+                    <figcaption>Left: Free energy profile from LiGaMD3 enhanced sampling. Right: ML-predicted vs. experimental dissociation rate constants.</figcaption>
+                </figure>
+
+                <!-- Technical Challenges -->
+                <div class="detail-section detail-section--teal fade-in-up">
+                    <h2>Technical Challenges</h2>
+                    <ul class="detail-list detail-list--teal">
+                        <li><strong>Convergence assessment</strong>: How to know when LiGaMD3 simulations have sampled enough binding/unbinding events</li>
+                        <li><strong>Feature selection</strong>: Balancing trajectory-derived features (rich but noisy) with structural features (sparse but clean)</li>
+                        <li><strong>System diversity</strong>: Models trained on HSP90 need to generalize to CDK2 and HIV protease</li>
+                    </ul>
+                </div>
+
+                <!-- Keywords -->
+                <div class="research-entry__keywords fade-in-up">
+                    <span class="keyword-tag">LiGaMD3</span>
+                    <span class="keyword-tag">AMBER</span>
+                    <span class="keyword-tag">PCA</span>
+                    <span class="keyword-tag">scikit-learn</span>
+                    <span class="keyword-tag">PyTorch</span>
+                    <span class="keyword-tag">PDBbind</span>
+                    <span class="keyword-tag">HSP90</span>
+                    <span class="keyword-tag">CDK2</span>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Related Navigation -->
+        <nav class="related-nav">
+            <div class="container">
+                <a href="caltech-surf.html" class="related-nav__prev">
+                    <span class="related-nav__label">&larr; Previous</span>
+                    <span class="related-nav__title">Caltech SURF</span>
+                </a>
+                <a href="poplov-lab.html" class="related-nav__next">
+                    <span class="related-nav__label">Next &rarr;</span>
+                    <span class="related-nav__title">Poplov Lab</span>
+                </a>
+            </div>
+        </nav>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Zhenpeng Liu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

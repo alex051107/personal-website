@@ -1,0 +1,17 @@
+# Gemini original files (already copied to images/ with clean names)
+Gemini_Generated_Image_*.png
+
+# Dev notes & drafts
+content.md
+content-check-v2.md
+design-system.md
+design-v2.md
+fact-check-report.md
+review-report.md
+review-v2.md
+github-cleanup-guide.md
+github-profile-README.md
+image-prompts.md
+
+# macOS
+.DS_Store

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zhenpeng Liu</title>
+  <meta name="description" content="Zhenpeng Liu — molecular simulation meets statistical learning. Caltech SURF Fellow, UNC Chapel Hill.">
+
+  <!-- Fonts: Clash Display (headings) + Satoshi (body) from Fontshare CDN -->
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
+  <!-- JetBrains Mono for code/mono accents -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- GSAP + ScrollTrigger + Lenis -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-logo magnetic" data-strength="0.3">ZL</a>
+    <div class="nav-links">
+      <a href="#about" class="nav-link magnetic" data-strength="0.2">About</a>
+      <a href="#research" class="nav-link magnetic" data-strength="0.2">Research</a>
+      <a href="#projects" class="nav-link magnetic" data-strength="0.2">Projects</a>
+      <a href="#skills" class="nav-link magnetic" data-strength="0.2">Skills</a>
+      <a href="about.html" class="nav-link magnetic" data-strength="0.2">CV</a>
+    </div>
+  </nav>
+
+  <!-- ════════════════════════════════════════════ HERO ════════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        <span class="mono">Caltech SURF Fellow · UNC Chapel Hill</span>
+      </div>
+      <h1 class="hero-name" data-splitting>Zhenpeng Liu</h1>
+      <p class="hero-subtitle">Turning molecular simulations into testable predictions<br>of how proteins recognize, bind, and release their partners.</p>
+      <div class="hero-links">
+        <a href="mailto:liualex@unc.edu" class="hero-link magnetic" data-strength="0.15">
+          <span class="hero-link-text">Email</span>
+          <span class="hero-link-arrow">↗</span>
+        </a>
+        <a href="https://github.com/alex051107" class="hero-link magnetic" data-strength="0.15" target="_blank" rel="noopener">
+          <span class="hero-link-text">GitHub</span>
+          <span class="hero-link-arrow">↗</span>
+        </a>
+        <a href="https://linkedin.com/in/zhenpeng-liu" class="hero-link magnetic" data-strength="0.15" target="_blank" rel="noopener">
+          <span class="hero-link-text">LinkedIn</span>
+          <span class="hero-link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════ ABOUT ═══════════════════════════════════════════ -->
+  <section class="section section--light" id="about">
+    <div class="container">
+      <div class="section-label mono reveal-up">About</div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="about-lead reveal-up">I am an undergraduate at <em>UNC Chapel Hill</em> pursuing dual degrees in Biology and Computer Science.</p>
+          <p class="reveal-up">Most of my time goes to a question that sits between physics and learning: when a protein samples thousands of conformations per microsecond, which motions actually determine whether a drug binds, how fast it arrives, and how long it stays?</p>
+          <p class="reveal-up">The through-line is straightforward: simulations produce data, learning compresses it into a model, and the model tells you which experiment to run next.</p>
+        </div>
+        <div class="about-card reveal-up">
+          <div class="about-photo-wrapper">
+            <img src="profile.jpg" alt="Zhenpeng Liu" class="about-photo" loading="lazy">
+          </div>
+          <div class="about-meta">
+            <div class="about-meta-item">
+              <span class="about-meta-label mono">Position</span>
+              <span class="about-meta-value">SURF Fellow, Caltech</span>
+            </div>
+            <div class="about-meta-item">
+              <span class="about-meta-label mono">University</span>
+              <span class="about-meta-value">UNC Chapel Hill</span>
+            </div>
+            <div class="about-meta-item">
+              <span class="about-meta-label mono">Degrees</span>
+              <span class="about-meta-value">B.S. Biology + B.S. CS</span>
+            </div>
+            <div class="about-meta-item">
+              <span class="about-meta-label mono">Focus</span>
+              <span class="about-meta-value">Simulation × Statistical Learning</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════ RESEARCH ════════════════════════════════════════ -->
+  <section class="section section--dark" id="research">
+    <div class="container">
+      <div class="section-label mono reveal-up">Research</div>
+      <h2 class="section-heading reveal-up">Selected Research</h2>
+
+      <div class="research-list">
+        <!-- Caltech SURF -->
+        <a class="research-item reveal-up" href="research/caltech-surf.html">
+          <div class="research-item-inner">
+            <div class="research-meta">
+              <span class="mono">Feb 2026 — Present</span>
+            </div>
+            <div class="research-content">
+              <h3 class="research-title">Caltech / Anima AI + Science Lab<span class="research-role">SURF Research Fellow</span></h3>
+              <p class="research-desc">Two enzyme variants share >95% structural similarity yet differ drastically in catalytic activity. I use path-CV MetaDynamics to reconstruct the free energy surface that separates them.</p>
+            </div>
+            <div class="research-image">
+              <img src="images/trpb-fes.png" alt="TrpB free energy landscape" loading="lazy">
+            </div>
+            <span class="item-arrow">↗</span>
+          </div>
+        </a>
+
+        <!-- Miao Lab -->
+        <a class="research-item reveal-up" href="research/miao-lab.html">
+          <div class="research-item-inner">
+            <div class="research-meta">
+              <span class="mono">Jun 2025 — Present</span>
+            </div>
+            <div class="research-content">
+              <h3 class="research-title">UNC Miao Lab<span class="research-role">Research Assistant</span></h3>
+              <p class="research-desc">Predicting how long a drug stays bound from simulation alone — regression models on GaMD-derived descriptors to estimate k<sub>off</sub> across ~130 complexes.</p>
+            </div>
+            <div class="research-image">
+              <img src="images/miao-lab-fes.png" alt="Free energy surface and k-off prediction" loading="lazy">
+            </div>
+            <span class="item-arrow">↗</span>
+          </div>
+        </a>
+
+        <!-- Poplov Lab -->
+        <a class="research-item reveal-up" href="research/poplov-lab.html">
+          <div class="research-item-inner">
+            <div class="research-meta">
+              <span class="mono">Sep 2024 — Present</span>
+            </div>
+            <div class="research-content">
+              <h3 class="research-title">UNC Poplov Lab<span class="research-role">Research Assistant</span></h3>
+              <p class="research-desc">Built the HPC orchestration layer — automated Slurm submission, convergence diagnostics, and checkpoint recovery for multi-week GPU simulation campaigns.</p>
+            </div>
+            <span class="item-arrow">↗</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════ PROJECTS ════════════════════════════════════════ -->
+  <section class="section section--light" id="projects">
+    <div class="container">
+      <div class="section-label mono reveal-up">Projects</div>
+      <h2 class="section-heading reveal-up">Selected Projects</h2>
+
+      <div class="projects-grid">
+        <!-- Medical Care -->
+        <a class="project-card reveal-up" href="projects/medical-care.html">
+          <div class="project-card-image">
+            <img src="images/medical-care-glass.png" alt="AI-powered care plan generator" loading="lazy">
+          </div>
+          <div class="project-card-body">
+            <span class="mono project-date">Feb 2026 — Present</span>
+            <h3 class="project-title">Structured Care Plan Generation</h3>
+            <p class="project-desc">A pharmacist spends 20–40 min drafting each care plan by hand. This system produces a structured, auditable draft in seconds.</p>
+            <div class="project-tags">
+              <span class="tag">Django</span>
+              <span class="tag">Celery</span>
+              <span class="tag">Redis</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Docker</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Astro Forecasting -->
+        <a class="project-card reveal-up" href="projects/astro-forecast.html">
+          <div class="project-card-image">
+            <img src="images/astro-forecast.png" alt="Exoplanet discovery forecasting" loading="lazy">
+          </div>
+          <div class="project-card-body">
+            <span class="mono project-date">May — Sep 2025</span>
+            <h3 class="project-title">Exoplanet Discovery Trend Forecasting</h3>
+            <p class="project-desc">LSTM forecaster over 30 years of NASA exoplanet data projecting discovery rates by detection method, paired with a habitability score.</p>
+            <div class="project-tags">
+              <span class="tag">PyTorch</span>
+              <span class="tag">LSTM</span>
+              <span class="tag">Plotly Dash</span>
+              <span class="tag">NASA</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════ SKILLS ══════════════════════════════════════════ -->
+  <section class="section section--dark" id="skills">
+    <div class="container">
+      <div class="section-label mono reveal-up">Skills</div>
+      <h2 class="section-heading reveal-up">Technical Toolkit</h2>
+
+      <div class="skills-grid">
+        <div class="skill-group reveal-up">
+          <h4 class="skill-group-title mono">Programming</h4>
+          <div class="skill-tags">
+            <span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Java</span><span class="tag">Bash</span>
+          </div>
+        </div>
+        <div class="skill-group reveal-up">
+          <h4 class="skill-group-title mono">ML / Statistics</h4>
+          <div class="skill-tags">
+            <span class="tag">PyTorch</span><span class="tag">scikit-learn</span><span class="tag">XGBoost</span><span class="tag">LightGBM</span><span class="tag">Prophet</span><span class="tag">MLflow</span><span class="tag">Optuna</span>
+          </div>
+        </div>
+        <div class="skill-group reveal-up">
+          <h4 class="skill-group-title mono">AI for Science</h4>
+          <div class="skill-tags">
+            <span class="tag">MetaDynamics / PLUMED2</span><span class="tag">Path Collective Variables</span><span class="tag">Free Energy Landscapes</span><span class="tag">SE(3) Equivariance</span><span class="tag">Markov State Models</span><span class="tag">AMBER / GROMACS</span>
+          </div>
+        </div>
+        <div class="skill-group reveal-up">
+          <h4 class="skill-group-title mono">Systems / DevOps</h4>
+          <div class="skill-tags">
+            <span class="tag">Docker</span><span class="tag">Git</span><span class="tag">Linux</span><span class="tag">FastAPI</span><span class="tag">Streamlit</span><span class="tag">Slurm</span><span class="tag">PostgreSQL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════ EDUCATION ═══════════════════════════════════════ -->
+  <section class="section section--light" id="education">
+    <div class="container">
+      <div class="section-label mono reveal-up">Education</div>
+      <h2 class="section-heading reveal-up">Education & Honors</h2>
+
+      <div class="education-block reveal-up">
+        <h3 class="edu-school">University of North Carolina at Chapel Hill</h3>
+        <p class="edu-degree">B.S. Biology + B.S. Computer Science · Expected May 2028</p>
+        <p class="edu-coursework mono">System Design · Discrete Math · Data Structures · Linear Algebra · Calculus I–III · Machine Learning · Organic Chemistry</p>
+      </div>
+
+      <div class="honors-grid">
+        <div class="honor reveal-up">
+          <span class="honor-accent"></span>
+          <div>
+            <h4 class="honor-title">Caltech SURF Fellowship</h4>
+            <p class="honor-desc">$8,110 competitive research award for independent research at Caltech.</p>
+          </div>
+        </div>
+        <div class="honor reveal-up">
+          <span class="honor-accent"></span>
+          <div>
+            <h4 class="honor-title">Honors Carolina</h4>
+            <p class="honor-desc">Top 10% of the entering class at UNC Chapel Hill.</p>
+          </div>
+        </div>
+        <div class="honor reveal-up">
+          <span class="honor-accent"></span>
+          <div>
+            <h4 class="honor-title">USABO Gold Medal</h4>
+            <p class="honor-desc">Top 5% nationally in the USA Biology Olympiad.</p>
+          </div>
+        </div>
+        <div class="honor reveal-up">
+          <span class="honor-accent"></span>
+          <div>
+            <h4 class="honor-title">BBO Gold Award</h4>
+            <p class="honor-desc">Gold Award in the British Biology Olympiad.</p>
+          </div>
+        </div>
+        <div class="honor reveal-up">
+          <span class="honor-accent"></span>
+          <div>
+            <h4 class="honor-title">AMC 12, Top 5%</h4>
+            <p class="honor-desc">Top 5% in the American Mathematics Competition 12.</p>
+          </div>
+        </div>
+        <div class="honor reveal-up">
+          <span class="honor-accent"></span>
+          <div>
+            <h4 class="honor-title">HiMCM Meritorious</h4>
+            <p class="honor-desc">Recognition in the High School Mathematical Contest in Modeling.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════ FOOTER ══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <span class="footer-name">Zhenpeng Liu</span>
+        <span class="footer-tagline mono">Built with curiosity and too much coffee.</span>
+      </div>
+      <div class="footer-right">
+        <a href="mailto:liualex@unc.edu" class="footer-link magnetic" data-strength="0.15">liualex@unc.edu</a>
+        <a href="https://github.com/alex051107" class="footer-link magnetic" data-strength="0.15" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/zhenpeng-liu" class="footer-link magnetic" data-strength="0.15" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-copy mono">© 2026 Zhenpeng Liu</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
