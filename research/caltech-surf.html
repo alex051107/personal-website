@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caltech SURF | TrpB MetaDynamics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <nav class="site-nav nav-interior" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="../index.html" class="nav-brand">Zhenpeng Liu</a>
+            <div class="nav-mobile-overlay" id="navOverlay"></div>
+            <div class="nav-links" id="navLinks">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../index.html#research" class="nav-link active">Research</a>
+                <a href="../index.html#projects" class="nav-link">Projects</a>
+                <a href="../index.html#skills" class="nav-link">Skills</a>
+                <a href="../index.html#education" class="nav-link">Education</a>
+            </div>
+            <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <div class="breadcrumb fade-in-up">
+                    <a href="../index.html">Home</a>
+                    <span class="breadcrumb-separator">&rsaquo;</span>
+                    <a href="../index.html#research">Research</a>
+                    <span class="breadcrumb-separator">&rsaquo;</span>
+                    <span>Caltech SURF</span>
+                </div>
+                <span class="eyebrow fade-in-up">SURF RESEARCH FELLOW</span>
+                <h1 class="fade-in-up">TrpB COMM Domain Dynamics via Well-Tempered MetaDynamics</h1>
+                <p class="subtitle fade-in-up">Enhanced sampling of Open&thinsp;&rarr;&thinsp;Closed conformational transitions in tryptophan synthase &beta;-subunit using path collective variables</p>
+                <div class="page-meta fade-in-up">
+                    <div class="meta-item">
+                        <span class="meta-label">Duration</span>
+                        <span class="meta-value">Summer 2026</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">PI</span>
+                        <span class="meta-value">Prof. Anima Anandkumar</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Institution</span>
+                        <span class="meta-value">California Institute of Technology</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Award</span>
+                        <span class="meta-value">$8,110 SURF Fellowship</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detail Content -->
+        <section class="detail-content">
+            <div class="container">
+
+                <!-- Research Question -->
+                <div class="detail-section detail-section--navy fade-in-up">
+                    <h2>Research Question</h2>
+                    <p>What can dynamics tell us that sequence generation and static structure prediction cannot? Engineered TrpB variants like GenSLM-230 and NdTrpB share nearly identical predicted structures, yet they exhibit dramatically different catalytic behavior. This project uses well-tempered MetaDynamics to map the free energy landscape of the COMM domain (residues 97&ndash;184), which gates the Open&thinsp;&rarr;&thinsp;Partially Closed&thinsp;&rarr;&thinsp;Closed conformational transitions essential for substrate channeling and catalysis.</p>
+                </div>
+
+                <!-- Motivation -->
+                <div class="detail-section detail-section--navy fade-in-up">
+                    <h2>Why Dynamics Matters</h2>
+                    <p>The long-term goal is to use enhanced sampling as a physics layer inside a generative TrpB design pipeline. Three concrete integration targets motivate this work:</p>
+                    <ol class="detail-list detail-list--navy">
+                        <li><strong>Functional divergence</strong>: Explain why GenSLM-230 and NdTrpB behave differently despite near-identical AlphaFold structures</li>
+                        <li><strong>Physics-based filter</strong>: Test whether MetaDynamics-derived free energy barriers can serve as a conformational filter for D-Trp selectivity screening</li>
+                        <li><strong>Surrogate data export</strong>: Extract trajectory-derived features for training a faster ML surrogate that can score large candidate libraries</li>
+                    </ol>
+                </div>
+
+                <!-- Methodology -->
+                <div class="detail-section detail-section--navy fade-in-up">
+                    <h2>Methodology</h2>
+                    <p>Well-tempered MetaDynamics with PLUMED2 path collective variables, benchmarked against the Maria-Solano et al. JACS 2019 study of <em>Pyrococcus furiosus</em> TrpS:</p>
+                    <ul class="detail-list detail-list--navy">
+                        <li><strong>Path CVs</strong>: s(R) = progress along the O&rarr;C path; z(R) = deviation from the path. Reference path constructed as a 15-frame C&alpha; interpolation from 1WDW (open) to 3CEP (closed)</li>
+                        <li><strong>MetaDynamics parameters</strong>: Gaussian height 0.15 kcal/mol, bias factor &gamma;=10, deposition every 500 steps</li>
+                        <li><strong>Conventional MD baseline</strong>: 500 ns unbiased production run (AMBER 24p3, pmemd.cuda) to establish equilibrium dynamics before applying bias</li>
+                        <li><strong>Force field</strong>: ff14SB protein + GAFF/RESP for PLP cofactor (pyridoxal phosphate parameterization via antechamber)</li>
+                        <li><strong>Solvent &amp; temperature</strong>: TIP3P explicit water, 350 K (thermophilic enzyme)</li>
+                    </ul>
+                </div>
+
+                <!-- Systems Studied -->
+                <div class="detail-section detail-section--navy fade-in-up">
+                    <h2>Systems Studied</h2>
+                    <table class="detail-table">
+                        <thead>
+                            <tr>
+                                <th>System</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>PfTrpS(Ain)</td>
+                                <td>Primary benchmark: <em>P. furiosus</em> tryptophan synthase, internal aldimine state</td>
+                            </tr>
+                            <tr>
+                                <td>5DVZ / 5DW0 / 5DW3</td>
+                                <td>Crystallographic TrpB structures capturing different catalytic intermediates</td>
+                            </tr>
+                            <tr>
+                                <td>GenSLM-230</td>
+                                <td>AI-designed variant, comparison target for functional divergence analysis</td>
+                            </tr>
+                            <tr>
+                                <td>NdTrpB</td>
+                                <td>Natural variant, structurally similar to GenSLM-230 but functionally distinct</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Reaction intermediates along the catalytic cycle: <strong>Ain</strong> (internal aldimine), <strong>Aex1</strong> (external aldimine), <strong>A-A</strong> (amino-acrylate), <strong>Q2</strong> (quinonoid).</p>
+                </div>
+
+                <!-- Campaign Architecture -->
+                <div class="detail-section detail-section--navy fade-in-up">
+                    <h2>Campaign Architecture</h2>
+                    <p>The project follows a two-layer design separating calibration from scientific exploration:</p>
+                    <ol class="detail-list detail-list--navy">
+                        <li><strong>Benchmark reproduction</strong>: Validate the MetaDynamics setup against published PfTrpS literature (JACS 2019)</li>
+                        <li><strong>Mechanistic comparison</strong>: Compare COMM domain dynamics between sequence pairs (GenSLM-230 vs NdTrpB)</li>
+                        <li><strong>Physics-based filter design</strong>: Define dynamics-derived criteria for D-Trp selectivity</li>
+                        <li><strong>Surrogate data bootstrap</strong>: Export traceable features from trajectories for downstream ML models</li>
+                    </ol>
+                </div>
+
+                <!-- Computational Pipeline -->
+                <div class="detail-section detail-section--navy fade-in-up">
+                    <h2>Computational Pipeline</h2>
+                    <p>A 6-stage automated pipeline manages the full workflow on UNC Longleaf HPC:</p>
+                    <ul class="detail-list detail-list--navy">
+                        <li><strong>Profiler</strong>: Extract structured campaign facts from papers and planning documents into manifests</li>
+                        <li><strong>Librarian</strong>: Gather and audit external resources (PDBs, supplementary information, references)</li>
+                        <li><strong>Janitor</strong>: Normalize workspace, prepare campaign directories, stage simulation inputs</li>
+                        <li><strong>Runner</strong>: Generate and execute deterministic run steps (Slurm jobs, dry-run sequences)</li>
+                        <li><strong>Skeptic</strong>: Validate artifacts; separate operational success from scientific validity</li>
+                        <li><strong>Journalist</strong>: Write concise campaign reports summarizing outcomes and blockers</li>
+                    </ul>
+                </div>
+
+                <!-- Figure -->
+                <figure class="detail-figure fade-in-up">
+                    <img src="../images/trpb-fes.png" alt="Free energy landscape of TrpB COMM domain showing Open, Partially Closed, and Closed conformational states along path collective variables s(R) and z(R)">
+                    <figcaption>COMM domain conformational landscape: path CVs map the O&rarr;PC&rarr;C transition critical for substrate channeling in tryptophan synthase.</figcaption>
+                </figure>
+
+                <!-- Key References -->
+                <div class="detail-section detail-section--navy fade-in-up">
+                    <h2>Key References</h2>
+                    <ul class="detail-list detail-list--navy">
+                        <li>Maria-Solano et al., <em>JACS</em> 2019: Primary benchmark for COMM domain MetaDynamics</li>
+                        <li>Buller et al., <em>ACS Catalysis</em> 2021: Engineered TrpB variants and catalytic mechanisms</li>
+                        <li><em>Nature Communications</em> 2026: GenSLM-230 design and characterization</li>
+                        <li><em>Protein Science</em> 2025: Structural analysis of TrpB functional divergence</li>
+                    </ul>
+                </div>
+
+                <!-- Tech Stack -->
+                <div class="detail-section detail-section--navy fade-in-up">
+                    <h2>Tech Stack</h2>
+                    <div class="tag-list">
+                        <span class="tag">GROMACS</span>
+                        <span class="tag">PLUMED2</span>
+                        <span class="tag">AMBER</span>
+                        <span class="tag">MetaDynamics</span>
+                        <span class="tag">Path CVs</span>
+                        <span class="tag">ff14SB</span>
+                        <span class="tag">TIP3P</span>
+                        <span class="tag">PLP/GAFF</span>
+                        <span class="tag">Slurm HPC</span>
+                    </div>
+                </div>
+
+                <!-- Related Navigation -->
+                <div class="related-nav fade-in-up">
+                    <a href="../index.html#research" class="related-nav-link related-nav-link--prev">
+                        <span class="related-nav-label">&larr; Previous</span>
+                        <span class="related-nav-title">Back to Home</span>
+                    </a>
+                    <a href="miao-lab.html" class="related-nav-link related-nav-link--next">
+                        <span class="related-nav-label">Next &rarr;</span>
+                        <span class="related-nav-title">Miao Lab</span>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="nav-brand">ZL</span>
+                    <p>Computational biology researcher at UNC Chapel Hill.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Navigate</h4>
+                        <a href="../index.html#about">About</a>
+                        <a href="../index.html#research">Research</a>
+                        <a href="../index.html#projects">Projects</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Connect</h4>
+                        <a href="mailto:zphengl@unc.edu">Email</a>
+                        <a href="https://github.com/ZhenpengLiu" target="_blank" rel="noopener">GitHub</a>
+                        <a href="https://linkedin.com/in/zhenpeng-liu" target="_blank" rel="noopener">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Zhenpeng Liu. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

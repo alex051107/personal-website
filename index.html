@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zhenpeng Liu</title>
+  <meta name="description" content="Zhenpeng Liu — enhanced sampling meets machine learning to decode protein dynamics.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">ZL</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="about.html">CV</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-tag">Caltech SURF Fellow · UNC Chapel Hill '28</p>
+      <h1 class="hero-title">
+        <span class="hero-line">Zhenpeng</span>
+        <span class="hero-line hero-line--serif">Liu.</span>
+      </h1>
+      <p class="hero-sub">I use enhanced-sampling molecular dynamics and machine learning to understand why proteins move the way they do — and whether we can predict what happens when a drug arrives.</p>
+      <div class="hero-links">
+        <a href="mailto:liualex@unc.edu" class="hero-pill">Email</a>
+        <a href="https://github.com/alex051107" target="_blank" class="hero-pill">GitHub</a>
+        <a href="https://linkedin.com/in/zhenpeng-liu" target="_blank" class="hero-pill">LinkedIn</a>
+      </div>
+    </div>
+    <div class="hero-fade"></div>
+  </section>
+
+  <!-- ══════════ STATEMENT ══════════ -->
+  <section class="statement">
+    <div class="container">
+      <p class="statement-text">
+        <span class="st-word">Two</span>
+        <span class="st-word">engineered</span>
+        <span class="st-word">enzymes</span>
+        <span class="st-word">share</span>
+        <span class="st-word">nearly</span>
+        <span class="st-word st-em">identical</span>
+        <span class="st-word">structures</span>
+        <span class="st-word">—</span>
+        <span class="st-word">yet</span>
+        <span class="st-word">one</span>
+        <span class="st-word">is</span>
+        <span class="st-word">catalytically</span>
+        <span class="st-word st-em">alive,</span>
+        <span class="st-word">the</span>
+        <span class="st-word">other</span>
+        <span class="st-word st-em">dead.</span>
+        <span class="st-word">The</span>
+        <span class="st-word">answer</span>
+        <span class="st-word">is</span>
+        <span class="st-word">in</span>
+        <span class="st-word">the</span>
+        <span class="st-word st-em">dynamics.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════ ABOUT ══════════ -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-left">
+          <h2 class="section-eyebrow">About</h2>
+          <p class="about-lead fade-el">I'm an undergraduate at <em>UNC Chapel Hill</em> studying Biology and Computer Science — working at the interface where molecular simulation meets statistical learning.</p>
+          <p class="fade-el">My research starts from a simple premise: static structures don't tell the full story. A protein's function emerges from the ensemble of conformations it visits over time. I use enhanced-sampling methods like MetaDynamics and Gaussian accelerated MD to reconstruct the energy landscapes that govern these motions, then build ML models that compress thousands of trajectories into testable predictions.</p>
+          <p class="fade-el">Right now I'm splitting my time across three labs — running free energy simulations at Caltech, training kinetics predictors at UNC, and building the HPC infrastructure that makes it all reproducible at scale.</p>
+          <p class="fade-el about-philosophy">"Simulations produce data. Learning compresses it. The model tells you which experiment to run next."</p>
+        </div>
+        <div class="about-right fade-el">
+          <div class="about-card">
+            <img src="profile.jpg" alt="Zhenpeng Liu" class="about-photo">
+            <dl class="about-info">
+              <div><dt>Position</dt><dd>SURF Fellow, Caltech</dd></div>
+              <div><dt>University</dt><dd>UNC Chapel Hill</dd></div>
+              <div><dt>Degrees</dt><dd>B.S. Biology + B.S. CS</dd></div>
+              <div><dt>Focus</dt><dd>Enhanced Sampling × ML</dd></div>
+              <div><dt>Graduation</dt><dd>May 2028</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ RESEARCH ══════════ -->
+  <section class="research" id="research">
+    <div class="container">
+      <h2 class="section-eyebrow">Research</h2>
+      <h3 class="section-title fade-el">Three labs. One question:<br><em>what can dynamics tell us that structure alone cannot?</em></h3>
+    </div>
+
+    <div class="research-cards">
+      <a href="research/caltech-surf.html" class="rcard fade-el">
+        <div class="rcard-img"><img src="images/trpb-fes.png" alt="TrpB free energy landscape" loading="lazy"></div>
+        <div class="rcard-body">
+          <span class="rcard-date">Feb 2026 — Present</span>
+          <h4>Caltech · Anima AI+Science Lab</h4>
+          <p class="rcard-role">SURF Research Fellow · $8,200 fellowship</p>
+          <p>GenSLM-230 and natural NdTrpB have a backbone RMSD of just 0.36 Å — structurally indistinguishable. Yet one is catalytically active and the other is not. I'm using well-tempered MetaDynamics with path collective variables to reconstruct the COMM domain free energy surface across the Open → Partially Closed → Closed transition, asking whether conformational dynamics can explain what static structure prediction misses. Running 10-walker campaigns at 350K with PLUMED2+GROMACS on UNC Longleaf.</p>
+          <div class="rcard-tags"><span>MetaDynamics</span><span>PLUMED2</span><span>Path CVs</span><span>GROMACS</span><span>AMBER</span></div>
+        </div>
+      </a>
+
+      <a href="research/miao-lab.html" class="rcard fade-el">
+        <div class="rcard-img"><img src="images/miao-lab-fes.png" alt="k-off prediction pipeline" loading="lazy"></div>
+        <div class="rcard-body">
+          <span class="rcard-date">Jun 2025 — Present</span>
+          <h4>UNC · Miao Lab</h4>
+          <p class="rcard-role">Research Assistant</p>
+          <p>Can you predict how long a drug stays bound from simulation alone? Using LiGaMD3 enhanced sampling across ~130 protein-ligand systems (HSP90, CDK2, HIV protease), I've engineered 120,000+ trajectory-derived features — energy gradients, contact frequencies, binding-site volume fluctuations — into regression models that predict dissociation rates (k<sub>off</sub>) where static descriptors fail. Currently expanding from 35 completed systems toward the full dataset.</p>
+          <div class="rcard-tags"><span>LiGaMD3</span><span>PyTorch</span><span>scikit-learn</span><span>AMBER</span><span>PDBbind</span></div>
+        </div>
+      </a>
+
+      <a href="research/poplov-lab.html" class="rcard rcard--compact fade-el">
+        <div class="rcard-body">
+          <span class="rcard-date">Sep 2024 — Present</span>
+          <h4>UNC · Poplov Lab</h4>
+          <p class="rcard-role">Research Assistant</p>
+          <p>Molecular dynamics on GPU clusters generates terabytes and breaks in quiet ways. I built a 6-stage automated pipeline (Profiler → Librarian → Janitor → Runner → Skeptic → Journalist) for the UNC Longleaf HPC: automated Slurm orchestration, convergence prediction via XGBoost+LSTM, and checkpoint recovery. Reduced wasted compute by ~35% and new-member onboarding from 4 hours to under 20 minutes across 130+ managed systems.</p>
+          <div class="rcard-tags"><span>Slurm</span><span>XGBoost</span><span>LSTM</span><span>Docker</span><span>GitHub Actions</span></div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ══════════ PROJECTS ══════════ -->
+  <section class="projects" id="projects">
+    <div class="container">
+      <h2 class="section-eyebrow">Projects</h2>
+      <h3 class="section-title fade-el">Beyond the lab.</h3>
+
+      <div class="project-grid">
+        <a href="projects/medical-care.html" class="pcard fade-el">
+          <div class="pcard-img"><img src="images/medical-care-glass.png" alt="Care Plan Generator" loading="lazy"></div>
+          <div class="pcard-body">
+            <h4>Structured Care Plan Generation</h4>
+            <p>A pharmacist spends 20–40 min drafting each care plan by hand. Built an LLM-powered pipeline — validated intake → rule-based checks → structured drafting → human review — that generates auditable plans in seconds. Three-phase sprint from monolith to async Celery workers, now Dockerized and AWS-ready.</p>
+            <div class="pcard-tags">
+              <span>Django</span><span>Celery</span><span>Redis</span><span>PostgreSQL</span><span>Docker</span><span>AWS</span>
+            </div>
+          </div>
+        </a>
+        <a href="projects/astro-forecast.html" class="pcard fade-el">
+          <div class="pcard-img"><img src="images/astro-forecast.png" alt="Exoplanet Forecasting" loading="lazy"></div>
+          <div class="pcard-body">
+            <h4>Exoplanet Discovery Forecasting</h4>
+            <p>Led a 4-member team at UNC's 48-hour Data Science Hackathon. Built an LSTM forecaster over 30 years of NASA data (50,000+ observations) that achieved 18% lower RMSE vs ARIMA/Holt-Winters baselines, plus a 7-dimensional habitability scoring system for prioritizing follow-up targets.</p>
+            <div class="pcard-tags">
+              <span>PyTorch</span><span>LSTM</span><span>Plotly Dash</span><span>pandas</span><span>NASA</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SKILLS ══════════ -->
+  <section class="skills" id="skills">
+    <div class="container">
+      <h2 class="section-eyebrow">Skills</h2>
+      <h3 class="section-title fade-el">What I work with.</h3>
+    </div>
+
+    <div class="marquee-wrap">
+      <div class="marquee">
+        <div class="marquee-track">
+          <span>Python</span><span>PyTorch</span><span>scikit-learn</span><span>XGBoost</span><span>MetaDynamics</span><span>PLUMED2</span><span>AMBER</span><span>GROMACS</span><span>LiGaMD3</span><span>Docker</span><span>Slurm</span><span>FastAPI</span><span>PostgreSQL</span><span>Git</span>
+          <span>Python</span><span>PyTorch</span><span>scikit-learn</span><span>XGBoost</span><span>MetaDynamics</span><span>PLUMED2</span><span>AMBER</span><span>GROMACS</span><span>LiGaMD3</span><span>Docker</span><span>Slurm</span><span>FastAPI</span><span>PostgreSQL</span><span>Git</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="skill-cols fade-el">
+        <div class="skill-col">
+          <h5>Languages</h5>
+          <p>Python · SQL · Java · Bash · LaTeX</p>
+        </div>
+        <div class="skill-col">
+          <h5>ML & Statistics</h5>
+          <p>PyTorch · scikit-learn · XGBoost · LightGBM · Prophet · MLflow · Optuna · ARIMA</p>
+        </div>
+        <div class="skill-col">
+          <h5>Molecular Simulation</h5>
+          <p>Well-Tempered MetaDynamics · Path CVs · LiGaMD3 · PLUMED2 · AMBER · GROMACS · Free Energy Landscapes · ProLIF · Markov State Models</p>
+        </div>
+        <div class="skill-col">
+          <h5>Infrastructure</h5>
+          <p>Docker · Slurm · Linux · FastAPI · Django · Celery · PostgreSQL · Git · GitHub Actions · AWS</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ EDUCATION ══════════ -->
+  <section class="education" id="education">
+    <div class="container">
+      <h2 class="section-eyebrow">Education & Honors</h2>
+      <div class="edu-block fade-el">
+        <h3 class="edu-school">University of North Carolina<br><em>at Chapel Hill</em></h3>
+        <p class="edu-degree">B.S. Biology + B.S. Computer Science · Honors Carolina · Expected May 2028</p>
+        <p class="edu-courses">Computational Biology · Machine Learning · Data Structures & Algorithms · Linear Algebra · Discrete Math · Systems Programming · Organic Chemistry · Biochemistry</p>
+      </div>
+
+      <div class="honors fade-el">
+        <h4 class="honors-title">Recognition</h4>
+        <div class="honors-list">
+          <div class="honor-item"><strong>Caltech SURF Fellowship</strong><span>$8,200 competitive research award for independent research at Caltech</span></div>
+          <div class="honor-item"><strong>Honors Carolina</strong><span>Selective program for top 10% of entering class at UNC</span></div>
+          <div class="honor-item"><strong>USABO Gold Medal</strong><span>Top 5% nationally, USA Biology Olympiad</span></div>
+          <div class="honor-item"><strong>BBO Gold Award</strong><span>British Biology Olympiad</span></div>
+          <div class="honor-item"><strong>AMC 12 — Top 5%</strong><span>American Mathematics Competition</span></div>
+          <div class="honor-item"><strong>HiMCM Meritorious</strong><span>High School Mathematical Contest in Modeling</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-left">
+        <span class="footer-name">Zhenpeng Liu</span>
+        <span class="footer-note">Chapel Hill, NC</span>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:liualex@unc.edu">liualex@unc.edu</a>
+        <a href="https://github.com/alex051107" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/zhenpeng-liu" target="_blank">LinkedIn</a>
+      </div>
+      <div class="footer-copy">© 2026</div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
