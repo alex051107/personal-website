@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import hashlib
 from html.parser import HTMLParser
 from pathlib import Path
 import re
@@ -32,7 +33,12 @@ STALE_STRINGS = {
     "I build AI systems that know when to stop": "superseded hero positioning",
     "Proof before polish": "superseded project-section positioning",
 }
-ALLOWED_RUNTIME_SCRIPTS = {"js/site-motion.js"}
+
+
+def git_blob_sha(path: Path) -> str:
+    content = path.read_bytes()
+    header = f"blob {len(content)}\0".encode("ascii")
+    return hashlib.sha1(header + content).hexdigest()
 
 
 class PageParser(HTMLParser):
@@ -106,6 +112,17 @@ def main() -> int:
     errors: list[str] = []
     pages = parse_pages()
     index = ROOT / "index.html"
+    css_path = ROOT / "css" / "styles.css"
+    motion_script = ROOT / "js" / "site-motion.js"
+    expected_css_source = (
+        f"css/styles.css?v={git_blob_sha(css_path)[:7]}" if css_path.exists() else "css/styles.css?v=missing"
+    )
+    expected_motion_source = (
+        f"js/site-motion.js?v={git_blob_sha(motion_script)[:7]}"
+        if motion_script.exists()
+        else "js/site-motion.js?v=missing"
+    )
+    allowed_runtime_scripts = {expected_motion_source}
 
     if index.resolve() not in pages:
         errors.append("index.html is missing")
@@ -179,13 +196,13 @@ def main() -> int:
                 missing_attrs = [name for name in ("alt", "width", "height") if not image.get(name)]
                 if missing_attrs:
                     errors.append(f"index.html: image {image.get('src', '<unknown>')} lacks {', '.join(missing_attrs)}")
-            if set(parser.scripts_with_src) != ALLOWED_RUNTIME_SCRIPTS or len(parser.scripts_with_src) != 1:
+            if set(parser.scripts_with_src) != allowed_runtime_scripts or len(parser.scripts_with_src) != 1:
                 errors.append(
-                    "index.html: expected only the allowlisted local motion script: "
-                    f"{sorted(ALLOWED_RUNTIME_SCRIPTS)}, found {parser.scripts_with_src}"
+                    "index.html: expected only the current fingerprinted local motion script: "
+                    f"{sorted(allowed_runtime_scripts)}, found {parser.scripts_with_src}"
                 )
             for script in parser.scripts:
-                if script.get("src") in ALLOWED_RUNTIME_SCRIPTS and "defer" not in script:
+                if script.get("src") in allowed_runtime_scripts and "defer" not in script:
                     errors.append(f"index.html: local motion script must be deferred: {script['src']}")
             inline_scripts = [script for script in parser.scripts if not script.get("src")]
             if len(inline_scripts) != 1 or inline_scripts[0].get("type") != "application/ld+json":
@@ -196,6 +213,11 @@ def main() -> int:
             errors.append(f"{relative_page}: redirect/archive page has unexpected scripts")
 
     index_text = index.read_text(encoding="utf-8") if index.exists() else ""
+    if f'<link rel="stylesheet" href="{expected_css_source}">' not in index_text:
+        errors.append(
+            "index.html: stylesheet URL must use the current content fingerprint: "
+            f"{expected_css_source}"
+        )
     for needle in (
         '<meta name="description"',
         '<link rel="canonical"',
@@ -212,19 +234,19 @@ def main() -> int:
         '<title>Zhenpeng Liu — AI Application Engineering &amp; Scientific Software</title>',
         '<link rel="canonical" href="https://alex051107.github.io/personal-website/">',
         '<meta property="og:url" content="https://alex051107.github.io/personal-website/">',
-        '<meta property="og:image" content="https://alex051107.github.io/personal-website/images/og-card.png">',
-        '<meta name="twitter:image" content="https://alex051107.github.io/personal-website/images/og-card.png">',
+        '<meta property="og:image" content="https://alex051107.github.io/personal-website/images/og-card.jpg">',
+        '<meta name="twitter:image" content="https://alex051107.github.io/personal-website/images/og-card.jpg">',
     ):
         if exact not in index_text:
             errors.append(f"index.html: expected project-path metadata missing: {exact}")
 
-    css = (ROOT / "css" / "styles.css").read_text(encoding="utf-8")
+    css = css_path.read_text(encoding="utf-8")
     for needle in (
         ":focus-visible",
         "prefers-reduced-motion",
         "--motion-ease",
-        "@keyframes trace-confirm",
-        "@keyframes aperture-enter",
+        "@keyframes ui-enter-y",
+        "@keyframes page-progress-fill",
         "html.motion-enabled [data-reveal]",
         "filter: none",
         "mix-blend-mode: normal",
@@ -234,10 +256,9 @@ def main() -> int:
     if "infinite" in css.lower():
         errors.append("css/styles.css: continuous animation is outside the motion contract")
 
-    motion_script = ROOT / "js" / "site-motion.js"
     if motion_script.exists():
         script_text = motion_script.read_text(encoding="utf-8")
-        for needle in ("IntersectionObserver", "prefers-reduced-motion", "requestAnimationFrame", "motion-enabled"):
+        for needle in ("IntersectionObserver", "prefers-reduced-motion", "motion-enabled"):
             if needle not in script_text:
                 errors.append(f"js/site-motion.js: missing progressive-motion guard: {needle}")
         for forbidden in ("fetch(", "XMLHttpRequest", "WebSocket", "import("):
@@ -253,11 +274,7 @@ def main() -> int:
 
     size_limits = {
         ROOT / "images" / "portrait.png": 1_000_000,
-        ROOT / "images" / "og-card.png": 1_000_000,
-        ROOT / "images" / "project-visuals" / "evidenceops.jpg": 500_000,
-        ROOT / "images" / "project-visuals" / "careplan.jpg": 500_000,
-        ROOT / "images" / "project-visuals" / "dynamics-atlas.jpg": 500_000,
-        ROOT / "images" / "project-visuals" / "hsp90-ligamd.jpg": 500_000,
+        ROOT / "images" / "og-card.jpg": 1_000_000,
     }
     for asset, limit in size_limits.items():
         if not asset.exists():

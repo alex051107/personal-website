@@ -6,11 +6,13 @@ A static, evidence-bounded portfolio for AI application engineering and scientif
 
 The site intentionally uses semantic HTML, one CSS file, and one small local progressive-enhancement script. It has no package manager, build system, database, analytics script, contact-form backend, third-party animation library, or runtime network request.
 
-Its visual system combines four original generated project plates with exact, selectable HTML workflow labels. Generated imagery supplies atmosphere and material detail; the browser layer owns the technical sequence, gates, failure states, captions, and claim boundaries so the diagrams remain accurate and accessible.
+The stylesheet and motion-script URLs carry fingerprints derived from their Git blob contents. This prevents a browser or CDN from combining a newly deployed HTML layout with an older cached CSS or JavaScript asset. The validator fails if either fingerprint is stale.
 
-The visual signature is a dark system-aperture hero around the real portrait. The portrait source is shown in its original color without grayscale, blend modes, face regeneration, or skin-tone filters. Four project plates retain exact HTML workflow overlays, so the technical labels remain selectable and accurate.
+Its visual system uses exact, selectable HTML workflow diagrams instead of decorative concept art. The browser layer owns the technical sequence, gates, failure states, captions, and claim boundaries so each diagram can be checked against the public project evidence and remains accessible.
 
-Motion remains deliberately bounded: the hero and execution trace settle once on load; an `IntersectionObserver` applies one-time popup/reveal states to section-level content and project figures; the hero has a small fine-pointer response; and a CSS scroll timeline may show reading progress where supported. `prefers-reduced-motion` removes all automatic animation and pointer response. There are no continuous loops, particles, parallax, typing effects, animation-library dependencies, or background timers.
+The visual direction is a light editorial engineering portfolio. It restores the earlier gray-blue palette, uses solid surfaces, the real portrait, and flat workflow diagrams instead of neon gradients, glass panels, synthetic 3D project art, dashboard decoration, or artificial portrait treatment. The portrait source is shown in its original color without grayscale, blend modes, face regeneration, or skin-tone filters.
+
+Motion remains deliberately bounded: the hero settles once on load, an `IntersectionObserver` applies a short one-time reveal to section-level content, project workflow lines draw once, and a CSS scroll timeline may show reading progress where supported. `prefers-reduced-motion` removes all automatic animation. There are no continuous loops, particles, parallax, 3D pointer tilt, typing effects, animation-library dependencies, or background timers.
 
 That boundary is deliberate:
 
@@ -52,7 +54,7 @@ Run the dependency-free site check:
 python3 scripts/validate_site.py
 ```
 
-It checks local links and anchors, referenced assets, the single allowlisted deferred motion script, image attributes, external-link safety, required metadata, progressive-motion and accessibility hooks, asset-size budgets, and known stale identity/claim strings.
+It checks local links and anchors, referenced assets, current CSS and JavaScript cache fingerprints, the single allowlisted deferred motion script, image attributes, external-link safety, required metadata, progressive-motion and accessibility hooks, asset-size budgets, and known stale identity/claim strings.
 
 ## Deployment
 
