@@ -32,6 +32,7 @@ STALE_STRINGS = {
     "I build AI systems that know when to stop": "superseded hero positioning",
     "Proof before polish": "superseded project-section positioning",
 }
+ALLOWED_RUNTIME_SCRIPTS = {"js/site-motion.js"}
 
 
 class PageParser(HTMLParser):
@@ -43,6 +44,7 @@ class PageParser(HTMLParser):
         self.assets: list[tuple[str, str]] = []
         self.images: list[dict[str, str]] = []
         self.scripts_with_src: list[str] = []
+        self.scripts: list[dict[str, str]] = []
         self.meta_refreshes: list[str] = []
         self.h1_count = 0
 
@@ -64,8 +66,10 @@ class PageParser(HTMLParser):
                 self.assets.append((tag, source))
         if tag == "img":
             self.images.append(values)
-        if tag == "script" and values.get("src"):
-            self.scripts_with_src.append(values["src"])
+        if tag == "script":
+            self.scripts.append(values)
+            if values.get("src"):
+                self.scripts_with_src.append(values["src"])
 
 
 def parse_pages() -> dict[Path, PageParser]:
@@ -175,8 +179,21 @@ def main() -> int:
                 missing_attrs = [name for name in ("alt", "width", "height") if not image.get(name)]
                 if missing_attrs:
                     errors.append(f"index.html: image {image.get('src', '<unknown>')} lacks {', '.join(missing_attrs)}")
-            if parser.scripts_with_src:
-                errors.append(f"index.html: runtime script dependencies are not expected: {parser.scripts_with_src}")
+            if set(parser.scripts_with_src) != ALLOWED_RUNTIME_SCRIPTS or len(parser.scripts_with_src) != 1:
+                errors.append(
+                    "index.html: expected only the allowlisted local motion script: "
+                    f"{sorted(ALLOWED_RUNTIME_SCRIPTS)}, found {parser.scripts_with_src}"
+                )
+            for script in parser.scripts:
+                if script.get("src") in ALLOWED_RUNTIME_SCRIPTS and "defer" not in script:
+                    errors.append(f"index.html: local motion script must be deferred: {script['src']}")
+            inline_scripts = [script for script in parser.scripts if not script.get("src")]
+            if len(inline_scripts) != 1 or inline_scripts[0].get("type") != "application/ld+json":
+                errors.append(
+                    "index.html: expected exactly one inline JSON-LD block and no inline runtime scripts"
+                )
+        elif parser.scripts:
+            errors.append(f"{relative_page}: redirect/archive page has unexpected scripts")
 
     index_text = index.read_text(encoding="utf-8") if index.exists() else ""
     for needle in (
@@ -202,11 +219,30 @@ def main() -> int:
             errors.append(f"index.html: expected project-path metadata missing: {exact}")
 
     css = (ROOT / "css" / "styles.css").read_text(encoding="utf-8")
-    for needle in (":focus-visible", "prefers-reduced-motion", "--motion-ease", "@keyframes trace-confirm"):
+    for needle in (
+        ":focus-visible",
+        "prefers-reduced-motion",
+        "--motion-ease",
+        "@keyframes trace-confirm",
+        "@keyframes aperture-enter",
+        "html.motion-enabled [data-reveal]",
+        "filter: none",
+        "mix-blend-mode: normal",
+    ):
         if needle not in css:
             errors.append(f"css/styles.css: missing {needle}")
     if "infinite" in css.lower():
         errors.append("css/styles.css: continuous animation is outside the motion contract")
+
+    motion_script = ROOT / "js" / "site-motion.js"
+    if motion_script.exists():
+        script_text = motion_script.read_text(encoding="utf-8")
+        for needle in ("IntersectionObserver", "prefers-reduced-motion", "requestAnimationFrame", "motion-enabled"):
+            if needle not in script_text:
+                errors.append(f"js/site-motion.js: missing progressive-motion guard: {needle}")
+        for forbidden in ("fetch(", "XMLHttpRequest", "WebSocket", "import("):
+            if forbidden in script_text:
+                errors.append(f"js/site-motion.js: network or dynamic dependency is outside the motion contract: {forbidden}")
 
     public_text_files = [*pages.keys(), ROOT / "README.md"]
     for path in public_text_files:

@@ -4,16 +4,18 @@ A static, evidence-bounded portfolio for AI application engineering and scientif
 
 ## Architecture
 
-The site intentionally uses semantic HTML and one CSS file. It has no runtime JavaScript, package manager, build system, database, analytics script, or contact-form backend.
+The site intentionally uses semantic HTML, one CSS file, and one small local progressive-enhancement script. It has no package manager, build system, database, analytics script, contact-form backend, third-party animation library, or runtime network request.
 
 Its visual system combines four original generated project plates with exact, selectable HTML workflow labels. Generated imagery supplies atmosphere and material detail; the browser layer owns the technical sequence, gates, failure states, captions, and claim boundaries so the diagrams remain accurate and accessible.
 
-Motion remains deliberately bounded: one CSS-only hero sequence presents an execution trace in under one second, supported browsers progressively settle each project image and confirm its route as it enters the viewport, and `prefers-reduced-motion` removes all automatic animation. There are no continuous loops, particles, parallax, typing effects, or animation-library dependencies.
+The visual signature is a dark system-aperture hero around the real portrait. The portrait source is shown in its original color without grayscale, blend modes, face regeneration, or skin-tone filters. Four project plates retain exact HTML workflow overlays, so the technical labels remain selectable and accurate.
+
+Motion remains deliberately bounded: the hero and execution trace settle once on load; an `IntersectionObserver` applies one-time popup/reveal states to section-level content and project figures; the hero has a small fine-pointer response; and a CSS scroll timeline may show reading progress where supported. `prefers-reduced-motion` removes all automatic animation and pointer response. There are no continuous loops, particles, parallax, typing effects, animation-library dependencies, or background timers.
 
 That boundary is deliberate:
 
 - GitHub Pages can serve every current requirement directly.
-- Core identity, project evidence, and contact information remain readable without client-side code.
+- Core identity, project evidence, and contact information remain readable when the optional motion script is unavailable.
 - A `mailto:` contact path avoids collecting visitor data or operating a form service.
 - The repository has no dependency-update or framework-migration burden.
 
@@ -50,7 +52,7 @@ Run the dependency-free site check:
 python3 scripts/validate_site.py
 ```
 
-It checks local links and anchors, referenced assets, image attributes, external-link safety, required metadata, accessibility hooks, asset-size budgets, and known stale identity/claim strings.
+It checks local links and anchors, referenced assets, the single allowlisted deferred motion script, image attributes, external-link safety, required metadata, progressive-motion and accessibility hooks, asset-size budgets, and known stale identity/claim strings.
 
 ## Deployment
 
@@ -59,3 +61,5 @@ GitHub Pages serves this repository from the project path:
 `https://alex051107.github.io/personal-website/`
 
 Keep all local asset and page links relative so the `/personal-website/` base path continues to work.
+
+The default publication route is an authenticated GitHub repository API fast-forward of `main`, with the live parent checked immediately before updating the ref and `force` disabled. SSH keys are not required for this portfolio deployment.

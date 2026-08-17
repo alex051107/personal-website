@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Zhenpeng Liu — AI Application Engineering &amp; Scientific Software</title>
   <meta name="description" content="Zhenpeng Liu builds agent workflows, recoverable backend services, and scientific ML pipelines for evidence-intensive work.">
-  <meta name="theme-color" content="#e9edf2">
+  <meta name="theme-color" content="#07111f">
   <meta name="color-scheme" content="light">
   <link rel="canonical" href="https://alex051107.github.io/personal-website/">
 
@@ -49,9 +49,11 @@
   </script>
 
   <link rel="stylesheet" href="css/styles.css">
+  <script defer src="js/site-motion.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page-progress" aria-hidden="true"></div>
 
   <header class="site-header">
     <div class="site-header__inner">
@@ -59,43 +61,46 @@
         <span class="wordmark__initials">ZL</span><span class="wordmark__index">/PORTFOLIO</span>
       </a>
       <nav class="primary-nav" aria-label="Primary navigation">
-        <a href="#work">Projects</a>
-        <a href="#method">Approach</a>
-        <a href="#about">Profile</a>
+        <a href="#work" data-nav-target="work">Projects</a>
+        <a href="#method" data-nav-target="method">Approach</a>
+        <a href="#about" data-nav-target="about">Profile</a>
         <a class="primary-nav__contact" href="mailto:liualex@unc.edu">Contact ↗</a>
       </nav>
     </div>
   </header>
 
   <main id="main">
-    <section class="hero section-shell" id="top">
-      <div class="hero__copy">
-        <p class="eyebrow">AI Application Engineer · Scientific Software</p>
-        <h1>I build reliable AI applications for <em>complex workflows.</em></h1>
-        <p class="hero__deck">I design and implement agent workflows, recoverable backend services, and scientific ML pipelines with typed interfaces, traceable state, and inspectable validation paths.</p>
-        <p class="hero__meta">UNC Chapel Hill · Biology + Computer Science · Expected May 2028</p>
-        <div class="hero__actions" aria-label="Primary links">
-          <a class="button button--primary" href="#work">See selected work <span aria-hidden="true">↓</span></a>
-          <a class="button" href="https://github.com/alex051107" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    <section class="hero" id="top">
+      <div class="section-shell hero__inner">
+        <div class="hero__copy">
+          <p class="eyebrow">AI Application Engineer · Scientific Software</p>
+          <h1>I build reliable AI applications for <em>complex workflows.</em></h1>
+          <p class="hero__deck">I design and implement agent workflows, recoverable backend services, and scientific ML pipelines with typed interfaces, traceable state, and inspectable validation paths.</p>
+          <p class="hero__meta">UNC Chapel Hill · Biology + Computer Science · Expected May 2028</p>
+          <div class="hero__actions" aria-label="Primary links">
+            <a class="button button--primary" href="#work">See selected work <span aria-hidden="true">↓</span></a>
+            <a class="button" href="https://github.com/alex051107" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+          </div>
         </div>
-      </div>
 
-      <div class="hero__visual">
-        <div class="portrait-frame">
-          <img src="images/portrait.png" alt="Portrait of Zhenpeng Liu" width="768" height="1024" fetchpriority="high">
-          <p class="portrait-frame__caption"><span>Zhenpeng Liu / 刘振鹏</span> UNC Chapel Hill · Expected 2028</p>
+        <div class="hero__visual" data-portrait-stage>
+          <p class="hero__instrument-label" aria-hidden="true"><span>SYS / 04</span><span>Reviewable path</span></p>
+          <div class="portrait-frame">
+            <img src="images/portrait.png" alt="Portrait of Zhenpeng Liu" width="768" height="1024" fetchpriority="high">
+            <p class="portrait-frame__caption"><span>Zhenpeng Liu / 刘振鹏</span> UNC Chapel Hill · Expected 2028</p>
+          </div>
+          <ol class="trace-card" aria-label="Execution trace from task context to reviewed result">
+            <li><span>01</span> task context</li>
+            <li><span>02</span> model + tool execution</li>
+            <li><span>03</span> typed validation</li>
+            <li class="trace-card__result"><span>04</span> reviewed result</li>
+          </ol>
         </div>
-        <ol class="trace-card" aria-label="Execution trace from task context to reviewed result">
-          <li><span>01</span> task context</li>
-          <li><span>02</span> model + tool execution</li>
-          <li><span>03</span> typed validation</li>
-          <li class="trace-card__result"><span>04</span> reviewed result</li>
-        </ol>
       </div>
     </section>
 
     <section class="focus-strip" aria-label="Areas of focus">
-      <div class="section-shell focus-strip__inner">
+      <div class="section-shell focus-strip__inner" data-reveal="rise">
         <p><span>01</span> Agent workflows</p>
         <p><span>02</span> Backend reliability</p>
         <p><span>03</span> Scientific ML</p>
@@ -103,7 +108,7 @@
     </section>
 
     <section class="work section-shell" id="work">
-      <header class="section-intro">
+      <header class="section-intro" data-reveal="rise">
         <p class="eyebrow">Selected work / 01—04</p>
         <div>
           <h2>Selected AI systems and scientific software.</h2>
@@ -126,7 +131,7 @@
           <div class="project__main">
             <p class="project__summary">For researchers and technical reviewers who need to carry public scientific evidence into a report, EvidenceOps keeps the source version, passage locator, assay context, and claim attached through retrieval and review.</p>
 
-            <figure class="project-diagram" aria-labelledby="evidenceops-diagram-caption">
+            <figure class="project-diagram" aria-labelledby="evidenceops-diagram-caption" data-reveal="pop">
               <div class="project-diagram__canvas">
                 <img src="images/project-visuals/evidenceops.jpg" alt="Abstract EvidenceOps illustration with layered source records, retrieval instruments, a support gate, and a review desk" width="1536" height="1024" loading="lazy" decoding="async">
                 <ol class="project-diagram__route" aria-label="EvidenceOps workflow from a versioned source through retrieval and deterministic support checks to reviewer release">
@@ -193,7 +198,7 @@
           <div class="project__main">
             <p class="project__summary">A recoverable pharmacy-order workflow that keeps deterministic hard stops, queued model drafting, independent output validation, and pharmacist-owned approval in separate states.</p>
 
-            <figure class="project-diagram" aria-labelledby="careplan-diagram-caption">
+            <figure class="project-diagram" aria-labelledby="careplan-diagram-caption" data-reveal="pop">
               <div class="project-diagram__canvas">
                 <img src="images/project-visuals/careplan.jpg" alt="Abstract CarePlan illustration with guarded state transitions, a drafting queue, typed validation, and a separate review station" width="1536" height="1024" loading="lazy" decoding="async">
                 <ol class="project-diagram__route" aria-label="CarePlan workflow from a synthetic order through deterministic rules, queued drafting, typed validation, and pharmacist-owned review">
@@ -259,7 +264,7 @@
           <div class="project__main">
             <p class="project__summary">A scientific-task harness for NMR ensembles, MD trajectories, ATLAS, and mdCATH. It checks identity, mapping, condition, representation, time semantics, and claim ceiling before any analysis route is allowed to run.</p>
 
-            <figure class="project-diagram" aria-labelledby="dynamics-diagram-caption">
+            <figure class="project-diagram" aria-labelledby="dynamics-diagram-caption" data-reveal="pop">
               <div class="project-diagram__canvas">
                 <img src="images/project-visuals/dynamics-atlas.jpg" alt="Abstract Dynamics Atlas illustration with distinct molecular representations, a compatibility gate, a registered runner, and a sealed evidence bundle" width="1536" height="1024" loading="lazy" decoding="async">
                 <ol class="project-diagram__route" aria-label="Dynamics Atlas workflow from a typed task and source hash through compatibility checks to a registered runner and evidence bundle">
@@ -325,7 +330,7 @@
           <div class="project__main">
             <p class="project__summary">A reproducible route from three enhanced-sampling replicas to trajectory measurements and experimental-pKoff baselines, designed to prevent correlated frames or repeated ligands from inflating model evidence.</p>
 
-            <figure class="project-diagram" aria-labelledby="hsp90-diagram-caption">
+            <figure class="project-diagram" aria-labelledby="hsp90-diagram-caption" data-reveal="pop">
               <div class="project-diagram__canvas">
                 <img src="images/project-visuals/hsp90-ligamd.jpg" alt="Abstract HSP90 LiGaMD illustration with three replica trajectories, sampled frames, system-level aggregation, and grouped evaluation" width="1536" height="1024" loading="lazy" decoding="async">
                 <ol class="project-diagram__route" aria-label="HSP90 LiGaMD workflow from three replicas through sustained exit detection and saved-frame aggregation to grouped evaluation">
@@ -380,7 +385,7 @@
 
     <section class="method" id="method">
       <div class="section-shell">
-        <header class="section-intro section-intro--inverse">
+        <header class="section-intro section-intro--inverse" data-reveal="rise">
           <p class="eyebrow">Engineering approach</p>
           <div>
             <h2>Systems designed for traceability, recovery, and review.</h2>
@@ -389,29 +394,29 @@
         </header>
 
         <div class="principles">
-          <article>
+          <article data-reveal="pop" data-reveal-delay="0">
             <p class="principles__number">01</p>
             <h3>Bound the model.</h3>
             <p>Give it typed inputs, allowlisted tools, and no hidden promotion path.</p>
           </article>
-          <article>
+          <article data-reveal="pop" data-reveal-delay="70">
             <p class="principles__number">02</p>
             <h3>Persist the failure.</h3>
             <p>Timeouts, malformed outputs, stale reviews, and stop decisions become inspectable state.</p>
           </article>
-          <article>
+          <article data-reveal="pop" data-reveal-delay="140">
             <p class="principles__number">03</p>
             <h3>Split by the real unit.</h3>
             <p>Users, documents, ligands, systems, and trajectories are not interchangeable samples.</p>
           </article>
-          <article>
+          <article data-reveal="pop" data-reveal-delay="210">
             <p class="principles__number">04</p>
             <h3>Name the ceiling.</h3>
             <p>A passing test proves its scoped contract—not production readiness, impact, or generalization.</p>
           </article>
         </div>
 
-        <aside class="ownership-note">
+        <aside class="ownership-note" data-reveal="rise">
           <p class="ownership-note__label">Human ownership</p>
           <p>AI-assisted coding is part of my workflow. I own the problem framing, architecture choices, validation gates, failure review, and interpretation of results.</p>
         </aside>
@@ -419,14 +424,14 @@
     </section>
 
     <section class="about section-shell" id="about">
-      <header class="section-intro">
+      <header class="section-intro" data-reveal="rise">
         <p class="eyebrow">About</p>
         <div>
           <h2>I work at the intersection of AI application engineering and scientific computing.</h2>
         </div>
       </header>
 
-      <div class="about__grid">
+      <div class="about__grid" data-reveal="pop">
         <div class="about__copy">
           <p>I am an undergraduate at UNC Chapel Hill double majoring in Biology and Computer Science. I build evidence-grounded AI applications and scientific software where retrieval, model-generated drafts, and simulation-derived features stay inside typed, testable workflows with provenance, permissions, and human review.</p>
           <p>At UNC’s Miao Lab, I work on LiGaMD trajectory engineering and experimental-pKoff evaluation. I also contribute to Dynamics Atlas, a research collaboration focused on deciding when heterogeneous scientific evidence is comparable enough to support a claim.</p>
