@@ -385,21 +385,162 @@ p, li, dd { text-wrap: pretty; }
   letter-spacing: -0.035em;
 }
 
-.flow {
-  margin-top: clamp(2rem, 4vw, 3.5rem);
-  padding-block: 1rem;
+.project-diagram {
+  margin: clamp(2rem, 4vw, 3.5rem) 0 0;
+  overflow: hidden;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--white);
+}
+
+.project-diagram__canvas {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.project-diagram__canvas::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(16, 23, 34, 0.04) 12%, rgba(16, 23, 34, 0.22) 48%, rgba(16, 23, 34, 0.94) 100%),
+    linear-gradient(90deg, rgba(16, 23, 34, 0.36), transparent 28%, transparent 72%, rgba(16, 23, 34, 0.3));
+  pointer-events: none;
+}
+
+.project-diagram__canvas img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.88;
+}
+
+.project-diagram__route {
+  position: absolute;
+  z-index: 2;
+  right: clamp(1rem, 2.5vw, 2rem);
+  bottom: clamp(3.8rem, 7vw, 5.5rem);
+  left: clamp(1rem, 2.5vw, 2rem);
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.55rem, 1vw, 0.9rem);
+  list-style: none;
+}
+
+.project-diagram__route::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--project-accent) 8%, var(--project-accent) 92%, transparent);
+  transform-origin: left;
+}
+
+.project-diagram__route li {
+  position: relative;
+  min-height: 4.8rem;
+  padding: 0.72rem 0.7rem;
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-  border-block: 1px solid var(--line-strong);
-  font: 700 0.66rem/1.3 var(--mono);
-  letter-spacing: 0.02em;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.34rem;
+  border: 1px solid color-mix(in srgb, var(--project-accent) 74%, white);
+  background: rgba(16, 23, 34, 0.84);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+}
+
+.project-diagram__route li:not(:last-child)::after {
+  content: "›";
+  position: absolute;
+  top: 50%;
+  right: calc(clamp(0.55rem, 1vw, 0.9rem) * -0.78);
+  z-index: 3;
+  color: var(--project-accent-on-dark);
+  font: 800 1rem/1 var(--mono);
+  transform: translate(50%, -50%);
+}
+
+.project-diagram__route small {
+  color: var(--project-accent-on-dark);
+  font: 750 0.62rem/1.2 var(--mono);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.flow span { padding: 0.5rem 0.65rem; background: color-mix(in srgb, var(--project-accent) 14%, transparent); }
-.flow i { color: var(--project-accent-on-paper); font-style: normal; }
+.project-diagram__route strong {
+  font: 700 clamp(0.68rem, 0.85vw, 0.76rem)/1.25 var(--mono);
+  text-transform: uppercase;
+}
+
+.project-diagram__route .project-diagram__gate {
+  border: 3px double var(--white);
+  background: color-mix(in srgb, var(--project-accent) 24%, rgba(16, 23, 34, 0.92));
+}
+
+.project-diagram__branch {
+  position: absolute;
+  top: calc(100% + 1.1rem);
+  left: 50%;
+  width: max-content;
+  max-width: 100%;
+  padding: 0.35rem 0.48rem;
+  border: 1px dashed var(--project-accent-on-dark);
+  background: var(--ink);
+  color: var(--project-accent-on-dark);
+  font: 750 0.62rem/1.15 var(--mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+}
+
+.project-diagram__branch::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  height: 1.1rem;
+  border-left: 1px dashed var(--project-accent-on-dark);
+}
+
+.project-diagram__branch--neutral {
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.62);
+  color: var(--white);
+}
+
+.project-diagram__branch--neutral::before { border-left-style: solid; border-left-color: rgba(255, 255, 255, 0.62); }
+
+.project-diagram figcaption {
+  position: relative;
+  z-index: 3;
+  margin: 0;
+  padding: 0.85rem 1rem 0.9rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(248, 251, 255, 0.76);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.project-diagram figcaption::before {
+  content: "";
+  position: absolute;
+  top: 0.95rem;
+  bottom: 0.95rem;
+  left: 0.72rem;
+  width: 2px;
+  background: var(--project-accent);
+}
 
 .project__details {
   margin-top: clamp(2rem, 4vw, 3.5rem);
@@ -508,6 +649,21 @@ p, li, dd { text-wrap: pretty; }
   to { transform: scaleX(1); }
 }
 
+@keyframes diagram-image-settle {
+  from { opacity: 0.5; transform: scale(1.035); }
+  to { opacity: 0.88; transform: scale(1); }
+}
+
+@keyframes diagram-route-enter {
+  from { opacity: 0; transform: translate3d(0, 16px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes diagram-route-confirm {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .site-header { animation: ui-enter-header 280ms var(--motion-ease) both; }
   .hero__copy .eyebrow { animation: ui-enter-y 280ms var(--motion-ease) 40ms both; }
@@ -524,6 +680,28 @@ p, li, dd { text-wrap: pretty; }
   .trace-card li:nth-child(2) { --trace-delay: 500ms; }
   .trace-card li:nth-child(3) { --trace-delay: 570ms; }
   .trace-card li:nth-child(4) { --trace-delay: 640ms; }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 761px) {
+    .project-diagram__canvas img {
+      animation: diagram-image-settle 1ms var(--motion-emphasized) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 42%;
+    }
+
+    .project-diagram__route {
+      animation: diagram-route-enter 1ms var(--motion-emphasized) both;
+      animation-timeline: view();
+      animation-range: entry 12% cover 38%;
+    }
+
+    .project-diagram__route::before {
+      animation: diagram-route-confirm 1ms var(--motion-ease) both;
+      animation-timeline: view();
+      animation-range: entry 18% cover 46%;
+    }
+  }
 }
 
 @media (max-width: 1020px) {
@@ -560,6 +738,17 @@ p, li, dd { text-wrap: pretty; }
   .project__header { grid-template-columns: 46px 1fr; }
   .project__status { grid-column: 2; }
   .project__details { grid-template-columns: 1fr; }
+  .project-diagram__canvas { aspect-ratio: auto; overflow: visible; }
+  .project-diagram__canvas::after { bottom: auto; height: min(64vw, 25rem); background: linear-gradient(180deg, transparent 52%, rgba(16, 23, 34, 0.72)); }
+  .project-diagram__canvas img { height: min(64vw, 25rem); aspect-ratio: 3 / 2; object-fit: cover; }
+  .project-diagram__route { position: relative; inset: auto; padding: 1rem; grid-template-columns: 1fr; gap: 1.35rem; background: var(--ink); }
+  .project-diagram__route::before { top: 1rem; right: auto; bottom: 1rem; left: 1.45rem; width: 1px; height: auto; background: linear-gradient(180deg, transparent, var(--project-accent) 8%, var(--project-accent) 92%, transparent); transform-origin: top; }
+  .project-diagram__route li { min-height: 4.4rem; margin-left: 1.25rem; padding-inline: 0.9rem; }
+  .project-diagram__route li:not(:last-child)::after { content: "↓"; top: calc(100% + 0.69rem); right: auto; left: 0.6rem; transform: translate(-50%, -50%); }
+  .project-diagram__route strong { font-size: 0.75rem; }
+  .project-diagram__route small, .project-diagram__branch { font-size: 0.68rem; }
+  .project-diagram__branch { position: relative; top: auto; left: auto; align-self: flex-start; margin-top: 0.32rem; transform: none; }
+  .project-diagram__branch::before { display: none; }
   .project__aside { grid-template-columns: 1fr; }
   .evidence-card { grid-row: auto; }
   .principles { grid-template-columns: 1fr; }
@@ -580,8 +769,8 @@ p, li, dd { text-wrap: pretty; }
   .project { box-shadow: 5px 5px 0 rgba(21, 21, 21, 0.1); }
   .project__header { padding-inline: 1rem; }
   .project__main, .evidence-card, .boundary-card { padding-inline: 1rem; }
-  .flow { align-items: stretch; flex-direction: column; }
-  .flow i { transform: rotate(90deg); align-self: flex-start; margin-left: 0.6rem; }
+  .project-diagram__canvas::after, .project-diagram__canvas img { height: 14rem; }
+  .project-diagram__canvas img { object-position: center; }
   .profile-list > div { grid-template-columns: 1fr; }
 }
 
@@ -601,6 +790,7 @@ p, li, dd { text-wrap: pretty; }
   .section-shell { width: 100%; }
   .hero { min-height: auto; display: block; padding: 2rem 0; }
   .project { break-inside: avoid; box-shadow: none; }
+  .project-diagram { display: none; }
   .method { background: white; color: black; }
   .section-intro--inverse .eyebrow, .section-intro--inverse > div > p, .principles article > p:last-child { color: black; }
   .principles, .principles article, .ownership-note { border-color: black; }

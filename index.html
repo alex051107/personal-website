@@ -126,9 +126,19 @@
           <div class="project__main">
             <p class="project__summary">For researchers and technical reviewers who need to carry public scientific evidence into a report, EvidenceOps keeps the source version, passage locator, assay context, and claim attached through retrieval and review.</p>
 
-            <div class="flow" aria-label="EvidenceOps workflow">
-              <span>Public source</span><i aria-hidden="true">→</i><span>Hybrid retrieval</span><i aria-hidden="true">→</i><span>Typed claim</span><i aria-hidden="true">→</i><span>Release checks</span><i aria-hidden="true">→</i><span>Reviewer</span>
-            </div>
+            <figure class="project-diagram" aria-labelledby="evidenceops-diagram-caption">
+              <div class="project-diagram__canvas">
+                <img src="images/project-visuals/evidenceops.jpg" alt="Abstract EvidenceOps illustration with layered source records, retrieval instruments, a support gate, and a review desk" width="1536" height="1024" loading="lazy" decoding="async">
+                <ol class="project-diagram__route" aria-label="EvidenceOps workflow from a versioned source through retrieval and deterministic support checks to reviewer release">
+                  <li><small>Input</small><strong>Versioned source</strong></li>
+                  <li><small>Retrieve</small><strong>Hybrid retrieval</strong></li>
+                  <li><small>Structure</small><strong>Typed claim</strong></li>
+                  <li class="project-diagram__gate"><small>Support gate</small><strong>Span · unit · context</strong><span class="project-diagram__branch">Unsupported</span></li>
+                  <li><small>Decision</small><strong>Reviewer</strong></li>
+                </ol>
+              </div>
+              <figcaption id="evidenceops-diagram-caption">Retrieval relevance is not claim support; the cited span and measurement context must pass deterministic checks before review.</figcaption>
+            </figure>
 
             <div class="project__details">
               <div>
@@ -183,9 +193,19 @@
           <div class="project__main">
             <p class="project__summary">A recoverable pharmacy-order workflow that keeps deterministic hard stops, queued model drafting, independent output validation, and pharmacist-owned approval in separate states.</p>
 
-            <div class="flow" aria-label="CarePlan workflow">
-              <span>Synthetic order</span><i aria-hidden="true">→</i><span>Rules</span><i aria-hidden="true">→</i><span>Queued draft</span><i aria-hidden="true">→</i><span>Schema check</span><i aria-hidden="true">→</i><span>Pharmacist review</span>
-            </div>
+            <figure class="project-diagram" aria-labelledby="careplan-diagram-caption">
+              <div class="project-diagram__canvas">
+                <img src="images/project-visuals/careplan.jpg" alt="Abstract CarePlan illustration with guarded state transitions, a drafting queue, typed validation, and a separate review station" width="1536" height="1024" loading="lazy" decoding="async">
+                <ol class="project-diagram__route" aria-label="CarePlan workflow from a synthetic order through deterministic rules, queued drafting, typed validation, and pharmacist-owned review">
+                  <li><small>Input</small><strong>Synthetic order</strong></li>
+                  <li><small>Rules</small><strong>Rule screen</strong></li>
+                  <li><small>Model</small><strong>Queued draft</strong></li>
+                  <li class="project-diagram__gate"><small>Typed validation</small><strong>Fields · schema · state</strong><span class="project-diagram__branch">Reject / retry</span></li>
+                  <li><small>Owner</small><strong>Pharmacist review</strong></li>
+                </ol>
+              </div>
+              <figcaption id="careplan-diagram-caption">Deterministic rules and typed validation surround model drafting; approval remains a pharmacist-owned state transition.</figcaption>
+            </figure>
 
             <div class="project__details">
               <div>
@@ -239,9 +259,19 @@
           <div class="project__main">
             <p class="project__summary">A scientific-task harness for NMR ensembles, MD trajectories, ATLAS, and mdCATH. It checks identity, mapping, condition, representation, time semantics, and claim ceiling before any analysis route is allowed to run.</p>
 
-            <div class="flow" aria-label="Dynamics Atlas workflow">
-              <span>TaskPacket</span><i aria-hidden="true">→</i><span>Source / SHA</span><i aria-hidden="true">→</i><span>Registered adapter</span><i aria-hidden="true">→</i><span>Scientific runner</span><i aria-hidden="true">→</i><span>Claim ceiling</span>
-            </div>
+            <figure class="project-diagram" aria-labelledby="dynamics-diagram-caption">
+              <div class="project-diagram__canvas">
+                <img src="images/project-visuals/dynamics-atlas.jpg" alt="Abstract Dynamics Atlas illustration with distinct molecular representations, a compatibility gate, a registered runner, and a sealed evidence bundle" width="1536" height="1024" loading="lazy" decoding="async">
+                <ol class="project-diagram__route" aria-label="Dynamics Atlas workflow from a typed task and source hash through compatibility checks to a registered runner and evidence bundle">
+                  <li><small>Task</small><strong>TaskPacket</strong></li>
+                  <li><small>Provenance</small><strong>Source + SHA</strong></li>
+                  <li class="project-diagram__gate"><small>Compatibility gate</small><strong>Identity · representation · time</strong><span class="project-diagram__branch">Route blocked</span></li>
+                  <li><small>Execute</small><strong>Registered runner</strong></li>
+                  <li><small>Record</small><strong>Evidence bundle</strong></li>
+                </ol>
+              </div>
+              <figcaption id="dynamics-diagram-caption">Shared intake does not imply scientific comparability; the compatibility gate decides whether a registered analysis route may run.</figcaption>
+            </figure>
 
             <div class="project__details">
               <div>
@@ -295,9 +325,19 @@
           <div class="project__main">
             <p class="project__summary">A reproducible route from three enhanced-sampling replicas to trajectory measurements and experimental-pKoff baselines, designed to prevent correlated frames or repeated ligands from inflating model evidence.</p>
 
-            <div class="flow" aria-label="HSP90 LiGaMD workflow">
-              <span>3 replicas</span><i aria-hidden="true">→</i><span>Exit episode</span><i aria-hidden="true">→</i><span>512 saved frames</span><i aria-hidden="true">→</i><span>1 system row</span><i aria-hidden="true">→</i><span>Ligand holdout</span>
-            </div>
+            <figure class="project-diagram" aria-labelledby="hsp90-diagram-caption">
+              <div class="project-diagram__canvas">
+                <img src="images/project-visuals/hsp90-ligamd.jpg" alt="Abstract HSP90 LiGaMD illustration with three replica trajectories, sampled frames, system-level aggregation, and grouped evaluation" width="1536" height="1024" loading="lazy" decoding="async">
+                <ol class="project-diagram__route" aria-label="HSP90 LiGaMD workflow from three replicas through sustained exit detection and saved-frame aggregation to grouped evaluation">
+                  <li><small>Input</small><strong>3 replicas</strong></li>
+                  <li><small>Event</small><strong>Sustained exit</strong></li>
+                  <li><small>Sample</small><strong>512 saved frames</strong></li>
+                  <li><small>Aggregate</small><strong>1 system row</strong></li>
+                  <li class="project-diagram__gate"><small>Grouped evaluation</small><strong>Ligand holdout · bootstrap</strong><span class="project-diagram__branch project-diagram__branch--neutral">No model selected</span></li>
+                </ol>
+              </div>
+              <figcaption id="hsp90-diagram-caption">Frames are measurements, not independent labels; evaluation operates at the system and exact-ligand-group level.</figcaption>
+            </figure>
 
             <div class="project__details">
               <div>

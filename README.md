@@ -6,7 +6,9 @@ A static, evidence-bounded portfolio for AI application engineering and scientif
 
 The site intentionally uses semantic HTML and one CSS file. It has no runtime JavaScript, package manager, build system, database, analytics script, or contact-form backend.
 
-Its motion system is deliberately bounded: one CSS-only hero sequence presents an execution trace in under one second, interactive feedback uses short transform/color transitions, and `prefers-reduced-motion` removes all automatic animation. There are no continuous loops, particles, parallax, typing effects, or animation-library dependencies.
+Its visual system combines four original generated project plates with exact, selectable HTML workflow labels. Generated imagery supplies atmosphere and material detail; the browser layer owns the technical sequence, gates, failure states, captions, and claim boundaries so the diagrams remain accurate and accessible.
+
+Motion remains deliberately bounded: one CSS-only hero sequence presents an execution trace in under one second, supported browsers progressively settle each project image and confirm its route as it enters the viewport, and `prefers-reduced-motion` removes all automatic animation. There are no continuous loops, particles, parallax, typing effects, or animation-library dependencies.
 
 That boundary is deliberate:
 
