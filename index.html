@@ -49,7 +49,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="css/styles.css?v=15b9876">
+  <link rel="stylesheet" href="css/styles.css?v=9e3c8ab">
   <script defer src="js/site-motion.js?v=186a14c"></script>
 </head>
 <body>
@@ -131,6 +131,9 @@
             <p class="project__summary">EvidenceOps helps a researcher search public papers, extract a specific result, and carry the source, page, experiment conditions, and supporting text into review. If the cited passage does not support the claim, the system marks it unsupported instead of guessing. Its fixed synthetic test set passed 70/70 cases.</p>
 
             <figure class="project-diagram" aria-labelledby="evidenceops-diagram-caption" data-reveal="rise">
+              <div class="project-diagram__art">
+                <img src="images/project-visuals/evidenceops-editorial.jpg" alt="Editorial model of a source passage staying physically connected to a reviewed scientific claim" width="1536" height="1024" loading="lazy" decoding="async">
+              </div>
               <div class="project-diagram__canvas">
                 <p class="project-diagram__context"><span>Implemented workflow</span><span>Public MVP · fixed synthetic tests</span></p>
                 <ol class="project-diagram__route" aria-label="EvidenceOps workflow from a versioned source through retrieval and deterministic support checks to reviewer release">
@@ -198,6 +201,9 @@
             <p class="project__summary">CarePlan moves a synthetic pharmacy order through rule checks, AI drafting, field validation, and pharmacist review. The AI can draft but cannot approve. All 200 permission and workflow-state checks passed; among 120 synthetic orders, 50 stopped at rules and 70 reached review.</p>
 
             <figure class="project-diagram" aria-labelledby="careplan-diagram-caption" data-reveal="rise">
+              <div class="project-diagram__art">
+                <img src="images/project-visuals/careplan-editorial.jpg" alt="Editorial model of a synthetic order moving through rule gates, drafting, validation, and a separate approval station" width="1536" height="1024" loading="lazy" decoding="async">
+              </div>
               <div class="project-diagram__canvas">
                 <p class="project-diagram__context"><span>Implemented workflow</span><span>Synthetic portfolio data · no clinical use</span></p>
                 <ol class="project-diagram__route project-diagram__route--seven" aria-label="CarePlan workflow from a synthetic order through hard stops, queued drafting, typed validation, and pharmacist-owned review">
@@ -266,6 +272,9 @@
             <p class="project__summary">Dynamics Atlas checks whether NMR ensembles, MD trajectories, and other molecular datasets are compatible before an analysis runs. It checks protein identity, residue mapping, conditions, data representation, and time coverage. The recorded implementation passed 13/13 harness tests, 24/24 machine checks, and 42/42 HSP90 replays.</p>
 
             <figure class="project-diagram" aria-labelledby="dynamics-diagram-caption" data-reveal="rise">
+              <div class="project-diagram__art">
+                <img src="images/project-visuals/dynamics-atlas-editorial.jpg" alt="Editorial model of distinct molecular evidence formats passing through compatibility gates before analysis" width="1200" height="800" loading="lazy" decoding="async">
+              </div>
               <div class="project-diagram__canvas">
                 <p class="project-diagram__context"><span>Validation gates</span><span>Public harness uses synthetic fixtures</span></p>
                 <ol class="project-diagram__route project-diagram__route--seven" aria-label="Dynamics Atlas validation gates from source identity through claim ceiling">
@@ -334,6 +343,9 @@
             <p class="project__summary">For each protein-ligand system, I turn each of three LiGaMD replicas into its own 10-feature summary from 512 real saved frames, then average matching features across replicas to make one system record. I keep an exact ligand group entirely on one side of each train/test split. The registry has 31 systems and 27 ligand groups. The lowest MAE was 0.8182, but uncertainty did not support selecting a model.</p>
 
             <figure class="project-diagram" aria-labelledby="hsp90-diagram-caption" data-reveal="rise">
+              <div class="project-diagram__art">
+                <img src="images/project-visuals/hsp90-ligamd-editorial.jpg" alt="Editorial model of three simulation replicas being sampled and combined into one system-level record for grouped evaluation" width="1200" height="800" loading="lazy" decoding="async">
+              </div>
               <div class="project-diagram__canvas">
                 <p class="project-diagram__context"><span>Analysis pipeline</span><span>One evaluated row per protein–ligand system</span></p>
                 <ol class="project-diagram__route project-diagram__route--seven" aria-label="HSP90 LiGaMD workflow from three replicas through sustained exit detection and saved-frame aggregation to grouped evaluation">

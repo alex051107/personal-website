@@ -420,6 +420,21 @@ p, li, dd { text-wrap: pretty; }
 
 .project-diagram__canvas::after { display: none; }
 
+.project-diagram__art {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line-strong);
+  background: var(--paper);
+}
+
+.project-diagram__art img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
 .project-diagram__context {
   min-height: 3.15rem;
   margin: 0;
@@ -699,6 +714,15 @@ p, li, dd { text-wrap: pretty; }
   }
 
   html.motion-enabled .project-diagram[data-reveal].is-revealed .project-diagram__route::before { transform: scaleX(1); }
+
+  html.motion-enabled .project-diagram[data-reveal] .project-diagram__art img {
+    transform: scale(1.018) translateY(0.35rem);
+    transition: transform 760ms var(--motion-ease);
+  }
+
+  html.motion-enabled .project-diagram[data-reveal].is-revealed .project-diagram__art img {
+    transform: scale(1) translateY(0);
+  }
 }
 
 @supports (animation-timeline: scroll()) {
@@ -742,6 +766,7 @@ p, li, dd { text-wrap: pretty; }
   .project__header { grid-template-columns: 46px 1fr; }
   .project__status { grid-column: 2; }
   .project__details { grid-template-columns: 1fr; }
+  .project-diagram__art { aspect-ratio: 3 / 2; }
   .project-diagram__canvas { aspect-ratio: auto; overflow: visible; }
   .project-diagram__context { align-items: flex-start; flex-direction: column; gap: 0.2rem; }
   .project-diagram__route { position: relative; inset: auto; padding: 1rem; grid-template-columns: 1fr; gap: 1.35rem; background: var(--paper); }

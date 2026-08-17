@@ -275,6 +275,10 @@ def main() -> int:
     size_limits = {
         ROOT / "images" / "portrait.png": 1_000_000,
         ROOT / "images" / "og-card.jpg": 1_000_000,
+        ROOT / "images" / "project-visuals" / "evidenceops-editorial.jpg": 400_000,
+        ROOT / "images" / "project-visuals" / "careplan-editorial.jpg": 400_000,
+        ROOT / "images" / "project-visuals" / "dynamics-atlas-editorial.jpg": 400_000,
+        ROOT / "images" / "project-visuals" / "hsp90-ligamd-editorial.jpg": 400_000,
     }
     for asset, limit in size_limits.items():
         if not asset.exists():
