@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HSP90 LiGaMD Research Method Note — Zhenpeng Liu</title>
+  <meta name="description" content="A research method note on replica-aware LiGaMD feature construction, exact-ligand grouped evaluation, and why the current N31 result did not select a model.">
+  <meta name="theme-color" content="#e9edf2">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://alex051107.github.io/personal-website/research/ligamd-pkoff.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="HSP90 LiGaMD Research Method Note — Zhenpeng Liu">
+  <meta property="og:description" content="Replica-aware trajectory features, grouped evaluation, and an honest no-selection result.">
+  <meta property="og:url" content="https://alex051107.github.io/personal-website/research/ligamd-pkoff.html">
+  <meta property="og:image" content="https://alex051107.github.io/personal-website/images/project-visuals/hsp90-ligamd-editorial.jpg">
+  <meta property="og:image:alt" content="Editorial model of three simulation replicas becoming one system-level record">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../css/styles.css?v=dc1cdf1">
+  <script defer src="../js/site-motion.js?v=186a14c"></script>
+</head>
+<body class="case-page case-page--green">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page-progress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="wordmark" href="../index.html#top" aria-label="Zhenpeng Liu, portfolio home">
+        <span class="wordmark__initials">Zhenpeng Liu</span><span class="wordmark__index">刘振鹏</span>
+      </a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="../index.html#work">Projects</a>
+        <a href="../index.html#method">Approach</a>
+        <a href="../index.html#about">Profile</a>
+        <a class="primary-nav__contact" href="mailto:liualex@unc.edu">Contact ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article class="case-study" id="top">
+      <header class="case-hero">
+        <div class="section-shell case-hero__grid">
+          <div class="case-hero__copy">
+            <a class="case-back" href="../index.html#hsp90">← All projects</a>
+            <p class="eyebrow">Research method note · UNC Miao Lab</p>
+            <h1>HSP90 / LiGaMD</h1>
+            <p class="case-hero__lead">Thousands of saved frames from one protein–ligand simulation are repeated measurements, not thousands of independent labels. This workflow turns three LiGaMD replicas into one system-level record before grouped evaluation.</p>
+            <div class="case-hero__actions">
+              <a class="button button--primary" href="https://github.com/alex051107/ligamd-pkoff-toolkit" target="_blank" rel="noopener noreferrer">Open analysis toolkit <span aria-hidden="true">↗</span></a>
+              <a class="button" href="https://github.com/alex051107/projects/tree/main/trajectory_event_harness" target="_blank" rel="noopener noreferrer">Open event harness <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <figure class="case-hero__visual">
+            <img src="../images/project-visuals/hsp90-ligamd-editorial.jpg" alt="Editorial model of three simulation replicas becoming one system-level record for grouped evaluation" width="1200" height="800" fetchpriority="high">
+            <figcaption>Each replica is summarized first. Matching features are averaged only after the three replica-level records exist.</figcaption>
+          </figure>
+        </div>
+      </header>
+
+      <section class="case-glance section-shell" aria-labelledby="glance-title">
+        <h2 id="glance-title" class="visually-hidden">Project at a glance</h2>
+        <dl>
+          <div><dt>Type</dt><dd>Scientific ML evaluation · Public toolkit</dd></div>
+          <div><dt>Time</dt><dd>Jun 2025—Present</dd></div>
+          <div><dt>My work shown here</dt><dd>Trajectory features and grouped evaluation path</dd></div>
+          <div><dt>Core problem</dt><dd>Repeated frames can inflate model evaluation</dd></div>
+          <div><dt>Recorded result</dt><dd>N31 / 27 groups · no model selected</dd></div>
+          <div><dt>Stack</dt><dd>Python · NumPy / SciPy · scikit-learn · RDKit</dd></div>
+        </dl>
+      </section>
+
+      <nav class="case-contents section-shell" aria-label="Research note contents">
+        <p>In this research note</p>
+        <a href="#problem">Problem</a>
+        <a href="#method">Method</a>
+        <a href="#decisions">Decisions</a>
+        <a href="#evaluation">Evaluation</a>
+        <a href="#scope">Scope</a>
+      </nav>
+
+      <section class="case-section section-shell" id="problem">
+        <header class="case-section__label" data-reveal="rise">
+          <p>01 / Problem</p>
+          <h2>A trajectory contains many frames but only one system-level label.</h2>
+        </header>
+        <div class="case-section__body prose" data-reveal="rise">
+          <p>Frames from the same molecular-dynamics trajectory are correlated observations of one protein–ligand system. Treating each frame as a separate labelled example would multiply the apparent sample size without adding independent experimental pKoff measurements.</p>
+          <p>The three simulation replicas create another boundary. They should contribute information about the same system, but their coordinates should not be concatenated into one artificial trajectory. Each replica needs its own endpoint check, frame selection, and feature vector before the corresponding features are combined.</p>
+          <aside class="case-callout">
+            <p class="case-callout__label">Evaluation question</p>
+            <p>How can a feature pipeline use thousands of trajectory frames without letting repeated measurements or exact copies of a ligand leak across model evaluation?</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="case-section case-section--tinted" id="method">
+        <header class="case-section__label section-shell" data-reveal="rise">
+          <p>02 / Method</p>
+          <h2>Build one auditable row for each protein–ligand system.</h2>
+        </header>
+        <div class="section-shell case-section__wide">
+          <figure class="project-diagram" aria-labelledby="ligamd-flow-caption" data-reveal="rise">
+            <div class="project-diagram__canvas">
+              <p class="project-diagram__context"><span>Analysis pipeline</span><span>One evaluated row per protein–ligand system</span></p>
+              <ol class="project-diagram__route project-diagram__route--seven" aria-label="HSP90 LiGaMD workflow from three replicas through endpoint checks and saved-frame aggregation to grouped evaluation">
+                <li><small>Input</small><strong>3 replicas</strong></li>
+                <li><small>Endpoint</small><strong>Sustained exit</strong></li>
+                <li><small>Per replica</small><strong>512 real frames</strong></li>
+                <li><small>Summarize</small><strong>Dynamic10 vector</strong></li>
+                <li><small>System row</small><strong>Static20 + mean Dynamic10</strong></li>
+                <li><small>Split</small><strong>Exact-ligand holdout</strong></li>
+                <li class="project-diagram__gate"><small>Compare</small><strong>Bootstrap uncertainty</strong><span class="project-diagram__branch project-diagram__branch--neutral">No model selected</span></li>
+              </ol>
+            </div>
+            <figcaption id="ligamd-flow-caption">The three replicas are never merged as coordinates. Each becomes a Dynamic10 vector first; only corresponding feature values are averaged.</figcaption>
+          </figure>
+
+          <div class="record-strip record-strip--three" data-reveal="pop" aria-label="HSP90 LiGaMD analysis records">
+            <div><span>Trajectory gate</span><strong>Endpoint receipt</strong><p>Exit onset, persistence, recapture, replica status</p></div>
+            <div><span>Feature record</span><strong>System row</strong><p>Static20 plus replica-averaged Dynamic10</p></div>
+            <div><span>Evaluation record</span><strong>Grouped fold</strong><p>Exact-ligand holdout and fold-local preprocessing</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section section-shell" id="decisions">
+        <header class="case-section__label" data-reveal="rise">
+          <p>03 / Decisions</p>
+          <h2>The evaluation starts before a model is fitted.</h2>
+        </header>
+        <div class="case-section__body decision-stack">
+          <article class="decision-card" data-reveal="pop">
+            <p class="decision-card__index">Decision 01</p>
+            <h3>Require a sustained exit and record recapture.</h3>
+            <dl>
+              <div><dt>Why</dt><dd>One noisy distance crossing does not establish that the ligand completed an exit episode.</dd></div>
+              <div><dt>Alternative considered</dt><dd>Label the first frame beyond a single distance threshold as the dissociation event.</dd></div>
+              <div><dt>Trade-off</dt><dd>The endpoint needs persistence and geometry rules, but transient crossings and post-event recapture remain distinguishable.</dd></div>
+            </dl>
+          </article>
+          <article class="decision-card" data-reveal="pop">
+            <p class="decision-card__index">Decision 02</p>
+            <h3>Summarize each replica before averaging.</h3>
+            <dl>
+              <div><dt>Why</dt><dd>Concatenating coordinates would erase replica identity and make unequal or failed replicas difficult to diagnose.</dd></div>
+              <div><dt>Alternative considered</dt><dd>Merge all frames from all replicas, then compute one feature vector.</dd></div>
+              <div><dt>Trade-off</dt><dd>Each replica needs a complete endpoint and 512-frame record. If one replica fails, the toolkit returns an out-of-scope status instead of a partial average.</dd></div>
+            </dl>
+          </article>
+          <article class="decision-card" data-reveal="pop">
+            <p class="decision-card__index">Decision 03</p>
+            <h3>Split by exact-ligand group and fit preprocessing inside the fold.</h3>
+            <dl>
+              <div><dt>Why</dt><dd>The same standardized ligand chemistry should not appear in both training and test data within a fold.</dd></div>
+              <div><dt>Alternative considered</dt><dd>Randomly split system rows or preprocess once on the full dataset.</dd></div>
+              <div><dt>Trade-off</dt><dd>Grouped folds are smaller and more variable, but they reduce exact-ligand leakage and test the model on a genuinely held-out chemistry group.</dd></div>
+            </dl>
+          </article>
+          <article class="decision-card" data-reveal="pop">
+            <p class="decision-card__index">Decision 04</p>
+            <h3>Require uncertainty before selecting a model.</h3>
+            <dl>
+              <div><dt>Why</dt><dd>The lowest point estimate can result from a small set of grouped folds rather than a stable improvement.</dd></div>
+              <div><dt>Alternative considered</dt><dd>Name the model with the lowest average MAE as the winner.</dd></div>
+              <div><dt>Trade-off</dt><dd>The project may end with no selected model, but it avoids turning an unstable difference into a performance claim.</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <section class="case-section case-section--tinted" id="evaluation">
+        <header class="case-section__label section-shell" data-reveal="rise">
+          <p>04 / Evaluation</p>
+          <h2>The lowest MAE was not enough to select a model.</h2>
+        </header>
+        <div class="section-shell case-section__wide">
+          <div class="metric-band metric-band--ligamd" data-reveal="pop">
+            <div><span>Systems</span><strong>31</strong></div>
+            <div><span>Exact-ligand groups</span><strong>27</strong></div>
+            <div><span>Lowest group-equal MAE</span><strong>0.8182</strong></div>
+            <div><span>Selection decision</span><strong>None</strong></div>
+          </div>
+
+          <div class="model-evaluation" data-reveal="rise">
+            <div class="prose">
+              <h3>Frozen N31 engineering panel</h3>
+              <p>Each outer fold held out an entire exact-ligand group. The target was experimental, assay-derived pKoff. The table reports aggregate point estimates from the public experimental registry.</p>
+            </div>
+            <div class="table-scroll" tabindex="0" aria-label="Scrollable model score table">
+              <table class="model-table">
+                <thead><tr><th>Model</th><th>Inputs</th><th>Group-equal MAE</th><th>Role</th></tr></thead>
+                <tbody>
+                  <tr><td><code>static20_ridge</code></td><td>Static20</td><td>0.8845</td><td>Linear static reference</td></tr>
+                  <tr><td><code>static20_random_forest</code></td><td>Static20</td><td>0.8501</td><td>Nonlinear static reference</td></tr>
+                  <tr><td><code>combined30_p512_ridge</code></td><td>Static20 + Dynamic10</td><td>0.8182</td><td>Dynamic-information candidate</td></tr>
+                  <tr><td><code>combined30_p512_random_forest</code></td><td>Static20 + Dynamic10</td><td>0.8275</td><td>Nonlinear dynamic candidate</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <aside class="result-decision" data-reveal="pop">
+            <div>
+              <p class="result-decision__label">Why no model was selected</p>
+              <h3>The uncertainty interval crossed zero.</h3>
+            </div>
+            <p>For the lowest-MAE model, the paired bootstrap interval against the grouped dummy baseline was <code>[-0.2805, +0.0067]</code> pKoff. The interval includes zero. The direct Static20-versus-Combined30 comparison was also not stable enough to select Dynamic10.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="case-section section-shell" id="scope">
+        <header class="case-section__label" data-reveal="rise">
+          <p>05 / Scope</p>
+          <h2>The target is experimental pKoff, not a physical rate read from simulation time.</h2>
+        </header>
+        <div class="case-section__body scope-grid">
+          <article class="scope-card scope-card--current" data-reveal="pop">
+            <p class="scope-card__label">Current scope</p>
+            <h3>Public analysis toolkit and experimental registry</h3>
+            <ul>
+              <li>Replica-aware endpoint and P512 feature contracts</li>
+              <li>One system row and exact-ligand grouped folds</li>
+              <li>Four bundled experimental regression pipelines</li>
+              <li>Aggregate N31 evidence and model cards</li>
+            </ul>
+          </article>
+          <article class="scope-card" data-reveal="pop">
+            <p class="scope-card__label">Not established</p>
+            <h3>Physical kinetics or broad generalization</h3>
+            <ul>
+              <li>Simulation time does not directly yield physical koff</li>
+              <li>N31 does not establish unseen-protein-family performance</li>
+              <li>The current cadence record limits Dynamic10 comparability</li>
+              <li>No final or selected model</li>
+            </ul>
+          </article>
+          <article class="scope-card scope-card--next" data-reveal="pop">
+            <p class="scope-card__label">Proposed next validation</p>
+            <h3>Add evidence, not an unbounded model search</h3>
+            <p>Admit new systems only after identity, assay-label, replica, endpoint, feature-lineage, and saved-frame cadence checks. Re-run the frozen grouped comparison before considering additional model capacity.</p>
+          </article>
+        </div>
+      </section>
+    </article>
+
+    <nav class="case-pagination" aria-label="Project navigation">
+      <div class="section-shell">
+        <a href="dynamics-atlas.html"><span>Previous case study</span><strong>← Dynamics Atlas</strong></a>
+        <a href="../index.html#work"><span>Project index</span><strong>All selected work →</strong></a>
+      </div>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="section-shell site-footer__inner">
+      <p>© 2026 Zhenpeng Liu</p>
+      <p>HSP90 / LiGaMD · Research method note</p>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+</body>
+</html>

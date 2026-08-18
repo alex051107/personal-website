@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dynamics Atlas Research Engineering Case Study — Zhenpeng Liu</title>
+  <meta name="description" content="How Dynamics Atlas turns molecular-data comparability rules into deterministic validation gates, routed analysis, and reviewable evidence records.">
+  <meta name="theme-color" content="#e9edf2">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://alex051107.github.io/personal-website/research/dynamics-atlas.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Dynamics Atlas Research Engineering Case Study — Zhenpeng Liu">
+  <meta property="og:description" content="Scientific compatibility gates, deterministic routing, and a bounded Agent role.">
+  <meta property="og:url" content="https://alex051107.github.io/personal-website/research/dynamics-atlas.html">
+  <meta property="og:image" content="https://alex051107.github.io/personal-website/images/project-visuals/dynamics-atlas-editorial.jpg">
+  <meta property="og:image:alt" content="Editorial model of molecular evidence formats passing through compatibility gates">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../css/styles.css?v=dc1cdf1">
+  <script defer src="../js/site-motion.js?v=186a14c"></script>
+</head>
+<body class="case-page case-page--violet">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page-progress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="wordmark" href="../index.html#top" aria-label="Zhenpeng Liu, portfolio home">
+        <span class="wordmark__initials">Zhenpeng Liu</span><span class="wordmark__index">刘振鹏</span>
+      </a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="../index.html#work">Projects</a>
+        <a href="../index.html#method">Approach</a>
+        <a href="../index.html#about">Profile</a>
+        <a class="primary-nav__contact" href="mailto:liualex@unc.edu">Contact ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article class="case-study" id="top">
+      <header class="case-hero">
+        <div class="section-shell case-hero__grid">
+          <div class="case-hero__copy">
+            <a class="case-back" href="../index.html#dynamics-atlas">← All projects</a>
+            <p class="eyebrow">Research engineering case study · Collaboration prototype</p>
+            <h1>Dynamics Atlas</h1>
+            <p class="case-hero__lead">Two datasets can describe the same protein and still measure different things, cover different time scales, or use incompatible residue mappings. Dynamics Atlas checks those differences before it permits an analysis route.</p>
+            <div class="case-hero__actions">
+              <a class="button button--primary" href="https://github.com/alex051107/projects/tree/main/scientific_evidence_harness" target="_blank" rel="noopener noreferrer">Open public harness <span aria-hidden="true">↗</span></a>
+              <a class="button" href="#evaluation">See recorded tests <span aria-hidden="true">↓</span></a>
+            </div>
+          </div>
+          <figure class="case-hero__visual">
+            <img src="../images/project-visuals/dynamics-atlas-editorial.jpg" alt="Editorial model of distinct molecular evidence formats passing through compatibility gates" width="1200" height="800" fetchpriority="high">
+            <figcaption>Shared protein identity is one condition. It is not, by itself, a scientific comparison route.</figcaption>
+          </figure>
+        </div>
+      </header>
+
+      <section class="case-glance section-shell" aria-labelledby="glance-title">
+        <h2 id="glance-title" class="visually-hidden">Project at a glance</h2>
+        <dl>
+          <div><dt>Type</dt><dd>Research collaboration prototype</dd></div>
+          <div><dt>Time</dt><dd>Jun 2026—Present</dd></div>
+          <div><dt>My work shown here</dt><dd>Task records, routed validation, Agent boundary</dd></div>
+          <div><dt>Core problem</dt><dd>Same protein does not guarantee comparable evidence</dd></div>
+          <div><dt>Recorded result</dt><dd>13/13 · 24/24 · 42/42</dd></div>
+          <div><dt>Stack</dt><dd>Python · FastAPI · LangGraph · Typed JSON</dd></div>
+        </dl>
+      </section>
+
+      <nav class="case-contents section-shell" aria-label="Case study contents">
+        <p>In this case study</p>
+        <a href="#problem">Problem</a>
+        <a href="#system">System</a>
+        <a href="#decisions">Decisions</a>
+        <a href="#evaluation">Evaluation</a>
+        <a href="#scope">Scope</a>
+      </nav>
+
+      <section class="case-section section-shell" id="problem">
+        <header class="case-section__label" data-reveal="rise">
+          <p>01 / Problem</p>
+          <h2>One interface can hide scientifically different inputs.</h2>
+        </header>
+        <div class="case-section__body prose" data-reveal="rise">
+          <p>An NMR ensemble, a molecular-dynamics trajectory, and a generated structure may all contain coordinates for the same protein. They do not automatically share the same residue numbering, experimental conditions, measurement meaning, time coverage, or allowed inference.</p>
+          <p>Flattening those sources into one table makes the software look simpler while moving the scientific mismatch out of view. Dynamics Atlas keeps the source type and comparison rules explicit. A task can proceed only through a route registered for that evidence combination.</p>
+          <aside class="case-callout">
+            <p class="case-callout__label">Research engineering question</p>
+            <p>How can scientific comparison rules become executable software gates without letting an Agent invent missing mappings or approve its own route?</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="case-section case-section--tinted" id="system">
+        <header class="case-section__label section-shell" data-reveal="rise">
+          <p>02 / System</p>
+          <h2>Every source passes ordered, fail-closed gates.</h2>
+        </header>
+        <div class="section-shell case-section__wide">
+          <figure class="project-diagram" aria-labelledby="dynamics-flow-caption" data-reveal="rise">
+            <div class="project-diagram__canvas">
+              <p class="project-diagram__context"><span>Compatibility contract</span><span>Public harness uses synthetic fixtures</span></p>
+              <ol class="project-diagram__route project-diagram__route--seven" aria-label="Dynamics Atlas validation gates from source identity through claim scope">
+                <li><small>Source</small><strong>Identity and hash</strong></li>
+                <li><small>Rights</small><strong>License and citation</strong></li>
+                <li><small>Map</small><strong>Residue and axis</strong></li>
+                <li><small>Scope</small><strong>Coverage</strong></li>
+                <li><small>Meaning</small><strong>Measure and time</strong></li>
+                <li><small>Status</small><strong>Data maturity</strong></li>
+                <li class="project-diagram__gate"><small>Decision</small><strong>Allowed claim</strong><span class="project-diagram__branch">Review or block</span></li>
+              </ol>
+            </div>
+            <figcaption id="dynamics-flow-caption">The harness emits <code>accepted</code>, <code>review_pending</code>, or <code>rejected</code> with structured reasons. A fluent answer cannot override a failed gate.</figcaption>
+          </figure>
+
+          <div class="record-strip" data-reveal="pop" aria-label="Recorded task artifacts">
+            <div><span>Input</span><strong>TaskPacket</strong><p>Requested analysis, source identity, route inputs</p></div>
+            <div><span>Decision</span><strong>DecisionTrace</strong><p>Gate outcomes, route choice, veto reasons</p></div>
+            <div><span>Evidence</span><strong>EvidenceBundle</strong><p>Outputs, source locators, allowed interpretation</p></div>
+            <div><span>Receipt</span><strong>RunReceipt</strong><p>Hashes, tools, status, replay boundary</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section section-shell" id="decisions">
+        <header class="case-section__label" data-reveal="rise">
+          <p>03 / Decisions</p>
+          <h2>The collaboration keeps scientific authority outside the Agent.</h2>
+        </header>
+        <div class="case-section__body decision-stack">
+          <article class="decision-card" data-reveal="pop">
+            <p class="decision-card__index">Decision 01</p>
+            <h3>Use data-type-specific routes.</h3>
+            <dl>
+              <div><dt>Why</dt><dd>NMR ensembles, MD trajectories, database structures, and generated structures do not share one scientifically valid interpretation path.</dd></div>
+              <div><dt>Alternative considered</dt><dd>Normalize every input into one coordinate table and apply the same analysis code.</dd></div>
+              <div><dt>Trade-off</dt><dd>More adapters and route definitions are required, but each result keeps the assumptions that make it interpretable.</dd></div>
+            </dl>
+          </article>
+          <article class="decision-card" data-reveal="pop">
+            <p class="decision-card__index">Decision 02</p>
+            <h3>Store the decision with the output.</h3>
+            <dl>
+              <div><dt>Why</dt><dd>A result is difficult to review if the source hash, residue map, route choice, and rejected alternatives disappear after execution.</dd></div>
+              <div><dt>Alternative considered</dt><dd>Keep only the final figure or summary table and rely on logs for reconstruction.</dd></div>
+              <div><dt>Trade-off</dt><dd>Receipts are larger, but a later reviewer can replay which route ran and why another route was blocked.</dd></div>
+            </dl>
+          </article>
+          <article class="decision-card" data-reveal="pop">
+            <p class="decision-card__index">Decision 03</p>
+            <h3>Let the Agent locate evidence, not execute the scientific route.</h3>
+            <dl>
+              <div><dt>Why</dt><dd>The Agent can help find a source locator or point out a missing input. It did not reliably satisfy the full evidence and schema contract in the recorded development comparison.</dd></div>
+              <div><dt>Alternative considered</dt><dd>Allow a one-shot or tool-using Agent to canonicalize the task, choose tools, execute the route, and produce the final claim.</dd></div>
+              <div><dt>Trade-off</dt><dd>The model has less autonomy, but deterministic code retains validation, execution, veto, and final review boundaries.</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <section class="case-section case-section--tinted" id="evaluation">
+        <header class="case-section__label section-shell" data-reveal="rise">
+          <p>04 / Evaluation</p>
+          <h2>Two test sets answer two different questions.</h2>
+        </header>
+        <div class="section-shell case-section__wide">
+          <div class="metric-band metric-band--dynamics" data-reveal="pop">
+            <div><span>Harness tests</span><strong>13 / 13</strong></div>
+            <div><span>Machine validations</span><strong>24 / 24</strong></div>
+            <div><span>HSP90 output replays</span><strong>42 / 42</strong></div>
+          </div>
+
+          <div class="evaluation-grid evaluation-grid--stacked">
+            <div class="prose" data-reveal="rise">
+              <h3>Workflow and replay checks</h3>
+              <p>The recorded implementation passed its harness tests, machine validations, and HSP90 output replays. These checks show that the defined routes can block invalid inputs, preserve output records, and reproduce the expected workflow behavior.</p>
+              <p>They do not establish that every scientific conclusion is correct or that the same behavior will hold for new data types without a registered route.</p>
+            </div>
+
+            <div class="experiment-table" data-reveal="pop">
+              <div class="experiment-table__intro">
+                <p class="surface-grid__label">Exposed retrospective development packets</p>
+                <h3>Why direct Agent execution was removed</h3>
+                <p>Six packets were used during development. They were exposed and retrospective, so the comparison explains an architecture decision; it is not an independent Agent benchmark.</p>
+              </div>
+              <div class="experiment-table__rows" role="table" aria-label="Dynamics Atlas development comparison">
+                <div role="row"><span role="cell">Deterministic baseline</span><strong role="cell">6 / 6 full pass</strong></div>
+                <div role="row"><span role="cell">One-shot Agent</span><strong role="cell">0 / 6 full pass</strong></div>
+                <div role="row"><span role="cell">Tool + one-repair Agent</span><strong role="cell">0 / 6 full pass</strong></div>
+                <div role="row"><span role="cell">Deterministic compiler</span><strong role="cell">6 / 6 public-schema pass</strong></div>
+                <div role="row"><span role="cell">Evidence-level reviewer proxy after compile</span><strong role="cell">1 / 6</strong></div>
+              </div>
+              <p class="experiment-table__outcome"><span>Architecture outcome</span> The Agent was limited to locator-grounded suggestions and missing-input proposals. Deterministic components kept canonicalization, execution, veto, and final claim control.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section section-shell" id="scope">
+        <header class="case-section__label" data-reveal="rise">
+          <p>05 / Scope</p>
+          <h2>The software can enforce a comparison contract. It cannot make the contract scientifically universal.</h2>
+        </header>
+        <div class="case-section__body scope-grid">
+          <article class="scope-card scope-card--current" data-reveal="pop">
+            <p class="scope-card__label">Current scope</p>
+            <h3>Research collaboration prototype</h3>
+            <ul>
+              <li>Registered routes and typed task records</li>
+              <li>Ordered compatibility and evidence gates</li>
+              <li>Hash-linked outputs and replay receipts</li>
+              <li>Agent suggestions outside execution authority</li>
+            </ul>
+          </article>
+          <article class="scope-card" data-reveal="pop">
+            <p class="scope-card__label">Not established</p>
+            <h3>General scientific or Agent performance</h3>
+            <ul>
+              <li>Public harness fixtures are synthetic</li>
+              <li>Six development packets are not a held-out benchmark</li>
+              <li>No general Agent-effectiveness claim</li>
+              <li>No guarantee that downstream conclusions are correct</li>
+            </ul>
+          </article>
+          <article class="scope-card scope-card--next" data-reveal="pop">
+            <p class="scope-card__label">Proposed next validation</p>
+            <h3>Freeze held-out comparison tasks</h3>
+            <p>Evaluate locator quality, missing-gate recall, provenance completeness, unsafe allows, and expert correction time on held-out TaskPackets that were not exposed during development.</p>
+          </article>
+        </div>
+      </section>
+    </article>
+
+    <nav class="case-pagination" aria-label="Project navigation">
+      <div class="section-shell">
+        <a href="../projects/careplan.html"><span>Previous case study</span><strong>← CarePlan</strong></a>
+        <a href="ligamd-pkoff.html"><span>Next research note</span><strong>HSP90 / LiGaMD →</strong></a>
+      </div>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="section-shell site-footer__inner">
+      <p>© 2026 Zhenpeng Liu</p>
+      <p>Dynamics Atlas · Research engineering case study</p>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+</body>
+</html>

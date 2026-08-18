@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CarePlan Backend Case Study — Zhenpeng Liu</title>
+  <meta name="description" content="How CarePlan keeps synthetic AI drafting behind deterministic rules, durable state, idempotency, and pharmacist-role review.">
+  <meta name="theme-color" content="#e9edf2">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://alex051107.github.io/personal-website/projects/careplan.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="CarePlan Backend Case Study — Zhenpeng Liu">
+  <meta property="og:description" content="A synthetic backend workflow for rules, typed drafting, idempotency, and role-owned review.">
+  <meta property="og:url" content="https://alex051107.github.io/personal-website/projects/careplan.html">
+  <meta property="og:image" content="https://alex051107.github.io/personal-website/images/project-visuals/careplan-editorial.jpg">
+  <meta property="og:image:alt" content="Editorial model of a synthetic order moving through rules, drafting, validation, and approval">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../css/styles.css?v=dc1cdf1">
+  <script defer src="../js/site-motion.js?v=186a14c"></script>
+</head>
+<body class="case-page case-page--coral">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page-progress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="wordmark" href="../index.html#top" aria-label="Zhenpeng Liu, portfolio home">
+        <span class="wordmark__initials">Zhenpeng Liu</span><span class="wordmark__index">刘振鹏</span>
+      </a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="../index.html#work">Projects</a>
+        <a href="../index.html#method">Approach</a>
+        <a href="../index.html#about">Profile</a>
+        <a class="primary-nav__contact" href="mailto:liualex@unc.edu">Contact ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article class="case-study" id="top">
+      <header class="case-hero">
+        <div class="section-shell case-hero__grid">
+          <div class="case-hero__copy">
+            <a class="case-back" href="../index.html#careplan">← All projects</a>
+            <p class="eyebrow">Backend workflow case study · Synthetic prototype</p>
+            <h1>CarePlan</h1>
+            <p class="case-hero__lead">A model may draft a plan, but it should not skip hard rules, create duplicate records, or approve its own output. CarePlan puts the model inside a stateful backend workflow with explicit failure and review paths.</p>
+            <div class="case-hero__actions">
+              <a class="button button--primary" href="https://github.com/alex051107/projects/tree/main/careplan_workflow_harness" target="_blank" rel="noopener noreferrer">Open public harness <span aria-hidden="true">↗</span></a>
+              <a class="button" href="#system">See control flow <span aria-hidden="true">↓</span></a>
+            </div>
+          </div>
+          <figure class="case-hero__visual">
+            <img src="../images/project-visuals/careplan-editorial.jpg" alt="Editorial model of a synthetic order moving through rules, drafting, validation, and a separate approval station" width="1536" height="1024" fetchpriority="high">
+            <figcaption>Rules and state transitions surround the model; the final decision remains in a reviewer role.</figcaption>
+          </figure>
+        </div>
+      </header>
+
+      <section class="case-glance section-shell" aria-labelledby="glance-title">
+        <h2 id="glance-title" class="visually-hidden">Project at a glance</h2>
+        <dl>
+          <div><dt>Type</dt><dd>Synthetic backend workflow</dd></div>
+          <div><dt>Time</dt><dd>Feb 2026—Present</dd></div>
+          <div><dt>My work shown here</dt><dd>State machine, backend controls, failure tests</dd></div>
+          <div><dt>Core problem</dt><dd>Model output must not bypass rules or approval</dd></div>
+          <div><dt>Recorded result</dt><dd>200/200 permission and state checks</dd></div>
+          <div><dt>Stack</dt><dd>Django / DRF · PostgreSQL · Celery · Redis</dd></div>
+        </dl>
+      </section>
+
+      <nav class="case-contents section-shell" aria-label="Case study contents">
+        <p>In this case study</p>
+        <a href="#problem">Problem</a>
+        <a href="#system">System</a>
+        <a href="#decisions">Decisions</a>
+        <a href="#evaluation">Evaluation</a>
+        <a href="#scope">Scope</a>
+      </nav>
+
+      <section class="case-section section-shell" id="problem">
+        <header class="case-section__label" data-reveal="rise">
+          <p>01 / Problem</p>
+          <h2>A draft provider should not control the workflow around its draft.</h2>
+        </header>
+        <div class="case-section__body prose" data-reveal="rise">
+          <p>A model response can arrive late, use the wrong fields, repeat a previous request, or contain language that looks like an approval. If the application treats that response as the final record, a provider failure becomes a workflow failure.</p>
+          <p>CarePlan separates four responsibilities. Deterministic rules decide whether a synthetic order can proceed. The model fills a typed draft. Server code validates the fields and state transition. A reviewer account with the pharmacist role owns the final decision inside the prototype.</p>
+          <aside class="case-callout">
+            <p class="case-callout__label">Design question</p>
+            <p>Which decisions must remain deterministic when a model participates in a workflow with state, permissions, retries, and human review?</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="case-section case-section--tinted" id="system">
+        <header class="case-section__label section-shell" data-reveal="rise">
+          <p>02 / System</p>
+          <h2>Model output enters a queue, not an approval state.</h2>
+        </header>
+        <div class="section-shell case-section__wide">
+          <figure class="project-diagram" aria-labelledby="careplan-flow-caption" data-reveal="rise">
+            <div class="project-diagram__canvas">
+              <p class="project-diagram__context"><span>Implemented workflow</span><span>Synthetic portfolio data · no clinical use</span></p>
+              <ol class="project-diagram__route project-diagram__route--seven" aria-label="CarePlan workflow from a synthetic order through hard stops, queued drafting, typed validation, and pharmacist-role review">
+                <li><small>Input</small><strong>Synthetic order</strong></li>
+                <li class="project-diagram__gate"><small>Rules</small><strong>Hard stops</strong><span class="project-diagram__branch">Rejected</span></li>
+                <li><small>State</small><strong>Draft queued</strong></li>
+                <li><small>Provider</small><strong>Typed draft</strong></li>
+                <li class="project-diagram__gate"><small>Validate</small><strong>Schema and version</strong><span class="project-diagram__branch">Failed / retry</span></li>
+                <li><small>State</small><strong>Review pending</strong></li>
+                <li><small>Owner</small><strong>Pharmacist role</strong></li>
+              </ol>
+            </div>
+            <figcaption id="careplan-flow-caption">A valid provider response can reach <code>REVIEW_PENDING</code>. It cannot contain an approval field or move itself into an approved state.</figcaption>
+          </figure>
+
+          <div class="surface-grid" data-reveal="pop">
+            <article>
+              <p class="surface-grid__label">Local prototype</p>
+              <h3>Stateful application path</h3>
+              <p>The application design uses a backend state machine, persisted records, queued drafting, schema validation, role checks, idempotency, retry limits, and audit receipts.</p>
+              <p class="surface-grid__note">The stack shown on the portfolio is Django / DRF, PostgreSQL, Celery, Redis, and OpenTelemetry.</p>
+            </article>
+            <article>
+              <p class="surface-grid__label">Public surface</p>
+              <h3>Deterministic control-plane harness</h3>
+              <p>The public Python harness distills the workflow contract with synthetic inputs and SQLite. It demonstrates state, idempotency, schema, version, reviewer-role, and receipt behavior without publishing private repository history.</p>
+              <p class="surface-grid__note">The harness does not contact a model service and is not a distributed-deployment claim.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section section-shell" id="decisions">
+        <header class="case-section__label" data-reveal="rise">
+          <p>03 / Decisions</p>
+          <h2>The backend owns the decisions that must repeat exactly.</h2>
+        </header>
+        <div class="case-section__body decision-stack">
+          <article class="decision-card" data-reveal="pop">
+            <p class="decision-card__index">Decision 01</p>
+            <h3>Run hard stops before drafting.</h3>
+            <dl>
+              <div><dt>Why</dt><dd>An ineligible synthetic order should not consume a provider call or enter a review queue.</dd></div>
+              <div><dt>Alternative considered</dt><dd>Let the model interpret every order first and ask it whether the order should proceed.</dd></div>
+              <div><dt>Trade-off</dt><dd>Rules require explicit maintenance, but the same input produces the same stop before model behavior can affect it.</dd></div>
+            </dl>
+          </article>
+          <article class="decision-card" data-reveal="pop">
+            <p class="decision-card__index">Decision 02</p>
+            <h3>Persist state and require an expected version.</h3>
+            <dl>
+              <div><dt>Why</dt><dd>A delayed provider response or second reviewer must not overwrite a newer workflow decision.</dd></div>
+              <div><dt>Alternative considered</dt><dd>Store only the final plan and infer the path from logs after a failure.</dd></div>
+              <div><dt>Trade-off</dt><dd>More transitions and version checks are stored, but stale work fails instead of silently changing the record.</dd></div>
+            </dl>
+          </article>
+          <article class="decision-card" data-reveal="pop">
+            <p class="decision-card__index">Decision 03</p>
+            <h3>Make repeated requests idempotent.</h3>
+            <dl>
+              <div><dt>Why</dt><dd>Network retries and repeated clicks should not create multiple plans or duplicate downstream jobs.</dd></div>
+              <div><dt>Alternative considered</dt><dd>Create a new plan for every submission and deduplicate later.</dd></div>
+              <div><dt>Trade-off</dt><dd>The server must bind an idempotency key to the original payload, but a same-key retry returns the same plan while changed reuse is rejected.</dd></div>
+            </dl>
+          </article>
+          <article class="decision-card" data-reveal="pop">
+            <p class="decision-card__index">Decision 04</p>
+            <h3>Remove approval from the provider schema.</h3>
+            <dl>
+              <div><dt>Why</dt><dd>A model should not be able to grant itself authority by emitting a plausible field.</dd></div>
+              <div><dt>Alternative considered</dt><dd>Accept a free-form plan and filter approval language after generation.</dd></div>
+              <div><dt>Trade-off</dt><dd>The provider can fill fewer fields, but the schema itself prevents an approval transition from entering through model output.</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <section class="case-section case-section--tinted" id="evaluation">
+        <header class="case-section__label section-shell" data-reveal="rise">
+          <p>04 / Evaluation</p>
+          <h2>Test the permission and state contract directly.</h2>
+        </header>
+        <div class="section-shell case-section__wide">
+          <div class="metric-band metric-band--careplan" data-reveal="pop">
+            <div><span>Permission and state checks</span><strong>200 / 200</strong></div>
+            <div><span>Synthetic orders</span><strong>120</strong></div>
+            <div><span>Stopped by rules</span><strong>50</strong></div>
+            <div><span>Reached review</span><strong>70</strong></div>
+          </div>
+
+          <div class="evaluation-grid">
+            <div class="prose" data-reveal="rise">
+              <h3>What a pass means</h3>
+              <p>The recorded checks exercise permission boundaries and workflow-state behavior. The 120 synthetic orders also show the intended branch distribution: 50 stop at deterministic rules and 70 reach the review state.</p>
+              <p>Repeating the same request produced one plan in the recorded test. That checks the idempotency contract; it does not establish production behavior under a distributed deployment.</p>
+            </div>
+            <div class="behavior-table" data-reveal="pop">
+              <div><span>Invalid provider fields</span><strong>FAILED receipt</strong></div>
+              <div><span>Repeated same payload</span><strong>Return original plan</strong></div>
+              <div><span>Changed payload, same key</span><strong>Reject reuse</strong></div>
+              <div><span>Stale review version</span><strong>Reject transition</strong></div>
+              <div><span>Non-pharmacist reviewer</span><strong>Reject decision</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section section-shell" id="scope">
+        <header class="case-section__label" data-reveal="rise">
+          <p>05 / Scope</p>
+          <h2>This is a backend control-flow prototype, not clinical software.</h2>
+        </header>
+        <div class="case-section__body scope-grid">
+          <article class="scope-card scope-card--current" data-reveal="pop">
+            <p class="scope-card__label">Current scope</p>
+            <h3>Synthetic workflow contract</h3>
+            <ul>
+              <li>Hard rules before provider work</li>
+              <li>Typed draft and explicit workflow state</li>
+              <li>Role-restricted final decision</li>
+              <li>Idempotency, version, and audit receipts</li>
+            </ul>
+          </article>
+          <article class="scope-card" data-reveal="pop">
+            <p class="scope-card__label">Not established</p>
+            <h3>Clinical or production use</h3>
+            <ul>
+              <li>No real patient data</li>
+              <li>No drug recommendation or clinical decision support</li>
+              <li>No autonomous approval</li>
+              <li>No distributed or production deployment claim</li>
+            </ul>
+          </article>
+          <article class="scope-card scope-card--next" data-reveal="pop">
+            <p class="scope-card__label">Proposed next validation</p>
+            <h3>Inject failures across the full state path</h3>
+            <p>Exercise malformed provider output, timeout, crash-before-commit, repeated submission, and unauthorized review against a frozen synthetic set, then verify zero duplicate side effects and complete audit events.</p>
+          </article>
+        </div>
+      </section>
+    </article>
+
+    <nav class="case-pagination" aria-label="Project navigation">
+      <div class="section-shell">
+        <a href="evidenceops.html"><span>Previous case study</span><strong>← EvidenceOps</strong></a>
+        <a href="../research/dynamics-atlas.html"><span>Next case study</span><strong>Dynamics Atlas →</strong></a>
+      </div>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="section-shell site-footer__inner">
+      <p>© 2026 Zhenpeng Liu</p>
+      <p>CarePlan · Backend workflow case study</p>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+</body>
+</html>

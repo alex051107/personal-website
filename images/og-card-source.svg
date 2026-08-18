@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
-  <title id="title">Zhenpeng Liu — AI tools and scientific software</title>
+  <title id="title">Zhenpeng Liu — AI applications and scientific software</title>
   <desc id="description">A natural portrait of Zhenpeng Liu beside a concise description of his portfolio.</desc>
   <rect width="1200" height="630" fill="#f7f9fc"/>
   <rect width="1200" height="10" fill="#155eef"/>
@@ -10,16 +10,16 @@
     <text x="58" y="68" font-size="22" font-weight="800" letter-spacing="-0.6">Zhenpeng Liu</text>
     <text x="220" y="68" font-size="14" font-weight="700" fill="#155eef">刘振鹏</text>
 
-    <text x="58" y="179" font-family="SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="700" letter-spacing="1.2" fill="#155eef">AI APPLICATIONS · BACKEND SYSTEMS · SCIENTIFIC COMPUTING</text>
+    <text x="58" y="179" font-family="SFMono-Regular, Menlo, Consolas, monospace" font-size="13" font-weight="700" letter-spacing="1.2" fill="#155eef">AI APPLICATION ENGINEERING · SCIENTIFIC COMPUTING</text>
 
-    <text x="58" y="252" font-size="76" font-weight="760" letter-spacing="-4.6">
-      <tspan x="58" dy="0">I build AI tools</tspan>
-      <tspan x="58" dy="73">and scientific</tspan>
-      <tspan x="58" dy="73">software.</tspan>
+    <text x="58" y="252" font-size="67" font-weight="760" letter-spacing="-4.2">
+      <tspan x="58" dy="0">I build AI</tspan>
+      <tspan x="58" dy="70">applications and</tspan>
+      <tspan x="58" dy="70">scientific software.</tspan>
     </text>
 
     <line x1="58" y1="532" x2="638" y2="532" stroke="#101722" stroke-opacity="0.22"/>
-    <text x="58" y="573" font-size="19" fill="#596575">Scientific evidence · Human-reviewed workflows</text>
+    <text x="58" y="573" font-size="19" fill="#596575">Literature evidence · Backend AI workflows</text>
     <text x="58" y="603" font-size="19" fill="#596575">Molecular simulation · UNC Chapel Hill</text>
   </g>
 

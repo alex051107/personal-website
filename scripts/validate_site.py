@@ -23,6 +23,13 @@ REQUIRED_ANCHORS = {
     "about",
     "contact",
 }
+CONTENT_PAGES = {
+    Path("index.html"),
+    Path("projects/evidenceops.html"),
+    Path("projects/careplan.html"),
+    Path("research/dynamics-atlas.html"),
+    Path("research/ligamd-pkoff.html"),
+}
 STALE_STRINGS = {
     "zwt233": "reference-site identity leaked into the portfolio",
     "github.com/ZhenpengLiu": "wrong GitHub account",
@@ -31,6 +38,8 @@ STALE_STRINGS = {
     "SURF Research Fellow": "unsupported fellowship role",
     "physical koff from simulation": "overstated kinetic claim",
     "I build AI systems that know when to stop": "superseded hero positioning",
+    "I build AI tools and scientific software": "superseded hero positioning",
+    "I use AI-assisted coding, but I remain responsible": "removed defensive ownership disclosure",
     "Proof before polish": "superseded project-section positioning",
 }
 
@@ -114,16 +123,6 @@ def main() -> int:
     index = ROOT / "index.html"
     css_path = ROOT / "css" / "styles.css"
     motion_script = ROOT / "js" / "site-motion.js"
-    expected_css_source = (
-        f"css/styles.css?v={git_blob_sha(css_path)[:7]}" if css_path.exists() else "css/styles.css?v=missing"
-    )
-    expected_motion_source = (
-        f"js/site-motion.js?v={git_blob_sha(motion_script)[:7]}"
-        if motion_script.exists()
-        else "js/site-motion.js?v=missing"
-    )
-    allowed_runtime_scripts = {expected_motion_source}
-
     if index.resolve() not in pages:
         errors.append("index.html is missing")
     else:
@@ -131,8 +130,18 @@ def main() -> int:
         if missing:
             errors.append(f"index.html is missing anchors: {sorted(missing)}")
 
+    parsed_relative_pages = {page.relative_to(ROOT) for page in pages}
+    missing_content_pages = CONTENT_PAGES - parsed_relative_pages
+    if missing_content_pages:
+        errors.append(f"content pages are missing: {sorted(map(str, missing_content_pages))}")
+
     for page, parser in pages.items():
         relative_page = page.relative_to(ROOT)
+        is_content_page = relative_page in CONTENT_PAGES
+        depth_prefix = "../" * (len(relative_page.parts) - 1)
+        expected_page_css = f"{depth_prefix}css/styles.css?v={git_blob_sha(css_path)[:7]}"
+        expected_page_motion = f"{depth_prefix}js/site-motion.js?v={git_blob_sha(motion_script)[:7]}"
+        page_text = page.read_text(encoding="utf-8")
         if parser.duplicate_ids:
             errors.append(f"{relative_page}: duplicate ids: {sorted(parser.duplicate_ids)}")
         if parser.h1_count > 1:
@@ -189,46 +198,53 @@ def main() -> int:
             if not target.exists():
                 errors.append(f"{relative_page}: missing {tag} asset: {source}")
 
-        if relative_page == Path("index.html"):
+        if is_content_page:
             if parser.h1_count != 1:
-                errors.append(f"index.html: expected exactly one h1, found {parser.h1_count}")
+                errors.append(f"{relative_page}: expected exactly one h1, found {parser.h1_count}")
             for image in parser.images:
                 missing_attrs = [name for name in ("alt", "width", "height") if not image.get(name)]
                 if missing_attrs:
-                    errors.append(f"index.html: image {image.get('src', '<unknown>')} lacks {', '.join(missing_attrs)}")
-            if set(parser.scripts_with_src) != allowed_runtime_scripts or len(parser.scripts_with_src) != 1:
+                    errors.append(
+                        f"{relative_page}: image {image.get('src', '<unknown>')} "
+                        f"lacks {', '.join(missing_attrs)}"
+                    )
+            if parser.scripts_with_src != [expected_page_motion]:
                 errors.append(
-                    "index.html: expected only the current fingerprinted local motion script: "
-                    f"{sorted(allowed_runtime_scripts)}, found {parser.scripts_with_src}"
+                    f"{relative_page}: expected only the current fingerprinted local motion script: "
+                    f"{expected_page_motion}, found {parser.scripts_with_src}"
                 )
             for script in parser.scripts:
-                if script.get("src") in allowed_runtime_scripts and "defer" not in script:
-                    errors.append(f"index.html: local motion script must be deferred: {script['src']}")
+                if script.get("src") == expected_page_motion and "defer" not in script:
+                    errors.append(f"{relative_page}: local motion script must be deferred: {script['src']}")
             inline_scripts = [script for script in parser.scripts if not script.get("src")]
-            if len(inline_scripts) != 1 or inline_scripts[0].get("type") != "application/ld+json":
+            if relative_page == Path("index.html"):
+                if len(inline_scripts) != 1 or inline_scripts[0].get("type") != "application/ld+json":
+                    errors.append(
+                        "index.html: expected exactly one inline JSON-LD block and no inline runtime scripts"
+                    )
+            elif inline_scripts:
+                errors.append(f"{relative_page}: case-study page has unexpected inline scripts")
+            if f'<link rel="stylesheet" href="{expected_page_css}">' not in page_text:
                 errors.append(
-                    "index.html: expected exactly one inline JSON-LD block and no inline runtime scripts"
+                    f"{relative_page}: stylesheet URL must use the current content fingerprint: "
+                    f"{expected_page_css}"
                 )
+            for needle in (
+                '<meta name="description"',
+                '<link rel="canonical"',
+                'property="og:title"',
+                'property="og:image"',
+                'name="twitter:card"',
+                'class="skip-link"',
+            ):
+                if needle not in page_text:
+                    errors.append(f"{relative_page}: required metadata/accessibility hook missing: {needle}")
         elif parser.scripts:
             errors.append(f"{relative_page}: redirect/archive page has unexpected scripts")
 
     index_text = index.read_text(encoding="utf-8") if index.exists() else ""
-    if f'<link rel="stylesheet" href="{expected_css_source}">' not in index_text:
-        errors.append(
-            "index.html: stylesheet URL must use the current content fingerprint: "
-            f"{expected_css_source}"
-        )
-    for needle in (
-        '<meta name="description"',
-        '<link rel="canonical"',
-        'property="og:title"',
-        'property="og:image"',
-        'name="twitter:card"',
-        'type="application/ld+json"',
-        'class="skip-link"',
-    ):
-        if needle not in index_text:
-            errors.append(f"index.html: required metadata/accessibility hook missing: {needle}")
+    if 'type="application/ld+json"' not in index_text:
+        errors.append('index.html: required metadata hook missing: type="application/ld+json"')
 
     for exact in (
         '<title>Zhenpeng Liu — AI Application Engineering &amp; Scientific Software</title>',

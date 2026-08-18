@@ -4,23 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Zhenpeng Liu — AI Application Engineering &amp; Scientific Software</title>
-  <meta name="description" content="Zhenpeng Liu builds AI applications and scientific software for evidence search, reviewed workflows, molecular-data validation, and simulation analysis.">
+  <meta name="description" content="Zhenpeng Liu builds AI applications and scientific software for literature evidence, stateful backend workflows, molecular-data validation, and LiGaMD analysis.">
   <meta name="theme-color" content="#e9edf2">
   <meta name="color-scheme" content="light">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="canonical" href="https://alex051107.github.io/personal-website/">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Zhenpeng Liu">
   <meta property="og:title" content="Zhenpeng Liu — AI Application Engineering &amp; Scientific Software">
-  <meta property="og:description" content="AI applications and scientific software with explicit inputs, testable outputs, and clear human-review boundaries.">
+  <meta property="og:description" content="Four engineering and research projects with inspectable decisions, test results, and current scope.">
   <meta property="og:url" content="https://alex051107.github.io/personal-website/">
   <meta property="og:image" content="https://alex051107.github.io/personal-website/images/og-card.jpg">
-  <meta property="og:image:alt" content="Zhenpeng Liu portfolio with a natural portrait and the statement: I build AI tools and scientific software">
+  <meta property="og:image:alt" content="Zhenpeng Liu portfolio with a natural portrait and the statement: I build AI applications and scientific software">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Zhenpeng Liu — AI Application Engineering &amp; Scientific Software">
-  <meta name="twitter:description" content="AI applications and scientific software with explicit inputs, testable outputs, and clear human-review boundaries.">
+  <meta name="twitter:description" content="Four engineering and research projects with inspectable decisions, test results, and current scope.">
   <meta name="twitter:image" content="https://alex051107.github.io/personal-website/images/og-card.jpg">
-  <meta name="twitter:image:alt" content="Zhenpeng Liu portfolio with a natural portrait and the statement: I build AI tools and scientific software">
+  <meta name="twitter:image:alt" content="Zhenpeng Liu portfolio with a natural portrait and the statement: I build AI applications and scientific software">
 
   <script type="application/ld+json">
   {
@@ -44,12 +45,12 @@
       "retrieval-augmented generation",
       "scientific machine learning",
       "molecular dynamics",
-      "human-in-the-loop systems"
+      "human-reviewed workflows"
     ]
   }
   </script>
 
-  <link rel="stylesheet" href="css/styles.css?v=9e3c8ab">
+  <link rel="stylesheet" href="css/styles.css?v=dc1cdf1">
   <script defer src="js/site-motion.js?v=186a14c"></script>
 </head>
 <body>
@@ -74,12 +75,12 @@
     <section class="hero" id="top">
       <div class="section-shell hero__inner">
         <div class="hero__copy">
-          <p class="eyebrow">AI Applications · Backend Systems · Scientific Computing</p>
-          <h1>I build AI tools and scientific software.</h1>
-          <p class="hero__deck">I work on four concrete problems: finding claims in scientific papers while preserving the source; drafting synthetic pharmacy plans while leaving approval to a pharmacist; checking whether molecular datasets can be compared; and turning HSP90 LiGaMD trajectories into one evaluated record per system. For each project, I show the code path, tests, and current limit.</p>
-          <p class="hero__meta">UNC Chapel Hill · Biology + Computer Science · Expected May 2028</p>
+          <p class="eyebrow">AI Application Engineering · Scientific Computing</p>
+          <h1>I build AI applications and scientific software.</h1>
+          <p class="hero__deck">I study Biology and Computer Science at UNC. My projects combine backend engineering with scientific work, from literature evidence and backend workflows with human review to molecular simulation.</p>
+          <p class="hero__meta">UNC Chapel Hill · Expected May 2028</p>
           <div class="hero__actions" aria-label="Primary links">
-            <a class="button button--primary" href="#work">See selected work <span aria-hidden="true">↓</span></a>
+            <a class="button button--primary" href="#work">Explore projects <span aria-hidden="true">↓</span></a>
             <a class="button" href="https://github.com/alex051107" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
           </div>
         </div>
@@ -98,306 +99,134 @@
       </div>
     </section>
 
-    <section class="focus-strip" aria-label="Areas of focus">
-      <div class="section-shell focus-strip__inner" data-reveal="rise">
-        <p>Scientific evidence</p>
-        <p>Reviewed AI workflows</p>
-        <p>Molecular simulation</p>
-      </div>
-    </section>
-
     <section class="work section-shell" id="work">
       <header class="section-intro" data-reveal="rise">
         <p class="eyebrow">Selected work</p>
         <div>
-          <h2>Four projects, each built around a specific problem.</h2>
-          <p>A claim can lose its source, an AI draft can bypass approval, incompatible data can enter an analysis, or repeated samples can inflate a model score. Each case shows the software I built, the recorded test result, and the current limitation.</p>
+          <h2>Four projects, four different failure points.</h2>
+          <p>A scientific claim can lose its source, a model-generated plan can bypass approval, two molecular datasets can be incompatible, and repeated simulation frames can be mistaken for independent samples. Each case study shows the decision that changed the system, the recorded result, and the current scope.</p>
         </div>
       </header>
 
-      <article class="project project--blue" id="evidenceops">
-        <header class="project__header">
-          <p class="project__number">01</p>
-          <div>
-            <p class="project__meta">Public MVP + local test build · Jun 2026—Present</p>
-            <h3>EvidenceOps</h3>
-            <p class="project__tagline">Keep every scientific claim tied to the source that supports it.</p>
-          </div>
-          <p class="project__status"><span aria-hidden="true"></span> Public MVP</p>
-        </header>
-
-        <div class="project__body">
-          <div class="project__main">
-            <p class="project__summary">EvidenceOps helps a researcher search public papers, extract a specific result, and carry the source, page, experiment conditions, and supporting text into review. If the cited passage does not support the claim, the system marks it unsupported instead of guessing. Its fixed synthetic test set passed 70/70 cases.</p>
-
-            <figure class="project-diagram" aria-labelledby="evidenceops-diagram-caption" data-reveal="rise">
-              <div class="project-diagram__art">
-                <img src="images/project-visuals/evidenceops-editorial.jpg" alt="Editorial model of a source passage staying physically connected to a reviewed scientific claim" width="1536" height="1024" loading="lazy" decoding="async">
-              </div>
-              <div class="project-diagram__canvas">
-                <p class="project-diagram__context"><span>Implemented workflow</span><span>Public MVP · fixed synthetic tests</span></p>
-                <ol class="project-diagram__route" aria-label="EvidenceOps workflow from a versioned source through retrieval and deterministic support checks to reviewer release">
-                  <li><small>Input</small><strong>Versioned source</strong></li>
-                  <li><small>Search</small><strong>Keyword and vector</strong></li>
-                  <li><small>Extract</small><strong>Claim and citation</strong></li>
-                  <li class="project-diagram__gate"><small>Check</small><strong>Text, unit, context</strong><span class="project-diagram__branch">Unsupported</span></li>
-                  <li><small>Decision</small><strong>Human review</strong></li>
-                </ol>
-              </div>
-              <figcaption id="evidenceops-diagram-caption">A relevant search result is only the start. The cited text, unit, and experiment conditions must match the claim before a reviewer sees it.</figcaption>
-            </figure>
-
-            <div class="project__details">
+      <div class="work-grid">
+        <article class="work-card work-card--blue" id="evidenceops" data-reveal="pop">
+          <a class="work-card__image" href="projects/evidenceops.html" aria-label="Read the EvidenceOps case study">
+            <img src="images/project-visuals/evidenceops-editorial.jpg" alt="Editorial model of a source passage remaining connected to a reviewed scientific claim" width="1536" height="1024" loading="lazy" decoding="async">
+          </a>
+          <div class="work-card__content">
+            <header class="work-card__header">
               <div>
-                <h4>What I built</h4>
-                <ul>
-                  <li>Stored each public source with its version and location, then combined keyword and vector search to find passages.</li>
-                  <li>Extracted values, units, measurement type, experiment conditions, supporting text, and citation into a fixed structure.</li>
-                  <li>Checked that the cited text supports the claim and that units and conditions match before sending it to review.</li>
-                </ul>
+                <p class="work-card__meta">Engineering case study · Public MVP</p>
+                <h3><a href="projects/evidenceops.html">EvidenceOps</a></h3>
               </div>
-              <div>
-                <h4>Why I designed it this way</h4>
-                <p>Finding a relevant passage is only step one. A claim moves forward only when the cited text, unit, and experiment conditions match. Otherwise, the system returns “unsupported” instead of filling the gap from model memory.</p>
-              </div>
+              <p class="work-card__status">Jun 2026—Present</p>
+            </header>
+            <p class="work-card__problem">A relevant paper can still fail to support the exact value, unit, or experimental condition in a claim.</p>
+            <p class="work-card__contribution">I built a retrieval and review workflow that keeps source context attached and returns “unsupported” when the cited passage does not match.</p>
+            <ol class="work-card__route" aria-label="EvidenceOps workflow summary">
+              <li>Source context</li><li>Support check</li><li>Human review</li>
+            </ol>
+            <div class="work-card__result">
+              <p><span>Recorded result</span><strong>70 / 70</strong></p>
+              <p>20 search cases · 50 extraction or validation cases</p>
+            </div>
+            <p class="work-card__scope"><strong>Current scope</strong> Public or synthetic inputs; no production or open-ended scientific-accuracy claim.</p>
+            <div class="work-card__links">
+              <a href="projects/evidenceops.html">Read case study <span aria-hidden="true">→</span></a>
+              <a href="https://alex051107.github.io/evidenceops-public-mvp/" target="_blank" rel="noopener noreferrer">Open demo <span aria-hidden="true">↗</span></a>
+              <a href="https://github.com/alex051107/evidenceops-public-mvp" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>
             </div>
           </div>
+        </article>
 
-          <aside class="project__aside" aria-label="EvidenceOps validation and limits">
-            <div class="evidence-card">
-              <p class="evidence-card__label">Test result</p>
-              <p class="evidence-card__value">70 / 70</p>
-              <p>The fixed synthetic test set covered 20 search cases and 50 extraction or validation cases.</p>
-            </div>
-            <div class="boundary-card">
-              <p class="boundary-card__label">What this does not prove</p>
-              <p>It uses public or synthetic inputs. These tests do not show production use, customer deployment, or scientific accuracy on open-ended research questions.</p>
-            </div>
-            <div class="project__links">
-              <a href="https://github.com/alex051107/evidenceops-public-mvp" target="_blank" rel="noopener noreferrer">Repository <span aria-hidden="true">↗</span></a>
-              <a href="https://alex051107.github.io/evidenceops-public-mvp/" target="_blank" rel="noopener noreferrer">Static console <span aria-hidden="true">↗</span></a>
-            </div>
-          </aside>
-        </div>
-
-        <footer class="tag-list" aria-label="EvidenceOps local build technologies">
-          <span class="tag-list__scope">Local build stack</span><span>Python</span><span>FastAPI</span><span>PostgreSQL / pgvector</span><span>Redis</span><span>Docker Compose</span><span>RAG</span>
-        </footer>
-      </article>
-
-      <article class="project project--coral" id="careplan">
-        <header class="project__header">
-          <p class="project__number">02</p>
-          <div>
-            <p class="project__meta">Synthetic workflow · Feb 2026—Present</p>
-            <h3>CarePlan</h3>
-            <p class="project__tagline">Draft a pharmacy plan without giving the AI approval authority.</p>
-          </div>
-          <p class="project__status"><span aria-hidden="true"></span> Local prototype</p>
-        </header>
-
-        <div class="project__body">
-          <div class="project__main">
-            <p class="project__summary">CarePlan moves a synthetic pharmacy order through rule checks, AI drafting, field validation, and pharmacist review. The AI can draft but cannot approve. All 200 permission and workflow-state checks passed; among 120 synthetic orders, 50 stopped at rules and 70 reached review.</p>
-
-            <figure class="project-diagram" aria-labelledby="careplan-diagram-caption" data-reveal="rise">
-              <div class="project-diagram__art">
-                <img src="images/project-visuals/careplan-editorial.jpg" alt="Editorial model of a synthetic order moving through rule gates, drafting, validation, and a separate approval station" width="1536" height="1024" loading="lazy" decoding="async">
-              </div>
-              <div class="project-diagram__canvas">
-                <p class="project-diagram__context"><span>Implemented workflow</span><span>Synthetic portfolio data · no clinical use</span></p>
-                <ol class="project-diagram__route project-diagram__route--seven" aria-label="CarePlan workflow from a synthetic order through hard stops, queued drafting, typed validation, and pharmacist-owned review">
-                  <li><small>Input</small><strong>Synthetic order</strong></li>
-                  <li class="project-diagram__gate"><small>Rules</small><strong>Hard stops</strong><span class="project-diagram__branch">Rejected</span></li>
-                  <li><small>State</small><strong>Draft queued</strong></li>
-                  <li><small>Model</small><strong>Typed draft</strong></li>
-                  <li class="project-diagram__gate"><small>Validate</small><strong>Schema and state</strong><span class="project-diagram__branch">Failed / retry</span></li>
-                  <li><small>State</small><strong>Review pending</strong></li>
-                  <li><small>Owner</small><strong>Pharmacist</strong></li>
-                </ol>
-              </div>
-              <figcaption id="careplan-diagram-caption">The AI drafts a plan. Server rules check required fields and workflow state, and a pharmacist remains responsible for approval.</figcaption>
-            </figure>
-
-            <div class="project__details">
+        <article class="work-card work-card--coral" id="careplan" data-reveal="pop" data-reveal-delay="70">
+          <a class="work-card__image" href="projects/careplan.html" aria-label="Read the CarePlan case study">
+            <img src="images/project-visuals/careplan-editorial.jpg" alt="Editorial model of a synthetic order moving through rules, drafting, validation, and a separate approval station" width="1536" height="1024" loading="lazy" decoding="async">
+          </a>
+          <div class="work-card__content">
+            <header class="work-card__header">
               <div>
-                <h4>What I built</h4>
-                <ul>
-                  <li>Built a state machine that records each step from submission and drafting through review, approval, rejection, or reopening.</li>
-                  <li>Made repeat submissions safe, restricted approval by role, recorded audit receipts, and limited retries after provider failure.</li>
-                  <li>Checked every AI draft for required fields and valid workflow state before it entered the pharmacist review queue.</li>
-                </ul>
+                <p class="work-card__meta">Backend workflow case study · Local prototype</p>
+                <h3><a href="projects/careplan.html">CarePlan</a></h3>
               </div>
-              <div>
-                <h4>Why I designed it this way</h4>
-                <p>The AI can write a draft, but it cannot approve one. Missing fields, serious conflicts, user permissions, and approval remain in server code.</p>
-              </div>
+              <p class="work-card__status">Feb 2026—Present</p>
+            </header>
+            <p class="work-card__problem">A malformed or repeated model response should not skip rules, create duplicate plans, or approve its own draft.</p>
+            <p class="work-card__contribution">I built a synthetic backend workflow where server code controls permissions, state, retries, and approval transitions.</p>
+            <ol class="work-card__route" aria-label="CarePlan workflow summary">
+              <li>Hard rules</li><li>Typed draft</li><li>Role review</li>
+            </ol>
+            <div class="work-card__result">
+              <p><span>Recorded result</span><strong>200 / 200</strong></p>
+              <p>Permission and workflow-state checks · 120 synthetic orders</p>
             </div>
-          </div>
-
-          <aside class="project__aside" aria-label="CarePlan validation and limits">
-            <div class="evidence-card">
-              <p class="evidence-card__label">Test result</p>
-              <p class="evidence-card__value">200 / 200</p>
-              <p>All 200 permission and workflow-state checks passed. In 120 synthetic orders, 50 stopped at rule checks and 70 reached human review. Repeating the same request created one plan.</p>
-            </div>
-            <div class="boundary-card">
-              <p class="boundary-card__label">What this does not prove</p>
-              <p>Synthetic portfolio workflow only. No real patient data, clinical recommendation, autonomous approval, or production use.</p>
-            </div>
-            <div class="project__links">
+            <p class="work-card__scope"><strong>Current scope</strong> Synthetic portfolio workflow; no patient data, clinical recommendation, or production use.</p>
+            <div class="work-card__links">
+              <a href="projects/careplan.html">Read case study <span aria-hidden="true">→</span></a>
               <a href="https://github.com/alex051107/projects/tree/main/careplan_workflow_harness" target="_blank" rel="noopener noreferrer">Public harness <span aria-hidden="true">↗</span></a>
             </div>
-          </aside>
-        </div>
-
-        <footer class="tag-list" aria-label="CarePlan technologies">
-          <span>Django / DRF</span><span>PostgreSQL</span><span>Celery</span><span>Redis</span><span>OpenTelemetry</span><span>HITL</span>
-        </footer>
-      </article>
-
-      <article class="project project--violet" id="dynamics-atlas">
-        <header class="project__header">
-          <p class="project__number">03</p>
-          <div>
-            <p class="project__meta">Research-collaboration prototype · Jun 2026—Present</p>
-            <h3>Dynamics Atlas</h3>
-            <p class="project__tagline">Check whether different molecular datasets can support the same analysis.</p>
           </div>
-          <p class="project__status"><span aria-hidden="true"></span> Validation prototype</p>
-        </header>
+        </article>
 
-        <div class="project__body">
-          <div class="project__main">
-            <p class="project__summary">Dynamics Atlas checks whether NMR ensembles, MD trajectories, and other molecular datasets are compatible before an analysis runs. It checks protein identity, residue mapping, conditions, data representation, and time coverage. The recorded implementation passed 13/13 harness tests, 24/24 machine checks, and 42/42 HSP90 replays.</p>
-
-            <figure class="project-diagram" aria-labelledby="dynamics-diagram-caption" data-reveal="rise">
-              <div class="project-diagram__art">
-                <img src="images/project-visuals/dynamics-atlas-editorial.jpg" alt="Editorial model of distinct molecular evidence formats passing through compatibility gates before analysis" width="1200" height="800" loading="lazy" decoding="async">
-              </div>
-              <div class="project-diagram__canvas">
-                <p class="project-diagram__context"><span>Validation gates</span><span>Public harness uses synthetic fixtures</span></p>
-                <ol class="project-diagram__route project-diagram__route--seven" aria-label="Dynamics Atlas validation gates from source identity through claim ceiling">
-                  <li><small>Source</small><strong>Identity and hash</strong></li>
-                  <li><small>Rights</small><strong>License and citation</strong></li>
-                  <li><small>Map</small><strong>Residue and axis</strong></li>
-                  <li><small>Scope</small><strong>Coverage</strong></li>
-                  <li><small>Meaning</small><strong>Measure and time</strong></li>
-                  <li><small>Status</small><strong>Data maturity</strong></li>
-                  <li class="project-diagram__gate"><small>Decision</small><strong>Claim ceiling</strong><span class="project-diagram__branch">Review or block</span></li>
-                </ol>
-              </div>
-              <figcaption id="dynamics-diagram-caption">Loading two datasets through the same interface does not make them scientifically comparable. The software checks compatibility before it runs an analysis.</figcaption>
-            </figure>
-
-            <div class="project__details">
+        <article class="work-card work-card--violet" id="dynamics-atlas" data-reveal="pop">
+          <a class="work-card__image" href="research/dynamics-atlas.html" aria-label="Read the Dynamics Atlas case study">
+            <img src="images/project-visuals/dynamics-atlas-editorial.jpg" alt="Editorial model of distinct molecular evidence formats passing through compatibility gates" width="1200" height="800" loading="lazy" decoding="async">
+          </a>
+          <div class="work-card__content">
+            <header class="work-card__header">
               <div>
-                <h4>What I built</h4>
-                <ul>
-                  <li>Defined a structured task record that stores the requested analysis, source-file hash, decisions, output evidence, and run receipt.</li>
-                  <li>Built separate analysis routes for different data types instead of forcing NMR ensembles and MD trajectories into one shared table.</li>
-                  <li>Limited the Agent to suggesting evidence locations and missing inputs. Regular code still validates data, runs approved tools, and can block the task.</li>
-                </ul>
+                <p class="work-card__meta">Research engineering case study · Collaboration</p>
+                <h3><a href="research/dynamics-atlas.html">Dynamics Atlas</a></h3>
               </div>
-              <div>
-                <h4>Why I designed it this way</h4>
-                <p>On six exposed, retrospective development packets, the deterministic parser passed 6/6; a one-shot Agent and a tool-plus-one-repair Agent each passed 0/6 end to end. A deterministic compiler restored public-schema validity to 6/6, but only 1/6 met the evidence-level reviewer proxy. That result rejected direct Agent execution; it did not establish general Agent ability. I limited the model to suggesting evidence locations and missing checks.</p>
-              </div>
+              <p class="work-card__status">Jun 2026—Present</p>
+            </header>
+            <p class="work-card__problem">Two datasets can describe the same protein and still be unsuitable for the same analysis.</p>
+            <p class="work-card__contribution">Within the research collaboration, my work focuses on task records, data-specific routes, and the boundary between Agent suggestions and deterministic validation.</p>
+            <ol class="work-card__route" aria-label="Dynamics Atlas workflow summary">
+              <li>Source identity</li><li>Compatibility gates</li><li>Approved route</li>
+            </ol>
+            <div class="work-card__result work-card__result--triple">
+              <p><span>Recorded result</span><strong>13 · 24 · 42</strong></p>
+              <p>Harness tests · machine checks · HSP90 replays</p>
             </div>
-          </div>
-
-          <aside class="project__aside" aria-label="Dynamics Atlas validation and limits">
-            <div class="evidence-card">
-              <p class="evidence-card__label">Test result</p>
-              <p class="evidence-card__value">13 · 24 · 42</p>
-              <p>13/13 harness tests, 24/24 machine validations, and 42/42 HSP90 output replays passed in the recorded implementation.</p>
-            </div>
-            <div class="boundary-card">
-              <p class="boundary-card__label">What this does not prove</p>
-              <p>These tests show that the workflow blocks invalid routes and records its output. They do not show that the Agent works well on new scientific tasks or that the scientific conclusions are correct.</p>
-            </div>
-            <div class="project__links">
+            <p class="work-card__scope"><strong>Current scope</strong> Research prototype and synthetic public harness; not a general Agent-effectiveness result.</p>
+            <div class="work-card__links">
+              <a href="research/dynamics-atlas.html">Read case study <span aria-hidden="true">→</span></a>
               <a href="https://github.com/alex051107/projects/tree/main/scientific_evidence_harness" target="_blank" rel="noopener noreferrer">Public harness <span aria-hidden="true">↗</span></a>
             </div>
-          </aside>
-        </div>
-
-        <footer class="tag-list" aria-label="Dynamics Atlas technologies">
-          <span>Python</span><span>FastAPI</span><span>LangGraph</span><span>Typed JSON</span><span>Scientific provenance</span><span>Human review</span>
-        </footer>
-      </article>
-
-      <article class="project project--green" id="hsp90">
-        <header class="project__header">
-          <p class="project__number">04</p>
-          <div>
-            <p class="project__meta">UNC Miao Lab research · Jun 2025—Present</p>
-            <h3>HSP90 / LiGaMD</h3>
-            <p class="project__tagline">Combine three simulation replicas without treating every frame as a new sample.</p>
           </div>
-          <p class="project__status"><span aria-hidden="true"></span> Public toolkit</p>
-        </header>
+        </article>
 
-        <div class="project__body">
-          <div class="project__main">
-            <p class="project__summary">For each protein-ligand system, I turn each of three LiGaMD replicas into its own 10-feature summary from 512 real saved frames, then average matching features across replicas to make one system record. I keep an exact ligand group entirely on one side of each train/test split. The registry has 31 systems and 27 ligand groups. The lowest MAE was 0.8182, but uncertainty did not support selecting a model.</p>
-
-            <figure class="project-diagram" aria-labelledby="hsp90-diagram-caption" data-reveal="rise">
-              <div class="project-diagram__art">
-                <img src="images/project-visuals/hsp90-ligamd-editorial.jpg" alt="Editorial model of three simulation replicas being sampled and combined into one system-level record for grouped evaluation" width="1200" height="800" loading="lazy" decoding="async">
-              </div>
-              <div class="project-diagram__canvas">
-                <p class="project-diagram__context"><span>Analysis pipeline</span><span>One evaluated row per protein–ligand system</span></p>
-                <ol class="project-diagram__route project-diagram__route--seven" aria-label="HSP90 LiGaMD workflow from three replicas through sustained exit detection and saved-frame aggregation to grouped evaluation">
-                  <li><small>Input</small><strong>3 replicas</strong></li>
-                  <li><small>Select</small><strong>Exit rule + 512 frames</strong></li>
-                  <li><small>Per replica</small><strong>Dynamic10 vector</strong></li>
-                  <li><small>Average</small><strong>Matching features</strong></li>
-                  <li><small>System row</small><strong>Static20 + Dynamic10</strong></li>
-                  <li><small>Split</small><strong>Ligand holdout</strong></li>
-                  <li class="project-diagram__gate"><small>Compare</small><strong>Bootstrap uncertainty</strong><span class="project-diagram__branch project-diagram__branch--neutral">No model selected</span></li>
-                </ol>
-              </div>
-              <figcaption id="hsp90-diagram-caption">Thousands of frames from one system are repeated measurements, not thousands of independent labels. I evaluate one row per system and never allow the same exact ligand to appear in both training and test data within a fold.</figcaption>
-            </figure>
-
-            <div class="project__details">
+        <article class="work-card work-card--green" id="hsp90" data-reveal="pop" data-reveal-delay="70">
+          <a class="work-card__image" href="research/ligamd-pkoff.html" aria-label="Read the HSP90 LiGaMD research method note">
+            <img src="images/project-visuals/hsp90-ligamd-editorial.jpg" alt="Editorial model of three simulation replicas becoming one system-level record for grouped evaluation" width="1200" height="800" loading="lazy" decoding="async">
+          </a>
+          <div class="work-card__content">
+            <header class="work-card__header">
               <div>
-                <h4>What I built</h4>
-                <ul>
-                  <li>Counted a ligand exit only when the geometry stayed past the threshold, with recapture handling so one distance spike did not count as dissociation.</li>
-                  <li>Sampled 512 real saved frames from each passing replica and calculated a separate Dynamic10 vector, then averaged corresponding Dynamic10 values across replicas; Static20 and Dynamic10 form one row per system.</li>
-                  <li>Kept exact copies of the same ligand in the same fold and fit preprocessing only on training data to reduce leakage.</li>
-                </ul>
+                <p class="work-card__meta">Research method note · UNC Miao Lab</p>
+                <h3><a href="research/ligamd-pkoff.html">HSP90 / LiGaMD</a></h3>
               </div>
-              <div>
-                <h4>Why I designed it this way</h4>
-                <p>One model had the lowest average error, but its uncertainty overlapped the baseline. I report that result without calling it a selected or final model.</p>
-              </div>
+              <p class="work-card__status">Jun 2025—Present</p>
+            </header>
+            <p class="work-card__problem">Thousands of frames from one simulation are repeated measurements, not thousands of independent labels.</p>
+            <p class="work-card__contribution">I built the feature and evaluation path shown here: replica-level summaries, one row per system, and exact-ligand grouped splits.</p>
+            <ol class="work-card__route" aria-label="HSP90 LiGaMD workflow summary">
+              <li>3 replicas</li><li>1 system row</li><li>Ligand holdout</li>
+            </ol>
+            <div class="work-card__result">
+              <p><span>Frozen registry</span><strong>N31 / 27</strong></p>
+              <p>31 systems · 27 exact-ligand groups · no model selected</p>
             </div>
-          </div>
-
-          <aside class="project__aside" aria-label="HSP90 validation and limits">
-            <div class="evidence-card">
-              <p class="evidence-card__label">Frozen registry</p>
-              <p class="evidence-card__value">N31 / 27 groups</p>
-              <p>The current registry contains 31 systems and 27 exact-ligand groups. The lowest group-equal MAE was 0.8182; uncertainty did not support model selection.</p>
-            </div>
-            <div class="boundary-card">
-              <p class="boundary-card__label">What this does not prove</p>
-              <p>The target is experimental pKoff measured in assays. The simulation does not directly produce a physical dissociation rate, and this 31-system dataset does not support a final model or broad generalization.</p>
-            </div>
-            <div class="project__links">
-              <a href="https://github.com/alex051107/ligamd-pkoff-toolkit" target="_blank" rel="noopener noreferrer">Analysis toolkit <span aria-hidden="true">↗</span></a>
+            <p class="work-card__scope"><strong>Current scope</strong> Experimental assay-derived pKoff; no physical koff or broad-generalization claim.</p>
+            <div class="work-card__links">
+              <a href="research/ligamd-pkoff.html">Read method note <span aria-hidden="true">→</span></a>
+              <a href="https://github.com/alex051107/ligamd-pkoff-toolkit" target="_blank" rel="noopener noreferrer">Toolkit <span aria-hidden="true">↗</span></a>
               <a href="https://github.com/alex051107/projects/tree/main/trajectory_event_harness" target="_blank" rel="noopener noreferrer">Event harness <span aria-hidden="true">↗</span></a>
             </div>
-          </aside>
-        </div>
-
-        <footer class="tag-list" aria-label="HSP90 technologies">
-          <span>Python</span><span>Molecular dynamics</span><span>Trajectory analysis</span><span>scikit-learn</span><span>Grouped evaluation</span><span>HPC</span>
-        </footer>
-      </article>
+          </div>
+        </article>
+      </div>
     </section>
 
     <section class="method" id="method">
@@ -405,38 +234,28 @@
         <header class="section-intro section-intro--inverse" data-reveal="rise">
           <p class="eyebrow">How I work</p>
           <div>
-            <h2>I separate model output, software checks, and human decisions.</h2>
-            <p>A model can return the wrong format, time out, or make an unsupported claim. In my projects, it cannot directly change a record or approve a result. The software saves each check and workflow state so a failed run can be inspected and resumed.</p>
+            <h2>Three choices carry from one project to the next.</h2>
+            <p>The data changes, but the same questions return: what may the model change, what must be recorded after a failure, and what counts as an independent test item?</p>
           </div>
         </header>
 
-        <div class="principles">
-          <article data-reveal="pop" data-reveal-delay="0">
-            <p class="principles__number">01</p>
-            <h3>Give the AI clear rules.</h3>
-            <p>The model receives a defined input and approved tools. It cannot approve its own output.</p>
+        <div class="principles principles--three">
+          <article data-reveal="pop">
+            <p class="principles__number">Model authority</p>
+            <h3>Keep the model’s job narrow.</h3>
+            <p>A model may retrieve, extract, draft, or suggest. Permissions, approval, source checks, and scientific vetoes stay in regular code or with a reviewer.</p>
           </article>
           <article data-reveal="pop" data-reveal-delay="70">
-            <p class="principles__number">02</p>
-            <h3>Save the workflow state.</h3>
-            <p>When a model times out or returns invalid data, the failure is recorded so work can resume without starting over.</p>
+            <p class="principles__number">Failure state</p>
+            <h3>Leave a record when work stops.</h3>
+            <p>Invalid output, provider failure, routing decisions, and review state remain inspectable so a run can be diagnosed or resumed.</p>
           </article>
           <article data-reveal="pop" data-reveal-delay="140">
-            <p class="principles__number">03</p>
-            <h3>Use the right unit for evaluation.</h3>
-            <p>I split data by an independent unit, such as a document, user, ligand, or system, to reduce leakage.</p>
-          </article>
-          <article data-reveal="pop" data-reveal-delay="210">
-            <p class="principles__number">04</p>
-            <h3>Report exactly what the test covered.</h3>
-            <p>A local test can verify a defined behavior. It does not by itself prove production readiness, scientific accuracy, or real-world impact.</p>
+            <p class="principles__number">Evaluation unit</p>
+            <h3>Count the independent unit.</h3>
+            <p>A document, order, ligand group, or protein–ligand system should not be multiplied into extra evidence by repeated passages, requests, or frames.</p>
           </article>
         </div>
-
-        <aside class="ownership-note" data-reveal="rise">
-          <p class="ownership-note__label">Human ownership</p>
-          <p>I use AI-assisted coding, but I remain responsible for defining the problem, choosing the architecture, reviewing failures, and deciding what the results support.</p>
-        </aside>
       </div>
     </section>
 
@@ -444,14 +263,14 @@
       <header class="section-intro" data-reveal="rise">
         <p class="eyebrow">About</p>
         <div>
-          <h2>I study Biology and Computer Science at UNC and build software for scientific work.</h2>
+          <h2>Biology and Computer Science at UNC Chapel Hill.</h2>
         </div>
       </header>
 
       <div class="about__grid" data-reveal="pop">
         <div class="about__copy">
-          <p>I am an undergraduate at UNC Chapel Hill double majoring in Biology and Computer Science. I build software where AI models have to work inside a real process: finding evidence, using approved tools, saving progress, passing checks, and handing a result to a person.</p>
-          <p>At UNC’s Miao Lab, I analyze LiGaMD trajectories and evaluate models against experimental pKoff measurements. I also contribute to Dynamics Atlas, where the team checks whether different molecular datasets are comparable enough to support the same analysis.</p>
+          <p>I am an undergraduate at UNC Chapel Hill studying Biology and Computer Science. I am looking for AI application engineering and AI-for-science work that combines backend systems, evaluation, and scientific data.</p>
+          <p>At UNC’s Miao Lab, I analyze LiGaMD trajectories and evaluate models against experimental pKoff measurements. I also contribute to Dynamics Atlas, a research collaboration that examines whether different molecular datasets are comparable enough to support the same analysis.</p>
         </div>
 
         <dl class="profile-list">
@@ -465,7 +284,7 @@
           </div>
           <div>
             <dt>Engineering focus</dt>
-            <dd>AI workflows<br>Failure recovery<br>Evidence checks</dd>
+            <dd>Backend AI applications<br>Failure handling<br>Evaluation design</dd>
           </div>
           <div>
             <dt>Core toolkit</dt>

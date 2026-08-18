@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EvidenceOps Case Study — Zhenpeng Liu</title>
+  <meta name="description" content="How EvidenceOps separates retrieval from scientific claim support, preserves source context, and reports a fixed 70-case synthetic evaluation.">
+  <meta name="theme-color" content="#e9edf2">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://alex051107.github.io/personal-website/projects/evidenceops.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="EvidenceOps Case Study — Zhenpeng Liu">
+  <meta property="og:description" content="Retrieval, structured claim records, support checks, and human review.">
+  <meta property="og:url" content="https://alex051107.github.io/personal-website/projects/evidenceops.html">
+  <meta property="og:image" content="https://alex051107.github.io/personal-website/images/project-visuals/evidenceops-editorial.jpg">
+  <meta property="og:image:alt" content="Editorial model of a source passage remaining connected to a reviewed scientific claim">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../css/styles.css?v=dc1cdf1">
+  <script defer src="../js/site-motion.js?v=186a14c"></script>
+</head>
+<body class="case-page case-page--blue">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page-progress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="wordmark" href="../index.html#top" aria-label="Zhenpeng Liu, portfolio home">
+        <span class="wordmark__initials">Zhenpeng Liu</span><span class="wordmark__index">刘振鹏</span>
+      </a>
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="../index.html#work">Projects</a>
+        <a href="../index.html#method">Approach</a>
+        <a href="../index.html#about">Profile</a>
+        <a class="primary-nav__contact" href="mailto:liualex@unc.edu">Contact ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article class="case-study" id="top">
+      <header class="case-hero">
+        <div class="section-shell case-hero__grid">
+          <div class="case-hero__copy">
+            <a class="case-back" href="../index.html#evidenceops">← All projects</a>
+            <p class="eyebrow">Engineering case study · Public MVP + local test build</p>
+            <h1>EvidenceOps</h1>
+            <p class="case-hero__lead">A relevant passage does not always support the exact scientific claim being made. EvidenceOps keeps the source, passage, value, unit, and experiment context together until a person reviews the result.</p>
+            <div class="case-hero__actions">
+              <a class="button button--primary" href="https://alex051107.github.io/evidenceops-public-mvp/" target="_blank" rel="noopener noreferrer">Open static console <span aria-hidden="true">↗</span></a>
+              <a class="button" href="https://github.com/alex051107/evidenceops-public-mvp" target="_blank" rel="noopener noreferrer">View repository <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <figure class="case-hero__visual">
+            <img src="../images/project-visuals/evidenceops-editorial.jpg" alt="Editorial model of a source passage remaining connected to a reviewed scientific claim" width="1536" height="1024" fetchpriority="high">
+            <figcaption>Source context stays attached from retrieval through support checking and review.</figcaption>
+          </figure>
+        </div>
+      </header>
+
+      <section class="case-glance section-shell" aria-labelledby="glance-title">
+        <h2 id="glance-title" class="visually-hidden">Project at a glance</h2>
+        <dl>
+          <div><dt>Type</dt><dd>Public MVP + local test build</dd></div>
+          <div><dt>Time</dt><dd>Jun 2026—Present</dd></div>
+          <div><dt>My work shown here</dt><dd>Workflow design, backend path, evaluation harness</dd></div>
+          <div><dt>Core problem</dt><dd>Relevant text may not support the final claim</dd></div>
+          <div><dt>Recorded result</dt><dd>70/70 fixed synthetic cases</dd></div>
+          <div><dt>Stack</dt><dd>Python · FastAPI · PostgreSQL / pgvector · Redis</dd></div>
+        </dl>
+      </section>
+
+      <nav class="case-contents section-shell" aria-label="Case study contents">
+        <p>In this case study</p>
+        <a href="#problem">Problem</a>
+        <a href="#system">System</a>
+        <a href="#decisions">Decisions</a>
+        <a href="#evaluation">Evaluation</a>
+        <a href="#scope">Scope</a>
+      </nav>
+
+      <section class="case-section section-shell" id="problem">
+        <header class="case-section__label" data-reveal="rise">
+          <p>01 / Problem</p>
+          <h2>Retrieval finds candidates. It does not prove a claim.</h2>
+        </header>
+        <div class="case-section__body prose" data-reveal="rise">
+          <p>A search system can return a passage about the right protein, assay, or mechanism while the final answer changes a value, drops a unit, or borrows an experimental condition from somewhere else. The passage is relevant to the topic, but it does not support the sentence the system wants to release.</p>
+          <p>A citation by itself does not solve the problem. The workflow has to preserve which version of the source was searched, where the supporting text appears, what was measured, which unit was used, and under which conditions. If one of those elements does not match, the safe output is an explicit unsupported result.</p>
+          <aside class="case-callout">
+            <p class="case-callout__label">Design question</p>
+            <p>How can a system let a model help with search and extraction without letting a fluent answer hide a missing source, unit, or experimental condition?</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="case-section case-section--tinted" id="system">
+        <header class="case-section__label section-shell" data-reveal="rise">
+          <p>02 / System</p>
+          <h2>Carry the evidence record through every stage.</h2>
+        </header>
+        <div class="section-shell case-section__wide">
+          <figure class="project-diagram" aria-labelledby="evidenceops-flow-caption" data-reveal="rise">
+            <div class="project-diagram__canvas">
+              <p class="project-diagram__context"><span>Implemented workflow</span><span>Public and clearly labelled synthetic inputs</span></p>
+              <ol class="project-diagram__route" aria-label="EvidenceOps workflow from a versioned source through retrieval and deterministic support checks to reviewer release">
+                <li><small>Input</small><strong>Versioned source</strong></li>
+                <li><small>Search</small><strong>Candidate passages</strong></li>
+                <li><small>Extract</small><strong>Claim record</strong></li>
+                <li class="project-diagram__gate"><small>Check</small><strong>Text, unit, context</strong><span class="project-diagram__branch">Unsupported</span></li>
+                <li><small>Decision</small><strong>Human review</strong></li>
+              </ol>
+            </div>
+            <figcaption id="evidenceops-flow-caption">The output is a structured record with a source locator and supporting span, not a free-form answer detached from its evidence.</figcaption>
+          </figure>
+
+          <div class="surface-grid" data-reveal="pop">
+            <article>
+              <p class="surface-grid__label">Public surface</p>
+              <h3>Static Evidence Console</h3>
+              <p>The public repository uses public or labelled synthetic documents. Its generated console displays evidence cards, citations, risk flags, evaluation summaries, and failure summaries. The public retrieval path is deliberately small and deterministic.</p>
+              <p class="surface-grid__note">The static page is a read-only artifact. It does not imply that the local API is deployed.</p>
+            </article>
+            <article>
+              <p class="surface-grid__label">Local build</p>
+              <h3>Backend test path</h3>
+              <p>The local build separates keyword and vector retrieval, structured extraction, support checks, review state, and notifications across a backend stack using FastAPI, PostgreSQL with pgvector, Redis, and Docker Compose.</p>
+              <p class="surface-grid__note">This is a local test build, not a production traffic or customer-deployment claim.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section section-shell" id="decisions">
+        <header class="case-section__label" data-reveal="rise">
+          <p>03 / Decisions</p>
+          <h2>Three choices define the system boundary.</h2>
+        </header>
+        <div class="case-section__body decision-stack">
+          <article class="decision-card" data-reveal="pop">
+            <p class="decision-card__index">Decision 01</p>
+            <h3>Preserve source identity before retrieval.</h3>
+            <dl>
+              <div><dt>Why</dt><dd>The same document can have different versions, access conditions, or page locations. Plain extracted text is not enough to reconstruct the evidence later.</dd></div>
+              <div><dt>Alternative considered</dt><dd>Store only normalized text chunks and generate a citation after the answer is written.</dd></div>
+              <div><dt>Trade-off</dt><dd>Each chunk carries more metadata, but a reviewer can trace the result back to the exact source and location.</dd></div>
+            </dl>
+          </article>
+          <article class="decision-card" data-reveal="pop">
+            <p class="decision-card__index">Decision 02</p>
+            <h3>Separate retrieval from claim-support checking.</h3>
+            <dl>
+              <div><dt>Why</dt><dd>Topic relevance does not guarantee that a passage supports the exact wording, number, unit, or experimental condition.</dd></div>
+              <div><dt>Alternative considered</dt><dd>Ask the model to answer directly from retrieved context and generate its own citation.</dd></div>
+              <div><dt>Trade-off</dt><dd>The workflow needs a structured claim schema and explicit checks, but missing evidence fails visibly instead of being filled from model memory.</dd></div>
+            </dl>
+          </article>
+          <article class="decision-card" data-reveal="pop">
+            <p class="decision-card__index">Decision 03</p>
+            <h3>Publish a static artifact before claiming a hosted backend.</h3>
+            <dl>
+              <div><dt>Why</dt><dd>A public URL should show what is actually available. The console can expose the evidence contract without suggesting that a dynamic service is operating behind it.</dd></div>
+              <div><dt>Alternative considered</dt><dd>Present the local API, Dockerfile, or deployment blueprint as a live production service.</dd></div>
+              <div><dt>Trade-off</dt><dd>The public demo is less interactive, but its scope is accurate and the visible data bundle remains inspectable.</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <section class="case-section case-section--tinted" id="evaluation">
+        <header class="case-section__label section-shell" data-reveal="rise">
+          <p>04 / Evaluation</p>
+          <h2>A fixed test checks defined behavior.</h2>
+        </header>
+        <div class="section-shell case-section__wide">
+          <div class="metric-band" data-reveal="pop">
+            <div><span>Total fixed cases</span><strong>70</strong></div>
+            <div><span>Search cases</span><strong>20</strong></div>
+            <div><span>Extraction or validation cases</span><strong>50</strong></div>
+            <div><span>Recorded passes</span><strong>70</strong></div>
+          </div>
+
+          <div class="evaluation-grid">
+            <div class="prose" data-reveal="rise">
+              <h3>What the suite checks</h3>
+              <p>The frozen synthetic set exercises the search, extraction, and validation behaviors represented in the build. A passing case means the expected result and failure route matched the defined fixture.</p>
+              <p>The public repository also keeps a small project-local gold set, failure taxonomy, and retrieval top-k ablation so a missed or unsupported result remains visible.</p>
+            </div>
+            <div class="behavior-table" data-reveal="pop">
+              <div><span>Missing supporting text</span><strong>Return unsupported</strong></div>
+              <div><span>Value or unit mismatch</span><strong>Block release</strong></div>
+              <div><span>Condition mismatch</span><strong>Keep for review</strong></div>
+              <div><span>Supported structured claim</span><strong>Send to reviewer</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section section-shell" id="scope">
+        <header class="case-section__label" data-reveal="rise">
+          <p>05 / Scope</p>
+          <h2>What the current result does and does not establish.</h2>
+        </header>
+        <div class="case-section__body scope-grid">
+          <article class="scope-card scope-card--current" data-reveal="pop">
+            <p class="scope-card__label">Current scope</p>
+            <h3>Public artifact and local test build</h3>
+            <ul>
+              <li>Public or clearly labelled synthetic inputs</li>
+              <li>Fixed project-local evaluation</li>
+              <li>Inspectable static console and repository</li>
+              <li>Explicit unsupported and review routes</li>
+            </ul>
+          </article>
+          <article class="scope-card" data-reveal="pop">
+            <p class="scope-card__label">Not established</p>
+            <h3>Production or scientific performance</h3>
+            <ul>
+              <li>No production deployment or documented customer use</li>
+              <li>No high-concurrency reliability claim</li>
+              <li>No clinical, legal, or regulatory determination</li>
+              <li>No open-ended scientific-accuracy claim</li>
+            </ul>
+          </article>
+          <article class="scope-card scope-card--next" data-reveal="pop">
+            <p class="scope-card__label">Proposed next validation</p>
+            <h3>Held-out scientific questions</h3>
+            <p>Evaluate the support-checking workflow on a held-out set of real public scientific questions reviewed by domain researchers, while keeping source version, passage, unit, and conditions in the review record.</p>
+          </article>
+        </div>
+      </section>
+    </article>
+
+    <nav class="case-pagination" aria-label="Project navigation">
+      <div class="section-shell">
+        <a href="../index.html#work"><span>Project index</span><strong>All selected work</strong></a>
+        <a href="careplan.html"><span>Next case study</span><strong>CarePlan →</strong></a>
+      </div>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="section-shell site-footer__inner">
+      <p>© 2026 Zhenpeng Liu</p>
+      <p>EvidenceOps · Engineering case study</p>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+</body>
+</html>

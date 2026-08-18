@@ -1,6 +1,6 @@
 # Zhenpeng Liu — Personal Website
 
-A static, evidence-bounded portfolio for AI application engineering and scientific machine learning.
+A static, evidence-bounded portfolio for AI application engineering and scientific computing. The home page is a short project index; four deeper pages carry the engineering decisions, evaluation units, failure evidence, and scope that do not fit in a résumé.
 
 ## Architecture
 
@@ -8,7 +8,7 @@ The site intentionally uses semantic HTML, one CSS file, and one small local pro
 
 The stylesheet and motion-script URLs carry fingerprints derived from their Git blob contents. This prevents a browser or CDN from combining a newly deployed HTML layout with an older cached CSS or JavaScript asset. The validator fails if either fingerprint is stale.
 
-Its visual system pairs four project-specific editorial still lifes with exact, selectable HTML workflow diagrams. The images provide a visual metaphor without embedded labels or claims; the browser layer still owns the technical sequence, gates, failure states, captions, and claim boundaries so each workflow can be checked against the public project evidence and remains accessible.
+Its visual system pairs four project-specific editorial still lifes with exact, selectable HTML workflow diagrams. The home cards expose one three-step workflow slice; each case-study page contains the full technical sequence, gates, failure states, captions, and claim boundaries. Images provide a visual metaphor without embedding technical claims in pixels.
 
 The visual direction is a light editorial engineering portfolio. It restores the earlier gray-blue palette, uses solid surfaces, the real portrait, restrained paper-and-resin project illustrations, and flat workflow diagrams instead of neon gradients, glass panels, dashboard decoration, or artificial portrait treatment. The portrait source is shown in its original color without grayscale, blend modes, face regeneration, or skin-tone filters. Project illustrations are lazy-loaded JPEGs up to 1536×1024, each kept below 400 KB by the validator.
 
@@ -21,20 +21,38 @@ That boundary is deliberate:
 - A `mailto:` contact path avoids collecting visitor data or operating a form service.
 - The repository has no dependency-update or framework-migration burden.
 
-A backend should be added only when a real capability requires durable state, authentication, private content, or a submitted form. If project writing grows into a frequently updated archive, the next reasonable step is a static content system such as Astro with Markdown—not a database-backed application.
+A backend should be added only when a real capability requires durable state, authentication, private content, or a submitted form. The current five-page public structure remains small enough to maintain directly. If project writing grows into a frequently updated archive, the next reasonable step is a static content system such as Astro with Markdown—not a database-backed application.
+
+## Information architecture
+
+The home page is designed for a 60–90 second scan:
+
+1. professional direction and current research;
+2. four compact project cards;
+3. three engineering decisions supported by those projects;
+4. education, research context, and contact.
+
+The four deeper pages serve different kinds of evidence instead of forcing every project into one template:
+
+- `projects/evidenceops.html` is an engineering case study;
+- `projects/careplan.html` is a backend workflow case study;
+- `research/dynamics-atlas.html` is a research engineering case study;
+- `research/ligamd-pkoff.html` is a research method note.
+
+Each page leads with a concrete failure point, then separates the implemented route, design decisions, recorded evaluation, current scope, and proposed next validation. The proposed work is visibly labelled and is never presented as completed evidence.
 
 ## Content contract
 
-Each featured project follows the same public structure:
+Each home card follows the same compact contract:
 
-1. problem and intended user;
-2. system flow;
-3. implemented decisions;
-4. recorded validation;
-5. explicit claim boundary;
-6. public evidence link.
+1. one concrete problem;
+2. one contribution statement;
+3. one workflow slice;
+4. one recorded result;
+5. one current-scope sentence;
+6. case-study and public-evidence links.
 
-The site distinguishes a local prototype, a public static console, a synthetic harness, and a research result from production deployment or real-user impact.
+The deeper pages distinguish a local prototype, a public static console, a synthetic harness, a research collaboration, and an experimental model registry from production deployment, real-user impact, scientific correctness, or broad generalization.
 
 ## Local preview
 

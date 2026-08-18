@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Zhenpeng Liu">
+  <rect width="64" height="64" rx="10" fill="#142c4c"/>
+  <path d="M13 16h23v7L23 41h13v8H12v-7l13-18H13z" fill="#f4f7fa"/>
+  <path d="M40 16h9v25h10v8H40z" fill="#6fb7ff"/>
+</svg>
