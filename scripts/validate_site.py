@@ -14,12 +14,15 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE_PREFIX = "/personal-website/"
 REQUIRED_ANCHORS = {
     "top",
+    "why",
+    "map",
     "work",
     "evidenceops",
     "careplan",
     "dynamics-atlas",
     "hsp90",
-    "method",
+    "research",
+    "contribute",
     "about",
     "contact",
 }

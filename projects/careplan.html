@@ -16,7 +16,7 @@
   <meta property="og:image" content="https://alex051107.github.io/personal-website/images/project-visuals/careplan-editorial.jpg">
   <meta property="og:image:alt" content="Editorial model of a synthetic order moving through rules, drafting, validation, and approval">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="../css/styles.css?v=1006218">
+  <link rel="stylesheet" href="../css/styles.css?v=cd0906e">
   <script defer src="../js/site-motion.js?v=186a14c"></script>
 </head>
 <body class="case-page case-page--coral">
@@ -29,8 +29,9 @@
         <span class="wordmark__initials">Zhenpeng Liu</span><span class="wordmark__index">刘振鹏</span>
       </a>
       <nav class="primary-nav" aria-label="Primary navigation">
-        <a href="../index.html#work">Projects</a>
-        <a href="../index.html#method">Approach</a>
+        <a href="../index.html#map">Map</a>
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#research">Research</a>
         <a href="../index.html#about">Profile</a>
         <a class="primary-nav__contact" href="mailto:liualex@unc.edu">Contact ↗</a>
       </nav>
@@ -105,12 +106,12 @@
               <p class="project-diagram__context"><span>Implemented workflow</span><span>Synthetic portfolio data · no clinical use</span></p>
               <ol class="project-diagram__route project-diagram__route--seven" aria-label="CarePlan workflow from a synthetic order through hard stops, queued drafting, typed validation, and pharmacist-role review">
                 <li><small>Input</small><strong>Synthetic order</strong></li>
-                <li class="project-diagram__gate"><small>Rules</small><strong>Hard stops</strong><span class="project-diagram__branch">Rejected</span></li>
-                <li><small>State</small><strong>Draft queued</strong></li>
-                <li><small>Provider</small><strong>Typed draft</strong></li>
-                <li class="project-diagram__gate"><small>Validate</small><strong>Schema and version</strong><span class="project-diagram__branch">Failed / retry</span></li>
-                <li><small>State</small><strong>Review pending</strong></li>
-                <li><small>Owner</small><strong>Pharmacist role</strong></li>
+                <li class="project-diagram__gate"><small>Rules</small><strong>Hard stops</strong><span class="project-diagram__branch"><code>REJECTED</code></span></li>
+                <li><small>State</small><strong><code>DRAFT_QUEUED</code></strong></li>
+                <li><small>Provider</small><strong><code>DRAFTING</code></strong></li>
+                <li class="project-diagram__gate"><small>Validate</small><strong>Schema + version</strong><span class="project-diagram__branch"><code>FAILED</code></span></li>
+                <li><small>State</small><strong><code>REVIEW_PENDING</code></strong></li>
+                <li><small>Reviewer</small><strong><code>APPROVED</code> / <code>REJECTED</code></strong></li>
               </ol>
             </div>
             <figcaption id="careplan-flow-caption">A valid provider response can reach <code>REVIEW_PENDING</code>. It cannot contain an approval field or move itself into an approved state.</figcaption>
