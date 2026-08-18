@@ -295,6 +295,10 @@ def main() -> int:
         ROOT / "images" / "project-visuals" / "careplan-editorial.jpg": 400_000,
         ROOT / "images" / "project-visuals" / "dynamics-atlas-editorial.jpg": 400_000,
         ROOT / "images" / "project-visuals" / "hsp90-ligamd-editorial.jpg": 400_000,
+        ROOT / "images" / "project-visuals" / "evidenceops-card-portrait.jpg": 400_000,
+        ROOT / "images" / "project-visuals" / "careplan-card-portrait.jpg": 400_000,
+        ROOT / "images" / "project-visuals" / "dynamics-atlas-card-portrait.jpg": 400_000,
+        ROOT / "images" / "project-visuals" / "hsp90-ligamd-card-portrait.jpg": 400_000,
     }
     for asset, limit in size_limits.items():
         if not asset.exists():
