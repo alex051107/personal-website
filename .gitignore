@@ -15,3 +15,10 @@ image-prompts.md
 
 # macOS
 .DS_Store
+
+# Local visual QA artifacts
+.playwright-cli/
+output/
+
+# Local master-quality Hero GLBs (web derivatives live in models/hero-3d)
+images/hero-3d-source/3D models for Heroic Alpha Station./

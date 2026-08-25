@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HSP90 LiGaMD Research Method Note — Zhenpeng Liu</title>
   <meta name="description" content="A research method note on replica-aware LiGaMD feature construction, exact-ligand grouped evaluation, and why the current N31 result did not select a model.">
-  <meta name="theme-color" content="#e9edf2">
+  <meta name="theme-color" content="#f1ece0">
   <meta name="color-scheme" content="light">
   <link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
   <link rel="canonical" href="https://alex051107.github.io/personal-website/research/ligamd-pkoff.html">
@@ -16,23 +16,18 @@
   <meta property="og:image" content="https://alex051107.github.io/personal-website/images/project-visuals/hsp90-ligamd-editorial.jpg">
   <meta property="og:image:alt" content="Editorial model of three simulation replicas becoming one system-level record">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="../css/styles.css?v=cd0906e">
-  <script defer src="../js/site-motion.js?v=186a14c"></script>
+  <link rel="stylesheet" href="../css/styles.css?v=d3a2139">
+  <script defer src="../js/site-motion.js?v=1a3c404"></script>
 </head>
 <body class="case-page case-page--green">
-  <a class="skip-link" href="#main">Skip to content</a>
   <div class="page-progress" aria-hidden="true"></div>
-
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="site-header__inner">
       <a class="wordmark" href="../index.html#top" aria-label="Zhenpeng Liu, portfolio home">
         <span class="wordmark__initials">Zhenpeng Liu</span><span class="wordmark__index">刘振鹏</span>
       </a>
       <nav class="primary-nav" aria-label="Primary navigation">
-        <a href="../index.html#map">Map</a>
-        <a href="../index.html#work">Work</a>
-        <a href="../index.html#research">Research</a>
-        <a href="../index.html#about">Profile</a>
         <a class="primary-nav__contact" href="mailto:liualex@unc.edu">Contact ↗</a>
       </nav>
     </div>
@@ -46,15 +41,15 @@
             <a class="case-back" href="../index.html#hsp90">← All projects</a>
             <p class="eyebrow">Research method note · UNC Miao Lab</p>
             <h1>HSP90 / LiGaMD</h1>
-            <p class="case-hero__lead">Thousands of saved frames from one protein–ligand simulation are repeated measurements, not thousands of independent labels. This workflow turns three LiGaMD replicas into one system-level record before grouped evaluation.</p>
+            <p class="case-hero__lead">Affinity describes equilibrium binding; dissociation kinetics describe how quickly a ligand–target complex breaks apart. This project asks whether LiGaMD-derived features can help rank assay-derived pKoff without treating thousands of correlated frames as independent labels.</p>
             <div class="case-hero__actions">
               <a class="button button--primary" href="https://github.com/alex051107/ligamd-pkoff-toolkit" target="_blank" rel="noopener noreferrer">Open analysis toolkit <span aria-hidden="true">↗</span></a>
               <a class="button" href="https://github.com/alex051107/projects/tree/main/trajectory_event_harness" target="_blank" rel="noopener noreferrer">Open event harness <span aria-hidden="true">↗</span></a>
             </div>
           </div>
-          <figure class="case-hero__visual">
-            <img src="../images/project-visuals/hsp90-ligamd-editorial.jpg" alt="Editorial model of three simulation replicas becoming one system-level record for grouped evaluation" width="1200" height="800" fetchpriority="high">
-            <figcaption>Each replica is summarized first. Matching features are averaged only after the three replica-level records exist.</figcaption>
+          <figure class="case-hero__visual" data-project-plate="hsp90-ligamd">
+            <img src="../images/project-visuals/hsp90-ligamd-index-v4.jpg" alt="Scientific ML observatory with three replica ribbons sampled separately before one system-level model comparison" width="1500" height="1000" fetchpriority="high">
+            <figcaption><strong>Input</strong> three LiGaMD replicas · <strong>ML</strong> compares four regressors · <strong>Output</strong> a bootstrap-backed no-selection decision.</figcaption>
           </figure>
         </div>
       </header>
@@ -83,9 +78,10 @@
       <section class="case-section section-shell" id="problem">
         <header class="case-section__label" data-reveal="rise">
           <p>01 / Problem</p>
-          <h2>A trajectory contains many frames but only one system-level label.</h2>
+          <h2>The scientific target lives at the protein–ligand system level.</h2>
         </header>
         <div class="case-section__body prose" data-reveal="rise">
+          <p>Binding kinetics can add information that equilibrium affinity alone does not provide. Here, the experimental target is assay-derived pKoff; the modeling question is whether simulation-derived features add a stable ranking signal.</p>
           <p>Frames from the same molecular-dynamics trajectory are correlated observations of one protein–ligand system. Treating each frame as a separate labelled example would multiply the apparent sample size without adding independent experimental pKoff measurements.</p>
           <p>The three simulation replicas create another boundary. They should contribute information about the same system, but their coordinates should not be concatenated into one artificial trajectory. Each replica needs its own endpoint check, frame selection, and feature vector before the corresponding features are combined.</p>
           <aside class="case-callout">
@@ -256,9 +252,7 @@
 
   <footer class="site-footer">
     <div class="section-shell site-footer__inner">
-      <p>© 2026 Zhenpeng Liu</p>
-      <p>HSP90 / LiGaMD · Research method note</p>
-      <a href="#top">Back to top ↑</a>
+      <p>© 2026 Zhenpeng Liu · HSP90 / LiGaMD research method note · <a href="#top">Back to top ↑</a></p>
     </div>
   </footer>
 </body>

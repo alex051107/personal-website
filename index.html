@@ -3,25 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zhenpeng Liu — AI Application Engineering &amp; Scientific Software</title>
-  <meta name="description" content="Zhenpeng Liu builds backend AI applications and scientific software for literature evidence, stateful workflows, molecular-data validation, and LiGaMD analysis.">
-  <meta name="theme-color" content="#e9edf2">
+  <title>Zhenpeng Liu — AI for Science &amp; Evidence Systems</title>
+  <meta name="description" content="Zhenpeng Liu builds AI systems for molecular-data validation, scientific ML, source-grounded evidence, and controlled human-reviewed workflows.">
+  <meta name="theme-color" content="#f1ece0">
   <meta name="color-scheme" content="light">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="canonical" href="https://alex051107.github.io/personal-website/">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Zhenpeng Liu">
-  <meta property="og:title" content="Zhenpeng Liu — AI Application Engineering &amp; Scientific Software">
-  <meta property="og:description" content="Four engineering and research projects with inspectable decisions, test results, and current scope.">
+  <meta property="og:title" content="Zhenpeng Liu — AI for Science &amp; Evidence Systems">
+  <meta property="og:description" content="AI for Science and adjacent evidence systems, with inspectable objects, model roles, gates, decisions, and current scope.">
   <meta property="og:url" content="https://alex051107.github.io/personal-website/">
   <meta property="og:image" content="https://alex051107.github.io/personal-website/images/og-card.jpg">
-  <meta property="og:image:alt" content="Zhenpeng Liu portfolio with a natural portrait and the statement: I build backend AI applications and scientific software">
+  <meta property="og:image:alt" content="Zhenpeng Liu portfolio for AI for Science and evidence systems">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Zhenpeng Liu — AI Application Engineering &amp; Scientific Software">
-  <meta name="twitter:description" content="Four engineering and research projects with inspectable decisions, test results, and current scope.">
+  <meta name="twitter:title" content="Zhenpeng Liu — AI for Science &amp; Evidence Systems">
+  <meta name="twitter:description" content="AI for Science and adjacent evidence systems, with inspectable objects, model roles, gates, decisions, and current scope.">
   <meta name="twitter:image" content="https://alex051107.github.io/personal-website/images/og-card.jpg">
-  <meta name="twitter:image:alt" content="Zhenpeng Liu portfolio with a natural portrait and the statement: I build backend AI applications and scientific software">
+  <meta name="twitter:image:alt" content="Zhenpeng Liu portfolio for AI for Science and evidence systems">
 
   <script type="application/ld+json">
   {
@@ -50,12 +50,14 @@
   }
   </script>
 
-  <link rel="stylesheet" href="css/styles.css?v=cd0906e">
-  <script defer src="js/site-motion.js?v=186a14c"></script>
+  <link rel="stylesheet" href="css/styles.css?v=d3a2139">
+  <script defer src="js/vendor/anime.umd.min.js?v=bc2ae43"></script>
+  <script type="module" src="js/hero-station.js?v=64357a7"></script>
+  <script defer src="js/site-motion.js?v=1a3c404"></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
   <div class="page-progress" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
     <div class="site-header__inner">
@@ -63,213 +65,801 @@
         <span class="wordmark__initials">Zhenpeng Liu</span><span class="wordmark__index">刘振鹏</span>
       </a>
       <nav class="primary-nav" aria-label="Primary navigation">
-        <a href="#map" data-nav-target="map">Map</a>
-        <a href="#work" data-nav-target="work">Work</a>
-        <a href="#research" data-nav-target="research">Research</a>
-        <a href="#about" data-nav-target="about">Profile</a>
         <a class="primary-nav__contact" href="mailto:liualex@unc.edu">Contact ↗</a>
       </nav>
     </div>
   </header>
 
   <main id="main">
-    <section class="hero" id="top">
-      <div class="section-shell hero__inner">
-        <div class="hero__copy">
-          <p class="eyebrow">AI Application Engineering · Scientific Computing</p>
-          <h1>I build backend AI applications and scientific software.</h1>
-          <p class="hero__deck">A model response is only one step. I build the software that preserves source context and domain meaning, enforces workflow state and permissions, and evaluates results at the right unit.</p>
-          <p class="hero__meta">UNC Chapel Hill · Expected May 2028</p>
-          <div class="hero__actions" aria-label="Primary links">
-            <a class="button button--primary" href="#work">Explore projects <span aria-hidden="true">↓</span></a>
-            <a class="button" href="https://github.com/alex051107" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    <section class="index-opening" id="top">
+      <div class="section-shell">
+        <p class="index-opening__identity">AI for Science · Software Engineering · Chapel Hill, North Carolina</p>
+        <div class="index-opening__grid">
+          <h1><span>Zhenpeng Liu</span></h1>
+          <div class="index-opening__copy">
+            <p>I build AI-assisted scientific software for evidence review, molecular-data integration, binding-kinetics research, and controlled biomedical workflows.</p>
+            <p class="index-opening__scope">Each project shows the scientific object, the automated step, the check that can stop it, and the person or rule that owns the decision.</p>
+            <p class="index-opening__meta">UNC Chapel Hill · Biology + Computer Science · Expected May 2028</p>
+            <div class="text-links" aria-label="Profile links">
+              <a href="https://github.com/alex051107" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+              <a href="https://linkedin.com/in/zhenpeng-liu" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+            </div>
           </div>
+          <figure class="index-opening__portrait">
+            <div class="index-opening__portrait-frame">
+              <img src="images/portrait.png" alt="Portrait of Zhenpeng Liu" width="768" height="1024" fetchpriority="high" decoding="async">
+            </div>
+            <figcaption>Zhenpeng Liu / 刘振鹏 · UNC Chapel Hill</figcaption>
+          </figure>
         </div>
 
-        <div class="hero__visual">
-          <div class="portrait-frame">
-            <img src="images/portrait.png" alt="Portrait of Zhenpeng Liu" width="768" height="1024" fetchpriority="high">
-            <p class="portrait-frame__caption"><span>Zhenpeng Liu / 刘振鹏</span> UNC Chapel Hill</p>
+        <figure class="hero-station" data-hero-station data-scroll-expand data-template-source="reactbits" data-template-name="scroll-expand" data-station-state="loading" aria-labelledby="hero-station-title" aria-describedby="hero-station-copy">
+          <div class="hero-station__frame">
+            <header class="hero-station__masthead">
+              <p><span>Heroic Alpha Station</span><small>Dynamics Atlas · Agent Harness</small></p>
+              <h2 id="hero-station-title">One bounded Agent route, made physical.</h2>
+              <div class="hero-station__load" aria-hidden="true"><i></i></div>
+            </header>
+
+            <div class="hero-station__viewport" data-station-viewport tabindex="0" role="region" aria-label="Interactive 3D Agent Harness. Drag horizontally or use the left and right arrow keys to rotate. Press R to reset the view.">
+              <img class="hero-station__fallback" data-station-fallback src="images/hero-3d-source/hero-agent-harness-master-v2.png" alt="Concept illustration of a scientific Agent Harness with an input dock, particle specimen, tools, six gates, split outputs, and an external human authority lever" width="1536" height="1024" decoding="async">
+              <canvas class="hero-station__canvas" data-station-canvas aria-hidden="true"></canvas>
+              <span class="hero-station__reticle" aria-hidden="true"></span>
+
+              <article class="hero-station__packet" data-station-packet aria-label="Contract entering the Agent Harness">
+                <header><span>TaskPacket / 01</span><b>Bounded contract</b></header>
+                <strong>Locate compatible molecular data</strong>
+                <dl>
+                  <div><dt>Scope</dt><dd>registered datasets</dd></div>
+                  <div><dt>May call</dt><dd>locator + validator</dd></div>
+                  <div><dt>Cannot</dt><dd>approve a claim</dd></div>
+                </dl>
+              </article>
+
+              <aside class="hero-station__execution" data-station-execution data-template-source="motionsites" data-template-name="ai-agent-pipeline" aria-label="Illustrated Agent route" aria-live="polite">
+                <header><span>Route walkthrough</span><b data-execution-summary>Waiting for route</b></header>
+                <ol>
+                  <li data-execution-step="contract"><i></i><span>Contract</span><strong>TaskPacket seated</strong></li>
+                  <li data-execution-step="agent"><i></i><span>Agent</span><strong>Parse + plan route</strong></li>
+                  <li data-execution-step="tool"><i></i><span>Tool</span><strong>Port 02 · locate</strong></li>
+                  <li data-execution-step="gate">
+                    <i></i><span>Checks</span><strong><b data-gate-count>0 / 6</b> compatible</strong>
+                    <span class="hero-station__gate-lamps" aria-label="Six compatibility checks">
+                      <i title="Identity"></i><i title="Rights"></i><i title="Mapping"></i><i title="Coverage"></i><i title="Meaning"></i><i title="Maturity"></i>
+                    </span>
+                  </li>
+                  <li data-execution-step="trace"><i></i><span>Trace</span><strong>EvidenceBundle staged</strong></li>
+                  <li data-execution-step="human"><i></i><span>Human</span><strong>Explicit release</strong></li>
+                </ol>
+              </aside>
+
+              <aside class="hero-station__authority" data-station-lever data-lever-state="locked" aria-label="Human authority lever">
+                <header><span>Human authority</span><b>Outside auto-loop</b></header>
+                <button class="hero-station__lever" type="button" data-station-human aria-pressed="false" disabled>
+                  <span class="hero-station__lever-base" aria-hidden="true">
+                    <i class="hero-station__lever-arm"><b></b></i>
+                    <i class="hero-station__lever-axis"></i>
+                  </span>
+                  <span class="hero-station__lever-label">Locked until trace</span>
+                </button>
+              </aside>
+
+              <article class="hero-station__result" data-station-result aria-hidden="true" aria-live="polite">
+                <header><span>Example EvidenceBundle / receipt</span><b>Result</b></header>
+                <strong>Review gate opened</strong>
+                <dl>
+                  <div><dt>Route</dt><dd>source + tool recorded</dd></div>
+                  <div><dt>Checks</dt><dd>6 / 6 resolved</dd></div>
+                  <div><dt>Authority</dt><dd>human acknowledgement</dd></div>
+                </dl>
+              </article>
+
+              <ol class="hero-station__markers" aria-label="Agent Harness stages">
+                <li data-stage-marker="contract"><button type="button" aria-pressed="true"><span>01</span>Contract</button></li>
+                <li data-stage-marker="agent"><button type="button" aria-pressed="false"><span>02</span>Agent</button></li>
+                <li data-stage-marker="tool"><button type="button" aria-pressed="false"><span>03</span>Tool</button></li>
+                <li data-stage-marker="gate"><button type="button" aria-pressed="false"><span>04</span>Gate × 6</button></li>
+                <li data-stage-marker="trace"><button type="button" aria-pressed="false"><span>05</span>Trace</button></li>
+                <li data-stage-marker="human"><button type="button" aria-pressed="false"><span>06</span>Human</button></li>
+              </ol>
+
+              <div class="hero-station__telemetry">
+                <output data-station-status aria-live="polite">Loading central harness</output>
+                <span data-station-payload>0 / 8 models</span>
+              </div>
+              <p class="hero-station__hint">Drag ±12° · ← → rotate · R reset</p>
+            </div>
+
+            <div class="hero-station__console">
+              <div class="hero-station__stage-copy" aria-live="polite">
+                <p><span data-stage-index>01</span><strong data-stage-title>Contract</strong></p>
+                <p data-stage-copy>TaskPacket and molecular datasets define what the Locator Agent may attempt.</p>
+              </div>
+              <div class="hero-station__controls" aria-label="Hero station controls">
+                <button type="button" data-station-run disabled>
+                  <span>Run harness</span><small>finite route</small>
+                </button>
+                <button type="button" data-station-inspect aria-pressed="false" disabled>
+                  <span>Inspect specimen</span><small>local particles</small>
+                </button>
+              </div>
+            </div>
           </div>
-          <aside class="portrait-note" aria-label="Current research">
-            <p>Current research</p>
-            <strong>LiGaMD trajectory analysis</strong>
-            <span>Experimental pKoff evaluation · UNC Miao Lab</span>
-          </aside>
-        </div>
+          <figcaption>
+            <span>Dynamics Atlas · readable Agent Harness</span>
+            <p id="hero-station-copy">TaskPacket + molecular datasets → Locator Agent → registered tools → six compatibility checks → EvidenceBundle or block. The brass route is the trace; the lever remains outside the automatic path.</p>
+          </figcaption>
+        </figure>
+
+        <nav class="page-index" aria-label="Page index">
+          <a href="#why">Overview</a>
+          <a href="#work">Projects</a>
+          <a href="#research">Research</a>
+          <a href="#about">Profile</a>
+        </nav>
+
+        <section class="ai-science-bridge" id="why" aria-labelledby="ai-science-title">
+          <div class="ai-science-bridge__thesis">
+            <p class="ai-science-bridge__label">AI × Science</p>
+            <h2 id="ai-science-title">The model is one step in a scientific workflow.</h2>
+          </div>
+          <ol class="science-chain" aria-label="Shared scientific decision framework from object through bounded automation, gate, record, and authority">
+            <li class="science-chain__input">
+              <span>1 · Scientific object</span>
+              <strong>passage · molecular dataset · protein–ligand system · workflow state</strong>
+            </li>
+            <li class="science-chain__model">
+              <span>2 · Bounded model move</span>
+              <strong>extract · draft · locate · compare</strong>
+            </li>
+            <li class="science-chain__gate">
+              <span>3 · Stopping gate</span>
+              <strong>support · compatibility · completeness · state and role rules</strong>
+            </li>
+            <li class="science-chain__output">
+              <span>4 · Durable record</span>
+              <strong>support record · EvidenceBundle · controlled state · model decision</strong>
+            </li>
+            <li class="science-chain__authority">
+              <span>5 · Authority + limit</span>
+              <strong>human review · scientific boundary · explicit no-selection</strong>
+            </li>
+          </ol>
+          <p class="ai-science-bridge__note">The projects use different methods. The comparison below makes their objects, automation, checks, and decision records explicit.</p>
+        </section>
       </div>
     </section>
 
-    <section class="why section-shell" id="why">
-      <header class="section-intro" data-reveal="rise">
-        <p class="eyebrow">Why this work</p>
-        <div>
-          <h2>The useful system starts where the model response ends.</h2>
-          <p>Models can retrieve, draft, and suggest. A usable application must also preserve source context and data meaning, enforce permissions and state transitions, record failures, and evaluate results at the correct unit of evidence. My projects address those requirements across scientific and stateful workflows.</p>
-        </div>
-      </header>
-    </section>
-
-    <section class="portfolio-map" id="map">
+    <section class="decision-matrix" id="map" aria-labelledby="decision-matrix-title">
       <div class="section-shell">
-        <header class="section-intro" data-reveal="rise">
-          <p class="eyebrow">Portfolio map</p>
-          <div>
-            <h2>Four software layers around model output.</h2>
-            <p>Each project makes one layer concrete: what supports a claim, what the data means, who may change state, and what counts as an independent evaluation item.</p>
-          </div>
+        <header class="index-section-head">
+          <h2 id="decision-matrix-title">Four projects. Four different decisions.</h2>
+          <p>The shared pattern is not one model architecture. Each project makes a different scientific or workflow decision and records why the route advanced or stopped.</p>
         </header>
 
-        <div class="layer-map" aria-label="Four recurring engineering layers across separate projects">
-          <a class="layer-map__item layer-map__item--blue" href="#evidenceops" data-reveal="pop">
-            <span class="layer-map__index">Evidence integrity</span>
-            <strong>Keep a claim tied to its source.</strong>
-            <small>EvidenceOps</small>
-          </a>
-          <a class="layer-map__item layer-map__item--violet" href="#dynamics-atlas" data-reveal="pop" data-reveal-delay="70">
-            <span class="layer-map__index">Data meaning + compatibility</span>
-            <strong>Check whether two inputs support the same analysis.</strong>
-            <small>Dynamics Atlas</small>
-          </a>
-          <a class="layer-map__item layer-map__item--coral" href="#careplan" data-reveal="pop" data-reveal-delay="140">
-            <span class="layer-map__index">Workflow authority + state</span>
-            <strong>Keep model output inside a controlled lifecycle.</strong>
-            <small>CarePlan</small>
-          </a>
-          <a class="layer-map__item layer-map__item--green" href="#hsp90" data-reveal="pop" data-reveal-delay="210">
-            <span class="layer-map__index">Evaluation validity</span>
-            <strong>Evaluate at the unit that carries the label.</strong>
-            <small>HSP90 / LiGaMD</small>
-          </a>
+        <div class="decision-matrix__frame" tabindex="0" aria-label="Comparison of the four project decisions">
+          <table class="decision-matrix__table">
+            <thead>
+              <tr>
+                <th scope="col">Project</th>
+                <th scope="col">Decision</th>
+                <th scope="col">Input</th>
+                <th scope="col">Automation contributes</th>
+                <th scope="col">What can stop it</th>
+                <th scope="col">Recorded outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row"><a href="#dynamics-atlas">Dynamics Atlas <span>↓</span></a></th>
+                <td data-label="Decision">Can these sources support one analysis?</td>
+                <td data-label="Input">TaskPacket + two molecular datasets</td>
+                <td data-label="Automation">Locator suggestion</td>
+                <td data-label="Stop">Six compatibility gates</td>
+                <td data-label="Record">EvidenceBundle or blocked route</td>
+              </tr>
+              <tr>
+                <th scope="row"><a href="#hsp90">HSP90 / LiGaMD <span>↓</span></a></th>
+                <td data-label="Decision">Is the apparent model improvement stable?</td>
+                <td data-label="Input">Three replicas + assay pKoff</td>
+                <td data-label="Automation">Four-regressor comparison</td>
+                <td data-label="Stop">Completeness, grouped folds, bootstrap</td>
+                <td data-label="Record">No model selected on N31</td>
+              </tr>
+              <tr>
+                <th scope="row"><a href="#evidenceops">EvidenceOps <span>↓</span></a></th>
+                <td data-label="Decision">Does this passage support this exact claim?</td>
+                <td data-label="Input">Versioned passage + context</td>
+                <td data-label="Automation">Candidate field extraction</td>
+                <td data-label="Stop">Text, value, unit, or context mismatch</td>
+                <td data-label="Record">Review record or unsupported</td>
+              </tr>
+              <tr>
+                <th scope="row"><a href="#careplan">CarePlan <span>↓</span></a></th>
+                <td data-label="Decision">May this synthetic draft advance?</td>
+                <td data-label="Input">Synthetic order + versioned state</td>
+                <td data-label="Automation">Typed draft</td>
+                <td data-label="Stop">Eligibility, schema, version, or role</td>
+                <td data-label="Record">Review-pending state + receipt</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <p class="layer-map__caption">These are recurring engineering layers across separate projects, not components of one shared platform.</p>
+        <p class="decision-matrix__note">Dynamics Atlas and HSP90 / LiGaMD operate directly on molecular data. EvidenceOps works on scientific evidence records. CarePlan is an adjacent synthetic prototype—not a clinical system.</p>
       </div>
     </section>
 
-    <section class="work section-shell" id="work">
-      <header class="section-intro" data-reveal="rise">
-        <p class="eyebrow">Selected work</p>
-        <div>
-          <h2>Four projects that turn those layers into working software.</h2>
-          <p>Each case study starts with the capability I built, then shows the implementation decision, recorded result, and current scope.</p>
-        </div>
-      </header>
+    <section class="work" id="work">
+      <div class="section-shell work__intro">
+        <header class="index-section-head">
+          <h2>Project case studies.</h2>
+          <p>Each case study starts with the broader problem, then shows the input, automated step, validation gate, recorded result, and current limit.</p>
+        </header>
 
-      <div class="work-grid">
-        <article class="work-card work-card--blue" id="evidenceops" data-reveal="pop">
-          <div class="work-card__content">
-            <header class="work-card__header">
+        <div class="system-legend" aria-label="Role legend used in the four AI system maps">
+          <span><b class="role-key role-key--agent">Agent</b> routes bounded tool calls</span>
+          <span><b class="role-key role-key--model">Model</b> suggests or generates</span>
+          <span><b class="role-key role-key--tool">Tool</b> executes repeatably</span>
+          <span><b class="role-key role-key--rule">Rule</b> validates or blocks</span>
+          <span><b class="role-key role-key--state">State</b> records what happened</span>
+          <span><b class="role-key role-key--human">Human</b> owns final authority</span>
+        </div>
+
+        <section class="motion-source-map" aria-labelledby="motion-source-map-title">
+          <header class="motion-source-map__header">
+            <p>Design provenance / interaction ledger</p>
+            <h3 id="motion-source-map-title">10 adapted interaction patterns.</h3>
+            <p>The references supply motion grammar; every adaptation is bound to a scientific object, system state, or review action on this page.</p>
+          </header>
+          <ol class="motion-source-map__list">
+            <li>
+              <span>01 / MotionSites</span>
+              <p><a href="https://motionsites.org/prompts/dani-0212bfb0-ai-agent-pipeline" data-template-source="motionsites" data-template-name="ai-agent-pipeline" target="_blank" rel="noopener noreferrer">AI Agent Pipeline ↗</a> <i aria-hidden="true">+</i> <a href="https://motionsites.org/prompts/user-2tkbbpfwyn8ymjznhwgiup3yzvd-agent-plan" data-template-source="motionsites" data-template-name="agent-plan" target="_blank" rel="noopener noreferrer">Agent Plan ↗</a></p>
+              <small>Hero route walkthrough + six-stage project plans</small>
+            </li>
+            <li>
+              <span>02 / React Bits</span>
+              <p><a href="https://www.reactbits.dev/animations/scroll-expand" data-template-source="reactbits" data-template-name="scroll-expand" target="_blank" rel="noopener noreferrer">Scroll Expand ↗</a> <i aria-hidden="true">+</i> <a href="https://www.reactbits.dev/components/animated-list" data-template-source="reactbits" data-template-name="animated-list" target="_blank" rel="noopener noreferrer">Animated List ↗</a></p>
+              <small>Hero reveal + ordered runtime transcript</small>
+            </li>
+            <li>
+              <span>03 / Uiverse</span>
+              <p><a href="https://uiverse.io/Cybercom682/ordinary-duck-36" data-template-source="uiverse" data-template-name="progress-status-card" target="_blank" rel="noopener noreferrer">Progress status ↗</a> <i aria-hidden="true">+</i> <a href="https://uiverse.io/Yaya12085/soft-jellyfish-99" data-template-source="uiverse" data-template-name="terminal-card" target="_blank" rel="noopener noreferrer">Terminal card ↗</a></p>
+              <small>Stage readout + bounded execution receipt</small>
+            </li>
+            <li>
+              <span>04 / Anime.js</span>
+              <p><a href="https://animejs.com/documentation/svg/createdrawable/" data-template-source="anime" data-template-name="create-drawable" target="_blank" rel="noopener noreferrer">createDrawable ↗</a> <i aria-hidden="true">+</i> <a href="https://animejs.com/documentation/svg/createmotionpath/" data-template-source="anime" data-template-name="create-motion-path" target="_blank" rel="noopener noreferrer">createMotionPath ↗</a></p>
+              <small>Auditable edge trace + packet moving through the route</small>
+            </li>
+            <li>
+              <span>05 / Aceternity UI</span>
+              <p><a href="https://ui.aceternity.com/components/sticky-scroll-reveal" data-template-source="aceternity" data-template-name="sticky-scroll-reveal" target="_blank" rel="noopener noreferrer">Sticky Scroll Reveal ↗</a> <i aria-hidden="true">+</i> <a href="https://ui.aceternity.com/components/tracing-beam" data-template-source="aceternity" data-template-name="tracing-beam" target="_blank" rel="noopener noreferrer">Tracing Beam ↗</a></p>
+              <small>Sticky system plate + scroll-positioned narrative beam</small>
+            </li>
+          </ol>
+        </section>
+      </div>
+
+      <div class="project-spreads">
+        <article class="project-spread project-spread--evidence" id="evidenceops">
+          <div class="section-shell">
+            <header class="project-spread__header">
               <div>
-                <p class="work-card__meta">Engineering case study · Public MVP</p>
+                <p class="project-spread__meta">AI evidence engineering · Public MVP + local test path</p>
                 <h3><a href="projects/evidenceops.html">EvidenceOps</a></h3>
               </div>
-              <p class="work-card__status">Jun 2026—Present</p>
+              <p class="project-spread__date">Jun 2026—Present</p>
             </header>
-            <p class="work-card__problem">EvidenceOps keeps each claim tied to the passage, value, unit, and experimental context that support it.</p>
-            <p class="work-card__contribution">I built the retrieval and review workflow so a relevant paper is not treated as sufficient evidence when the cited passage does not match. The system returns “unsupported” instead.</p>
-            <a class="work-card__image" href="projects/evidenceops.html" aria-label="Read the EvidenceOps case study">
-              <img src="images/project-visuals/evidenceops-card-portrait.jpg" alt="Portrait editorial model of a source passage passing through a support gate to human review" width="1122" height="1402" loading="eager" decoding="async">
-            </a>
-            <ol class="work-card__route" aria-label="EvidenceOps workflow summary">
-              <li>Source context</li><li>Support check</li><li>Human review</li>
-            </ol>
-            <div class="work-card__result">
-              <p><span>Recorded result</span><strong>70 / 70</strong></p>
-              <p>20 search cases · 50 extraction or validation cases</p>
+
+            <div class="project-story" data-project-story="evidenceops" data-active-stage="0" data-template-source="aceternity" data-template-name="sticky-scroll-reveal">
+              <div class="project-story__visual">
+                <figure class="semantic-workflow semantic-workflow--evidence" aria-labelledby="evidence-workflow-title">
+                  <figcaption>
+                    <span>Source-grounded claim route</span>
+                    <strong id="evidence-workflow-title">Does this passage support this exact scientific claim?</strong>
+                  </figcaption>
+                  <div class="semantic-workflow__canvas">
+                    <span class="semantic-workflow__focus" data-story-focus aria-hidden="true"></span>
+                    <svg class="semantic-workflow__edges" data-template-source="anime" data-template-name="create-drawable" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
+                      <path class="workflow-edge" data-edge-stage="1" d="M250 160 C300 160 300 265 350 265"></path>
+                      <path class="workflow-edge" data-edge-stage="2" d="M505 265 C555 265 555 160 610 160"></path>
+                      <path class="workflow-edge" data-edge-stage="3" d="M760 205 V315"></path>
+                      <path class="workflow-edge workflow-edge--branch" data-edge-stage="3" d="M705 355 C650 420 575 455 500 470"></path>
+                      <path class="workflow-edge" data-edge-stage="4" d="M760 405 V465"></path>
+                      <path class="workflow-edge" data-edge-stage="5" d="M830 505 H900"></path>
+                      <circle class="workflow-packet" data-flow-packet data-template-source="anime" data-template-name="create-motion-path" cx="0" cy="0" r="7"></circle>
+                    </svg>
+
+                    <button class="workflow-node workflow-node--document" type="button" data-story-node="0" aria-pressed="true">
+                      <small>Input · labelled synthetic fixture</small>
+                      <strong>Retrieve source-backed evidence, attach citation metadata, and mark unsupported claims.</strong>
+                      <span>versioned source · supporting span · synthetic context</span>
+                    </button>
+                    <button class="workflow-node workflow-node--search" type="button" data-story-node="1" aria-pressed="false">
+                      <small>Tool · source search</small>
+                      <strong>Candidate passage</strong>
+                      <span>source text remains unchanged</span>
+                    </button>
+                    <button class="workflow-node workflow-node--claim" type="button" data-story-node="2" aria-pressed="false">
+                      <small>Model · candidate fields</small>
+                      <strong>Claim · value from span · unit from span · assay context</strong>
+                      <span>proposal only</span>
+                    </button>
+                    <button class="workflow-node workflow-node--checks" type="button" data-story-node="3" aria-pressed="false">
+                      <small>Rule · exact support</small>
+                      <strong>Text · Value · Unit · Context</strong>
+                      <span>every field must match the cited span</span>
+                    </button>
+                    <aside class="workflow-branch workflow-branch--stop" data-story-result="3">
+                      <small>Mismatch</small><strong>Unsupported · release blocked</strong>
+                    </aside>
+                    <button class="workflow-node workflow-node--review" type="button" data-story-node="4" aria-pressed="false">
+                      <small>Human · review</small>
+                      <strong>Inspect exact support</strong>
+                      <span>model cannot release the record</span>
+                    </button>
+                    <button class="workflow-node workflow-node--record" type="button" data-story-node="5" aria-pressed="false">
+                      <small>State · durable record</small>
+                      <strong>Source-linked review record</strong>
+                      <span>support status · flags · decision</span>
+                    </button>
+                  </div>
+                  <div class="workflow-runtime">
+                    <section class="workflow-status" data-story-status data-template-source="uiverse" data-template-name="progress-status-card" aria-label="EvidenceOps active workflow stage">
+                      <header><span data-story-status-role>Scientific object</span><b data-story-status-state>Ready</b></header>
+                      <div class="workflow-status__readout">
+                        <small>Active stage</small>
+                        <strong data-story-status-title>Versioned passage + context</strong>
+                        <span data-story-status-index>01 / 06</span>
+                      </div>
+                      <div class="workflow-status__track" data-story-status-track role="progressbar" aria-label="EvidenceOps workflow progress" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1"><i class="workflow-status__fill" data-story-status-fill></i></div>
+                      <button type="button" data-story-next>Advance trace <span aria-hidden="true">→</span></button>
+                    </section>
+                    <aside class="workflow-terminal" data-template-source="uiverse" data-template-name="terminal-card" aria-label="EvidenceOps bounded runtime transcript">
+                      <header class="workflow-terminal__bar"><span>Bounded run trace</span><b data-story-terminal-state>Input / ready</b></header>
+                      <ol data-story-transcript data-template-source="reactbits" data-template-name="animated-list">
+                        <li data-story-line="command"><span>$</span><code>receive passage@version</code></li>
+                        <li data-story-line="role"><span>role</span><strong>Rule owns release gate</strong></li>
+                        <li data-story-line="receipt"><span>state</span><strong>Context attached</strong></li>
+                      </ol>
+                      <output class="semantic-workflow__log" data-story-log aria-live="polite">01 · Input locked to a versioned passage and experimental context.</output>
+                    </aside>
+                  </div>
+                </figure>
+              </div>
+
+              <div class="project-story__steps" data-template-source="motionsites" data-template-name="agent-plan" aria-label="EvidenceOps workflow explanation">
+                <svg class="project-story__beam" data-template-source="aceternity" data-template-name="tracing-beam" viewBox="0 0 24 100" preserveAspectRatio="none" aria-hidden="true">
+                  <path class="project-story__beam-track" d="M12 0 V100"></path>
+                  <path class="project-story__beam-progress" data-story-beam-progress pathLength="1" d="M12 0 V100"></path>
+                </svg>
+                <span class="project-story__beam-head" data-story-beam-head aria-hidden="true"></span>
+                <div class="project-story__lead">
+                  <p>Why it matters</p>
+                  <h4>A relevant passage may still fail to support the exact wording, value, unit, or condition.</h4>
+                </div>
+                <div class="project-story__mobile-dock" data-story-mobile-dock aria-hidden="true">
+                  <span data-mobile-stage-index>01 / 06</span>
+                  <strong data-mobile-stage-title>Keep the source passage and its conditions together.</strong>
+                  <i><b data-mobile-stage-fill></b></i>
+                </div>
+                <button class="project-story__step" type="button" data-story-step="0" aria-pressed="true">
+                  <span>01 · Scientific object</span><strong>Keep the source passage and its conditions together.</strong><small>A query, versioned passage, source locator, supporting span, and experimental context enter as one evidence object.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="1" aria-pressed="false">
+                  <span>02 · Deterministic tool</span><strong>Retrieve without rewriting the source.</strong><small>Search returns candidate passages; it does not turn topical relevance into claim support.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="2" aria-pressed="false">
+                  <span>03 · Bounded model move</span><strong>Extract a candidate into named fields.</strong><small>The local test path proposes claim, value, unit, and context fields for inspection.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="3" aria-pressed="false">
+                  <span>04 · Blocking gate</span><strong>Match text, value, unit, and context.</strong><small>Any mismatch produces <code>unsupported</code>, a release block, or a context review flag.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="4" aria-pressed="false">
+                  <span>05 · Human review</span><strong>Decide whether the attached support is sufficient.</strong><small>The model proposes a record; it does not own release authority.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="5" aria-pressed="false">
+                  <span>06 · Recorded outcome</span><strong>Preserve source, checks, flags, and decision.</strong><small>The result remains traceable to the exact passage rather than a fluent summary.</small>
+                </button>
+                <p class="project-story__limit"><strong>Current limit</strong> Public or clearly labelled synthetic inputs. The fixed cases test defined behavior—not open-ended scientific accuracy or production use.</p>
+              </div>
             </div>
-            <p class="work-card__scope"><strong>Current scope</strong> Public or synthetic inputs; no production or open-ended scientific-accuracy claim.</p>
-            <div class="work-card__links">
-              <a href="projects/evidenceops.html">Read case study <span aria-hidden="true">→</span></a>
-              <a href="https://alex051107.github.io/evidenceops-public-mvp/" target="_blank" rel="noopener noreferrer">Open demo <span aria-hidden="true">↗</span></a>
-              <a href="https://github.com/alex051107/evidenceops-public-mvp" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span></a>
+
+            <div class="project-proof">
+              <dl>
+                <div><dt>Fixed cases</dt><dd>70 / 70</dd></div>
+                <div><dt>Search</dt><dd>20</dd></div>
+                <div><dt>Extract / validate</dt><dd>50</dd></div>
+              </dl>
+              <p><strong>Boundary</strong> Public or labelled synthetic inputs; no production or open-ended scientific-accuracy claim.</p>
+              <div class="project-links">
+                <a href="projects/evidenceops.html">Read case study →</a>
+                <a href="https://alex051107.github.io/evidenceops-public-mvp/" target="_blank" rel="noopener noreferrer">Open static console ↗</a>
+                <a href="https://github.com/alex051107/evidenceops-public-mvp" target="_blank" rel="noopener noreferrer">Code ↗</a>
+              </div>
             </div>
           </div>
         </article>
 
-        <article class="work-card work-card--coral" id="careplan" data-reveal="pop" data-reveal-delay="70">
-          <div class="work-card__content">
-            <header class="work-card__header">
+        <article class="project-spread project-spread--care project-spread--reverse" id="careplan">
+          <div class="section-shell">
+            <header class="project-spread__header">
               <div>
-                <p class="work-card__meta">Backend workflow case study · Local prototype</p>
+                <p class="project-spread__meta">AI backend workflow · Synthetic prototype</p>
                 <h3><a href="projects/careplan.html">CarePlan</a></h3>
               </div>
-              <p class="work-card__status">Feb 2026—Present</p>
+              <p class="project-spread__date">Feb 2026—Present</p>
             </header>
-            <p class="work-card__problem">CarePlan keeps AI drafting separate from rule checks, workflow state, and reviewer approval.</p>
-            <p class="work-card__contribution">In the recorded workflow, model-generated drafts enter a recoverable review process; server code handles the tested same-key duplicate path and keeps approval with the reviewer role.</p>
-            <a class="work-card__image" href="projects/careplan.html" aria-label="Read the CarePlan case study">
-              <img src="images/project-visuals/careplan-card-portrait.jpg" alt="Portrait editorial model of a synthetic order passing through rules and drafting to a separate approval station" width="1122" height="1402" loading="eager" decoding="async">
-            </a>
-            <ol class="work-card__route" aria-label="CarePlan workflow summary">
-              <li>Hard rules</li><li>Typed draft</li><li>Role review</li>
-            </ol>
-            <div class="work-card__result">
-              <p><span>Recorded result</span><strong>200 / 200</strong></p>
-              <p>Permission and workflow-state checks · 120 synthetic orders</p>
+
+            <div class="project-story" data-project-story="careplan" data-active-stage="0" data-template-source="aceternity" data-template-name="sticky-scroll-reveal">
+              <div class="project-story__visual">
+                <figure class="semantic-workflow semantic-workflow--care" aria-labelledby="care-workflow-title">
+                  <figcaption>
+                    <span>Synthetic workflow state machine</span>
+                    <strong id="care-workflow-title">Can this draft advance without bypassing state and role rules?</strong>
+                  </figcaption>
+                  <div class="semantic-workflow__canvas">
+                    <span class="semantic-workflow__focus" data-story-focus aria-hidden="true"></span>
+                    <svg class="semantic-workflow__edges" data-template-source="anime" data-template-name="create-drawable" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
+                      <path class="workflow-edge" data-edge-stage="1" d="M250 145 H330"></path>
+                      <path class="workflow-edge workflow-edge--branch" data-edge-stage="1" d="M445 195 V300"></path>
+                      <path class="workflow-edge" data-edge-stage="2" d="M555 145 H635"></path>
+                      <path class="workflow-edge" data-edge-stage="3" d="M755 195 V330"></path>
+                      <path class="workflow-edge" data-edge-stage="4" d="M635 405 H555"></path>
+                      <path class="workflow-edge workflow-edge--branch" data-edge-stage="4" d="M445 455 V535"></path>
+                      <path class="workflow-edge" data-edge-stage="5" d="M330 405 H250"></path>
+                      <circle class="workflow-packet" data-flow-packet data-template-source="anime" data-template-name="create-motion-path" cx="0" cy="0" r="7"></circle>
+                    </svg>
+
+                    <button class="workflow-node workflow-node--care-input" type="button" data-story-node="0" aria-pressed="true">
+                      <small>Input · synthetic only</small><strong>Order + hard-stop flags</strong><span>idempotency key · expected version</span>
+                    </button>
+                    <button class="workflow-node workflow-node--care-stop" type="button" data-story-node="1" aria-pressed="false">
+                      <small>Rule · before AI</small><strong>Eligibility hard stop</strong><span>ineligible orders never reach drafting</span>
+                    </button>
+                    <aside class="workflow-branch workflow-branch--care-rejected" data-story-result="1"><small>Hard stop</small><strong>REJECTED</strong></aside>
+                    <button class="workflow-node workflow-node--care-queue" type="button" data-story-node="2" aria-pressed="false">
+                      <small>State</small><strong>DRAFT_QUEUED · expected version</strong><span>duplicate-safe receipt</span>
+                    </button>
+                    <button class="workflow-node workflow-node--care-ai" type="button" data-story-node="3" aria-pressed="false">
+                      <small>AI worker · bounded</small><strong>Fill typed draft fields</strong><span>schema contains no approval field</span>
+                    </button>
+                    <button class="workflow-node workflow-node--care-schema" type="button" data-story-node="4" aria-pressed="false">
+                      <small>Rules · after AI</small><strong>Schema + expected version</strong><span>transition · stale state · idempotency</span>
+                    </button>
+                    <aside class="workflow-branch workflow-branch--care-failed" data-story-result="4"><small>Invalid or stale</small><strong>FAILED RECEIPT</strong></aside>
+                    <button class="workflow-node workflow-node--care-review" type="button" data-story-node="5" aria-pressed="false">
+                      <small>State + human authority</small><strong>REVIEW_PENDING</strong><span>authorized reviewer → approve / reject</span>
+                    </button>
+                    <aside class="workflow-side-note"><small>Same key</small><span>same payload → original plan<br>changed payload → reject reuse</span></aside>
+                  </div>
+                  <div class="workflow-runtime">
+                    <section class="workflow-status" data-story-status data-template-source="uiverse" data-template-name="progress-status-card" aria-label="CarePlan active workflow stage">
+                      <header><span data-story-status-role>Scientific object</span><b data-story-status-state>Ready</b></header>
+                      <div class="workflow-status__readout">
+                        <small>Active stage</small>
+                        <strong data-story-status-title>Synthetic order + state</strong>
+                        <span data-story-status-index>01 / 06</span>
+                      </div>
+                      <div class="workflow-status__track" data-story-status-track role="progressbar" aria-label="CarePlan workflow progress" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1"><i class="workflow-status__fill" data-story-status-fill></i></div>
+                      <button type="button" data-story-next>Advance trace <span aria-hidden="true">→</span></button>
+                    </section>
+                    <aside class="workflow-terminal" data-template-source="uiverse" data-template-name="terminal-card" aria-label="CarePlan bounded runtime transcript">
+                      <header class="workflow-terminal__bar"><span>Bounded run trace</span><b data-story-terminal-state>Input / ready</b></header>
+                      <ol data-story-transcript data-template-source="reactbits" data-template-name="animated-list">
+                        <li data-story-line="command"><span>$</span><code>receive synthetic_order</code></li>
+                        <li data-story-line="role"><span>role</span><strong>Rules precede AI worker</strong></li>
+                        <li data-story-line="receipt"><span>state</span><strong>Version recorded</strong></li>
+                      </ol>
+                      <output class="semantic-workflow__log" data-story-log aria-live="polite">01 · Synthetic order enters with explicit state and hard-stop fields.</output>
+                    </aside>
+                  </div>
+                </figure>
+              </div>
+
+              <div class="project-story__steps" data-template-source="motionsites" data-template-name="agent-plan" aria-label="CarePlan workflow explanation">
+                <svg class="project-story__beam" data-template-source="aceternity" data-template-name="tracing-beam" viewBox="0 0 24 100" preserveAspectRatio="none" aria-hidden="true">
+                  <path class="project-story__beam-track" d="M12 0 V100"></path>
+                  <path class="project-story__beam-progress" data-story-beam-progress pathLength="1" d="M12 0 V100"></path>
+                </svg>
+                <span class="project-story__beam-head" data-story-beam-head aria-hidden="true"></span>
+                <div class="project-story__lead">
+                  <p>Why it matters</p>
+                  <h4>A plausible biomedical draft is not a valid workflow decision.</h4>
+                </div>
+                <div class="project-story__mobile-dock" data-story-mobile-dock aria-hidden="true">
+                  <span data-mobile-stage-index>01 / 06</span>
+                  <strong data-mobile-stage-title>Start from a synthetic order and an expected state.</strong>
+                  <i><b data-mobile-stage-fill></b></i>
+                </div>
+                <button class="project-story__step" type="button" data-story-step="0" aria-pressed="true">
+                  <span>01 · Workflow object</span><strong>Start from a synthetic order and an expected state.</strong><small>Structured fields, hard-stop flags, idempotency key, and state version define the request.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="1" aria-pressed="false">
+                  <span>02 · Pre-AI gate</span><strong>Reject ineligible requests before drafting.</strong><small>The hard stop owns eligibility; the AI worker cannot reason around it.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="2" aria-pressed="false">
+                  <span>03 · Versioned state</span><strong>Queue one duplicate-safe draft attempt.</strong><small>The same key and payload return the original plan; changed payload rejects key reuse.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="3" aria-pressed="false">
+                  <span>04 · Bounded AI move</span><strong>Produce typed draft fields—never an approval.</strong><small>The draft schema deliberately contains no field that can approve or release the plan.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="4" aria-pressed="false">
+                  <span>05 · Post-AI gate</span><strong>Validate schema, version, and transition.</strong><small>Invalid, stale, or conflicting changes return a failed receipt instead of mutating state.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="5" aria-pressed="false">
+                  <span>06 · Recorded authority</span><strong>Persist REVIEW_PENDING; let the reviewer decide.</strong><small>Reviewer-role validation precedes approve or reject, and the human decision receives its own receipt.</small>
+                </button>
+                <p class="project-story__limit"><strong>Current limit</strong> Synthetic control-flow prototype. The public harness does not call a model service; there is no patient data, clinical recommendation, autonomous approval, or production deployment.</p>
+              </div>
             </div>
-            <p class="work-card__scope"><strong>Current scope</strong> Synthetic portfolio workflow; no patient data, clinical recommendation, or production use.</p>
-            <div class="work-card__links">
-              <a href="projects/careplan.html">Read case study <span aria-hidden="true">→</span></a>
-              <a href="https://github.com/alex051107/projects/tree/main/careplan_workflow_harness" target="_blank" rel="noopener noreferrer">Public harness <span aria-hidden="true">↗</span></a>
+
+            <div class="project-proof">
+              <dl>
+                <div><dt>Checks</dt><dd>200 / 200</dd></div>
+                <div><dt>Synthetic orders</dt><dd>120</dd></div>
+                <div><dt>Reached review</dt><dd>70</dd></div>
+              </dl>
+              <p><strong>Boundary</strong> Synthetic control-flow prototype; no patient data, clinical recommendation, autonomous approval, or production claim.</p>
+              <div class="project-links">
+                <a href="projects/careplan.html">Read case study →</a>
+                <a href="https://github.com/alex051107/projects/tree/main/careplan_workflow_harness" target="_blank" rel="noopener noreferrer">Public harness ↗</a>
+              </div>
             </div>
           </div>
         </article>
 
-        <article class="work-card work-card--violet" id="dynamics-atlas" data-reveal="pop">
-          <div class="work-card__content">
-            <header class="work-card__header">
+        <article class="project-spread project-spread--dynamics" id="dynamics-atlas">
+          <div class="section-shell">
+            <header class="project-spread__header">
               <div>
-                <p class="work-card__meta">Research engineering case study · Collaboration</p>
+                <p class="project-spread__meta">Agent-assisted research engineering · Collaboration</p>
                 <h3><a href="research/dynamics-atlas.html">Dynamics Atlas</a></h3>
               </div>
-              <p class="work-card__status">Jun 2026—Present</p>
+              <p class="project-spread__date">Jun 2026—Present</p>
             </header>
-            <p class="work-card__problem">Dynamics Atlas checks data meaning and compatibility before an analysis route is accepted.</p>
-            <p class="work-card__contribution">Within the research collaboration, my work focuses on task records, data-specific routes, and the boundary between Agent suggestions and deterministic validation.</p>
-            <a class="work-card__image" href="research/dynamics-atlas.html" aria-label="Read the Dynamics Atlas case study">
-              <img src="images/project-visuals/dynamics-atlas-card-portrait.jpg" alt="Portrait editorial model of two molecular evidence formats passing through compatibility gates before analysis" width="1122" height="1402" loading="eager" decoding="async">
-            </a>
-            <ol class="work-card__route" aria-label="Dynamics Atlas workflow summary">
-              <li>Source identity</li><li>Compatibility gates</li><li>Approved route</li>
-            </ol>
-            <div class="work-card__result work-card__result--triple">
-              <p><span>Recorded result</span><strong>13 · 24 · 42</strong></p>
-              <p>Harness tests · machine checks · HSP90 replays</p>
+
+            <div class="project-story" data-project-story="dynamics-atlas" data-active-stage="0" data-template-source="aceternity" data-template-name="sticky-scroll-reveal">
+              <div class="project-story__visual">
+                <figure class="semantic-workflow semantic-workflow--dynamics" aria-labelledby="dynamics-workflow-title">
+                  <figcaption>
+                    <span>Compatibility-gated Agent route</span>
+                    <strong id="dynamics-workflow-title">Can these two molecular datasets support the same analysis?</strong>
+                  </figcaption>
+                  <div class="semantic-workflow__canvas">
+                    <span class="semantic-workflow__focus" data-story-focus aria-hidden="true"></span>
+                    <svg class="semantic-workflow__edges" data-template-source="anime" data-template-name="create-drawable" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
+                      <path class="workflow-edge workflow-edge--sidecar" data-edge-stage="1" d="M295 120 C330 120 330 240 375 240"></path>
+                      <path class="workflow-edge workflow-edge--branch" data-edge-stage="1" d="M220 165 C185 225 170 265 165 315"></path>
+                      <path class="workflow-edge" data-edge-stage="2" d="M260 355 H390"></path>
+                      <path class="workflow-edge" data-edge-stage="3" d="M545 355 H635"></path>
+                      <path class="workflow-edge workflow-edge--branch" data-edge-stage="3" d="M715 420 C715 470 650 500 590 515"></path>
+                      <path class="workflow-edge" data-edge-stage="4" d="M805 355 H875"></path>
+                      <path class="workflow-edge" data-edge-stage="5" d="M885 415 C865 475 830 505 790 520"></path>
+                      <circle class="workflow-packet" data-flow-packet data-template-source="anime" data-template-name="create-motion-path" cx="0" cy="0" r="7"></circle>
+                    </svg>
+
+                    <button class="workflow-node workflow-node--dynamics-input" type="button" data-story-node="0" aria-pressed="true">
+                      <small>Input · scientific contract</small><strong>TaskPacket + Dataset A + Dataset B</strong><span>identity · selections · proposed analysis</span>
+                    </button>
+                    <button class="workflow-node workflow-node--dynamics-agent" type="button" data-story-node="1" aria-pressed="false">
+                      <small>Agent · sidecar only</small><strong>Suggest a source locator</strong><span>or identify a missing input</span>
+                    </button>
+                    <aside class="workflow-branch workflow-branch--dynamics-missing" data-story-result="1"><small>Missing input</small><strong>NEEDS INPUT</strong></aside>
+                    <button class="workflow-node workflow-node--dynamics-compiler" type="button" data-story-node="2" aria-pressed="false">
+                      <small>Tool · deterministic</small><strong>Compile registered route</strong><span>the Agent does not execute the science</span>
+                    </button>
+                    <button class="workflow-node workflow-node--dynamics-gates" type="button" data-story-node="3" aria-pressed="false">
+                      <small>Rules · six ordered gates</small><strong>Identity · Rights · Mapping</strong><span>Coverage · Meaning · Maturity</span>
+                    </button>
+                    <aside class="workflow-branch workflow-branch--dynamics-blocked" data-story-result="3"><small>Fail closed</small><strong>ROUTE BLOCKED · REVIEW PENDING</strong></aside>
+                    <button class="workflow-node workflow-node--dynamics-bundle" type="button" data-story-node="4" aria-pressed="false">
+                      <small>State · durable records</small><strong>EvidenceBundle if accepted</strong><span>DecisionTrace + RunReceipt explain every outcome</span>
+                    </button>
+                    <button class="workflow-node workflow-node--dynamics-review" type="button" data-story-node="5" aria-pressed="false">
+                      <small>Human · scientific boundary</small><strong>Scope the supported claim</strong><span>review authority remains outside the Agent</span>
+                    </button>
+                  </div>
+                  <div class="workflow-runtime">
+                    <section class="workflow-status" data-story-status data-template-source="uiverse" data-template-name="progress-status-card" aria-label="Dynamics Atlas active workflow stage">
+                      <header><span data-story-status-role>Scientific object</span><b data-story-status-state>Ready</b></header>
+                      <div class="workflow-status__readout">
+                        <small>Active stage</small>
+                        <strong data-story-status-title>TaskPacket + two datasets</strong>
+                        <span data-story-status-index>01 / 06</span>
+                      </div>
+                      <div class="workflow-status__track" data-story-status-track role="progressbar" aria-label="Dynamics Atlas workflow progress" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1"><i class="workflow-status__fill" data-story-status-fill></i></div>
+                      <button type="button" data-story-next>Advance trace <span aria-hidden="true">→</span></button>
+                    </section>
+                    <aside class="workflow-terminal" data-template-source="uiverse" data-template-name="terminal-card" aria-label="Dynamics Atlas bounded runtime transcript">
+                      <header class="workflow-terminal__bar"><span>Bounded run trace</span><b data-story-terminal-state>Input / ready</b></header>
+                      <ol data-story-transcript data-template-source="reactbits" data-template-name="animated-list">
+                        <li data-story-line="command"><span>$</span><code>compile task_packet</code></li>
+                        <li data-story-line="role"><span>role</span><strong>Agent limited to locator</strong></li>
+                        <li data-story-line="receipt"><span>state</span><strong>Two inputs named</strong></li>
+                      </ol>
+                      <output class="semantic-workflow__log" data-story-log aria-live="polite">01 · A TaskPacket names the scientific operation and both molecular data objects.</output>
+                    </aside>
+                  </div>
+                </figure>
+              </div>
+
+              <div class="project-story__steps" data-template-source="motionsites" data-template-name="agent-plan" aria-label="Dynamics Atlas workflow explanation">
+                <svg class="project-story__beam" data-template-source="aceternity" data-template-name="tracing-beam" viewBox="0 0 24 100" preserveAspectRatio="none" aria-hidden="true">
+                  <path class="project-story__beam-track" d="M12 0 V100"></path>
+                  <path class="project-story__beam-progress" data-story-beam-progress pathLength="1" d="M12 0 V100"></path>
+                </svg>
+                <span class="project-story__beam-head" data-story-beam-head aria-hidden="true"></span>
+                <div class="project-story__lead">
+                  <p>Why it matters</p>
+                  <h4>Two datasets can describe the same protein and still be incompatible for one analysis.</h4>
+                </div>
+                <div class="project-story__mobile-dock" data-story-mobile-dock aria-hidden="true">
+                  <span data-mobile-stage-index>01 / 06</span>
+                  <strong data-mobile-stage-title>Make the proposed comparison explicit.</strong>
+                  <i><b data-mobile-stage-fill></b></i>
+                </div>
+                <button class="project-story__step" type="button" data-story-step="0" aria-pressed="true">
+                  <span>01 · Scientific object</span><strong>Make the proposed comparison explicit.</strong><small>The TaskPacket travels with two typed datasets, source identities, mappings, coverage, measurement meaning, and status.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="1" aria-pressed="false">
+                  <span>02 · Bounded Agent move</span><strong>Suggest a locator; never choose the scientific route.</strong><small>The Agent sits beside the mainline. A missing input stops at a visible needs-input branch.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="2" aria-pressed="false">
+                  <span>03 · Deterministic tool</span><strong>Compile only a registered operation.</strong><small>The compiler turns the typed contract into a reproducible route; an unregistered route cannot run.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="3" aria-pressed="false">
+                  <span>04 · Blocking gates</span><strong>Check identity, rights, mapping, coverage, meaning, and maturity.</strong><small>A failed or unresolved gate produces a structured block or review-pending result.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="4" aria-pressed="false">
+                  <span>05 · Durable state</span><strong>Persist the decision before claiming a result.</strong><small>Accepted routes can produce an EvidenceBundle. DecisionTrace + RunReceipt preserve why the route passed, entered review_pending, or stopped.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="5" aria-pressed="false">
+                  <span>06 · Human boundary</span><strong>Keep the final scientific claim with the reviewer.</strong><small>The Agent can propose a locator. It cannot widen the supported claim or approve the result.</small>
+                </button>
+                <p class="project-story__limit"><strong>Current limit</strong> Collaboration prototype with a synthetic public harness. The exposed retrospective development packets are not a held-out Agent benchmark.</p>
+              </div>
             </div>
-            <p class="work-card__scope"><strong>Current scope</strong> Research prototype and synthetic public harness; not a general Agent-effectiveness result.</p>
-            <div class="work-card__links">
-              <a href="research/dynamics-atlas.html">Read case study <span aria-hidden="true">→</span></a>
-              <a href="https://github.com/alex051107/projects/tree/main/scientific_evidence_harness" target="_blank" rel="noopener noreferrer">Public harness <span aria-hidden="true">↗</span></a>
+
+            <div class="project-proof">
+              <dl>
+                <div><dt>Harness</dt><dd>13 / 13</dd></div>
+                <div><dt>Machine checks</dt><dd>24 / 24</dd></div>
+                <div><dt>HSP90 replays</dt><dd>42 / 42</dd></div>
+              </dl>
+              <p><strong>Boundary</strong> Research collaboration and synthetic public harness; the exposed development packets are not an independent Agent benchmark.</p>
+              <div class="project-links">
+                <a href="research/dynamics-atlas.html">Read case study →</a>
+                <a href="https://github.com/alex051107/projects/tree/main/scientific_evidence_harness" target="_blank" rel="noopener noreferrer">Public harness ↗</a>
+              </div>
             </div>
           </div>
         </article>
 
-        <article class="work-card work-card--green" id="hsp90" data-reveal="pop" data-reveal-delay="70">
-          <div class="work-card__content">
-            <header class="work-card__header">
+        <article class="project-spread project-spread--hsp90 project-spread--reverse" id="hsp90">
+          <div class="section-shell">
+            <header class="project-spread__header">
               <div>
-                <p class="work-card__meta">Research method note · UNC Miao Lab</p>
+                <p class="project-spread__meta">Scientific ML evaluation · UNC Miao Lab</p>
                 <h3><a href="research/ligamd-pkoff.html">HSP90 / LiGaMD</a></h3>
               </div>
-              <p class="work-card__status">Jun 2025—Present</p>
+              <p class="project-spread__date">Jun 2025—Present</p>
             </header>
-            <p class="work-card__problem">The HSP90 workflow turns three LiGaMD replicas into one system-level record before model evaluation.</p>
-            <p class="work-card__contribution">At UNC’s Miao Lab, I built the feature and evaluation path shown here: endpoint checks, 512 saved frames per replica, replica-level Dynamic10 summaries, one row per system, and fold-local grouped evaluation.</p>
-            <a class="work-card__image" href="research/ligamd-pkoff.html" aria-label="Read the HSP90 LiGaMD research method note">
-              <img src="images/project-visuals/hsp90-ligamd-card-portrait.jpg" alt="Portrait editorial model of three simulation replicas becoming one system-level record before grouped evaluation" width="1122" height="1402" loading="eager" decoding="async">
-            </a>
-            <ol class="work-card__route" aria-label="HSP90 LiGaMD workflow summary">
-              <li>3 replicas</li><li>1 system row</li><li>Ligand holdout</li>
-            </ol>
-            <div class="work-card__result">
-              <p><span>Frozen registry</span><strong>N31 / 27</strong></p>
-              <p>31 systems · 27 exact-ligand groups · no model selected</p>
+
+            <div class="project-story" data-project-story="hsp90-ligamd" data-active-stage="0" data-template-source="aceternity" data-template-name="sticky-scroll-reveal">
+              <div class="project-story__visual">
+                <figure class="semantic-workflow semantic-workflow--hsp90" aria-labelledby="hsp90-workflow-title">
+                  <figcaption>
+                    <span>Leakage-aware scientific ML evaluation</span>
+                    <strong id="hsp90-workflow-title">Is the apparent model improvement stable enough to select?</strong>
+                  </figcaption>
+                  <div class="semantic-workflow__canvas">
+                    <span class="semantic-workflow__focus" data-story-focus aria-hidden="true"></span>
+                    <svg class="semantic-workflow__edges" data-template-source="anime" data-template-name="create-drawable" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
+                      <path class="workflow-edge" data-edge-stage="1" d="M245 180 H350"></path>
+                      <path class="workflow-edge workflow-edge--branch" data-edge-stage="1" d="M435 240 V330"></path>
+                      <path class="workflow-edge" data-edge-stage="2" d="M525 180 H620"></path>
+                      <path class="workflow-edge" data-edge-stage="3" d="M705 240 V335"></path>
+                      <path class="workflow-edge" data-edge-stage="4" d="M620 400 H525"></path>
+                      <path class="workflow-edge" data-edge-stage="5" d="M350 400 H255"></path>
+                      <circle class="workflow-packet" data-flow-packet data-template-source="anime" data-template-name="create-motion-path" cx="0" cy="0" r="7"></circle>
+                    </svg>
+
+                    <button class="workflow-node workflow-node--hsp90-replicas" type="button" data-story-node="0" aria-pressed="true">
+                      <small>Input · one system</small><strong>Replica 01 · Replica 02 · Replica 03</strong><span>LiGaMD trajectories + assay pKoff + Static20</span>
+                    </button>
+                    <button class="workflow-node workflow-node--hsp90-features" type="button" data-story-node="1" aria-pressed="false">
+                      <small>Tools · separately per replica</small><strong>Exit gate → P512 → Dynamic10</strong><span>512 real frames after the endpoint</span>
+                    </button>
+                    <aside class="workflow-branch workflow-branch--hsp90-incomplete" data-story-result="1"><small>Incomplete replica</small><strong>OUT OF SCOPE</strong></aside>
+                    <button class="workflow-node workflow-node--hsp90-row" type="button" data-story-node="2" aria-pressed="false">
+                      <small>State · one evaluation unit</small><strong>Static20 + mean Dynamic10</strong><span>three vectors become one system row</span>
+                    </button>
+                    <button class="workflow-node workflow-node--hsp90-folds" type="button" data-story-node="3" aria-pressed="false">
+                      <small>Rules · leakage control</small><strong>27 exact-ligand groups</strong><span>grouped folds · fold-local preprocessing</span>
+                    </button>
+                    <button class="workflow-node workflow-node--hsp90-models" type="button" data-story-node="4" aria-pressed="false">
+                      <small>Models · fixed candidates</small><strong>Static20 Ridge / RF · Combined30 Ridge / RF</strong><span>same evaluation unit and folds</span>
+                    </button>
+                    <button class="workflow-node workflow-node--hsp90-decision" type="button" data-story-node="5" aria-pressed="false">
+                      <small>Rule + recorded decision</small><strong>NO MODEL SELECTED</strong><span>lowest MAE 0.8182 · vs grouped dummy ΔMAE [−0.2805, +0.0067]</span>
+                    </button>
+                    <aside class="workflow-side-note workflow-side-note--hsp90"><small>Target boundary</small><span>assay-derived pKoff<br>not physical koff from simulation time</span></aside>
+                  </div>
+                  <div class="workflow-runtime">
+                    <section class="workflow-status" data-story-status data-template-source="uiverse" data-template-name="progress-status-card" aria-label="HSP90 LiGaMD active workflow stage">
+                      <header><span data-story-status-role>Scientific object</span><b data-story-status-state>Ready</b></header>
+                      <div class="workflow-status__readout">
+                        <small>Active stage</small>
+                        <strong data-story-status-title>Three replicas / one system</strong>
+                        <span data-story-status-index>01 / 06</span>
+                      </div>
+                      <div class="workflow-status__track" data-story-status-track role="progressbar" aria-label="HSP90 LiGaMD workflow progress" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1"><i class="workflow-status__fill" data-story-status-fill></i></div>
+                      <button type="button" data-story-next>Advance trace <span aria-hidden="true">→</span></button>
+                    </section>
+                    <aside class="workflow-terminal" data-template-source="uiverse" data-template-name="terminal-card" aria-label="HSP90 LiGaMD bounded runtime transcript">
+                      <header class="workflow-terminal__bar"><span>Bounded run trace</span><b data-story-terminal-state>Input / ready</b></header>
+                      <ol data-story-transcript data-template-source="reactbits" data-template-name="animated-list">
+                        <li data-story-line="command"><span>$</span><code>bind replicas --system</code></li>
+                        <li data-story-line="role"><span>role</span><strong>Tools run per replica</strong></li>
+                        <li data-story-line="receipt"><span>state</span><strong>One evaluation unit</strong></li>
+                      </ol>
+                      <output class="semantic-workflow__log" data-story-log aria-live="polite">01 · Three replicas remain separate observations of one protein–ligand system.</output>
+                    </aside>
+                  </div>
+                </figure>
+              </div>
+
+              <div class="project-story__steps" data-template-source="motionsites" data-template-name="agent-plan" aria-label="HSP90 LiGaMD evaluation explanation">
+                <svg class="project-story__beam" data-template-source="aceternity" data-template-name="tracing-beam" viewBox="0 0 24 100" preserveAspectRatio="none" aria-hidden="true">
+                  <path class="project-story__beam-track" d="M12 0 V100"></path>
+                  <path class="project-story__beam-progress" data-story-beam-progress pathLength="1" d="M12 0 V100"></path>
+                </svg>
+                <span class="project-story__beam-head" data-story-beam-head aria-hidden="true"></span>
+                <div class="project-story__lead">
+                  <p>Why it matters</p>
+                  <h4>Thousands of trajectory frames are not thousands of independent experimental labels.</h4>
+                </div>
+                <div class="project-story__mobile-dock" data-story-mobile-dock aria-hidden="true">
+                  <span data-mobile-stage-index>01 / 06</span>
+                  <strong data-mobile-stage-title>Keep three replicas attached to one system.</strong>
+                  <i><b data-mobile-stage-fill></b></i>
+                </div>
+                <button class="project-story__step" type="button" data-story-step="0" aria-pressed="true">
+                  <span>01 · Scientific object</span><strong>Keep three replicas attached to one system.</strong><small>LiGaMD trajectories, Static20 descriptors, and the assay-derived pKoff describe one protein–ligand evaluation unit.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="1" aria-pressed="false">
+                  <span>02 · Per-replica tools</span><strong>Find the endpoint and compute Dynamic10 separately.</strong><small>Each replica must pass the endpoint and P512 completeness checks before its feature vector exists.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="2" aria-pressed="false">
+                  <span>03 · Evaluation state</span><strong>Average corresponding features into one system row.</strong><small>The three trajectories are never concatenated into apparent independent labels.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="3" aria-pressed="false">
+                  <span>04 · Leakage gate</span><strong>Split by exact ligand and preprocess inside each fold.</strong><small>N31 systems resolve to 27 exact-ligand groups; evidence from a group cannot cross the evaluation boundary.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="4" aria-pressed="false">
+                  <span>05 · ML comparison</span><strong>Compare four fixed regression pipelines.</strong><small>The models are candidates inside the same grouped evaluation—not autonomous decision-makers.</small>
+                </button>
+                <button class="project-story__step" type="button" data-story-step="5" aria-pressed="false">
+                  <span>06 · Selection gate</span><strong>Compare the lowest-MAE candidate with its grouped dummy baseline—and stop.</strong><small>The paired ΔMAE bootstrap interval [−0.2805, +0.0067] crosses zero; the direct Static20-versus-Combined30 comparison is also unstable. The recorded decision on N31 is no model selected.</small>
+                </button>
+                <p class="project-story__limit"><strong>Current limit</strong> 31 systems and 27 ligand groups. The target is assay-derived pKoff, not physical koff from simulation time; current evidence supports neither model selection nor broad generalization.</p>
+              </div>
             </div>
-            <p class="work-card__scope"><strong>Current scope</strong> Experimental assay-derived pKoff; no physical koff or broad-generalization claim.</p>
-            <div class="work-card__links">
-              <a href="research/ligamd-pkoff.html">Read method note <span aria-hidden="true">→</span></a>
-              <a href="https://github.com/alex051107/ligamd-pkoff-toolkit" target="_blank" rel="noopener noreferrer">Toolkit <span aria-hidden="true">↗</span></a>
-              <a href="https://github.com/alex051107/projects/tree/main/trajectory_event_harness" target="_blank" rel="noopener noreferrer">Event harness <span aria-hidden="true">↗</span></a>
+
+            <div class="project-proof">
+              <dl>
+                <div><dt>Systems</dt><dd>N31</dd></div>
+                <div><dt>Exact-ligand groups</dt><dd>27</dd></div>
+                <div><dt>Lowest group-equal MAE</dt><dd>0.8182</dd></div>
+              </dl>
+              <p><strong>Boundary</strong> The target is experimental assay-derived pKoff. The current evidence supports no selected model and no broad-generalization claim.</p>
+              <div class="project-links">
+                <a href="research/ligamd-pkoff.html">Read method note →</a>
+                <a href="https://github.com/alex051107/ligamd-pkoff-toolkit" target="_blank" rel="noopener noreferrer">Toolkit ↗</a>
+                <a href="https://github.com/alex051107/projects/tree/main/trajectory_event_harness" target="_blank" rel="noopener noreferrer">Event harness ↗</a>
+              </div>
             </div>
           </div>
         </article>
@@ -278,100 +868,71 @@
 
     <section class="current-research" id="research">
       <div class="section-shell">
-        <header class="section-intro section-intro--inverse" data-reveal="rise">
-          <p class="eyebrow">Current research</p>
-          <div>
-            <h2>LiGaMD analysis and molecular-data validation at UNC.</h2>
-            <p>At UNC’s Miao Lab, I work on the path from simulation replicas to system-level features and evaluation against experimental pKoff measurements. In Dynamics Atlas, I contribute to the software that records when molecular datasets are compatible enough to support a proposed analysis.</p>
-          </div>
+        <header class="index-section-head">
+          <h2>Scientific context.</h2>
+          <p>LiGaMD analysis and molecular-data validation at UNC.</p>
         </header>
-
-        <div class="research-ledger">
-          <article data-reveal="pop">
-            <p class="research-ledger__label">Miao Lab / HSP90</p>
-            <h3>From three replicas to one evaluated system.</h3>
-            <p>Endpoint checks, 512 saved frames per replica, Dynamic10 summaries, one row per system, and exact-ligand grouped evaluation.</p>
-            <a href="research/ligamd-pkoff.html">Read the method note <span aria-hidden="true">→</span></a>
+        <div class="research-context">
+          <article>
+            <h3>One evaluated system, not thousands of apparent labels.</h3>
+            <p>At UNC’s Miao Lab, I work on the path from simulation replicas to system-level features and evaluation against experimental pKoff measurements.</p>
+            <a href="research/ligamd-pkoff.html">Read the HSP90 method note →</a>
           </article>
-          <article data-reveal="pop" data-reveal-delay="70">
-            <p class="research-ledger__label">Dynamics Atlas / Collaboration</p>
-            <h3>From a proposed comparison to an accepted route.</h3>
-            <p>Task records, data-specific checks, deterministic validation, and explicit review obligations before an analysis proceeds.</p>
-            <a href="research/dynamics-atlas.html">Read the case study <span aria-hidden="true">→</span></a>
-          </article>
+          <aside>
+            <h3>Compatibility before comparison.</h3>
+            <p>In Dynamics Atlas, I contribute to software that records when molecular datasets are compatible enough to support a proposed analysis.</p>
+            <a href="research/dynamics-atlas.html">Read the collaboration case study →</a>
+          </aside>
         </div>
       </div>
     </section>
 
     <section class="contribute section-shell" id="contribute">
-      <header class="section-intro" data-reveal="rise">
-        <p class="eyebrow">Where I want to contribute</p>
-        <div>
-          <h2>Backend AI applications, Agent systems and evaluation, and AI for science.</h2>
-          <p>I am looking for teams where model behavior has to become dependable software: APIs and stateful workflows, evaluation systems for Agents, or scientific tooling that keeps domain meaning intact.</p>
-        </div>
-      </header>
-
-      <div class="contribution-grid">
-        <article data-reveal="pop">
-          <p>Backend AI applications</p>
-          <h3>Build the service around the model.</h3>
-          <span>Typed interfaces · state · retries · permissions · human review</span>
-        </article>
-        <article data-reveal="pop" data-reveal-delay="70">
-          <p>Agent systems + evaluation</p>
-          <h3>Make suggestions inspectable and testable.</h3>
-          <span>Tool boundaries · evidence checks · failure records · evaluation units</span>
-        </article>
-        <article data-reveal="pop" data-reveal-delay="140">
-          <p>AI for science</p>
-          <h3>Keep scientific meaning through the pipeline.</h3>
-          <span>Molecular data · simulation features · grouped validation · claim scope</span>
-        </article>
+      <div class="direction">
+        <h2>AI for Science needs dependable systems.</h2>
+        <p>I am looking for teams building AI for Science, scientific software, or backend AI applications where model behavior must become inspectable, reviewable software.</p>
+        <ul aria-label="Engineering focus">
+          <li>Typed interfaces · state · retries · permissions · human review</li>
+          <li>Tool boundaries · evidence checks · failure records · evaluation units</li>
+          <li>Molecular data · simulation features · grouped validation · claim scope</li>
+        </ul>
       </div>
     </section>
 
     <section class="about section-shell" id="about">
-      <header class="section-intro" data-reveal="rise">
-        <p class="eyebrow">About</p>
-        <div>
+      <div class="profile-layout">
+        <div class="profile-copy">
           <h2>Biology and Computer Science at UNC Chapel Hill.</h2>
-        </div>
-      </header>
+          <p>I build AI for Science software and evidence-bounded backend systems for scientific claims, stateful workflows, and molecular data.</p>
+          <p>At UNC’s Miao Lab, I analyze LiGaMD trajectories and evaluate models against experimental pKoff measurements. I also contribute to Dynamics Atlas, a research collaboration examining whether different molecular datasets support the same analysis.</p>
+          <p class="profile-copy__ownership">I use AI-assisted coding during implementation. For the components described here as my work, I define the problem, choose the architecture, review failures, and interpret the recorded results. Lab and collaboration context is identified separately.</p>
 
-      <div class="about__grid" data-reveal="pop">
-        <div class="about__copy">
-          <p>I am an undergraduate at UNC Chapel Hill studying Biology and Computer Science. I build backend AI applications and research software for evidence, stateful workflows, and molecular data.</p>
-          <p>At UNC’s Miao Lab, I analyze LiGaMD trajectories and evaluate models against experimental pKoff measurements. I also contribute to Dynamics Atlas, a research collaboration that examines whether different molecular datasets are comparable enough to support the same analysis.</p>
-          <p class="about__disclosure">I use AI-assisted coding during implementation. For the components described here as my work, I define the problem, choose the architecture, review failures, and interpret the recorded results; lab and collaboration context is identified separately.</p>
+          <dl class="profile-list">
+            <div>
+              <dt>Education</dt>
+              <dd>UNC Chapel Hill<br>Biology + Computer Science<br>Expected May 2028</dd>
+            </div>
+            <div>
+              <dt>Current research</dt>
+              <dd>UNC Miao Lab<br>LiGaMD · experimental pKoff<br>Scientific workflow validation</dd>
+            </div>
+            <div>
+              <dt>Engineering focus</dt>
+              <dd>Backend AI applications<br>Failure handling<br>Evaluation design</dd>
+            </div>
+            <div>
+              <dt>Core toolkit</dt>
+              <dd>Python · SQL · FastAPI<br>Django · PostgreSQL · Redis<br>Docker · LangGraph · HPC</dd>
+            </div>
+          </dl>
         </div>
-
-        <dl class="profile-list">
-          <div>
-            <dt>Education</dt>
-            <dd>UNC Chapel Hill<br>Biology + Computer Science<br>Expected May 2028</dd>
-          </div>
-          <div>
-            <dt>Current research</dt>
-            <dd>UNC Miao Lab<br>LiGaMD · experimental pKoff<br>Scientific workflow validation</dd>
-          </div>
-          <div>
-            <dt>Engineering focus</dt>
-            <dd>Backend AI applications<br>Failure handling<br>Evaluation design</dd>
-          </div>
-          <div>
-            <dt>Core toolkit</dt>
-            <dd>Python · SQL · FastAPI<br>Django · PostgreSQL · Redis<br>Docker · LangGraph · HPC</dd>
-          </div>
-        </dl>
       </div>
     </section>
 
     <section class="contact" id="contact">
       <div class="section-shell contact__inner">
-        <p class="eyebrow">Contact / Chapel Hill, NC</p>
-        <h2>Let’s build the software that makes model output usable.</h2>
-        <a class="contact__email" href="mailto:liualex@unc.edu">liualex@unc.edu <span aria-hidden="true">↗</span></a>
+        <h2>If the work needs evidence, state, and a clear failure path, let’s talk.</h2>
+        <a class="contact__email" href="mailto:liualex@unc.edu">liualex@unc.edu ↗</a>
         <div class="contact__links">
           <a href="https://github.com/alex051107" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
           <a href="https://linkedin.com/in/zhenpeng-liu" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
@@ -383,9 +944,7 @@
 
   <footer class="site-footer">
     <div class="section-shell site-footer__inner">
-      <p>© 2026 Zhenpeng Liu</p>
-      <p>Static GitHub Pages portfolio. No tracking or form backend.</p>
-      <a href="#top">Back to top ↑</a>
+      <p>© 2026 Zhenpeng Liu · Static GitHub Pages portfolio · No tracking or form backend · <a href="#top">Back to top ↑</a></p>
     </div>
   </footer>
 </body>

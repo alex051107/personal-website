@@ -1,0 +1,55 @@
+{
+  "date": "2026-08-23",
+  "project": "Zhenpeng Liu Personal Website",
+  "signals": {
+    "design_system": {
+      "value": "none before this redesign",
+      "source": "project root"
+    },
+    "font_stack": {
+      "value": "Avenir Next and Helvetica-family sans with SFMono metadata",
+      "source": "css/styles.css:24-26"
+    },
+    "palette": {
+      "value": "deep warm charcoal with bone type and metallic-gray signals; no blue-black, red, or green accent",
+      "source": "tokens.css and final Hallmark layer in css/styles.css"
+    },
+    "motion": {
+      "value": "opening mask and scanner, IntersectionObserver-triggered Scroll Expand plates and staged states, scroll-tracked chapter beams, vendored Anime.js path drawing, and cross-document view transitions; no scroll hijacking or parallax",
+      "source": "js/site-motion.js and css/styles.css"
+    },
+    "spacing": {
+      "value": "ad hoc rem and clamp values; no named spacing scale",
+      "source": "css/styles.css"
+    },
+    "framework": {
+      "value": "vanilla semantic HTML, CSS, JavaScript, and a Python validator",
+      "source": "README.md"
+    }
+  },
+  "preserve": [
+    "routes and anchor contract",
+    "claim-bounded project copy",
+    "unchanged natural portrait, shown once at the opening right",
+    "existing and generated project-specific visual assets",
+    "local-only static runtime",
+    "relative GitHub Pages links"
+  ],
+  "introduce": [
+    "Index-First home page",
+    "Long Document case-study treatment",
+    "single OKLCH accent system",
+    "named spacing and type tokens",
+    "visible finite project-trace motion stance",
+    "opening portrait mask and one-shot scanner",
+    "scroll-tracked chapter and page progress",
+    "compact project status readouts",
+    "semantic MODEL TOOL RULE STATE HUMAN maps",
+    "AI × Science opening chain",
+    "scientific and domain object field matrix",
+    "project object-to-representation rails",
+    "information-rich differentiated Work spreads",
+    "full-bleed v4 scenes with restrained input-action-output annotation rails and selectable Agent and ML run traces",
+    "Hallmark slop-test review"
+  ]
+}

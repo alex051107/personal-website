@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CarePlan Backend Case Study — Zhenpeng Liu</title>
   <meta name="description" content="How CarePlan keeps synthetic AI drafting behind deterministic rules, durable state, idempotency, and pharmacist-role review.">
-  <meta name="theme-color" content="#e9edf2">
+  <meta name="theme-color" content="#f1ece0">
   <meta name="color-scheme" content="light">
   <link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
   <link rel="canonical" href="https://alex051107.github.io/personal-website/projects/careplan.html">
@@ -16,23 +16,18 @@
   <meta property="og:image" content="https://alex051107.github.io/personal-website/images/project-visuals/careplan-editorial.jpg">
   <meta property="og:image:alt" content="Editorial model of a synthetic order moving through rules, drafting, validation, and approval">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="../css/styles.css?v=cd0906e">
-  <script defer src="../js/site-motion.js?v=186a14c"></script>
+  <link rel="stylesheet" href="../css/styles.css?v=d3a2139">
+  <script defer src="../js/site-motion.js?v=1a3c404"></script>
 </head>
 <body class="case-page case-page--coral">
-  <a class="skip-link" href="#main">Skip to content</a>
   <div class="page-progress" aria-hidden="true"></div>
-
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="site-header__inner">
       <a class="wordmark" href="../index.html#top" aria-label="Zhenpeng Liu, portfolio home">
         <span class="wordmark__initials">Zhenpeng Liu</span><span class="wordmark__index">刘振鹏</span>
       </a>
       <nav class="primary-nav" aria-label="Primary navigation">
-        <a href="../index.html#map">Map</a>
-        <a href="../index.html#work">Work</a>
-        <a href="../index.html#research">Research</a>
-        <a href="../index.html#about">Profile</a>
         <a class="primary-nav__contact" href="mailto:liualex@unc.edu">Contact ↗</a>
       </nav>
     </div>
@@ -46,15 +41,15 @@
             <a class="case-back" href="../index.html#careplan">← All projects</a>
             <p class="eyebrow">Backend workflow case study · Synthetic prototype</p>
             <h1>CarePlan</h1>
-            <p class="case-hero__lead">A model may draft a plan, but it should not skip hard rules, create duplicate records, or approve its own output. CarePlan puts the model inside a stateful backend workflow with explicit failure and review paths.</p>
+            <p class="case-hero__lead">In a biomedical workflow, generating a plausible draft is only one step. The application still has to enforce eligibility, durable state, retries, and who may decide. CarePlan tests that control flow with synthetic data.</p>
             <div class="case-hero__actions">
               <a class="button button--primary" href="https://github.com/alex051107/projects/tree/main/careplan_workflow_harness" target="_blank" rel="noopener noreferrer">Open public harness <span aria-hidden="true">↗</span></a>
               <a class="button" href="#system">See control flow <span aria-hidden="true">↓</span></a>
             </div>
           </div>
-          <figure class="case-hero__visual">
-            <img src="../images/project-visuals/careplan-editorial.jpg" alt="Editorial model of a synthetic order moving through rules, drafting, validation, and a separate approval station" width="1536" height="1024" fetchpriority="high">
-            <figcaption>Rules and state transitions surround the model; the final decision remains in a reviewer role.</figcaption>
+          <figure class="case-hero__visual" data-project-plate="careplan">
+            <img src="../images/project-visuals/careplan-index-v4.jpg" alt="State-machine workflow in which synthetic state tiles pass rules, enter a bounded AI drafting chamber, and remain separate from human approval" width="1500" height="1000" fetchpriority="high">
+            <figcaption><strong>Input</strong> synthetic order · <strong>AI worker</strong> drafts · <strong>Output</strong> review-pending state that only a reviewer can decide.</figcaption>
           </figure>
         </div>
       </header>
@@ -83,7 +78,7 @@
       <section class="case-section section-shell" id="problem">
         <header class="case-section__label" data-reveal="rise">
           <p>01 / Problem</p>
-          <h2>A draft provider should not control the workflow around its draft.</h2>
+          <h2>Biomedical AI needs a controlled workflow around the draft.</h2>
         </header>
         <div class="case-section__body prose" data-reveal="rise">
           <p>A model response can arrive late, use the wrong fields, repeat a previous request, or contain language that looks like an approval. If the application treats that response as the final record, a provider failure becomes a workflow failure.</p>
@@ -254,9 +249,7 @@
 
   <footer class="site-footer">
     <div class="section-shell site-footer__inner">
-      <p>© 2026 Zhenpeng Liu</p>
-      <p>CarePlan · Backend workflow case study</p>
-      <a href="#top">Back to top ↑</a>
+      <p>© 2026 Zhenpeng Liu · CarePlan backend workflow case study · <a href="#top">Back to top ↑</a></p>
     </div>
   </footer>
 </body>
