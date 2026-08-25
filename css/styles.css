@@ -1,4 +1,4 @@
-/* Hallmark · pre-emit critique: P5 H5 E5 S5 R4 V5 · genre: scientific editorial dossier · tone: direct, evidence-bounded · palette: warm paper / carbon ink / muted brass · macrostructure: personal masthead + interactive 3D harness Hero + literal decision matrix + four scroll-stage theatres · theme: studied-DNA (scientific publishing + project-specific objects) · contrast: pass (40–41) · nav: N9 · footer: Ft2 · slop: pass (1–58) · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · mobile: pass (34, 49–57) */
+/* Hallmark · pre-emit critique: P5 H5 E4 S5 R4 V5 · genre: scientific editorial dossier · tone: direct, evidence-bounded · palette: warm paper / carbon ink / muted brass · macrostructure: Narrative Workflow — masthead → stateful 3D Agent Harness → AI×Science grammar → comparison → four project-specific scroll stories → methods credits → profile · theme: studied-DNA (scientific publishing + project-specific objects) · contrast: source pass (40–41) · nav: N9 · footer: Ft2 · slop: active-surface source pass (1–58) · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · mobile: source pass (34, 49–57); rendered check CANNOT_VERIFY under localhost browser policy */
 /* Hallmark · enrichment: MotionSites AI Agent Pipeline + Agent Plan; React Bits Scroll Expand + Animated List; Uiverse Progress Status Card + run-receipt Terminal Card anatomy; Anime.js createDrawable + createMotionPath; Aceternity Sticky Scroll Reveal + Tracing Beam. All ten read one project stage; no prompt or restricted component source is redistributed. */
 @import url("../tokens.css?v=0043676");
 
@@ -6347,28 +6347,28 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   text-transform: uppercase;
 }
 
-.project-story__step[data-plan-status="complete"] {
+.project-story__step[data-plan-status="passed"] {
   opacity: 0.72;
 }
 
-.project-story__step[data-plan-status="complete"]::before {
+.project-story__step[data-plan-status="passed"]::before {
   content: "✓";
   color: var(--color-paper);
   border-color: var(--color-accent);
   background: var(--color-accent);
 }
 
-.project-story__step[data-plan-status="running"] {
+.project-story__step[data-plan-status="active"] {
   opacity: 1;
 }
 
-.project-story__step[data-plan-status="running"]::before {
+.project-story__step[data-plan-status="active"]::before {
   border-color: var(--color-accent);
   background: radial-gradient(circle, var(--color-accent) 0 27%, var(--color-paper) 31% 100%);
   box-shadow: 0 0 0 0.24rem color-mix(in oklab, var(--color-accent-soft) 18%, transparent);
 }
 
-.project-story__step[data-plan-status="running"]::after {
+.project-story__step[data-plan-status="active"]::after {
   color: var(--color-accent);
 }
 
@@ -6387,7 +6387,7 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   opacity: 1;
 }
 
-/* Uiverse progress card + terminal card, bound to the same selected stage. */
+/* Uiverse progress card + adapted decision receipt, bound to the same selected stage. */
 
 .workflow-runtime {
   display: grid;
@@ -6397,7 +6397,7 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
 }
 
 .workflow-status,
-.workflow-terminal {
+.workflow-receipt {
   min-width: 0;
   margin: 0;
   color: var(--workflow-ink);
@@ -6412,8 +6412,8 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
 }
 
 .workflow-status header,
-.workflow-terminal header,
-.workflow-terminal__bar {
+.workflow-receipt header,
+.workflow-receipt__bar {
   min-height: 1.5rem;
   display: flex;
   justify-content: space-between;
@@ -6430,7 +6430,7 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
 
 .workflow-status [data-story-status-role],
 .workflow-status [data-story-status-state],
-.workflow-terminal [data-story-terminal-state] {
+.workflow-receipt [data-story-receipt-state] {
   color: var(--color-accent-soft);
 }
 
@@ -6496,22 +6496,22 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   border-color: var(--color-accent-soft);
 }
 
-.workflow-terminal {
+.workflow-receipt {
   border: 0;
 }
 
-.workflow-terminal header,
-.workflow-terminal__bar {
+.workflow-receipt header,
+.workflow-receipt__bar {
   padding: var(--space-2xs) var(--space-md);
   border-bottom: var(--rule-hair) solid var(--color-workflow-line-strong);
 }
 
-.workflow-terminal header::before,
-.workflow-terminal__bar::before {
+.workflow-receipt header::before,
+.workflow-receipt__bar::before {
   display: none;
 }
 
-.workflow-terminal [data-story-transcript] {
+.workflow-receipt [data-story-transcript] {
   margin: 0;
   padding: var(--space-xs) var(--space-md) 0;
   display: grid;
@@ -6520,7 +6520,7 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   counter-reset: run-line;
 }
 
-.workflow-terminal [data-story-transcript] li {
+.workflow-receipt [data-story-transcript] li {
   min-width: 0;
   display: grid;
   grid-template-columns: 1.8rem minmax(0, 1fr);
@@ -6533,13 +6533,13 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   counter-increment: run-line;
 }
 
-.workflow-terminal [data-story-transcript] li::before {
+.workflow-receipt [data-story-transcript] li::before {
   content: "0" counter(run-line);
   color: color-mix(in oklab, var(--color-accent-soft) 58%, var(--color-rule));
   font-variant-numeric: tabular-nums;
 }
 
-.workflow-terminal .semantic-workflow__log {
+.workflow-receipt .semantic-workflow__log {
   min-height: 2.8rem;
   padding: var(--space-xs) var(--space-md) var(--space-sm);
   display: block;
@@ -6642,7 +6642,7 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
     transition: none !important;
   }
 
-  .workflow-terminal [data-story-transcript] li {
+  .workflow-receipt [data-story-transcript] li {
     transition: none !important;
     transform: none !important;
   }
@@ -6654,7 +6654,7 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   .motion-source-map > ul > li,
   .motion-source-map > ol > li,
   .workflow-status,
-  .workflow-terminal,
+  .workflow-receipt,
   .workflow-status [data-story-next] {
     border-color: CanvasText;
   }
@@ -6745,7 +6745,7 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   }
 }
 
-/* Heroic Alpha Station ----------------------------------------------------- */
+/* Stateful 3D Agent Harness ------------------------------------------------ */
 
 .hero-station {
   --station-brass: #a77c39;
@@ -6753,6 +6753,8 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   --station-carbon: #161816;
   --station-carbon-2: #272925;
   --station-ivory: #eee7d7;
+  --station-block: #c67b52;
+  --station-block-ink: #e2aa82;
   --station-load: 0;
   margin: clamp(3.5rem, 8vw, 7rem) 0 var(--space-2xl);
   scroll-margin-top: 5rem;
@@ -6913,6 +6915,7 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
 .hero-station[data-station-state="ready"] .hero-station__canvas,
 .hero-station[data-station-state="running"] .hero-station__canvas,
 .hero-station[data-station-state="complete"] .hero-station__canvas,
+.hero-station[data-station-state="blocked"] .hero-station__canvas,
 .hero-station[data-station-state="reduced"] .hero-station__canvas {
   opacity: 1;
 }
@@ -6921,6 +6924,7 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
 .hero-station[data-station-state="ready"] .hero-station__fallback,
 .hero-station[data-station-state="running"] .hero-station__fallback,
 .hero-station[data-station-state="complete"] .hero-station__fallback,
+.hero-station[data-station-state="blocked"] .hero-station__fallback,
 .hero-station[data-station-state="reduced"] .hero-station__fallback {
   opacity: 0;
   filter: saturate(0.78) contrast(1.04) brightness(0.68);
@@ -6993,6 +6997,7 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
 .hero-station__markers [data-stage-marker="gate"] { --marker-x: 69%; --marker-y: 54%; }
 .hero-station__markers [data-stage-marker="trace"] { --marker-x: 51%; --marker-y: 84%; }
 .hero-station__markers [data-stage-marker="human"] { --marker-x: 68%; --marker-y: 28%; }
+.hero-station__markers [data-stage-marker="result"] { --marker-x: 86%; --marker-y: 55%; }
 
 .hero-station__markers li::after {
   content: "";
@@ -7191,13 +7196,14 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
 .hero-station[data-workflow-stage="tool"] .hero-station__packet,
 .hero-station[data-workflow-stage="gate"] .hero-station__packet,
 .hero-station[data-workflow-stage="trace"] .hero-station__packet,
-.hero-station[data-workflow-stage="human"] .hero-station__packet {
+.hero-station[data-workflow-stage="human"] .hero-station__packet,
+.hero-station[data-workflow-stage="result"] .hero-station__packet {
   opacity: 0;
   transform: translate3d(clamp(8rem, 23vw, 18rem), clamp(4rem, 9vw, 7rem), 0) scale(0.52);
 }
 
 .hero-station__execution {
-  width: min(15.25rem, 32vw);
+  width: min(17rem, 34vw);
   bottom: 3.15rem;
   left: 1.15rem;
   pointer-events: none;
@@ -7272,6 +7278,16 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   box-shadow: inset 0 0 0 1px var(--station-carbon);
 }
 
+.hero-station__execution li[data-step-state="blocked"] {
+  color: var(--station-block-ink);
+  background: rgb(151 73 40 / 0.18);
+}
+
+.hero-station__execution li[data-step-state="blocked"] > i:first-child {
+  border-color: var(--station-block);
+  background: var(--station-block);
+}
+
 .hero-station__execution li[data-execution-step="gate"] {
   grid-template-columns: 0.45rem 3.3rem minmax(0, 1fr);
   grid-template-rows: auto auto;
@@ -7294,6 +7310,44 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
 .hero-station__gate-lamps i.is-complete {
   background: var(--station-brass-light);
   box-shadow: 0 0 0.55rem rgb(216 181 111 / 0.36);
+}
+
+.hero-station__gate-lamps i.is-blocked {
+  background: var(--station-block);
+  box-shadow: 0 0 0.55rem rgb(198 123 82 / 0.5);
+}
+
+.hero-station__gate-readout {
+  margin: 0;
+  padding: 0.45rem 0.5rem 0.55rem;
+  display: grid;
+  gap: 0.18rem;
+  border-top: var(--rule-hair) solid rgb(238 231 215 / 0.14);
+  background: rgb(238 231 215 / 0.025);
+}
+
+.hero-station__gate-readout div {
+  display: grid;
+  grid-template-columns: 3.6rem minmax(0, 1fr);
+  gap: 0.4rem;
+  font: 0.47rem/1.3 var(--font-mono);
+}
+
+.hero-station__gate-readout dt {
+  color: var(--station-brass-light);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero-station__gate-readout dd {
+  margin: 0;
+  color: rgb(238 231 215 / 0.7);
+  overflow-wrap: anywhere;
+}
+
+.hero-station__gate-readout [data-verdict="blocked"] {
+  color: var(--station-block-ink);
 }
 
 .hero-station__authority {
@@ -7432,8 +7486,54 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   border-color: var(--station-brass-light);
 }
 
+.hero-station__authority[data-lever-state="decided"] {
+  opacity: 0.78;
+  border-color: var(--station-brass-light);
+}
+
 .hero-station__authority[data-lever-state="pulled"] .hero-station__lever-label {
   color: var(--station-ivory);
+}
+
+.hero-station__decision-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: var(--rule-hair) solid rgb(238 231 215 / 0.14);
+}
+
+.hero-station__decision-actions button {
+  min-height: 2.35rem;
+  padding: 0.55rem;
+  border: 0;
+  border-bottom: var(--rule-hair) solid rgb(238 231 215 / 0.12);
+  border-radius: 0;
+  color: rgb(238 231 215 / 0.68);
+  background: transparent;
+  font: 700 0.47rem/1.2 var(--font-mono);
+  letter-spacing: 0.055em;
+  text-align: left;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.hero-station__decision-actions button:last-child {
+  border-bottom: 0;
+}
+
+.hero-station__decision-actions button:hover,
+.hero-station__decision-actions button:focus-visible {
+  color: var(--station-brass-light);
+  background: rgb(167 124 57 / 0.12);
+}
+
+.hero-station__decision-actions button:active {
+  color: var(--station-ivory);
+  background: rgb(167 124 57 / 0.2);
+}
+
+.hero-station__decision-actions button:disabled {
+  opacity: 0.36;
+  cursor: not-allowed;
 }
 
 @keyframes station-lever-unlock {
@@ -7504,7 +7604,7 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
 
 .hero-station__controls {
   display: grid;
-  grid-template-columns: repeat(2, minmax(8.5rem, 1fr));
+  grid-template-columns: repeat(3, minmax(8.5rem, 1fr));
   border-left: var(--rule-hair) solid rgb(238 231 215 / 0.18);
 }
 
@@ -7539,11 +7639,21 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   letter-spacing: 0.05em;
 }
 
+.hero-station__controls button span,
+.hero-station__decision-actions button {
+  white-space: nowrap;
+}
+
 .hero-station__controls button:hover,
 .hero-station__controls button:focus-visible,
 .hero-station__controls button[aria-pressed="true"] {
   color: var(--station-brass-light);
   background: rgb(167 124 57 / 0.12);
+}
+
+.hero-station__controls button:active {
+  color: var(--station-ivory);
+  background: rgb(167 124 57 / 0.2);
 }
 
 .hero-station__controls button:disabled {
@@ -7581,7 +7691,8 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   .hero-station[data-station-state="core-ready"] .hero-station__viewport,
   .hero-station[data-station-state="ready"] .hero-station__viewport,
   .hero-station[data-station-state="running"] .hero-station__viewport,
-  .hero-station[data-station-state="complete"] .hero-station__viewport {
+  .hero-station[data-station-state="complete"] .hero-station__viewport,
+  .hero-station[data-station-state="blocked"] .hero-station__viewport {
     cursor: grab;
   }
 
@@ -7652,7 +7763,8 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   .hero-station[data-workflow-stage="tool"] .hero-station__packet,
   .hero-station[data-workflow-stage="gate"] .hero-station__packet,
   .hero-station[data-workflow-stage="trace"] .hero-station__packet,
-  .hero-station[data-workflow-stage="human"] .hero-station__packet {
+  .hero-station[data-workflow-stage="human"] .hero-station__packet,
+  .hero-station[data-workflow-stage="result"] .hero-station__packet {
     transform: translate3d(5rem, 5rem, 0) scale(0.48);
   }
 
@@ -8688,11 +8800,11 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   opacity: 0.52;
 }
 
-.project-story__step[data-plan-status="complete"] {
+.project-story__step[data-plan-status="passed"] {
   opacity: 0.72;
 }
 
-.project-story__step[data-plan-status="running"],
+.project-story__step[data-plan-status="active"],
 .project-story__step.is-active,
 .project-story__step[aria-pressed="true"] {
   opacity: 1;
@@ -8788,12 +8900,12 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   justify-self: end;
 }
 
-.workflow-terminal [data-story-transcript] li > span {
+.workflow-receipt [data-story-transcript] li > span {
   display: none;
 }
 
-.workflow-terminal [data-story-transcript] li > code,
-.workflow-terminal [data-story-transcript] li > strong {
+.workflow-receipt [data-story-transcript] li > code,
+.workflow-receipt [data-story-transcript] li > strong {
   grid-column: 2;
   color: inherit;
   font: inherit;
@@ -8930,7 +9042,7 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
 }
 
 .workflow-status,
-.workflow-terminal {
+.workflow-receipt {
   transition:
     background-color 320ms var(--ease-out),
     border-color 320ms var(--ease-out),
@@ -8942,7 +9054,7 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   box-shadow: inset 0.2rem 0 0 var(--color-accent-soft);
 }
 
-.project-story[data-active-stage] .workflow-terminal {
+.project-story[data-active-stage] .workflow-receipt {
   background: color-mix(in oklab, var(--color-paper) 2%, transparent);
 }
 
@@ -8950,11 +9062,11 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   opacity: 0.58;
 }
 
-.project-story__step[data-plan-status="complete"] {
+.project-story__step[data-plan-status="passed"] {
   opacity: 0.78;
 }
 
-.project-story__step[data-plan-status="running"],
+.project-story__step[data-plan-status="active"],
 .project-story__step.is-active,
 .project-story__step[aria-current="step"] {
   padding-inline: var(--space-md);
@@ -9046,7 +9158,7 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
     min-height: clamp(14rem, 42svh, 20rem);
   }
 
-  .project-story__step[data-plan-status="running"],
+  .project-story__step[data-plan-status="active"],
   .project-story__step.is-active,
   .project-story__step[aria-current="step"] {
     padding-inline: var(--space-sm);
@@ -9058,7 +9170,7 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   .semantic-workflow__canvas,
   .semantic-workflow__focus,
   .workflow-status,
-  .workflow-terminal,
+  .workflow-receipt,
   .project-story__mobile-dock > i > b {
     transition: none !important;
   }

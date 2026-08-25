@@ -16,8 +16,8 @@
   <meta property="og:image" content="https://alex051107.github.io/personal-website/images/project-visuals/evidenceops-editorial.jpg">
   <meta property="og:image:alt" content="Editorial model of a source passage remaining connected to a reviewed scientific claim">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="../css/styles.css?v=d3a2139">
-  <script defer src="../js/site-motion.js?v=1a3c404"></script>
+  <link rel="stylesheet" href="../css/styles.css?v=ce706a6">
+  <script defer src="../js/site-motion.js?v=dc947ca"></script>
 </head>
 <body class="case-page case-page--blue">
   <div class="page-progress" aria-hidden="true"></div>
@@ -99,15 +99,17 @@
           <figure class="project-diagram" aria-labelledby="evidenceops-flow-caption" data-reveal="rise">
             <div class="project-diagram__canvas">
               <p class="project-diagram__context"><span>Implemented workflow</span><span>Public and clearly labelled synthetic inputs</span></p>
-              <ol class="project-diagram__route" aria-label="EvidenceOps workflow from a versioned source through retrieval and deterministic support checks to reviewer release">
+              <ol class="project-diagram__route project-diagram__route--seven" aria-label="EvidenceOps route from versioned source through extraction, exact value and context gates, human review, and durable record">
                 <li><small>Input</small><strong>Versioned source</strong></li>
                 <li><small>Search</small><strong>Candidate passages</strong></li>
-                <li><small>Extract</small><strong>Claim record</strong></li>
-                <li class="project-diagram__gate"><small>Check</small><strong>Text, unit, context</strong><span class="project-diagram__branch">Unsupported</span></li>
-                <li><small>Decision</small><strong>Human review</strong></li>
+                <li><small>Extract</small><strong>Candidate fields</strong></li>
+                <li class="project-diagram__gate"><small>Value gate</small><strong>Exact value + unit</strong><span class="project-diagram__branch">Unsupported</span></li>
+                <li class="project-diagram__gate"><small>Context gate</small><strong>Assay + conditions</strong><span class="project-diagram__branch">Review flag</span></li>
+                <li><small>Human</small><strong>Support decision</strong></li>
+                <li><small>Record</small><strong>Source-linked outcome</strong></li>
               </ol>
             </div>
-            <figcaption id="evidenceops-flow-caption">The output is a structured record with a source locator and supporting span, not a free-form answer detached from its evidence.</figcaption>
+            <figcaption id="evidenceops-flow-caption">The value gate checks the exact number and unit; the context gate checks assay and conditions. Only then can a reviewer release a source-linked record.</figcaption>
           </figure>
 
           <article class="fixture-example" data-reveal="pop" aria-labelledby="evidenceops-fixture-title">

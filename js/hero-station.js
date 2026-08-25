@@ -21,17 +21,29 @@ if (stationRoot) {
   const canvas = stationRoot.querySelector("[data-station-canvas]");
   const status = stationRoot.querySelector("[data-station-status]");
   const payload = stationRoot.querySelector("[data-station-payload]");
-  const runButton = stationRoot.querySelector("[data-station-run]");
+  const runButtons = Array.from(stationRoot.querySelectorAll("[data-station-run]"));
+  const runButton = runButtons[0] || null;
   const inspectButton = stationRoot.querySelector("[data-station-inspect]");
   const humanButton = stationRoot.querySelector("[data-station-human]");
+  const humanDecisionButtons = Array.from(stationRoot.querySelectorAll("[data-human-decision]"));
   const packetCard = stationRoot.querySelector("[data-station-packet]");
   const executionPanel = stationRoot.querySelector("[data-station-execution]");
   const executionSummary = stationRoot.querySelector("[data-execution-summary]");
   const gateCountLabel = stationRoot.querySelector("[data-gate-count]");
   const gateLamps = Array.from(stationRoot.querySelectorAll(".hero-station__gate-lamps i"));
+  const gateId = stationRoot.querySelector("[data-gate-id]");
+  const gateName = stationRoot.querySelector("[data-gate-name]");
+  const gateField = stationRoot.querySelector("[data-gate-field]");
+  const gateVerdict = stationRoot.querySelector("[data-gate-verdict]");
   const authorityPanel = stationRoot.querySelector("[data-station-lever]");
   const leverLabel = humanButton?.querySelector(".hero-station__lever-label");
   const resultCard = stationRoot.querySelector("[data-station-result]");
+  const resultStatus = stationRoot.querySelector("[data-result-status]");
+  const resultTitle = stationRoot.querySelector("[data-result-title]");
+  const resultRoute = stationRoot.querySelector("[data-result-route]");
+  const resultChecks = stationRoot.querySelector("[data-result-checks]");
+  const resultAuthority = stationRoot.querySelector("[data-result-authority]");
+  const executionResult = stationRoot.querySelector("[data-execution-result]");
   const executionSteps = new Map(
     Array.from(stationRoot.querySelectorAll("[data-execution-step]"))
       .map((step) => [step.dataset.executionStep, step]),
@@ -80,8 +92,8 @@ if (stationRoot) {
     },
     trace: {
       index: "05",
-      title: "Reviewable trace",
-      copy: "The brass route records the proposed source, tool call, gate result, stop reason, and output state.",
+      title: "DecisionTrace + RunReceipt",
+      copy: "Only after a gate verdict does the route write its tool call, gate result, stop reason, and output state.",
       modules: ["output"],
     },
     human: {
@@ -90,7 +102,22 @@ if (stationRoot) {
       copy: "The external lever is outside the automatic loop. Only an explicit human action can acknowledge review.",
       modules: ["human"],
     },
+    result: {
+      index: "07",
+      title: "Result",
+      copy: "The final state is explicit: accepted artifact, needs input, blocked route, revision requested, or rejected route.",
+      modules: ["output"],
+    },
   });
+
+  const gates = Object.freeze([
+    { id: "G1", name: "Source identity", field: "source_hash" },
+    { id: "G2", name: "Usage rights", field: "license_id" },
+    { id: "G3", name: "Residue mapping", field: "residue_map" },
+    { id: "G4", name: "Coverage", field: "time_window" },
+    { id: "G5", name: "Scientific meaning", field: "measure_type" },
+    { id: "G6", name: "Data maturity", field: "release_state" },
+  ]);
 
   const moduleConfigs = Object.freeze([
     {
@@ -153,6 +180,10 @@ if (stationRoot) {
     observer: null,
     resizeObserver: null,
     running: false,
+    scenario: "pass",
+    gateCount: 0,
+    gateBlocked: false,
+    humanDecision: null,
     runStartedAt: 0,
     runDuration: 8600,
     currentStage: "contract",
@@ -199,21 +230,39 @@ if (stationRoot) {
       const step = executionSteps.get(key);
       if (!step) return;
       let stepState = "pending";
-      if (state.reviewReady || state.humanActive || index < activeIndex) stepState = "done";
+      if (state.reviewReady || state.gateBlocked || state.humanActive || index < activeIndex) stepState = "done";
       else if (index === activeIndex) stepState = "active";
+      if (key === "gate" && state.gateBlocked) stepState = "blocked";
+      if (key === "trace" && state.gateBlocked && activeStage === "trace") stepState = "active";
       step.dataset.stepState = stepState;
     });
 
     const humanStep = executionSteps.get("human");
     if (humanStep) {
-      humanStep.dataset.stepState = state.humanActive
+      humanStep.dataset.stepState = state.humanDecision
         ? "done"
-        : (state.reviewReady ? "active" : "pending");
+        : (state.reviewReady && !state.gateBlocked ? "active" : "pending");
+    }
+    const resultStep = executionSteps.get("result");
+    if (resultStep) {
+      resultStep.dataset.stepState = state.humanDecision || state.gateBlocked ? "done" : "pending";
     }
 
     const safeGateCount = clamp(gateCount, 0, 6);
     if (gateCountLabel) gateCountLabel.textContent = `${safeGateCount} / 6`;
-    gateLamps.forEach((lamp, index) => lamp.classList.toggle("is-complete", index < safeGateCount));
+    gateLamps.forEach((lamp, index) => {
+      lamp.classList.toggle("is-complete", index < safeGateCount && !(state.gateBlocked && index === 2));
+      lamp.classList.toggle("is-blocked", state.gateBlocked && index === 2);
+    });
+    const activeGateIndex = clamp(Math.max(0, safeGateCount - 1), 0, gates.length - 1);
+    const activeGate = gates[activeGateIndex];
+    if (gateId) gateId.textContent = safeGateCount ? activeGate.id : "G0";
+    if (gateName) gateName.textContent = safeGateCount ? activeGate.name : "Run a scenario to inspect each gate.";
+    if (gateField) gateField.textContent = safeGateCount ? activeGate.field : "—";
+    if (gateVerdict) {
+      gateVerdict.textContent = state.gateBlocked ? "BLOCK · mapping missing" : (safeGateCount ? "PASS" : "Pending");
+      gateVerdict.dataset.verdict = state.gateBlocked ? "blocked" : (safeGateCount ? "passed" : "pending");
+    }
     if (packetCard) {
       const packetConsumed = automaticStages.indexOf(activeStage) >= 2 || state.reviewReady || state.humanActive;
       packetCard.setAttribute("aria-hidden", String(packetConsumed));
@@ -227,9 +276,11 @@ if (stationRoot) {
         gate: `${safeGateCount} of 6 checks`,
         trace: "Writing receipt",
       };
-      executionSummary.textContent = state.humanActive
-        ? "Receipt released"
-        : (state.reviewReady ? "Awaiting human lever" : summaries[activeStage] || "Waiting for route");
+      executionSummary.textContent = state.humanDecision
+        ? `Result · ${state.humanDecision}`
+        : (state.gateBlocked
+          ? "G3 blocked · receipt written"
+          : (state.reviewReady ? "Awaiting human scope decision" : summaries[activeStage] || "Waiting for route"));
     }
   };
 
@@ -237,13 +288,16 @@ if (stationRoot) {
     if (!authorityPanel || !humanButton) return;
     authorityPanel.dataset.leverState = nextState;
     const labels = {
-      locked: "Locked until trace",
-      ready: "Pull to release result",
+      locked: "Locked until gates pass",
+      ready: "Acknowledge scope / release",
       dragging: "Pull past the mark",
-      pulled: "Receipt released",
+      pulled: "Human decision recorded",
+      decided: "Human decision recorded",
     };
     if (leverLabel) leverLabel.textContent = labels[nextState] || labels.locked;
-    humanButton.disabled = nextState === "locked" || nextState === "pulled";
+    humanDecisionButtons.forEach((button) => {
+      button.disabled = nextState === "locked" || nextState === "pulled" || nextState === "decided";
+    });
     humanButton.setAttribute("aria-pressed", String(nextState === "pulled"));
     if (nextState !== "dragging") authorityPanel.style.removeProperty("--lever-angle");
   };
@@ -259,7 +313,7 @@ if (stationRoot) {
     stationRoot.dataset.stationState = "fallback";
     setStatus(message);
     if (payload) payload.textContent = "Static station";
-    [runButton, inspectButton, humanButton].forEach((button) => {
+    [...runButtons, inspectButton, ...humanDecisionButtons].forEach((button) => {
       if (button) button.disabled = true;
     });
     setLeverState("locked");
@@ -773,10 +827,11 @@ if (stationRoot) {
     state.scene.updateMatrixWorld(true);
     const anchors = {
       contract: { object: state.modules.get("input"), local: [0, 0.76, 0] },
-      agent: { object: state.particle?.group, local: [0, 0.48, 0] },
+      agent: { object: state.modules.get("locator"), local: [0, 0.58, 0] },
       tool: { object: state.modules.get("tools"), local: [0, 0.54, 0] },
       gate: { object: state.modules.get("gates"), local: [0, 0.72, 0] },
       human: { object: state.modules.get("human"), local: [0, 0.66, 0] },
+      result: { object: state.modules.get("output"), local: [0.18, 0.68, 0] },
     };
 
     stageMarkers.forEach((marker, key) => {
@@ -797,7 +852,7 @@ if (stationRoot) {
     });
   };
 
-  const setIndicators = (toolActive = false, gateCount = 0) => {
+  const setIndicators = (toolActive = false, gateCount = 0, blockedGateIndex = -1) => {
     state.toolIndicators.forEach((indicator, index) => {
       const active = toolActive && index === 1;
       indicator.material.color.setHex(active ? 0xd8b56f : 0x5e4b2d);
@@ -805,10 +860,11 @@ if (stationRoot) {
       indicator.material.emissiveIntensity = active ? 1.4 : 0;
     });
     state.gateIndicators.forEach((indicator, index) => {
-      const active = index < gateCount;
-      indicator.material.color.setHex(active ? 0xd8b56f : 0x5e4b2d);
-      indicator.material.emissive.setHex(active ? 0x8a6228 : 0x000000);
-      indicator.material.emissiveIntensity = active ? 1.25 : 0;
+      const blocked = index === blockedGateIndex;
+      const active = index < gateCount && !blocked;
+      indicator.material.color.setHex(blocked ? 0xb66c43 : (active ? 0xd8b56f : 0x5e4b2d));
+      indicator.material.emissive.setHex(blocked ? 0x7a2f16 : (active ? 0x8a6228 : 0x000000));
+      indicator.material.emissiveIntensity = blocked ? 1.45 : (active ? 1.25 : 0);
     });
   };
 
@@ -838,10 +894,11 @@ if (stationRoot) {
     if (pause && state.running) {
       state.running = false;
       stationRoot.dataset.stationState = motionIsReduced() ? "reduced" : "ready";
-      if (runButton) {
-        runButton.disabled = false;
-        runButton.querySelector("span").textContent = "Restart harness";
-      }
+      runButtons.forEach((button) => {
+        button.disabled = false;
+        const scenario = button.dataset.stationScenario || "pass";
+        button.querySelector("span").textContent = `Restart ${scenario.toUpperCase()} example`;
+      });
       setStatus(`Route paused at ${detail.title}`);
     }
     state.selectedStage = key;
@@ -866,6 +923,9 @@ if (stationRoot) {
     state.running = false;
     state.reviewReady = false;
     state.humanActive = false;
+    state.humanDecision = null;
+    state.gateCount = 0;
+    state.gateBlocked = false;
     state.humanMotion = null;
     state.resultMotion = null;
     stationRoot.dataset.reviewState = "locked";
@@ -885,43 +945,82 @@ if (stationRoot) {
     setIndicators(false, 0);
     updateReachedStages([]);
     updateExecution("contract", 0);
+    if (executionResult) executionResult.textContent = "Not produced";
+    if (resultStatus) resultStatus.textContent = "Result";
+    if (resultTitle) resultTitle.textContent = "No result yet";
+    if (resultRoute) resultRoute.textContent = "Not run";
+    if (resultChecks) resultChecks.textContent = "0 / 6 resolved";
+    if (resultAuthority) resultAuthority.textContent = "No human decision";
   };
 
-  const stageReview = () => {
+  const setResultCopy = ({ statusLabel, title, route, checks, authority }) => {
+    if (resultStatus) resultStatus.textContent = statusLabel;
+    if (resultTitle) resultTitle.textContent = title;
+    if (resultRoute) resultRoute.textContent = route;
+    if (resultChecks) resultChecks.textContent = checks;
+    if (resultAuthority) resultAuthority.textContent = authority;
+    if (executionResult) executionResult.textContent = title;
+  };
+
+  const finishAutomatedRoute = (blocked = false) => {
     state.running = false;
-    state.reviewReady = true;
-    stationRoot.dataset.stationState = motionIsReduced() ? "reduced" : "complete";
-    stationRoot.dataset.reviewState = "waiting";
-    setRouteProgress(1);
-    setIndicators(true, 6);
-    updateReachedStages(["contract", "agent", "tool", "gate", "trace"]);
-    updateExecution("trace", 6);
-    setLeverState("ready");
-    selectStage("trace", { pause: false });
-    if (runButton) {
-      runButton.disabled = false;
-      runButton.querySelector("span").textContent = "Run again";
+    state.gateBlocked = blocked;
+    state.reviewReady = !blocked;
+    state.gateCount = blocked ? 3 : 6;
+    stationRoot.dataset.stationState = motionIsReduced() ? "reduced" : (blocked ? "blocked" : "complete");
+    stationRoot.dataset.reviewState = blocked ? "blocked" : "waiting";
+    setRouteProgress(blocked ? 0.72 : 1);
+    setIndicators(true, state.gateCount, blocked ? 2 : -1);
+    updateReachedStages(["contract", "agent", "tool", "gate", "trace", ...(blocked ? ["result"] : [])]);
+    updateExecution("trace", state.gateCount);
+    setLeverState(blocked ? "locked" : "ready");
+    selectStage(blocked ? "result" : "trace", { pause: false });
+    runButtons.forEach((button) => {
+      button.disabled = false;
+      const scenario = button.dataset.stationScenario || "pass";
+      button.querySelector("span").textContent = `Run ${scenario.toUpperCase()} again`;
+    });
+    resultCard?.setAttribute("aria-hidden", blocked ? "false" : "true");
+    if (blocked) {
+      setResultCopy({
+        statusLabel: "BLOCKED",
+        title: "Residue mapping is missing",
+        route: "Stopped at G3 · residue_map",
+        checks: "G1–G2 passed · G3 blocked",
+        authority: "Release unavailable · revise input",
+      });
+      setStatus("G3 Residue mapping blocked · DecisionTrace + RunReceipt written");
+    } else {
+      setResultCopy({
+        statusLabel: "ACCEPTED ROUTE",
+        title: "Six gates passed",
+        route: "Registered source route accepted",
+        checks: "6 / 6 passed",
+        authority: "Awaiting release, revision, or rejection",
+      });
+      setStatus("Six gates passed · choose a human scope decision");
     }
-    setStatus("Trace complete · pull the human lever to release the receipt");
     requestRender();
   };
 
-  const startRun = () => {
+  const startRun = (scenario = "pass") => {
     if (!state.ready || state.running) return;
     resetRunVisuals();
+    state.scenario = scenario === "block" ? "block" : "pass";
+    runButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.stationScenario === state.scenario)));
     if (motionIsReduced()) {
-      stageReview();
+      finishAutomatedRoute(state.scenario === "block");
       return;
     }
     state.running = true;
     state.runStartedAt = window.performance.now();
     state.currentStage = "contract";
     stationRoot.dataset.stationState = "running";
-    if (runButton) {
-      runButton.disabled = true;
-      runButton.querySelector("span").textContent = "Harness running";
-    }
-    setStatus("TaskPacket seated · route started");
+    runButtons.forEach((button) => {
+      button.disabled = true;
+      if (button.dataset.stationScenario === state.scenario) button.querySelector("span").textContent = "Scenario running";
+    });
+    setStatus(`${state.scenario.toUpperCase()} example · TaskPacket seated`);
     updateExecution("contract", 0);
     selectStage("contract", { pause: false });
     requestRender();
@@ -931,42 +1030,37 @@ if (stationRoot) {
     if (!state.running) return false;
     const progress = clamp((now - state.runStartedAt) / state.runDuration, 0, 1);
     const input = state.modules.get("input");
-    const chassis = state.modules.get("chassis");
     const locator = state.modules.get("locator");
     const tools = state.modules.get("tools");
-    const gates = state.modules.get("gates");
     const output = state.modules.get("output");
     const inputMove = easeInOut(segmented(progress, 0.02, 0.13));
-    const agentPulse = Math.sin(Math.PI * segmented(progress, 0.14, 0.34));
+    const agentPulse = Math.sin(Math.PI * segmented(progress, 0.14, 0.3));
     const locatorMove = easeInOut(segmented(progress, 0.14, 0.34));
-    const toolPulse = Math.sin(Math.PI * segmented(progress, 0.32, 0.48));
+    const toolPulse = Math.sin(Math.PI * segmented(progress, 0.3, 0.43));
     const toolActive = progress >= 0.32;
-    const gateProgress = segmented(progress, 0.46, 0.76);
-    const gatePulse = Math.sin(Math.PI * gateProgress);
-    const gateCount = clamp(Math.floor(gateProgress * 6.999), 0, 6);
-    const traceProgress = easeInOut(segmented(progress, 0.03, 0.92));
-    const outputMove = easeInOut(segmented(progress, 0.78, 0.94));
+    const blockedScenario = state.scenario === "block";
+    const verdictAt = blockedScenario ? 0.63 : 0.78;
+    const gateProgress = segmented(progress, 0.43, verdictAt);
+    const gateCount = blockedScenario
+      ? clamp(Math.floor(gateProgress * 3.999), 0, 3)
+      : clamp(Math.floor(gateProgress * 6.999), 0, 6);
+    const blockedNow = blockedScenario && progress >= verdictAt;
+    const traceProgress = easeInOut(segmented(progress, verdictAt, 0.96)) * (blockedScenario ? 0.72 : 1);
+    const outputMove = easeInOut(segmented(progress, verdictAt, 0.94));
 
     if (input?.userData.basePosition) input.position.x = input.userData.basePosition.x + inputMove * 0.07;
-    if (chassis?.userData.basePosition) {
-      chassis.position.y = chassis.userData.basePosition.y + agentPulse * 0.035;
-      chassis.rotation.y = chassis.userData.baseRotationY + agentPulse * 0.025;
-    }
     if (locator?.userData.basePosition) {
       locator.position.x = locator.userData.basePosition.x + locatorMove * (state.isMobile ? 0.2 : 0.38);
       locator.position.y = locator.userData.basePosition.y + agentPulse * 0.05;
     }
     if (tools?.userData.basePosition) {
-      tools.position.y = tools.userData.basePosition.y + toolPulse * 0.045;
-      tools.rotation.z = -toolPulse * 0.04;
-    }
-    if (gates?.userData.basePosition) {
-      gates.position.y = gates.userData.basePosition.y + gatePulse * 0.032;
-      gates.rotation.z = Math.sin(gateProgress * Math.PI * 6) * 0.008;
+      tools.position.y = tools.userData.basePosition.y + toolPulse * 0.025;
     }
     if (output?.userData.basePosition) output.position.y = output.userData.basePosition.y + outputMove * 0.055;
     setRouteProgress(traceProgress);
-    setIndicators(toolActive, gateCount);
+    state.gateCount = gateCount;
+    state.gateBlocked = blockedNow;
+    setIndicators(toolActive, gateCount, blockedNow ? 2 : -1);
 
     let stage = "contract";
     let reached = ["contract"];
@@ -978,11 +1072,11 @@ if (stationRoot) {
       stage = "tool";
       reached = ["contract", "agent", "tool"];
     }
-    if (progress >= 0.46) {
+    if (progress >= 0.43) {
       stage = "gate";
       reached = ["contract", "agent", "tool", "gate"];
     }
-    if (progress >= 0.78) {
+    if (progress >= verdictAt) {
       stage = "trace";
       reached = ["contract", "agent", "tool", "gate", "trace"];
     }
@@ -992,8 +1086,8 @@ if (stationRoot) {
       const messages = {
         agent: "Locator Agent proposed one bounded source route",
         tool: "Registered tool port 02 selected",
-        gate: "Six compatibility checks resolving in order",
-        trace: "EvidenceBundle route recorded · block tray remains visible",
+        gate: blockedScenario ? "G1–G3 resolving · residue_map is required" : "G1–G6 resolving in order",
+        trace: blockedScenario ? "G3 blocked · writing DecisionTrace + RunReceipt" : "Six gates passed · writing DecisionTrace + RunReceipt",
       };
       setStatus(messages[stage]);
     }
@@ -1001,7 +1095,7 @@ if (stationRoot) {
     updateReachedStages(reached);
 
     if (progress >= 1) {
-      stageReview();
+      finishAutomatedRoute(blockedScenario);
       return false;
     }
     return true;
@@ -1041,28 +1135,54 @@ if (stationRoot) {
     return true;
   };
 
-  const acknowledgeHuman = () => {
-    if (!state.ready || !state.reviewReady || state.humanActive) return;
-    state.humanActive = true;
+  const recordHumanDecision = (decision = "release") => {
+    if (!state.ready || !state.reviewReady || state.humanDecision) return;
+    state.humanDecision = decision;
+    state.humanActive = decision === "release";
     stationRoot.dataset.reviewState = "acknowledged";
-    setLeverState("pulled");
+    setLeverState(decision === "release" ? "pulled" : "decided");
     resultCard?.setAttribute("aria-hidden", "false");
     const wrapper = state.modules.get("human");
-    if (wrapper) {
+    if (wrapper && decision === "release") {
       state.humanMotion = {
         startedAt: window.performance.now(),
         from: wrapper.rotation.y,
         to: (wrapper.userData.baseRotationY || 0) - 0.11,
       };
     }
-    if (state.resultArtifact) {
+    if (state.resultArtifact && decision === "release") {
       state.resultArtifact.visible = true;
       state.resultMotion = { startedAt: window.performance.now() };
     }
-    updateReachedStages([...state.reachedStages, "human"]);
+    const outcomes = {
+      release: {
+        statusLabel: "RELEASED",
+        title: "Reviewed artifact released",
+        authority: "Human acknowledged scope",
+      },
+      revise: {
+        statusLabel: "NEEDS INPUT",
+        title: "Revision requested",
+        authority: "Human returned the route",
+      },
+      reject: {
+        statusLabel: "REJECTED",
+        title: "Route rejected",
+        authority: "Human declined release",
+      },
+    };
+    const outcome = outcomes[decision] || outcomes.release;
+    setResultCopy({
+      statusLabel: outcome.statusLabel,
+      title: outcome.title,
+      route: "Registered source route + receipt",
+      checks: "6 / 6 passed",
+      authority: outcome.authority,
+    });
+    updateReachedStages([...state.reachedStages, "human", "result"]);
     updateExecution("human", 6);
-    setStatus("Human review acknowledged · EvidenceBundle receipt released");
-    selectStage("human", { pause: false });
+    setStatus(`${outcome.title} · decision recorded in RunReceipt`);
+    selectStage("result", { pause: false });
     if (motionIsReduced()) {
       updateHumanMotion(window.performance.now() + 760);
       updateResultMotion(window.performance.now() + 1100);
@@ -1168,7 +1288,9 @@ if (stationRoot) {
     stageMarkers.forEach((marker, key) => {
       marker.querySelector("button")?.addEventListener("click", () => selectStage(key, { pause: true }));
     });
-    runButton?.addEventListener("click", startRun);
+    runButtons.forEach((button) => {
+      button.addEventListener("click", () => startRun(button.dataset.stationScenario || "pass"));
+    });
     inspectButton?.addEventListener("click", toggleInspect);
     humanButton?.addEventListener("click", (event) => {
       if (event.detail > 0 && state.leverMoved) {
@@ -1176,8 +1298,13 @@ if (stationRoot) {
         state.leverMoved = false;
         return;
       }
-      acknowledgeHuman();
+      recordHumanDecision("release");
     });
+    humanDecisionButtons
+      .filter((button) => button !== humanButton)
+      .forEach((button) => {
+        button.addEventListener("click", () => recordHumanDecision(button.dataset.humanDecision));
+      });
     humanButton?.addEventListener("pointerdown", (event) => {
       if (!state.reviewReady || state.humanActive || humanButton.disabled) return;
       event.preventDefault();
@@ -1206,7 +1333,7 @@ if (stationRoot) {
       humanButton.releasePointerCapture?.(event.pointerId);
       state.leverPointerId = null;
       const shouldRelease = !cancelled && (state.leverPull >= 0.58 || !state.leverMoved);
-      if (shouldRelease) acknowledgeHuman();
+      if (shouldRelease) recordHumanDecision("release");
       else setLeverState("ready");
     };
     humanButton?.addEventListener("pointerup", (event) => finishLeverPull(event));
@@ -1343,7 +1470,7 @@ if (stationRoot) {
       state.ready = true;
       applyLayout();
       stationRoot.dataset.stationState = motionIsReduced() ? "reduced" : "ready";
-      [runButton, inspectButton].forEach((button) => {
+      [...runButtons, inspectButton].forEach((button) => {
         if (button) button.disabled = false;
       });
       setLeverState("locked");
@@ -1355,13 +1482,6 @@ if (stationRoot) {
       if (motionIsReduced()) applyMotionPreference();
       else requestRender();
 
-      if (!motionIsReduced()) {
-        window.setTimeout(() => {
-          const bounds = stationRoot.getBoundingClientRect();
-          const visible = bounds.top < window.innerHeight * 0.92 && bounds.bottom > window.innerHeight * 0.08;
-          if (visible && state.ready && !state.running) startRun();
-        }, 560);
-      }
     } catch (error) {
       console.error("Heroic Alpha Station could not be assembled.", error);
       setFallback("Static station · one or more 3D modules failed validation");
@@ -1379,27 +1499,33 @@ if (stationRoot) {
         finalizeOpacity(wrapper);
       });
       updateParticleField(true);
-      if (state.humanActive) {
+      if (state.humanDecision) {
         stationRoot.dataset.stationState = "reduced";
-        setRouteProgress(1);
-        setIndicators(true, 6);
-        updateReachedStages(["contract", "agent", "tool", "gate", "trace", "human"]);
+        setRouteProgress(state.gateBlocked ? 0.72 : 1);
+        setIndicators(true, state.gateCount, state.gateBlocked ? 2 : -1);
+        updateReachedStages(["contract", "agent", "tool", "gate", "trace", "human", "result"]);
         updateExecution("human", 6);
         setLeverState("pulled");
         updateHumanMotion(window.performance.now() + 760);
         updateResultMotion(window.performance.now() + 1100);
+      } else if (state.gateBlocked) {
+        finishAutomatedRoute(true);
+      } else if (state.reviewReady) {
+        finishAutomatedRoute(false);
       } else {
-        stageReview();
+        resetRunVisuals();
+        stationRoot.dataset.stationState = "reduced";
+        setStatus("Station assembled · choose PASS or BLOCK example");
       }
     } else {
       stationRoot.dataset.stationState = state.reviewReady ? "complete" : "ready";
-      if (state.humanActive) {
-        setStatus("Human review acknowledged · EvidenceBundle receipt released");
+      if (state.humanDecision) {
+        setStatus(`Human ${state.humanDecision} decision recorded`);
       } else if (state.reviewReady) {
-        setStatus("Trace complete · pull the human lever to release the receipt");
+        setStatus("Six gates passed · choose a human scope decision");
         setLeverState("ready");
       } else {
-        setStatus("Station assembled · finite route ready");
+        setStatus("Station assembled · choose PASS or BLOCK example");
       }
     }
     requestRender();

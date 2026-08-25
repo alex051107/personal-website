@@ -12,13 +12,15 @@ ten named interaction references, and an evidence-based output contract.
 
 ## Ten-minute review path
 
-1. Open `index.html` and follow the home-page sequence from AI for Science
-   positioning through the Heroic Alpha Station and four project stories.
+1. Open `index.html` and follow the Narrative Workflow from the personal
+   masthead through the PASS/BLOCK Agent Harness, AI for Science grammar,
+   comparison matrix, four project stories, and methods credits.
 2. Read `design.md` for the information hierarchy, visual system, responsive
    rules, and motion contract.
-3. Inspect `js/hero-station.js` and `js/site-motion.js` for the bounded Hero run,
-   explicit Human step, scroll-stage synchronization, keyboard controls, and
-   reduced-motion behavior.
+3. Inspect `js/hero-station.js` and `js/site-motion.js` for the two bounded Hero
+   replays, named G1–G6 fields, post-verdict receipt, release/revise/reject Human
+   step, project-specific event/owner/outcome receipts, scroll-stage
+   synchronization, keyboard controls, and reduced-motion behavior.
 4. Compare `docs/hero-harness-module-manifest.md` with `models/hero-3d/` and
    `images/hero-3d-source/` to trace every published 3D module to its source
    image and verified generator export.
@@ -83,6 +85,6 @@ not website resources.
   does not claim broad Agent effectiveness.
 - HSP90 / LiGaMD uses experimental assay-derived `pKoff` labels and does not
   claim physical `koff` estimation.
-- The Hero is an explanatory interaction model. Its GLBs are generated visual
-  components rather than scientific simulation output or a rigged mechanical
-  system.
+- The Hero is an explanatory interaction model. PASS and BLOCK are designed
+  examples, and its GLBs are generated visual components rather than scientific
+  simulation output or a rigged mechanical system.

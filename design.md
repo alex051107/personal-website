@@ -32,7 +32,9 @@ explain.
 
 ## Macrostructure
 
-- Home: `personal masthead + scientific decision matrix + scroll-linked project dossiers`.
+- Home: `Narrative Workflow` — personal masthead → interactive Agent Harness →
+  AI × Science grammar → literal decision matrix → four scroll-linked project
+  dossiers → methods and motion credits → scientific context and profile.
   The real portrait and name establish authorship. A short AI for Science
   statement explains the shared logic. A literal matrix exposes differences
   among four decisions. Each full project dossier has one semantic diagram;
@@ -94,7 +96,7 @@ word boundaries.
 
 The home page adapts ten concrete templates as five paired interaction recipes.
 They all read and write one semantic project state: the same active stage must
-control the copy, node, edge, status card, terminal record, and result branch.
+control the copy, node, edge, status card, decision receipt, and result branch.
 The recipes are not ten independent decorations.
 
 The project dossiers use scrollytelling rather than ordinary entrance reveals.
@@ -102,7 +104,7 @@ Natural page scroll is mapped to a continuous six-stage position. Crossing a
 stage midpoint changes the discrete active state; the position between
 midpoints controls the tracing beam. The sticky scene moves one inspection lens
 to the active object, draws only the route entering it, updates the stage badge,
-and rewrites the status and terminal values without replacing their DOM
+and rewrites the status and receipt values without replacing their DOM
 structure. On viewports at or below 64rem, the large scene returns to document
 flow and a compact paper-and-brass stage dock remains sticky above the steps.
 
@@ -112,12 +114,13 @@ flow and a compact paper-and-brass stage dock remains sticky above the steps.
    states. Both are translated into project-specific scientific objects and
    authority boundaries.
 2. **React Bits — Scroll Expand + Animated List.** The Hero station receives one
-   bounded clip-and-scale entrance; each project terminal's real execution rows
-   reveal in order and then remain still. Neither effect may create a card
+   bounded clip-and-scale entrance; each project receipt reveals only the newly
+   selected event and then remains still. Neither effect may create a card
    stack, marquee, or second navigation system.
-3. **Uiverse — Progress Status Card + Terminal Card.** Every dossier has one
-   compact six-stage status readout and one finite text record. They report the
-   selected project state; they are not decorative fake terminals.
+3. **Uiverse — Progress Status Card + adapted receipt anatomy.** Every dossier
+   has one compact six-stage status readout and one finite `event / owner /
+   outcome` record. They report the selected project state and never simulate a
+   command shell.
 4. **Anime.js — `createDrawable` + `createMotionPath`.** `createDrawable` draws
    only the edge entering the selected node. `createMotionPath` moves one runner
    over that same SVG edge and stops at the destination.
@@ -131,7 +134,19 @@ trace, and state transition—but the visible source patterns above remain
 separately identifiable. `data-template-source` and `data-template-name` record
 their provenance. The home page contains one `.motion-source-map`, while each
 of the four project dossiers contains one `[data-story-status]`, one
-`.workflow-terminal`, and one `.project-story__beam` instance.
+`.workflow-receipt`, and one `.project-story__beam` instance.
+
+The 3D Hero is a finite state demonstration, not an ambient model viewer. Its
+canonical route is `TaskPacket → Locator Agent suggestion → registered tool →
+G1–G6 → DecisionTrace + RunReceipt → human scope decision → Result`. The Agent
+is a locator sidecar, not the chassis or the particle specimen. The six named
+gates expose the field they inspect: source identity (`source_hash`), usage
+rights (`license_id`), residue mapping (`residue_map`), coverage (`time_window`),
+scientific meaning (`measure_type`), and data maturity (`release_state`). The
+active trace begins only after a gate verdict. The Hero must preserve at least
+one all-pass replay and one blocked replay. A passed route enables human
+`release / revise / reject`; a blocked route writes a receipt and never exposes
+release authority. `Result` is an independent state, not a synonym for Trace.
 
 All animations are finite. No loop, bounce, elastic overshoot, `transition-all`,
 idle movement, or scroll hijacking. Reduced-motion mode keeps scroll-selected
@@ -195,14 +210,16 @@ its static HTML/CSS/JS architecture instead of installing React runtimes.
 
 ## Narrative order
 
-Each project follows the same reasoning sequence:
+Each project follows the same inspectable stage grammar while retaining its own
+objects, operators, gates, and record vocabulary:
 
 1. Why the broader problem matters.
-2. What scientific or biomedical object enters the system.
-3. What the model, ML workflow, or Agent is allowed to change.
-4. Which deterministic, scientific, or authority gate controls the route.
-5. What record or bounded decision leaves the system.
-6. What the project does not establish.
+2. `Input`: what scientific or biomedical object enters.
+3. `Action`: what a registered tool, model, ML workflow, or Agent may change.
+4. `Gate`: which deterministic, scientific, or authority rule can stop it.
+5. `Record`: which trace, receipt, or bounded decision persists.
+6. `Human`: who may release, revise, reject, or scope the claim.
+7. `Limit`: what the project does not establish.
 
 ## AI × Science object grammar
 

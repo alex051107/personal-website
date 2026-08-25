@@ -144,7 +144,7 @@
     const statusState = story.querySelector("[data-story-status-state]");
     const statusRole = story.querySelector("[data-story-status-role]");
     const statusTrack = story.querySelector("[data-story-status-track]");
-    const terminalState = story.querySelector("[data-story-terminal-state]");
+    const receiptState = story.querySelector("[data-story-receipt-state]");
     const transcriptRows = Array.from(story.querySelectorAll("[data-story-transcript] li"));
     const transcript = new Map(
       transcriptRows.map((row) => [row.dataset.storyLine || "", row]),
@@ -153,7 +153,7 @@
     const mobileStageIndex = story.querySelector("[data-mobile-stage-index]");
     const mobileStageTitle = story.querySelector("[data-mobile-stage-title]");
     const mobileStageFill = story.querySelector("[data-mobile-stage-fill]");
-    const runtimeTargets = [statusTitle, statusState, terminalState, log].filter(Boolean);
+    const runtimeTargets = [statusTitle, statusState, receiptState, log].filter(Boolean);
     let activeIndex = -1;
     let activeAnimations = [];
     let manualLockUntil = 0;
@@ -195,11 +195,11 @@
       const animations = [];
 
       try {
-        if (transcriptRows.length && animeRuntime.stagger) {
-          animations.push(animeRuntime.animate(transcriptRows, {
+        const eventRow = transcript.get("event");
+        if (eventRow) {
+          animations.push(animeRuntime.animate(eventRow, {
             opacity: [0, 1],
             y: [6, 0],
-            delay: animeRuntime.stagger(48),
             duration: 360,
             ease: "out(3)",
           }));
@@ -259,17 +259,20 @@
       const stepLabel = steps[index]?.querySelector("span")?.textContent?.trim() || "Workflow stage";
       const nodeRole = nodes[index]?.querySelector("small")?.textContent?.trim() || stepLabel;
       const stageNumber = String(index + 1).padStart(2, "0");
-      const stateLabel = index === nodes.length - 1 ? "RECORDED" : (index === 0 ? "READY" : "IN ROUTE");
+      const stateLabel = steps[index]?.dataset.stageState || (index === nodes.length - 1 ? "RECORDED" : (index === 0 ? "READY" : "ACTIVE"));
+      const ownerLabel = steps[index]?.dataset.stageOwner || nodeRole.split("·")[0].trim();
+      const eventLabel = steps[index]?.dataset.stageEvent || strong;
+      const outcomeLabel = steps[index]?.dataset.stageOutcome || detail || "Stage state recorded.";
       story.style.setProperty("--module-progress", ((index + 1) / nodes.length).toFixed(4));
       if (statusTitle) statusTitle.textContent = strong;
       if (statusIndex) statusIndex.textContent = `${stageNumber} / ${String(nodes.length).padStart(2, "0")}`;
       if (statusState) statusState.textContent = stateLabel;
       if (statusRole) statusRole.textContent = nodeRole;
       if (statusTrack) statusTrack.setAttribute("aria-valuenow", String(index + 1));
-      if (terminalState) terminalState.textContent = stateLabel;
-      setTranscriptValue("command", `select stage --index ${stageNumber}`);
-      setTranscriptValue("role", `${nodeRole} · ${strong}`);
-      setTranscriptValue("receipt", detail || "Stage state recorded.");
+      if (receiptState) receiptState.textContent = stateLabel;
+      setTranscriptValue("event", `${stageNumber} · ${eventLabel}`);
+      setTranscriptValue("owner", ownerLabel);
+      setTranscriptValue("outcome", outcomeLabel);
       if (log) log.textContent = `${stageNumber} · ${strong}${detail ? ` ${detail}` : ""}`;
       if (mobileStageIndex) mobileStageIndex.textContent = `${stageNumber} / ${String(nodes.length).padStart(2, "0")}`;
       if (mobileStageTitle) mobileStageTitle.textContent = strong;
@@ -309,7 +312,7 @@
     const selectStage = (index, options = {}) => {
       const nextIndex = clamp(index, 0, nodes.length - 1);
       const changed = nextIndex !== activeIndex;
-      if (options.manual) manualLockUntil = Date.now() + 720;
+      if (options.manual) manualLockUntil = Date.now() + 2400;
       activeIndex = nextIndex;
       story.dataset.activeStage = String(nextIndex);
       story.style.setProperty("--story-progress", String(nextIndex / Math.max(1, nodes.length - 1)));
@@ -331,7 +334,7 @@
         step.setAttribute("aria-expanded", String(active));
         if (active) step.setAttribute("aria-current", "step");
         else step.removeAttribute("aria-current");
-        step.dataset.planStatus = active ? "running" : (stepIndex < nextIndex ? "complete" : "pending");
+        step.dataset.planStatus = active ? "active" : (stepIndex < nextIndex ? "passed" : "pending");
       });
 
       edges.forEach((edge) => {

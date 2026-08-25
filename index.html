@@ -50,10 +50,10 @@
   }
   </script>
 
-  <link rel="stylesheet" href="css/styles.css?v=d3a2139">
-  <script defer src="js/vendor/anime.umd.min.js?v=bc2ae43"></script>
-  <script type="module" src="js/hero-station.js?v=64357a7"></script>
-  <script defer src="js/site-motion.js?v=1a3c404"></script>
+  <link rel="stylesheet" href="css/styles.css?v=ce706a6">
+  <script defer src="js/vendor/anime.umd.min.js?v=6c1a3ca"></script>
+  <script type="module" src="js/hero-station.js?v=7ec513a"></script>
+  <script defer src="js/site-motion.js?v=dc947ca"></script>
 </head>
 <body>
   <div class="page-progress" aria-hidden="true"></div>
@@ -96,8 +96,8 @@
         <figure class="hero-station" data-hero-station data-scroll-expand data-template-source="reactbits" data-template-name="scroll-expand" data-station-state="loading" aria-labelledby="hero-station-title" aria-describedby="hero-station-copy">
           <div class="hero-station__frame">
             <header class="hero-station__masthead">
-              <p><span>Heroic Alpha Station</span><small>Dynamics Atlas · Agent Harness</small></p>
-              <h2 id="hero-station-title">One bounded Agent route, made physical.</h2>
+              <p><span>Agent Harness / bounded route</span><small>Dynamics Atlas · interactive system trace</small></p>
+              <h2 id="hero-station-title">Watch an Agent route pass—or stop.</h2>
               <div class="hero-station__load" aria-hidden="true"><i></i></div>
             </header>
 
@@ -120,37 +120,47 @@
                 <header><span>Route walkthrough</span><b data-execution-summary>Waiting for route</b></header>
                 <ol>
                   <li data-execution-step="contract"><i></i><span>Contract</span><strong>TaskPacket seated</strong></li>
-                  <li data-execution-step="agent"><i></i><span>Agent</span><strong>Parse + plan route</strong></li>
-                  <li data-execution-step="tool"><i></i><span>Tool</span><strong>Port 02 · locate</strong></li>
+                  <li data-execution-step="agent"><i></i><span>Agent</span><strong>Locator suggestion only</strong></li>
+                  <li data-execution-step="tool"><i></i><span>Tool</span><strong>locate_registered_source</strong></li>
                   <li data-execution-step="gate">
-                    <i></i><span>Checks</span><strong><b data-gate-count>0 / 6</b> compatible</strong>
+                    <i></i><span>Gate</span><strong><b data-gate-count>0 / 6</b> resolved</strong>
                     <span class="hero-station__gate-lamps" aria-label="Six compatibility checks">
-                      <i title="Identity"></i><i title="Rights"></i><i title="Mapping"></i><i title="Coverage"></i><i title="Meaning"></i><i title="Maturity"></i>
+                      <i title="G1 Source identity"></i><i title="G2 Usage rights"></i><i title="G3 Residue mapping"></i><i title="G4 Coverage"></i><i title="G5 Scientific meaning"></i><i title="G6 Data maturity"></i>
                     </span>
                   </li>
-                  <li data-execution-step="trace"><i></i><span>Trace</span><strong>EvidenceBundle staged</strong></li>
-                  <li data-execution-step="human"><i></i><span>Human</span><strong>Explicit release</strong></li>
+                  <li data-execution-step="trace"><i></i><span>Receipt</span><strong>DecisionTrace + RunReceipt</strong></li>
+                  <li data-execution-step="human"><i></i><span>Human</span><strong>Release · revise · reject</strong></li>
+                  <li data-execution-step="result"><i></i><span>Result</span><strong data-execution-result>Not produced</strong></li>
                 </ol>
+                <dl class="hero-station__gate-readout" data-gate-readout>
+                  <div><dt data-gate-id>G0</dt><dd data-gate-name>Run a scenario to inspect each gate.</dd></div>
+                  <div><dt>Field</dt><dd data-gate-field>—</dd></div>
+                  <div><dt>Verdict</dt><dd data-gate-verdict>Pending</dd></div>
+                </dl>
               </aside>
 
               <aside class="hero-station__authority" data-station-lever data-lever-state="locked" aria-label="Human authority lever">
                 <header><span>Human authority</span><b>Outside auto-loop</b></header>
-                <button class="hero-station__lever" type="button" data-station-human aria-pressed="false" disabled>
+                <button class="hero-station__lever" type="button" data-station-human data-human-decision="release" aria-pressed="false" disabled>
                   <span class="hero-station__lever-base" aria-hidden="true">
                     <i class="hero-station__lever-arm"><b></b></i>
                     <i class="hero-station__lever-axis"></i>
                   </span>
-                  <span class="hero-station__lever-label">Locked until trace</span>
+                  <span class="hero-station__lever-label">Locked until gates pass</span>
                 </button>
+                <div class="hero-station__decision-actions" aria-label="Human scope decision">
+                  <button type="button" data-human-decision="revise" disabled>Request revision</button>
+                  <button type="button" data-human-decision="reject" disabled>Reject route</button>
+                </div>
               </aside>
 
               <article class="hero-station__result" data-station-result aria-hidden="true" aria-live="polite">
-                <header><span>Example EvidenceBundle / receipt</span><b>Result</b></header>
-                <strong>Review gate opened</strong>
+                <header><span>Independent result state</span><b data-result-status>Result</b></header>
+                <strong data-result-title>No result yet</strong>
                 <dl>
-                  <div><dt>Route</dt><dd>source + tool recorded</dd></div>
-                  <div><dt>Checks</dt><dd>6 / 6 resolved</dd></div>
-                  <div><dt>Authority</dt><dd>human acknowledgement</dd></div>
+                  <div><dt>Route</dt><dd data-result-route>Not run</dd></div>
+                  <div><dt>Checks</dt><dd data-result-checks>0 / 6 resolved</dd></div>
+                  <div><dt>Authority</dt><dd data-result-authority>No human decision</dd></div>
                 </dl>
               </article>
 
@@ -159,8 +169,9 @@
                 <li data-stage-marker="agent"><button type="button" aria-pressed="false"><span>02</span>Agent</button></li>
                 <li data-stage-marker="tool"><button type="button" aria-pressed="false"><span>03</span>Tool</button></li>
                 <li data-stage-marker="gate"><button type="button" aria-pressed="false"><span>04</span>Gate × 6</button></li>
-                <li data-stage-marker="trace"><button type="button" aria-pressed="false"><span>05</span>Trace</button></li>
+                <li data-stage-marker="trace"><button type="button" aria-pressed="false"><span>05</span>Receipt</button></li>
                 <li data-stage-marker="human"><button type="button" aria-pressed="false"><span>06</span>Human</button></li>
+                <li data-stage-marker="result"><button type="button" aria-pressed="false"><span>07</span>Result</button></li>
               </ol>
 
               <div class="hero-station__telemetry">
@@ -176,8 +187,11 @@
                 <p data-stage-copy>TaskPacket and molecular datasets define what the Locator Agent may attempt.</p>
               </div>
               <div class="hero-station__controls" aria-label="Hero station controls">
-                <button type="button" data-station-run disabled>
-                  <span>Run harness</span><small>finite route</small>
+                <button type="button" data-station-run data-station-scenario="pass" aria-pressed="true" disabled>
+                  <span>Run PASS example</span><small>all six gates resolve</small>
+                </button>
+                <button type="button" data-station-run data-station-scenario="block" aria-pressed="false" disabled>
+                  <span>Run BLOCK example</span><small>G3 residue map fails</small>
                 </button>
                 <button type="button" data-station-inspect aria-pressed="false" disabled>
                   <span>Inspect specimen</span><small>local particles</small>
@@ -187,7 +201,7 @@
           </div>
           <figcaption>
             <span>Dynamics Atlas · readable Agent Harness</span>
-            <p id="hero-station-copy">TaskPacket + molecular datasets → Locator Agent → registered tools → six compatibility checks → EvidenceBundle or block. The brass route is the trace; the lever remains outside the automatic path.</p>
+            <p id="hero-station-copy">TaskPacket → Locator Agent suggestion → registered tool → G1–G6 → accepted or blocked → DecisionTrace + RunReceipt → human scope decision → result. Run both examples to see where automation stops.</p>
           </figcaption>
         </figure>
 
@@ -305,40 +319,6 @@
           <span><b class="role-key role-key--human">Human</b> owns final authority</span>
         </div>
 
-        <section class="motion-source-map" aria-labelledby="motion-source-map-title">
-          <header class="motion-source-map__header">
-            <p>Design provenance / interaction ledger</p>
-            <h3 id="motion-source-map-title">10 adapted interaction patterns.</h3>
-            <p>The references supply motion grammar; every adaptation is bound to a scientific object, system state, or review action on this page.</p>
-          </header>
-          <ol class="motion-source-map__list">
-            <li>
-              <span>01 / MotionSites</span>
-              <p><a href="https://motionsites.org/prompts/dani-0212bfb0-ai-agent-pipeline" data-template-source="motionsites" data-template-name="ai-agent-pipeline" target="_blank" rel="noopener noreferrer">AI Agent Pipeline ↗</a> <i aria-hidden="true">+</i> <a href="https://motionsites.org/prompts/user-2tkbbpfwyn8ymjznhwgiup3yzvd-agent-plan" data-template-source="motionsites" data-template-name="agent-plan" target="_blank" rel="noopener noreferrer">Agent Plan ↗</a></p>
-              <small>Hero route walkthrough + six-stage project plans</small>
-            </li>
-            <li>
-              <span>02 / React Bits</span>
-              <p><a href="https://www.reactbits.dev/animations/scroll-expand" data-template-source="reactbits" data-template-name="scroll-expand" target="_blank" rel="noopener noreferrer">Scroll Expand ↗</a> <i aria-hidden="true">+</i> <a href="https://www.reactbits.dev/components/animated-list" data-template-source="reactbits" data-template-name="animated-list" target="_blank" rel="noopener noreferrer">Animated List ↗</a></p>
-              <small>Hero reveal + ordered runtime transcript</small>
-            </li>
-            <li>
-              <span>03 / Uiverse</span>
-              <p><a href="https://uiverse.io/Cybercom682/ordinary-duck-36" data-template-source="uiverse" data-template-name="progress-status-card" target="_blank" rel="noopener noreferrer">Progress status ↗</a> <i aria-hidden="true">+</i> <a href="https://uiverse.io/Yaya12085/soft-jellyfish-99" data-template-source="uiverse" data-template-name="terminal-card" target="_blank" rel="noopener noreferrer">Terminal card ↗</a></p>
-              <small>Stage readout + bounded execution receipt</small>
-            </li>
-            <li>
-              <span>04 / Anime.js</span>
-              <p><a href="https://animejs.com/documentation/svg/createdrawable/" data-template-source="anime" data-template-name="create-drawable" target="_blank" rel="noopener noreferrer">createDrawable ↗</a> <i aria-hidden="true">+</i> <a href="https://animejs.com/documentation/svg/createmotionpath/" data-template-source="anime" data-template-name="create-motion-path" target="_blank" rel="noopener noreferrer">createMotionPath ↗</a></p>
-              <small>Auditable edge trace + packet moving through the route</small>
-            </li>
-            <li>
-              <span>05 / Aceternity UI</span>
-              <p><a href="https://ui.aceternity.com/components/sticky-scroll-reveal" data-template-source="aceternity" data-template-name="sticky-scroll-reveal" target="_blank" rel="noopener noreferrer">Sticky Scroll Reveal ↗</a> <i aria-hidden="true">+</i> <a href="https://ui.aceternity.com/components/tracing-beam" data-template-source="aceternity" data-template-name="tracing-beam" target="_blank" rel="noopener noreferrer">Tracing Beam ↗</a></p>
-              <small>Sticky system plate + scroll-positioned narrative beam</small>
-            </li>
-          </ol>
-        </section>
       </div>
 
       <div class="project-spreads">
@@ -416,12 +396,12 @@
                       <div class="workflow-status__track" data-story-status-track role="progressbar" aria-label="EvidenceOps workflow progress" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1"><i class="workflow-status__fill" data-story-status-fill></i></div>
                       <button type="button" data-story-next>Advance trace <span aria-hidden="true">→</span></button>
                     </section>
-                    <aside class="workflow-terminal" data-template-source="uiverse" data-template-name="terminal-card" aria-label="EvidenceOps bounded runtime transcript">
-                      <header class="workflow-terminal__bar"><span>Bounded run trace</span><b data-story-terminal-state>Input / ready</b></header>
+                    <aside class="workflow-receipt" data-template-source="uiverse" data-template-name="terminal-card" aria-label="EvidenceOps decision receipt">
+                      <header class="workflow-receipt__bar"><span>Decision receipt</span><b data-story-receipt-state>Input / ready</b></header>
                       <ol data-story-transcript data-template-source="reactbits" data-template-name="animated-list">
-                        <li data-story-line="command"><span>$</span><code>receive passage@version</code></li>
-                        <li data-story-line="role"><span>role</span><strong>Rule owns release gate</strong></li>
-                        <li data-story-line="receipt"><span>state</span><strong>Context attached</strong></li>
+                        <li data-story-line="event"><span>event</span><code>Source object received</code></li>
+                        <li data-story-line="owner"><span>owner</span><strong>Rule owns release gate</strong></li>
+                        <li data-story-line="outcome"><span>outcome</span><strong>Context attached</strong></li>
                       </ol>
                       <output class="semantic-workflow__log" data-story-log aria-live="polite">01 · Input locked to a versioned passage and experimental context.</output>
                     </aside>
@@ -444,22 +424,22 @@
                   <strong data-mobile-stage-title>Keep the source passage and its conditions together.</strong>
                   <i><b data-mobile-stage-fill></b></i>
                 </div>
-                <button class="project-story__step" type="button" data-story-step="0" aria-pressed="true">
+                <button class="project-story__step" type="button" data-story-step="0" data-stage-state="READY" data-stage-owner="Source contract" data-stage-event="Versioned passage received" data-stage-outcome="Passage and experimental context stay attached" aria-pressed="true">
                   <span>01 · Scientific object</span><strong>Keep the source passage and its conditions together.</strong><small>A query, versioned passage, source locator, supporting span, and experimental context enter as one evidence object.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="1" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="1" data-stage-state="RETRIEVED" data-stage-owner="Registered search tool" data-stage-event="Candidate span retrieved" data-stage-outcome="Source text remains unchanged" aria-pressed="false">
                   <span>02 · Deterministic tool</span><strong>Retrieve without rewriting the source.</strong><small>Search returns candidate passages; it does not turn topical relevance into claim support.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="2" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="2" data-stage-state="PROPOSED" data-stage-owner="Bounded extractor" data-stage-event="Claim fields proposed" data-stage-outcome="Claim, value, unit, and context await checks" aria-pressed="false">
                   <span>03 · Bounded model move</span><strong>Extract a candidate into named fields.</strong><small>The local test path proposes claim, value, unit, and context fields for inspection.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="3" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="3" data-stage-state="GATED" data-stage-owner="Exact-support rule" data-stage-event="Support fields checked" data-stage-outcome="Any mismatch blocks release" aria-pressed="false">
                   <span>04 · Blocking gate</span><strong>Match text, value, unit, and context.</strong><small>Any mismatch produces <code>unsupported</code>, a release block, or a context review flag.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="4" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="4" data-stage-state="REVIEW" data-stage-owner="Human reviewer" data-stage-event="Exact support inspected" data-stage-outcome="Reviewer owns release authority" aria-pressed="false">
                   <span>05 · Human review</span><strong>Decide whether the attached support is sufficient.</strong><small>The model proposes a record; it does not own release authority.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="5" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="5" data-stage-state="RECORDED" data-stage-owner="Evidence record" data-stage-event="Review decision persisted" data-stage-outcome="Source, checks, flags, and decision are traceable" aria-pressed="false">
                   <span>06 · Recorded outcome</span><strong>Preserve source, checks, flags, and decision.</strong><small>The result remains traceable to the exact passage rather than a fluent summary.</small>
                 </button>
                 <p class="project-story__limit"><strong>Current limit</strong> Public or clearly labelled synthetic inputs. The fixed cases test defined behavior—not open-ended scientific accuracy or production use.</p>
@@ -545,12 +525,12 @@
                       <div class="workflow-status__track" data-story-status-track role="progressbar" aria-label="CarePlan workflow progress" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1"><i class="workflow-status__fill" data-story-status-fill></i></div>
                       <button type="button" data-story-next>Advance trace <span aria-hidden="true">→</span></button>
                     </section>
-                    <aside class="workflow-terminal" data-template-source="uiverse" data-template-name="terminal-card" aria-label="CarePlan bounded runtime transcript">
-                      <header class="workflow-terminal__bar"><span>Bounded run trace</span><b data-story-terminal-state>Input / ready</b></header>
+                    <aside class="workflow-receipt" data-template-source="uiverse" data-template-name="terminal-card" aria-label="CarePlan state receipt">
+                      <header class="workflow-receipt__bar"><span>State receipt</span><b data-story-receipt-state>Input / ready</b></header>
                       <ol data-story-transcript data-template-source="reactbits" data-template-name="animated-list">
-                        <li data-story-line="command"><span>$</span><code>receive synthetic_order</code></li>
-                        <li data-story-line="role"><span>role</span><strong>Rules precede AI worker</strong></li>
-                        <li data-story-line="receipt"><span>state</span><strong>Version recorded</strong></li>
+                        <li data-story-line="event"><span>event</span><code>Synthetic order received</code></li>
+                        <li data-story-line="owner"><span>owner</span><strong>Rules precede AI worker</strong></li>
+                        <li data-story-line="outcome"><span>outcome</span><strong>Version recorded</strong></li>
                       </ol>
                       <output class="semantic-workflow__log" data-story-log aria-live="polite">01 · Synthetic order enters with explicit state and hard-stop fields.</output>
                     </aside>
@@ -573,22 +553,22 @@
                   <strong data-mobile-stage-title>Start from a synthetic order and an expected state.</strong>
                   <i><b data-mobile-stage-fill></b></i>
                 </div>
-                <button class="project-story__step" type="button" data-story-step="0" aria-pressed="true">
+                <button class="project-story__step" type="button" data-story-step="0" data-stage-state="READY" data-stage-owner="Versioned workflow" data-stage-event="Synthetic order received" data-stage-outcome="Expected state and hard-stop flags attached" aria-pressed="true">
                   <span>01 · Workflow object</span><strong>Start from a synthetic order and an expected state.</strong><small>Structured fields, hard-stop flags, idempotency key, and state version define the request.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="1" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="1" data-stage-state="GATED" data-stage-owner="Eligibility rule" data-stage-event="Hard-stop rule evaluated" data-stage-outcome="Ineligible requests never reach the AI worker" aria-pressed="false">
                   <span>02 · Pre-AI gate</span><strong>Reject ineligible requests before drafting.</strong><small>The hard stop owns eligibility; the AI worker cannot reason around it.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="2" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="2" data-stage-state="QUEUED" data-stage-owner="State machine" data-stage-event="Duplicate-safe draft queued" data-stage-outcome="Idempotency key and expected version recorded" aria-pressed="false">
                   <span>03 · Versioned state</span><strong>Queue one duplicate-safe draft attempt.</strong><small>The same key and payload return the original plan; changed payload rejects key reuse.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="3" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="3" data-stage-state="DRAFTED" data-stage-owner="Bounded AI worker" data-stage-event="Typed draft fields produced" data-stage-outcome="Draft schema contains no approval field" aria-pressed="false">
                   <span>04 · Bounded AI move</span><strong>Produce typed draft fields—never an approval.</strong><small>The draft schema deliberately contains no field that can approve or release the plan.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="4" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="4" data-stage-state="VALIDATED" data-stage-owner="Schema and state rules" data-stage-event="Draft transition checked" data-stage-outcome="Invalid or stale change returns a failed receipt" aria-pressed="false">
                   <span>05 · Post-AI gate</span><strong>Validate schema, version, and transition.</strong><small>Invalid, stale, or conflicting changes return a failed receipt instead of mutating state.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="5" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="5" data-stage-state="REVIEW_PENDING" data-stage-owner="Authorized reviewer" data-stage-event="Review-pending state persisted" data-stage-outcome="Approve or reject remains a human decision" aria-pressed="false">
                   <span>06 · Recorded authority</span><strong>Persist REVIEW_PENDING; let the reviewer decide.</strong><small>Reviewer-role validation precedes approve or reject, and the human decision receives its own receipt.</small>
                 </button>
                 <p class="project-story__limit"><strong>Current limit</strong> Synthetic control-flow prototype. The public harness does not call a model service; there is no patient data, clinical recommendation, autonomous approval, or production deployment.</p>
@@ -672,12 +652,12 @@
                       <div class="workflow-status__track" data-story-status-track role="progressbar" aria-label="Dynamics Atlas workflow progress" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1"><i class="workflow-status__fill" data-story-status-fill></i></div>
                       <button type="button" data-story-next>Advance trace <span aria-hidden="true">→</span></button>
                     </section>
-                    <aside class="workflow-terminal" data-template-source="uiverse" data-template-name="terminal-card" aria-label="Dynamics Atlas bounded runtime transcript">
-                      <header class="workflow-terminal__bar"><span>Bounded run trace</span><b data-story-terminal-state>Input / ready</b></header>
+                    <aside class="workflow-receipt" data-template-source="uiverse" data-template-name="terminal-card" aria-label="Dynamics Atlas route receipt">
+                      <header class="workflow-receipt__bar"><span>Route receipt</span><b data-story-receipt-state>Input / ready</b></header>
                       <ol data-story-transcript data-template-source="reactbits" data-template-name="animated-list">
-                        <li data-story-line="command"><span>$</span><code>compile task_packet</code></li>
-                        <li data-story-line="role"><span>role</span><strong>Agent limited to locator</strong></li>
-                        <li data-story-line="receipt"><span>state</span><strong>Two inputs named</strong></li>
+                        <li data-story-line="event"><span>event</span><code>TaskPacket received</code></li>
+                        <li data-story-line="owner"><span>owner</span><strong>Agent limited to locator</strong></li>
+                        <li data-story-line="outcome"><span>outcome</span><strong>Two inputs named</strong></li>
                       </ol>
                       <output class="semantic-workflow__log" data-story-log aria-live="polite">01 · A TaskPacket names the scientific operation and both molecular data objects.</output>
                     </aside>
@@ -700,22 +680,22 @@
                   <strong data-mobile-stage-title>Make the proposed comparison explicit.</strong>
                   <i><b data-mobile-stage-fill></b></i>
                 </div>
-                <button class="project-story__step" type="button" data-story-step="0" aria-pressed="true">
+                <button class="project-story__step" type="button" data-story-step="0" data-stage-state="READY" data-stage-owner="TaskPacket contract" data-stage-event="Two molecular datasets named" data-stage-outcome="Identity, mappings, coverage, meaning, and status attached" aria-pressed="true">
                   <span>01 · Scientific object</span><strong>Make the proposed comparison explicit.</strong><small>The TaskPacket travels with two typed datasets, source identities, mappings, coverage, measurement meaning, and status.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="1" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="1" data-stage-state="SUGGESTED" data-stage-owner="Locator Agent sidecar" data-stage-event="Source locator suggested" data-stage-outcome="Missing input becomes needs-input; Agent cannot approve route" aria-pressed="false">
                   <span>02 · Bounded Agent move</span><strong>Suggest a locator; never choose the scientific route.</strong><small>The Agent sits beside the mainline. A missing input stops at a visible needs-input branch.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="2" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="2" data-stage-state="COMPILED" data-stage-owner="Registered compiler tool" data-stage-event="Registered operation compiled" data-stage-outcome="Unregistered routes cannot run" aria-pressed="false">
                   <span>03 · Deterministic tool</span><strong>Compile only a registered operation.</strong><small>The compiler turns the typed contract into a reproducible route; an unregistered route cannot run.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="3" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="3" data-stage-state="GATED" data-stage-owner="Six deterministic gates" data-stage-event="Identity through maturity checked" data-stage-outcome="Failed or unresolved gate produces a structured block" aria-pressed="false">
                   <span>04 · Blocking gates</span><strong>Check identity, rights, mapping, coverage, meaning, and maturity.</strong><small>A failed or unresolved gate produces a structured block or review-pending result.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="4" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="4" data-stage-state="RECORDED" data-stage-owner="DecisionTrace + RunReceipt" data-stage-event="Route verdict persisted" data-stage-outcome="Accepted bundle, review-pending route, or stop reason is durable" aria-pressed="false">
                   <span>05 · Durable state</span><strong>Persist the decision before claiming a result.</strong><small>Accepted routes can produce an EvidenceBundle. DecisionTrace + RunReceipt preserve why the route passed, entered review_pending, or stopped.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="5" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="5" data-stage-state="HUMAN_SCOPE" data-stage-owner="Scientific reviewer" data-stage-event="Supported claim scoped" data-stage-outcome="Final authority remains outside the Agent" aria-pressed="false">
                   <span>06 · Human boundary</span><strong>Keep the final scientific claim with the reviewer.</strong><small>The Agent can propose a locator. It cannot widen the supported claim or approve the result.</small>
                 </button>
                 <p class="project-story__limit"><strong>Current limit</strong> Collaboration prototype with a synthetic public harness. The exposed retrospective development packets are not a held-out Agent benchmark.</p>
@@ -798,12 +778,12 @@
                       <div class="workflow-status__track" data-story-status-track role="progressbar" aria-label="HSP90 LiGaMD workflow progress" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1"><i class="workflow-status__fill" data-story-status-fill></i></div>
                       <button type="button" data-story-next>Advance trace <span aria-hidden="true">→</span></button>
                     </section>
-                    <aside class="workflow-terminal" data-template-source="uiverse" data-template-name="terminal-card" aria-label="HSP90 LiGaMD bounded runtime transcript">
-                      <header class="workflow-terminal__bar"><span>Bounded run trace</span><b data-story-terminal-state>Input / ready</b></header>
+                    <aside class="workflow-receipt" data-template-source="uiverse" data-template-name="terminal-card" aria-label="HSP90 LiGaMD evaluation receipt">
+                      <header class="workflow-receipt__bar"><span>Evaluation receipt</span><b data-story-receipt-state>Input / ready</b></header>
                       <ol data-story-transcript data-template-source="reactbits" data-template-name="animated-list">
-                        <li data-story-line="command"><span>$</span><code>bind replicas --system</code></li>
-                        <li data-story-line="role"><span>role</span><strong>Tools run per replica</strong></li>
-                        <li data-story-line="receipt"><span>state</span><strong>One evaluation unit</strong></li>
+                        <li data-story-line="event"><span>event</span><code>Replicas bound to system</code></li>
+                        <li data-story-line="owner"><span>owner</span><strong>Tools run per replica</strong></li>
+                        <li data-story-line="outcome"><span>outcome</span><strong>One evaluation unit</strong></li>
                       </ol>
                       <output class="semantic-workflow__log" data-story-log aria-live="polite">01 · Three replicas remain separate observations of one protein–ligand system.</output>
                     </aside>
@@ -826,22 +806,22 @@
                   <strong data-mobile-stage-title>Keep three replicas attached to one system.</strong>
                   <i><b data-mobile-stage-fill></b></i>
                 </div>
-                <button class="project-story__step" type="button" data-story-step="0" aria-pressed="true">
+                <button class="project-story__step" type="button" data-story-step="0" data-stage-state="READY" data-stage-owner="System evaluation unit" data-stage-event="Three replicas bound to one system" data-stage-outcome="Trajectories and assay pKoff share one label" aria-pressed="true">
                   <span>01 · Scientific object</span><strong>Keep three replicas attached to one system.</strong><small>LiGaMD trajectories, Static20 descriptors, and the assay-derived pKoff describe one protein–ligand evaluation unit.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="1" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="1" data-stage-state="FEATURED" data-stage-owner="Per-replica tools" data-stage-event="Endpoint and Dynamic10 computed" data-stage-outcome="Incomplete replicas remain out of scope" aria-pressed="false">
                   <span>02 · Per-replica tools</span><strong>Find the endpoint and compute Dynamic10 separately.</strong><small>Each replica must pass the endpoint and P512 completeness checks before its feature vector exists.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="2" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="2" data-stage-state="AGGREGATED" data-stage-owner="Evaluation state" data-stage-event="Three vectors reduced to one system row" data-stage-outcome="Frames never become independent labels" aria-pressed="false">
                   <span>03 · Evaluation state</span><strong>Average corresponding features into one system row.</strong><small>The three trajectories are never concatenated into apparent independent labels.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="3" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="3" data-stage-state="LEAKAGE_GATED" data-stage-owner="Grouped validation" data-stage-event="Exact-ligand boundary enforced" data-stage-outcome="Fold-local preprocessing prevents cross-group evidence" aria-pressed="false">
                   <span>04 · Leakage gate</span><strong>Split by exact ligand and preprocess inside each fold.</strong><small>N31 systems resolve to 27 exact-ligand groups; evidence from a group cannot cross the evaluation boundary.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="4" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="4" data-stage-state="COMPARED" data-stage-owner="Fixed ML pipelines" data-stage-event="Four regressors compared" data-stage-outcome="Same rows, folds, and metric for every candidate" aria-pressed="false">
                   <span>05 · ML comparison</span><strong>Compare four fixed regression pipelines.</strong><small>The models are candidates inside the same grouped evaluation—not autonomous decision-makers.</small>
                 </button>
-                <button class="project-story__step" type="button" data-story-step="5" aria-pressed="false">
+                <button class="project-story__step" type="button" data-story-step="5" data-stage-state="NO_SELECTION" data-stage-owner="Stability gate" data-stage-event="Candidate tested against grouped dummy" data-stage-outcome="Bootstrap interval crosses zero; no model selected" aria-pressed="false">
                   <span>06 · Selection gate</span><strong>Compare the lowest-MAE candidate with its grouped dummy baseline—and stop.</strong><small>The paired ΔMAE bootstrap interval [−0.2805, +0.0067] crosses zero; the direct Static20-versus-Combined30 comparison is also unstable. The recorded decision on N31 is no model selected.</small>
                 </button>
                 <p class="project-story__limit"><strong>Current limit</strong> 31 systems and 27 ligand groups. The target is assay-derived pKoff, not physical koff from simulation time; current evidence supports neither model selection nor broad generalization.</p>
@@ -863,6 +843,43 @@
             </div>
           </div>
         </article>
+      </div>
+
+      <div class="section-shell">
+        <section class="motion-source-map" aria-labelledby="motion-source-map-title">
+          <header class="motion-source-map__header">
+            <p>Methods / motion credits</p>
+            <h3 id="motion-source-map-title">Interaction references used in the system stories.</h3>
+            <p>These references supplied motion grammar. The implementation is adapted to project-specific inputs, owners, gates, receipts, and result states.</p>
+          </header>
+          <ol class="motion-source-map__list">
+            <li>
+              <span>01 / MotionSites</span>
+              <p><a href="https://motionsites.org/prompts/dani-0212bfb0-ai-agent-pipeline" data-template-source="motionsites" data-template-name="ai-agent-pipeline" target="_blank" rel="noopener noreferrer">AI Agent Pipeline ↗</a> <i aria-hidden="true">+</i> <a href="https://motionsites.org/prompts/user-2tkbbpfwyn8ymjznhwgiup3yzvd-agent-plan" data-template-source="motionsites" data-template-name="agent-plan" target="_blank" rel="noopener noreferrer">Agent Plan ↗</a></p>
+              <small>Hero route walkthrough + project-specific stage plans</small>
+            </li>
+            <li>
+              <span>02 / React Bits</span>
+              <p><a href="https://www.reactbits.dev/animations/scroll-expand" data-template-source="reactbits" data-template-name="scroll-expand" target="_blank" rel="noopener noreferrer">Scroll Expand ↗</a> <i aria-hidden="true">+</i> <a href="https://www.reactbits.dev/components/animated-list" data-template-source="reactbits" data-template-name="animated-list" target="_blank" rel="noopener noreferrer">Animated List ↗</a></p>
+              <small>Hero reveal + newly recorded receipt event</small>
+            </li>
+            <li>
+              <span>03 / Uiverse</span>
+              <p><a href="https://uiverse.io/Cybercom682/ordinary-duck-36" data-template-source="uiverse" data-template-name="progress-status-card" target="_blank" rel="noopener noreferrer">Progress status ↗</a> <i aria-hidden="true">+</i> <a href="https://uiverse.io/Yaya12085/soft-jellyfish-99" data-template-source="uiverse" data-template-name="terminal-card" target="_blank" rel="noopener noreferrer">Receipt card ↗</a></p>
+              <small>Selected-stage readout + event / owner / outcome receipt</small>
+            </li>
+            <li>
+              <span>04 / Anime.js</span>
+              <p><a href="https://animejs.com/documentation/svg/createdrawable/" data-template-source="anime" data-template-name="create-drawable" target="_blank" rel="noopener noreferrer">createDrawable ↗</a> <i aria-hidden="true">+</i> <a href="https://animejs.com/documentation/svg/createmotionpath/" data-template-source="anime" data-template-name="create-motion-path" target="_blank" rel="noopener noreferrer">createMotionPath ↗</a></p>
+              <small>Auditable edge trace + packet moving between real stages</small>
+            </li>
+            <li>
+              <span>05 / Aceternity UI</span>
+              <p><a href="https://ui.aceternity.com/components/sticky-scroll-reveal" data-template-source="aceternity" data-template-name="sticky-scroll-reveal" target="_blank" rel="noopener noreferrer">Sticky Scroll Reveal ↗</a> <i aria-hidden="true">+</i> <a href="https://ui.aceternity.com/components/tracing-beam" data-template-source="aceternity" data-template-name="tracing-beam" target="_blank" rel="noopener noreferrer">Tracing Beam ↗</a></p>
+              <small>Sticky system plate + scroll-selected stage beam</small>
+            </li>
+          </ol>
+        </section>
       </div>
     </section>
 

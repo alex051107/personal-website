@@ -107,7 +107,7 @@ class PageParser(HTMLParser):
             self.motion_source_maps += 1
         if "data-story-status" in values:
             self.workflow_statuses += 1
-        if "workflow-terminal" in class_tokens:
+        if "workflow-receipt" in class_tokens:
             self.workflow_terminals += 1
         if "project-story__beam" in class_tokens:
             self.tracing_beams += 1
@@ -162,7 +162,7 @@ class PageParser(HTMLParser):
                 self._active_story["logs"] = int(self._active_story["logs"]) + 1
             if "data-story-status" in values:
                 self._active_story["statuses"] = int(self._active_story["statuses"]) + 1
-            if "workflow-terminal" in class_tokens:
+            if "workflow-receipt" in class_tokens:
                 self._active_story["terminals"] = int(self._active_story["terminals"]) + 1
             if "project-story__beam" in class_tokens:
                 self._active_story["beams"] = int(self._active_story["beams"]) + 1
@@ -525,19 +525,38 @@ def main() -> int:
     for marker in (
         'data-hero-station',
         'data-station-viewport',
-        'data-station-run',
         'data-station-inspect',
         'data-station-human',
         'data-station-execution',
         'data-station-lever',
         'data-station-result',
-        'Heroic Alpha Station',
+        'Agent Harness / bounded route',
         'Gate × 6',
     ):
         if index_text.count(marker) != 1:
             errors.append(f"index.html: expected one readable Hero station marker: {marker}")
-    if index_text.count("data-stage-marker=") != 6:
-        errors.append("index.html: expected six Contract-to-Human Hero stage markers")
+    if index_text.count('data-station-run data-station-scenario=') != 2:
+        errors.append("index.html: expected separate PASS and BLOCK Hero replay controls")
+    for scenario in ('data-station-scenario="pass"', 'data-station-scenario="block"'):
+        if index_text.count(scenario) != 1:
+            errors.append(f"index.html: expected one Hero scenario marker: {scenario}")
+    if index_text.count("data-stage-marker=") != 7:
+        errors.append("index.html: expected seven Contract-to-Result Hero stage markers")
+    for attribute in ("data-stage-state=", "data-stage-owner=", "data-stage-event=", "data-stage-outcome="):
+        if index_text.count(attribute) != 24:
+            errors.append(f"index.html: expected one {attribute} contract on all 24 project steps")
+    for hero_copy in (
+        "Run PASS example",
+        "Run BLOCK example",
+        "Locator suggestion only",
+        "locate_registered_source",
+        "DecisionTrace + RunReceipt",
+        "Request revision",
+        "Reject route",
+        "Independent result state",
+    ):
+        if hero_copy not in index_text:
+            errors.append(f"index.html: missing stateful Hero copy: {hero_copy}")
     for role in ("Agent", "Model", "Tool", "Rule", "State", "Human"):
         marker = f">{role}</b>"
         if index_text.count(marker) != 1:
@@ -621,8 +640,13 @@ def main() -> int:
             "pointermove",
             "ArrowLeft",
             "for (let index = 0; index < 6",
-            "stageReview",
-            "acknowledgeHuman",
+            "finishAutomatedRoute",
+            "recordHumanDecision",
+            'scenario: "pass"',
+            'scenario === "block"',
+            'segmented(progress, verdictAt',
+            'setRouteProgress(blocked ? 0.72 : 1)',
+            'decision === "release"',
             "flowBeads",
             "dataset.stepState",
             "aria-pressed",
