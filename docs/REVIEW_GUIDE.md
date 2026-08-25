@@ -5,6 +5,11 @@ website. It includes the published HTML, CSS, JavaScript, project illustrations,
 Hero source images, optimized Hero GLBs, local runtime dependencies, design
 decisions, source notices, and dependency-free validation scripts.
 
+For an external design and implementation audit, paste
+[`CHATGPT_PRO_REVIEW_PROMPT_ZH.md`](CHATGPT_PRO_REVIEW_PROMPT_ZH.md) into
+ChatGPT Pro. The prompt pins the implementation commit, original design goals,
+ten named interaction references, and an evidence-based output contract.
+
 ## Ten-minute review path
 
 1. Open `index.html` and follow the home-page sequence from AI for Science
