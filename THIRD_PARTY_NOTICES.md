@@ -99,6 +99,73 @@ runtime or component is bundled.
 - Example: <https://reactflow.dev/examples/edges/animating-edges>
 - License: <https://github.com/xyflow/xyflow/blob/main/LICENSE>
 
+## Five-library / 20-effect motion score
+
+The Douyin reference names ScrollMagic, VueUse Motion, React Spring, Lottie Web,
+and GSAP. The home page uses four bounded effects from each source, recorded in
+`window.__PORTFOLIO_MOTION_LEDGER__` and repeated in the visible methods section.
+The effects are attached to real page semantics—section arrival, project-story
+progress, Contract, Agent, Gate, Receipt, active workflow node, and comparison
+scan—rather than presented as a detached animation gallery.
+
+### ScrollMagic 2.0.8
+
+- Documentation: <https://scrollmagic.io/docs/index.html>
+- Repository: <https://github.com/janpaepke/ScrollMagic>
+- Local runtime: `js/vendor/ScrollMagic.min.js`
+- Local MIT license: `js/vendor/licenses/scrollmagic-LICENSE.md`
+- Integrated effects: scene toggle, project-story scrub, Hero depth, and matrix
+  scan.
+
+### VueUse Motion patterns
+
+- Presets: <https://motion.vueuse.org/features/presets/>
+- Parallax composable: <https://vueuse.org/core/useParallax/>
+- Repository and MIT license: <https://github.com/vueuse/motion>
+- Integrated adaptations: fade-visible, roll-visible, pointer parallax, and
+  press variant.
+
+VueUse Motion is not bundled. The visible/interaction semantics are independently
+adapted to the site's existing `IntersectionObserver`, pointer events, CSS
+variables, and locally vendored GSAP runtime.
+
+### React Spring patterns
+
+- Examples: <https://www.react-spring.dev/examples>
+- Parallax documentation: <https://www.react-spring.dev/docs/components/parallax>
+- Repository and MIT license: <https://github.com/pmndrs/react-spring>
+- Integrated adaptations: basic trail, scrolling wave, pointer dock, and active
+  workflow-node spring.
+
+React Spring is not bundled. Shipping React solely for decorative motion would
+break the site's static, framework-free runtime contract, so the spring-like
+timing and state relationships are recreated locally.
+
+### Lottie Web 5.13.0
+
+- Repository and documentation: <https://github.com/airbnb/lottie-web>
+- Local light renderer: `js/vendor/lottie_light.min.js`
+- Local MIT license: `js/vendor/licenses/lottie-web-LICENSE.md`
+- Integrated effects: Contract write, Agent orbit, six-gate scan, and Receipt
+  stamp.
+
+The four tiny animation-data objects are original project-specific vectors
+defined in `js/motion-library-showcase.js`; no downloaded Lottie artwork or
+preview media is included.
+
+### GSAP 3.15.0
+
+- Documentation: <https://gsap.com/docs/v3/>
+- Repository: <https://github.com/greensock/GSAP>
+- Standard no-charge license: <https://gsap.com/community/standard-license/>
+- Local runtime: `js/vendor/gsap.min.js`
+- Integrated effects: word reveal, Hero stage timeline, Hero state transition,
+  and semantic project-plate reveal.
+
+GSAP is distributed under GreenSock's standard no-charge license, not MIT. The
+site uses the public core runtime only and does not redistribute Club GSAP
+plugins or sell an animation component library.
+
 ## Anime.js 4.5.0 license text
 
 `js/vendor/anime.umd.min.js` is the official Anime.js 4.5.0 UMD minified bundle.

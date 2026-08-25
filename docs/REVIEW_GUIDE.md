@@ -17,10 +17,12 @@ ten named interaction references, and an evidence-based output contract.
    comparison matrix, four project stories, and methods credits.
 2. Read `design.md` for the information hierarchy, visual system, responsive
    rules, and motion contract.
-3. Inspect `js/hero-station.js` and `js/site-motion.js` for the two bounded Hero
+3. Inspect `js/hero-station.js`, `js/motion-library-showcase.js`, and
+   `js/site-motion.js` for the two bounded Hero
    replays, named G1–G6 fields, post-verdict receipt, release/revise/reject Human
    step, project-specific event/owner/outcome receipts, scroll-stage
-   synchronization, keyboard controls, and reduced-motion behavior.
+   synchronization, the exact five-library / 20-effect ledger, keyboard
+   controls, and reduced-motion behavior.
 4. Compare `docs/hero-harness-module-manifest.md` with `models/hero-3d/` and
    `images/hero-3d-source/` to trace every published 3D module to its source
    image and verified generator export.
@@ -63,7 +65,7 @@ triangle counts, per-file limits, and the combined payload budget.
 | `images/project-visuals/*-index-v4.jpg` | final project scenes | used by detailed pages |
 | `images/hero-3d-source/*.png` | Hero scene, module, and particle references | retained as source evidence and fallback art |
 | `models/hero-3d/*.glb` | eight compressed web derivatives | published runtime assets |
-| `js/vendor/` | pinned Anime.js and Three.js runtime files | published with upstream licenses |
+| `js/vendor/` | pinned Anime.js, ScrollMagic, Lottie Web, GSAP, and Three.js runtime files | published with upstream notices/licenses |
 | `.hallmark/` | design preflight and redesign log | retained as design provenance |
 
 The opaque master-quality GLB downloads are intentionally not committed. They

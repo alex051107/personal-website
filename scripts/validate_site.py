@@ -50,6 +50,38 @@ REQUIRED_TEMPLATE_NAMES = {
     "anime": {"create-drawable", "create-motion-path"},
     "aceternity": {"sticky-scroll-reveal", "tracing-beam"},
 }
+REQUIRED_MOTION_LIBRARY_EFFECTS = {
+    "scrollmagic": {
+        "sm-scene-toggle",
+        "sm-story-scrub",
+        "sm-hero-depth",
+        "sm-matrix-scan",
+    },
+    "vueuse": {
+        "vue-fade-visible",
+        "vue-roll-visible",
+        "vue-pointer-parallax",
+        "vue-press-variant",
+    },
+    "react-spring": {
+        "spring-basic-trail",
+        "spring-scrolling-wave",
+        "spring-dock",
+        "spring-active-node",
+    },
+    "lottie-web": {
+        "lottie-contract",
+        "lottie-agent",
+        "lottie-gate",
+        "lottie-receipt",
+    },
+    "gsap": {
+        "gsap-word-reveal",
+        "gsap-stage-timeline",
+        "gsap-state-transition",
+        "gsap-plate-reveal",
+    },
+}
 STALE_STRINGS = {
     "zwt233": "reference-site identity leaked into the portfolio",
     "github.com/ZhenpengLiu": "wrong GitHub account",
@@ -92,6 +124,7 @@ class PageParser(HTMLParser):
         self.workflow_statuses = 0
         self.workflow_terminals = 0
         self.tracing_beams = 0
+        self.motion_library_rows: list[tuple[str, str]] = []
         self._in_decision_matrix = False
         self._in_decision_matrix_head = False
         self._in_decision_matrix_body = False
@@ -114,6 +147,10 @@ class PageParser(HTMLParser):
         if "data-template-source" in values or "data-template-name" in values:
             self.template_refs.append(
                 (values.get("data-template-source", ""), values.get("data-template-name", ""))
+            )
+        if "data-motion-library" in values:
+            self.motion_library_rows.append(
+                (values["data-motion-library"], values.get("data-motion-effect-count", ""))
             )
 
         if tag == "table" and "decision-matrix__table" in class_tokens:
@@ -245,7 +282,11 @@ def main() -> int:
     tokens_path = ROOT / "tokens.css"
     motion_script = ROOT / "js" / "site-motion.js"
     station_script = ROOT / "js" / "hero-station.js"
+    library_motion_script = ROOT / "js" / "motion-library-showcase.js"
     anime_script = ROOT / "js" / "vendor" / "anime.umd.min.js"
+    scrollmagic_script = ROOT / "js" / "vendor" / "ScrollMagic.min.js"
+    lottie_script = ROOT / "js" / "vendor" / "lottie_light.min.js"
+    gsap_script = ROOT / "js" / "vendor" / "gsap.min.js"
     expected_token_import = f'@import url("../tokens.css?v={git_blob_sha(tokens_path)[:7]}");'
     css_text = css_path.read_text(encoding="utf-8")
     token_imports = re.findall(
@@ -278,6 +319,18 @@ def main() -> int:
         expected_page_station = f"{depth_prefix}js/hero-station.js?v={git_blob_sha(station_script)[:7]}"
         expected_page_anime = (
             f"{depth_prefix}js/vendor/anime.umd.min.js?v={git_blob_sha(anime_script)[:7]}"
+        )
+        expected_page_scrollmagic = (
+            f"{depth_prefix}js/vendor/ScrollMagic.min.js?v={git_blob_sha(scrollmagic_script)[:7]}"
+        )
+        expected_page_lottie = (
+            f"{depth_prefix}js/vendor/lottie_light.min.js?v={git_blob_sha(lottie_script)[:7]}"
+        )
+        expected_page_gsap = (
+            f"{depth_prefix}js/vendor/gsap.min.js?v={git_blob_sha(gsap_script)[:7]}"
+        )
+        expected_page_library_motion = (
+            f"{depth_prefix}js/motion-library-showcase.js?v={git_blob_sha(library_motion_script)[:7]}"
         )
         page_text = page.read_text(encoding="utf-8")
         if parser.duplicate_ids:
@@ -349,7 +402,15 @@ def main() -> int:
                         f"lacks {', '.join(missing_attrs)}"
                     )
             expected_script_sources = (
-                [expected_page_anime, expected_page_station, expected_page_motion]
+                [
+                    expected_page_scrollmagic,
+                    expected_page_lottie,
+                    expected_page_gsap,
+                    expected_page_anime,
+                    expected_page_station,
+                    expected_page_library_motion,
+                    expected_page_motion,
+                ]
                 if relative_page == Path("index.html")
                 else [expected_page_motion]
             )
@@ -364,6 +425,13 @@ def main() -> int:
                     errors.append(f"{relative_page}: local motion script must be deferred: {script['src']}")
                 if script_path == urlsplit(expected_page_anime).path and "defer" not in script:
                     errors.append(f"{relative_page}: local Anime.js script must be deferred: {script['src']}")
+                if script_path in {
+                    urlsplit(expected_page_scrollmagic).path,
+                    urlsplit(expected_page_lottie).path,
+                    urlsplit(expected_page_gsap).path,
+                    urlsplit(expected_page_library_motion).path,
+                } and "defer" not in script:
+                    errors.append(f"{relative_page}: local motion-library script must be deferred: {script['src']}")
                 if script_path == urlsplit(expected_page_station).path and script.get("type") != "module":
                     errors.append(f"{relative_page}: Hero station runtime must be an ES module: {script['src']}")
             inline_scripts = [script for script in parser.scripts if not script.get("src")]
@@ -440,6 +508,19 @@ def main() -> int:
                     "index.html: template source "
                     f"{source!r} must expose exactly {sorted(expected_names)}; "
                     f"found {sorted(actual_names)}"
+                )
+
+        actual_library_rows = dict(home.motion_library_rows)
+        if set(actual_library_rows) != set(REQUIRED_MOTION_LIBRARY_EFFECTS):
+            errors.append(
+                "index.html: motion library score must expose exactly "
+                f"{sorted(REQUIRED_MOTION_LIBRARY_EFFECTS)}; found {sorted(actual_library_rows)}"
+            )
+        for library, effect_ids in REQUIRED_MOTION_LIBRARY_EFFECTS.items():
+            if actual_library_rows.get(library) != str(len(effect_ids)):
+                errors.append(
+                    f"index.html: motion library {library!r} must declare {len(effect_ids)} effects; "
+                    f"found {actual_library_rows.get(library)!r}"
                 )
 
         stories = home.project_stories
@@ -661,10 +742,50 @@ def main() -> int:
                 )
     else:
         errors.append("js/hero-station.js: local Hero station runtime is missing")
+    if library_motion_script.exists():
+        library_motion_text = library_motion_script.read_text(encoding="utf-8")
+        expected_effects = set().union(*REQUIRED_MOTION_LIBRARY_EFFECTS.values())
+        actual_effects = set(re.findall(r'\{ id: "([a-z0-9-]+)", library:', library_motion_text))
+        if actual_effects != expected_effects:
+            errors.append(
+                "js/motion-library-showcase.js: expected the exact 20-effect ledger; "
+                f"missing={sorted(expected_effects - actual_effects)} "
+                f"extra={sorted(actual_effects - expected_effects)}"
+            )
+        for needle in (
+            "ScrollMagicRuntime.Scene",
+            "IntersectionObserver",
+            "prefers-reduced-motion",
+            "pointermove",
+            "MutationObserver",
+            "lottieRuntime.loadAnimation",
+            "gsapRuntime.fromTo",
+            "portfolio:motion-ready",
+        ):
+            if needle not in library_motion_text:
+                errors.append(f"js/motion-library-showcase.js: missing motion integration hook: {needle}")
+        for forbidden in ("fetch(", "XMLHttpRequest", "WebSocket", "import("):
+            if forbidden in library_motion_text:
+                errors.append(
+                    "js/motion-library-showcase.js: runtime network or dynamic dependency is forbidden: "
+                    f"{forbidden}"
+                )
+    else:
+        errors.append("js/motion-library-showcase.js: 20-effect integration is missing")
     if not anime_script.exists() or "Anime.js - UMD minified bundle" not in anime_script.read_text(
         encoding="utf-8"
     ):
         errors.append("js/vendor/anime.umd.min.js: official local Anime.js bundle is missing")
+    motion_vendor_files = {
+        scrollmagic_script,
+        lottie_script,
+        gsap_script,
+        ROOT / "js" / "vendor" / "licenses" / "scrollmagic-LICENSE.md",
+        ROOT / "js" / "vendor" / "licenses" / "lottie-web-LICENSE.md",
+    }
+    for vendor_file in motion_vendor_files:
+        if not vendor_file.exists() or vendor_file.stat().st_size == 0:
+            errors.append(f"required local motion runtime or license is missing: {vendor_file.relative_to(ROOT)}")
 
     three_vendor_files = {
         ROOT / "js" / "vendor" / "three" / "three.module.min.js",

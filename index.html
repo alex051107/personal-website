@@ -50,9 +50,13 @@
   }
   </script>
 
-  <link rel="stylesheet" href="css/styles.css?v=ce706a6">
+  <link rel="stylesheet" href="css/styles.css?v=d4b2ec4">
+  <script defer src="js/vendor/ScrollMagic.min.js?v=003f0f9"></script>
+  <script defer src="js/vendor/lottie_light.min.js?v=0e5a569"></script>
+  <script defer src="js/vendor/gsap.min.js?v=3c73d76"></script>
   <script defer src="js/vendor/anime.umd.min.js?v=6c1a3ca"></script>
   <script type="module" src="js/hero-station.js?v=7ec513a"></script>
+  <script defer src="js/motion-library-showcase.js?v=b688470"></script>
   <script defer src="js/site-motion.js?v=dc947ca"></script>
 </head>
 <body>
@@ -107,7 +111,7 @@
               <span class="hero-station__reticle" aria-hidden="true"></span>
 
               <article class="hero-station__packet" data-station-packet aria-label="Contract entering the Agent Harness">
-                <header><span>TaskPacket / 01</span><b>Bounded contract</b></header>
+                <header><span>TaskPacket / 01</span><b>Bounded contract</b><i class="motion-glyph motion-glyph--contract" data-lottie-glyph="contract" aria-hidden="true"></i></header>
                 <strong>Locate compatible molecular data</strong>
                 <dl>
                   <div><dt>Scope</dt><dd>registered datasets</dd></div>
@@ -117,13 +121,14 @@
               </article>
 
               <aside class="hero-station__execution" data-station-execution data-template-source="motionsites" data-template-name="ai-agent-pipeline" aria-label="Illustrated Agent route" aria-live="polite">
-                <header><span>Route walkthrough</span><b data-execution-summary>Waiting for route</b></header>
+                <header><span>Route walkthrough</span><b data-execution-summary>Waiting for route</b><i class="motion-glyph motion-glyph--agent" data-lottie-glyph="agent" aria-hidden="true"></i></header>
                 <ol>
                   <li data-execution-step="contract"><i></i><span>Contract</span><strong>TaskPacket seated</strong></li>
                   <li data-execution-step="agent"><i></i><span>Agent</span><strong>Locator suggestion only</strong></li>
                   <li data-execution-step="tool"><i></i><span>Tool</span><strong>locate_registered_source</strong></li>
                   <li data-execution-step="gate">
                     <i></i><span>Gate</span><strong><b data-gate-count>0 / 6</b> resolved</strong>
+                    <i class="motion-glyph motion-glyph--gate" data-lottie-glyph="gate" aria-hidden="true"></i>
                     <span class="hero-station__gate-lamps" aria-label="Six compatibility checks">
                       <i title="G1 Source identity"></i><i title="G2 Usage rights"></i><i title="G3 Residue mapping"></i><i title="G4 Coverage"></i><i title="G5 Scientific meaning"></i><i title="G6 Data maturity"></i>
                     </span>
@@ -155,7 +160,7 @@
               </aside>
 
               <article class="hero-station__result" data-station-result aria-hidden="true" aria-live="polite">
-                <header><span>Independent result state</span><b data-result-status>Result</b></header>
+                <header><span>Independent result state</span><b data-result-status>Result</b><i class="motion-glyph motion-glyph--receipt" data-lottie-glyph="receipt" aria-hidden="true"></i></header>
                 <strong data-result-title>No result yet</strong>
                 <dl>
                   <div><dt>Route</dt><dd data-result-route>Not run</dd></div>
@@ -877,6 +882,34 @@
               <span>05 / Aceternity UI</span>
               <p><a href="https://ui.aceternity.com/components/sticky-scroll-reveal" data-template-source="aceternity" data-template-name="sticky-scroll-reveal" target="_blank" rel="noopener noreferrer">Sticky Scroll Reveal ↗</a> <i aria-hidden="true">+</i> <a href="https://ui.aceternity.com/components/tracing-beam" data-template-source="aceternity" data-template-name="tracing-beam" target="_blank" rel="noopener noreferrer">Tracing Beam ↗</a></p>
               <small>Sticky system plate + scroll-selected stage beam</small>
+            </li>
+          </ol>
+          <p class="motion-source-map__subhead">Video library score / 20 integrated effects</p>
+          <ol class="motion-source-map__list motion-source-map__list--libraries" start="6">
+            <li data-motion-library="scrollmagic" data-motion-effect-count="4">
+              <span>06 / ScrollMagic</span>
+              <p><a href="https://scrollmagic.io/docs/index.html" target="_blank" rel="noopener noreferrer">Official scenes ↗</a></p>
+              <small><code>scene toggle</code> · <code>story scrub</code> · <code>Hero depth</code> · <code>matrix scan</code></small>
+            </li>
+            <li data-motion-library="vueuse" data-motion-effect-count="4">
+              <span>07 / VueUse Motion</span>
+              <p><a href="https://motion.vueuse.org/features/presets/" target="_blank" rel="noopener noreferrer">Official presets ↗</a> <i aria-hidden="true">+</i> <a href="https://vueuse.org/core/useParallax/" target="_blank" rel="noopener noreferrer">useParallax ↗</a></p>
+              <small><code>fade visible</code> · <code>roll visible</code> · <code>pointer parallax</code> · <code>press variant</code></small>
+            </li>
+            <li data-motion-library="react-spring" data-motion-effect-count="4">
+              <span>08 / React Spring</span>
+              <p><a href="https://www.react-spring.dev/examples" target="_blank" rel="noopener noreferrer">Official examples ↗</a></p>
+              <small><code>basic trail</code> · <code>scrolling wave</code> · <code>dock</code> · <code>springy node</code></small>
+            </li>
+            <li data-motion-library="lottie-web" data-motion-effect-count="4">
+              <span>09 / Lottie Web</span>
+              <p><a href="https://github.com/airbnb/lottie-web" target="_blank" rel="noopener noreferrer">Official renderer ↗</a></p>
+              <small><code>contract write</code> · <code>Agent orbit</code> · <code>gate scan</code> · <code>receipt stamp</code></small>
+            </li>
+            <li data-motion-library="gsap" data-motion-effect-count="4">
+              <span>10 / GSAP</span>
+              <p><a href="https://gsap.com/docs/v3/" target="_blank" rel="noopener noreferrer">Official docs ↗</a></p>
+              <small><code>word reveal</code> · <code>stage timeline</code> · <code>state transition</code> · <code>plate reveal</code></small>
             </li>
           </ol>
         </section>
