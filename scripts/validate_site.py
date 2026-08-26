@@ -566,8 +566,8 @@ def main() -> int:
         for class_name in ("project-story__what", "project-story__evidence"):
             if index_text.count(f'class="{class_name}"') != 4:
                 errors.append(f"index.html: expected one {class_name} contract in each project story")
-    if index_text.count('src="images/portrait.png"') != 1:
-        errors.append("index.html: the unchanged portrait must appear exactly once")
+    if index_text.count('src="images/portrait-clean.png"') != 1:
+        errors.append("index.html: the cleaned portrait must appear exactly once")
     if index_text.count('class="index-opening__portrait"') != 1:
         errors.append("index.html: the portrait must appear once in the opening")
     if 'class="profile-portrait"' in index_text:
@@ -824,7 +824,7 @@ def main() -> int:
                 errors.append(f"{path.relative_to(ROOT)}: {reason}: {stale!r}")
 
     size_limits = {
-        ROOT / "images" / "portrait.png": 1_000_000,
+        ROOT / "images" / "portrait-clean.png": 1_000_000,
         ROOT / "images" / "og-card.jpg": 1_000_000,
         ROOT / "images" / "project-visuals" / "evidenceops-editorial.jpg": 400_000,
         ROOT / "images" / "project-visuals" / "careplan-editorial.jpg": 400_000,
