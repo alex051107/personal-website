@@ -6,7 +6,7 @@
 
 - 线上页面：<https://alex051107.github.io/personal-website/>
 - GitHub 仓库：<https://github.com/alex051107/personal-website>
-- 本轮实现提交：`BRAND_PASS_IMPLEMENTATION_COMMIT`
+- 本轮实现提交：<https://github.com/alex051107/personal-website/commit/d62808a8bb1fd26ab18d7ad2ba191b5e66bffda3>
 - Brand Pass 总纲：`docs/BRAND_PASS_BRIEF.md`
 - Hero 候选研究：`docs/HERO_REFERENCE_MATRIX.md`
 - 字体等内容证明：`docs/TYPOGRAPHY_PROOF.md`
