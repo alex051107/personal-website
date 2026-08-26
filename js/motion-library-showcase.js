@@ -517,7 +517,10 @@
   };
 
   const splitWords = (element) => {
-    if (!element || element.dataset.motionSplit === "true") return [];
+    if (!element) return [];
+    if (element.dataset.motionSplit === "true") {
+      return Array.from(element.querySelectorAll(".motion-word"));
+    }
     const label = element.textContent.trim();
     const words = label.split(/\s+/);
     element.textContent = "";

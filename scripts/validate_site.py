@@ -250,6 +250,7 @@ def main() -> int:
     css_path = ROOT / "css" / "styles.css"
     tokens_path = ROOT / "tokens.css"
     motion_script = ROOT / "js" / "site-motion.js"
+    mini_demo_script = ROOT / "js" / "project-mini-demos.js"
     station_script = ROOT / "js" / "hero-station.js"
     library_motion_script = ROOT / "js" / "motion-library-showcase.js"
     anime_script = ROOT / "js" / "vendor" / "anime.umd.min.js"
@@ -285,6 +286,9 @@ def main() -> int:
         depth_prefix = "../" * (len(relative_page.parts) - 1)
         expected_page_css = f"{depth_prefix}css/styles.css?v={git_blob_sha(css_path)[:7]}"
         expected_page_motion = f"{depth_prefix}js/site-motion.js?v={git_blob_sha(motion_script)[:7]}"
+        expected_page_mini_demos = (
+            f"{depth_prefix}js/project-mini-demos.js?v={git_blob_sha(mini_demo_script)[:7]}"
+        )
         expected_page_station = f"{depth_prefix}js/hero-station.js?v={git_blob_sha(station_script)[:7]}"
         expected_page_anime = (
             f"{depth_prefix}js/vendor/anime.umd.min.js?v={git_blob_sha(anime_script)[:7]}"
@@ -379,6 +383,7 @@ def main() -> int:
                     expected_page_station,
                     expected_page_library_motion,
                     expected_page_motion,
+                    expected_page_mini_demos,
                 ]
                 if relative_page == Path("index.html")
                 else [expected_page_motion]
@@ -392,6 +397,8 @@ def main() -> int:
                 script_path = urlsplit(script.get("src", "")).path
                 if script_path == urlsplit(expected_page_motion).path and "defer" not in script:
                     errors.append(f"{relative_page}: local motion script must be deferred: {script['src']}")
+                if script_path == urlsplit(expected_page_mini_demos).path and "defer" not in script:
+                    errors.append(f"{relative_page}: project mini-demo script must be deferred: {script['src']}")
                 if script_path == urlsplit(expected_page_anime).path and "defer" not in script:
                     errors.append(f"{relative_page}: local Anime.js script must be deferred: {script['src']}")
                 if script_path in {
