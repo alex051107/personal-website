@@ -1,4 +1,9 @@
-# Brand Pass payload and dependency comparison
+# Brand Pass payload and dependency comparison — historical
+
+Status: this document records the 2026-08-25 Brand Pass. The 2026-08-26
+personal-site humanize pass replaces the three production Instrument files with
+one 33,808-byte Onest variable Latin WOFF2. Geist Mono remains unchanged. The
+current production font payload is 85,672 bytes.
 
 ## Outcome
 
@@ -29,7 +34,7 @@ The changed HTML, CSS, tokens, Hero, and site-motion files add 18,239 raw bytes
 or 3,302 gzip bytes before fonts. Including the already-compressed WOFF2 files,
 the deterministic transfer delta is approximately 153,046 bytes.
 
-## Production fonts
+## Brand Pass production fonts at that milestone
 
 | File | Bytes | Role |
 | --- | ---: | --- |

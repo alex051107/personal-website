@@ -201,27 +201,24 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## Instrument and Geist fonts
+## Onest and Geist fonts
 
-The Brand Pass self-hosts four WOFF2 files under `fonts/`:
+The production site self-hosts two WOFF2 files under `fonts/`:
 
-- Instrument Serif Regular;
-- Instrument Sans Regular;
-- Instrument Sans SemiBold;
-- Geist Mono Medium.
+- Onest variable Latin, used for identity, display, body, and navigation text;
+- Geist Mono Medium, reserved for actual machine states, gate IDs, receipts,
+  metrics, and compact controls.
 
-Instrument Serif and Instrument Sans are copyright The Instrument Project
-Authors. Geist is copyright Vercel, in collaboration with Basement Studio. All
-three families are distributed under the SIL Open Font License 1.1. The exact
-license texts shipped with the site are:
+Onest is copyright The Onest Project Authors. Geist is copyright Vercel, in
+collaboration with Basement Studio. Both families are distributed under the
+SIL Open Font License 1.1. The exact license texts shipped with the site are:
 
-- `fonts/licenses/Instrument-Serif-OFL.txt`
-- `fonts/licenses/Instrument-Sans-OFL.txt`
+- `fonts/licenses/Onest-OFL.txt`
 - `fonts/licenses/Geist-OFL.txt`
 
-The equal-content typography proof also includes Newsreader and IBM Plex files
-under `proofs/typography/`; those candidates remain proof artifacts rather than
-production fonts, with their OFL texts stored beside the proof.
+Instrument Serif, Instrument Sans, Newsreader, and IBM Plex remain as historical
+comparison files for the earlier equal-content typography proof. They are not
+requested by the production stylesheet.
 
 ## Three.js 0.185.1 and Meshoptimizer 1.1
 

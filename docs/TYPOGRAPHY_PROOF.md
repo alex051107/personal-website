@@ -1,6 +1,12 @@
-# Typography Proof
+# Typography proof — historical Brand Pass
 
-## Decision
+Status: superseded on 2026-08-26 by the personal-site humanize pass. The
+production site now uses Onest for identity, display, body, and navigation text,
+with Geist Mono reserved for real machine state. See
+[`PERSONAL_SITE_REFERENCE_AUDIT.md`](PERSONAL_SITE_REFERENCE_AUDIT.md) and
+[`PERSONAL_SITE_HUMANIZE_ACCEPTANCE.md`](PERSONAL_SITE_HUMANIZE_ACCEPTANCE.md).
+
+## Historical decision
 
 Use **Instrument Serif + Instrument Sans + Geist Mono**.
 
@@ -79,7 +85,7 @@ Playwright confirmed that all seven proof font families requested by the active
 candidates loaded successfully. Both self-hosted candidates reported a 390 px
 document width in a 390 px viewport.
 
-## Production rules
+## Historical production rules
 
 - Self-host the four selected WOFF2 files.
 - Preload Instrument Serif Regular and Instrument Sans Regular only.

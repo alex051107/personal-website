@@ -1,25 +1,9 @@
 /* Hallmark · custom theme · warm paper / carbon ink / muted-brass signal */
 @font-face {
-  font-family: "Instrument Serif";
-  src: url("fonts/InstrumentSerif-Regular.woff2") format("woff2");
+  font-family: "Onest";
+  src: url("fonts/Onest-Variable-latin.woff2") format("woff2");
   font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Instrument Sans";
-  src: url("fonts/InstrumentSans-Regular.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Instrument Sans";
-  src: url("fonts/InstrumentSans-SemiBold.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 600;
+  font-weight: 100 900;
   font-display: swap;
 }
 
@@ -66,14 +50,14 @@
   --color-workflow-label: oklch(12% 0.012 66 / 0.90);
   --color-workflow-overlay: oklch(12% 0.012 66 / 0.94);
 
-  --font-display: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Palatino, serif;
-  --font-body: "Instrument Sans", "Avenir Next", "Segoe UI", sans-serif;
+  --font-display: "Onest", "Avenir Next", "Segoe UI", sans-serif;
+  --font-body: "Onest", "Avenir Next", "Segoe UI", sans-serif;
   --font-outlier: "Geist Mono", "SFMono-Regular", "Cascadia Code", "Liberation Mono", monospace;
 
-  --display-weight: 400;
+  --display-weight: 650;
   --display-style: normal;
-  --tracking-display: -0.035em;
-  --tracking-label: 0.05em;
+  --tracking-display: -0.055em;
+  --tracking-label: 0.025em;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -84,8 +68,8 @@
   --text-2xl: 2.4414rem;
   --text-3xl: 3.0518rem;
   --text-4xl: 3.8147rem;
-  --text-display-s: clamp(2.75rem, 5vw + 0.5rem, 4.75rem);
-  --text-display: clamp(3.2rem, 7vw + 0.5rem, 5.25rem);
+  --text-display-s: clamp(2.75rem, 5vw + 0.5rem, 5.25rem);
+  --text-display: clamp(3.4rem, 7.5vw + 0.5rem, 6.65rem);
 
   --space-3xs: 0.25rem;
   --space-2xs: 0.5rem;
@@ -115,8 +99,8 @@
   --shadow-none: none;
 
   --page-gutter: clamp(1rem, 4vw, 3rem);
-  --page-width: 76rem;
-  --measure: 68ch;
+  --page-width: 82rem;
+  --measure: 62ch;
   --control-min: 2.75rem;
   --nav-height: 4rem;
   --anchor-offset: 7.75rem;

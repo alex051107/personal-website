@@ -1,6 +1,6 @@
-/* Hallmark · pre-emit critique: P5 H5 E4 S5 R4 V5 · genre: scientific editorial dossier · tone: direct, evidence-bounded · palette: warm paper / carbon ink / muted brass · macrostructure: Narrative Workflow — masthead → stateful 3D Agent Harness → AI×Science grammar → comparison → four project-specific scroll stories → research → profile · theme: studied-DNA (scientific publishing + project-specific objects) · contrast: source pass (40–41) · nav: N9 · footer: Ft2 · slop: active-surface source pass (1–58) · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · mobile: source pass (34, 49–57) */
+/* Personal portfolio · person first, interactive scientific systems second · palette: warm paper / carbon ink / muted brass · macrostructure: introduction → 3D Agent Harness → AI for Science approach → comparison → four project-specific scroll stories → research → profile. */
 /* Hallmark · enrichment: MotionSites AI Agent Pipeline + Agent Plan; React Bits Scroll Expand + Animated List; Uiverse Progress Status Card + run-receipt Terminal Card anatomy; Anime.js createDrawable + createMotionPath; Aceternity Sticky Scroll Reveal + Tracing Beam. All ten read one project stage; no prompt or restricted component source is redistributed. */
-@import url("../tokens.css?v=6519013");
+@import url("../tokens.css?v=dae8f73");
 
 :root {
   color-scheme: light;
@@ -10166,5 +10166,378 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
   .hero-station__markers li,
   .hero-station__markers button {
     transition: none;
+  }
+}
+
+/* Personal-site humanize pass · person first, technical instrument second. */
+
+body {
+  font-size: clamp(1rem, 0.96rem + 0.16vw, 1.08rem);
+  line-height: 1.58;
+  font-kerning: normal;
+  font-synthesis: none;
+}
+
+h1,
+h2,
+h3,
+.project-story__lead h4,
+.direction h2,
+.profile-copy h2,
+.contact h2 {
+  font-family: var(--font-display);
+  font-weight: 650;
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+}
+
+.site-header__inner {
+  min-height: 4.5rem;
+}
+
+.wordmark__initials {
+  font-size: 0.98rem;
+  font-weight: 650;
+}
+
+.wordmark__index {
+  font-size: 0.73rem;
+}
+
+.primary-nav {
+  gap: clamp(0.8rem, 2.2vw, 1.8rem);
+  font-size: 0.82rem;
+  font-weight: 550;
+}
+
+.primary-nav a,
+.primary-nav a:nth-child(1),
+.primary-nav a:nth-child(2),
+.primary-nav a:nth-child(3) {
+  display: inline-flex;
+}
+
+.primary-nav a:not(.primary-nav__contact) {
+  color: var(--color-muted);
+}
+
+.primary-nav a:hover,
+.primary-nav a:focus-visible {
+  color: var(--color-ink);
+}
+
+.index-opening {
+  padding-block: clamp(3.5rem, 8vw, 7rem) clamp(4rem, 8vw, 7rem);
+  border-bottom: 0;
+}
+
+.index-opening__identity {
+  max-width: none;
+  color: var(--color-accent);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.index-opening__grid {
+  margin-top: clamp(2rem, 5vw, 4.25rem);
+  grid-template-areas:
+    "title"
+    "copy"
+    "portrait";
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+.index-opening h1 {
+  max-width: 11ch;
+  font-size: var(--text-display);
+  font-weight: 650;
+  line-height: 0.94;
+  letter-spacing: -0.065em;
+}
+
+.index-opening h1 span,
+.index-opening h1 span:last-child {
+  display: inline;
+  color: var(--color-accent);
+}
+
+.index-opening__copy {
+  max-width: 42rem;
+}
+
+.index-opening__copy > p:first-child,
+.index-opening__copy > .index-opening__lede {
+  max-width: 33ch;
+  color: var(--color-ink);
+  font-size: clamp(1.35rem, 2.15vw, 2rem);
+  font-weight: 520;
+  line-height: 1.32;
+  letter-spacing: -0.025em;
+  text-wrap: pretty;
+}
+
+.index-opening__scope {
+  max-width: 54ch;
+  margin-top: 1.25rem;
+  color: var(--color-ink-2);
+  line-height: 1.58;
+}
+
+.index-opening__meta {
+  margin-top: 1.4rem;
+  color: var(--color-muted);
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.index-opening__portrait {
+  width: min(100%, 21rem);
+  transform: none;
+}
+
+.index-opening__portrait-frame {
+  overflow: hidden;
+  border: 0;
+  border-radius: 1.35rem;
+  background: var(--color-graphite-2);
+  box-shadow: 0 1.6rem 4rem rgb(40 32 22 / 0.13);
+}
+
+.index-opening__portrait img {
+  transform: translate3d(calc(var(--pointer-x) * 0.5rem), calc(var(--pointer-y) * 0.4rem), 0) scale(1.01);
+}
+
+.index-opening__portrait figcaption {
+  align-items: baseline;
+  font-size: 0.76rem;
+}
+
+.hero-station {
+  margin-top: clamp(4.5rem, 9vw, 8rem);
+}
+
+.hero-station__frame {
+  overflow: hidden;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.hero-station__masthead {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.hero-station__masthead p span,
+.hero-station__masthead p small {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.hero-station__masthead h2 {
+  max-width: 27ch;
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 3.6vw, 3.65rem);
+  font-weight: 620;
+  line-height: 1.03;
+  letter-spacing: -0.055em;
+}
+
+.hero-station__stage-copy strong,
+.hero-station__packet > strong,
+.hero-station__result > strong {
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.hero-station figcaption {
+  border-radius: 0 0 1rem 1rem;
+}
+
+.hero-station figcaption > span {
+  font-family: var(--font-body);
+  font-weight: 650;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ai-science-bridge {
+  margin-top: clamp(4.5rem, 9vw, 8rem);
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.ai-science-bridge__label {
+  font-size: 0.82rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.ai-science-bridge h2 {
+  max-width: 23ch;
+  font-size: clamp(2.4rem, 4.6vw, 4.5rem);
+  font-weight: 640;
+  line-height: 1.02;
+}
+
+.index-section-head {
+  gap: clamp(1rem, 3vw, 3rem);
+}
+
+.index-section-head h2,
+.direction h2,
+.profile-copy h2,
+.contact h2 {
+  max-width: 19ch;
+  font-size: clamp(2.5rem, 5vw, 4.8rem);
+  line-height: 0.99;
+}
+
+.index-section-head p {
+  font-size: clamp(1rem, 1.1vw, 1.14rem);
+  line-height: 1.55;
+}
+
+.project-spread__meta,
+.project-spread__date {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 550;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.project-spread__header h3 {
+  max-width: none;
+  font-size: clamp(3.1rem, 6.2vw, 6.4rem);
+  font-weight: 660;
+  line-height: 0.91;
+  letter-spacing: -0.07em;
+}
+
+.project-story__lead > p:first-child,
+.project-story__lead .project-story__what strong,
+.project-story__lead .project-story__evidence strong {
+  font-family: var(--font-body);
+  font-weight: 650;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.project-story__lead h4 {
+  max-width: 20ch;
+  font-size: clamp(2rem, 3.25vw, 3.45rem);
+  font-weight: 640;
+  line-height: 1.02;
+}
+
+.project-story__lead .project-story__what,
+.project-story__lead .project-story__evidence {
+  font-size: 0.96rem;
+  line-height: 1.58;
+}
+
+.research-context h3 {
+  font-weight: 620;
+  letter-spacing: -0.035em;
+}
+
+.profile-copy > p,
+.direction > p {
+  max-width: 60ch;
+  font-size: clamp(1rem, 1.1vw, 1.15rem);
+  line-height: 1.62;
+}
+
+.contact__email {
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 60rem) {
+  .index-opening__grid {
+    grid-template-areas:
+      "title portrait"
+      "copy portrait";
+    grid-template-columns: minmax(0, 1.55fr) minmax(17rem, 0.55fr);
+    column-gap: clamp(4rem, 8vw, 8.5rem);
+    row-gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  .index-opening__portrait {
+    width: min(100%, 21rem);
+    justify-self: end;
+    align-self: start;
+  }
+
+  .index-section-head {
+    grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
+  }
+}
+
+@media (max-width: 46rem) {
+  .site-header__inner {
+    min-height: 4rem;
+    gap: 0.75rem;
+  }
+
+  .wordmark__index {
+    display: none;
+  }
+
+  .primary-nav {
+    gap: 0.75rem;
+    font-size: 0.72rem;
+  }
+
+  .primary-nav a.primary-nav__contact {
+    min-height: 2.5rem;
+  }
+
+  .index-opening {
+    padding-block: 3.25rem 4rem;
+  }
+
+  .index-opening h1 {
+    max-width: 9.5ch;
+    font-size: clamp(3.35rem, 17vw, 5.1rem);
+  }
+
+  .index-opening__portrait {
+    width: min(92%, 20rem);
+    justify-self: start;
+  }
+
+  .hero-station {
+    margin-top: 4rem;
+  }
+
+  .hero-station__masthead h2 {
+    max-width: 15ch;
+    font-size: clamp(2rem, 9vw, 2.8rem);
+  }
+
+  .hero-station__masthead p {
+    gap: 0.35rem;
+  }
+
+  .hero-station__masthead p small {
+    display: none;
+  }
+
+  .index-section-head h2,
+  .direction h2,
+  .profile-copy h2,
+  .contact h2 {
+    max-width: 12ch;
+    font-size: clamp(2.55rem, 12vw, 3.75rem);
+  }
+
+  .project-spread__header h3 {
+    font-size: clamp(2.75rem, 14vw, 4.25rem);
   }
 }

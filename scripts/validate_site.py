@@ -568,7 +568,11 @@ def main() -> int:
     for forbidden_marker in ('data-project-instrument', 'project-plate__locator'):
         if forbidden_marker in index_text:
             errors.append(f"index.html: retired generic project UI remains: {forbidden_marker}")
-    for marker in ('class="ai-science-bridge"', "AI × Science", 'class="decision-matrix"'):
+    for marker in (
+        'class="ai-science-bridge"',
+        "How I approach AI for Science",
+        'class="decision-matrix"',
+    ):
         if index_text.count(marker) != 1:
             errors.append(f"index.html: expected one AI for Science positioning marker: {marker}")
     for marker in (
@@ -579,7 +583,7 @@ def main() -> int:
         'data-station-execution',
         'data-station-lever',
         'data-station-result',
-        'Scientific Agent Harness / inspection plate',
+        'Featured interactive project',
         'Gates × 6',
     ):
         if index_text.count(marker) != 1:
@@ -612,7 +616,7 @@ def main() -> int:
             errors.append(f"index.html: expected one shared role legend entry: {role}")
 
     for exact in (
-        '<title>Zhenpeng Liu — AI for Science &amp; Evidence Systems</title>',
+        '<title>Zhenpeng Liu — Scientific Software &amp; AI for Science</title>',
         '<link rel="canonical" href="https://alex051107.github.io/personal-website/">',
         '<meta property="og:url" content="https://alex051107.github.io/personal-website/">',
         '<meta property="og:image" content="https://alex051107.github.io/personal-website/images/og-card.jpg">',
@@ -756,12 +760,9 @@ def main() -> int:
             errors.append(f"required local motion runtime or license is missing: {vendor_file.relative_to(ROOT)}")
 
     production_font_files = {
-        ROOT / "fonts" / "InstrumentSerif-Regular.woff2",
-        ROOT / "fonts" / "InstrumentSans-Regular.woff2",
-        ROOT / "fonts" / "InstrumentSans-SemiBold.woff2",
+        ROOT / "fonts" / "Onest-Variable-latin.woff2",
         ROOT / "fonts" / "GeistMono-Medium.woff2",
-        ROOT / "fonts" / "licenses" / "Instrument-Serif-OFL.txt",
-        ROOT / "fonts" / "licenses" / "Instrument-Sans-OFL.txt",
+        ROOT / "fonts" / "licenses" / "Onest-OFL.txt",
         ROOT / "fonts" / "licenses" / "Geist-OFL.txt",
     }
     for font_file in production_font_files:
