@@ -364,6 +364,7 @@
       const stageBadge = `${String(index + 1).padStart(2, "0")} / ${String(nodes.length).padStart(2, "0")} · ${role}`;
       figure.dataset.stageBadge = stageBadge;
       canvas.dataset.stageBadge = stageBadge;
+      canvas.dataset.stageBadge = stageBadge;
       figure.dataset.stageKind = kind;
       if (focusLens) focusLens.dataset.stageKind = kind;
     };
