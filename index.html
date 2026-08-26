@@ -52,12 +52,12 @@
   }
   </script>
 
-  <link rel="stylesheet" href="css/styles.css?v=196f3ac">
+  <link rel="stylesheet" href="css/styles.css?v=3587cc8">
   <script defer src="js/vendor/ScrollMagic.min.js?v=003f0f9"></script>
   <script defer src="js/vendor/lottie_light.min.js?v=0e5a569"></script>
   <script defer src="js/vendor/gsap.min.js?v=3c73d76"></script>
   <script defer src="js/vendor/anime.umd.min.js?v=6c1a3ca"></script>
-  <script type="module" src="js/hero-station.js?v=94ff25c"></script>
+  <script type="module" src="js/hero-station.js?v=14a15a9"></script>
   <script defer src="js/motion-library-showcase.js?v=b688470"></script>
   <script defer src="js/site-motion.js?v=445ccd5"></script>
 </head>
@@ -101,7 +101,7 @@
           </figure>
         </div>
 
-        <figure class="hero-station" data-hero-station data-station-state="loading" data-inspection="closed" aria-labelledby="hero-station-title" aria-describedby="hero-station-copy">
+        <figure class="hero-station" data-hero-station data-station-state="loading" data-inspection="closed" data-tour-state="loading" aria-labelledby="hero-station-title" aria-describedby="hero-station-copy">
           <div class="hero-station__frame">
             <header class="hero-station__masthead">
               <p><span>Featured interactive project</span><small>Dynamics Atlas · Agent workflow</small></p>
@@ -109,7 +109,7 @@
               <div class="hero-station__load" aria-hidden="true"><i></i></div>
             </header>
 
-            <div class="hero-station__viewport" data-station-viewport tabindex="0" role="region" aria-label="Interactive 3D Agent Harness. Choose Inspect the harness to separate and label its parts. Select a labelled module to focus it. Drag horizontally or use the left and right arrow keys to rotate. Press Escape or R to restore the assembled view.">
+            <div class="hero-station__viewport" data-station-viewport tabindex="0" role="region" aria-label="Interactive 3D Agent Harness. An automatic camera tour loops through Contract, Agent, Tool, Gates, Receipt, Human, and Result. Use Pause auto tour, drag, or choose a control to take over. Press Escape or R to restore the assembled view.">
               <img class="hero-station__fallback" data-station-fallback src="images/hero-3d-source/hero-agent-harness-master-v2.png" alt="Concept illustration of a scientific Agent Harness with an input dock, particle specimen, tools, six gates, split outputs, and an external human authority lever" width="1536" height="1024" decoding="async">
               <canvas class="hero-station__canvas" data-station-canvas aria-hidden="true"></canvas>
               <span class="hero-station__reticle" aria-hidden="true"></span>
@@ -197,7 +197,7 @@
                 <output data-station-status aria-live="polite">Loading central harness</output>
                 <span data-station-payload>0 / 8 models</span>
               </div>
-              <p class="hero-station__hint">Drag ±12° · ← → rotate · Esc / R assemble</p>
+              <p class="hero-station__hint">Auto tour loops · drag to take over · Esc / R assemble</p>
             </div>
 
             <div class="hero-station__console">
@@ -206,6 +206,9 @@
                 <p data-stage-copy>TaskPacket and molecular datasets define what the Locator Agent may attempt.</p>
               </div>
               <div class="hero-station__controls" aria-label="Hero station controls">
+                <button type="button" data-station-tour aria-pressed="true" disabled>
+                  <span>Pause auto tour</span><small>Contract → Result loop</small>
+                </button>
                 <button type="button" data-station-inspect aria-pressed="false" disabled>
                   <span>Inspect the harness</span><small>separate + label modules</small>
                 </button>
@@ -220,7 +223,7 @@
           </div>
           <figcaption>
             <span>Interactive Agent Harness</span>
-            <p id="hero-station-copy">Open the machine to see Contract, Agent, Tool, Gates, Receipt, Human, and Result. Then run a PASS or BLOCK example and watch the route move.</p>
+            <p id="hero-station-copy">The camera tours Contract, Agent, Tool, Gates, Receipt, Human, and Result on a continuous loop. Pause it at any time, inspect the parts, or run a PASS or BLOCK route.</p>
           </figcaption>
         </figure>
 

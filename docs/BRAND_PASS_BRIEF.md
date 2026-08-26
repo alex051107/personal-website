@@ -14,9 +14,10 @@ the real modules a short distance, binds one leader label to each module, and
 lets the visitor focus a part with a finite camera move. PASS and BLOCK then
 reassemble the instrument and run the existing semantic route.
 
-The newer Brand Pass brief supersedes the earlier suggestion to auto-loop the
-Hero. Zoom remains, but it is attached to an explicit inspect or focus action.
-The scene stops when the action finishes.
+The current motion revision adds a guided, pausable Hero loop. It uses the same
+semantic modules and finite camera language as Inspect: every stage receives one
+readable push-in, hold, and return to overview. Direct interaction takes control
+immediately; PASS/BLOCK remain explicit user-run scenarios.
 
 ## Subject, audience, and job
 
@@ -100,16 +101,23 @@ MOBILE
 
 ## Motion contract
 
-- Resting scene is still.
+- The assembled scene runs a guided camera loop through Contract, Agent, Tool,
+  Gates, Receipt, Human, and Result. Each stop eases in, holds long enough to
+  read, returns to the overview, and advances. The full loop is about 24 seconds.
+- Human and Result are camera-tour stops only. The loop never pulls the human
+  lever, records a decision, releases an artifact, or implies a successful run.
+- Dragging, selecting a stage, opening Inspect, or running PASS/BLOCK pauses the
+  guided loop. A visible Pause/Resume control gives the visitor explicit control.
 - Inspect separates seven named modules over 700–900 ms with `power2.inOut`-
   equivalent easing and a short stagger.
 - Focusing a module dims the others and moves the orthographic camera over
-  420–620 ms. A second click or Escape returns to the exploded overview.
+  620–900 ms with stage-specific zoom. A second click or Escape returns to the
+  overview.
 - PASS and BLOCK first reassemble the scene, then run the existing finite route.
-- No bounce, elastic overshoot, idle particles, continuous camera motion,
-  scroll hijacking, or infinite loop.
+- No bounce, elastic overshoot, scroll hijacking, or authority-simulating motion.
 - Native scrolling remains untouched.
-- Reduced motion shows a static separated diagram with all information available.
+- Reduced motion and Save-Data disable the guided loop and preserve a static,
+  fully labelled path.
 - Rendering stops after a finite action and while the Hero is outside the viewport.
 
 ## Information architecture

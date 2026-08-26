@@ -24,6 +24,7 @@ if (stationRoot) {
   const runButtons = Array.from(stationRoot.querySelectorAll("[data-station-run]"));
   const runButton = runButtons[0] || null;
   const inspectButton = stationRoot.querySelector("[data-station-inspect]");
+  const tourButton = stationRoot.querySelector("[data-station-tour]");
   const humanButton = stationRoot.querySelector("[data-station-human]");
   const humanDecisionButtons = Array.from(stationRoot.querySelectorAll("[data-human-decision]"));
   const packetCard = stationRoot.querySelector("[data-station-packet]");
@@ -222,6 +223,7 @@ if (stationRoot) {
     frame: 0,
     lastTime: 0,
     observer: null,
+    visibilityObserver: null,
     resizeObserver: null,
     running: false,
     scenario: "pass",
@@ -265,7 +267,19 @@ if (stationRoot) {
     focusTarget: 0,
     focusMotion: null,
     focusedStage: null,
+    focusAnchorStage: null,
+    focusPanX: 0,
+    focusPanZ: 0,
+    cameraZoom: 1,
     pendingScenario: null,
+    tourRequested: true,
+    tourActive: false,
+    tourOwnsFocus: false,
+    tourStageIndex: 0,
+    tourStageStartedAt: 0,
+    tourPausedUntil: 0,
+    tourResumeTimer: 0,
+    tourVisible: false,
   };
 
   const setStatus = (message) => {
@@ -273,6 +287,17 @@ if (stationRoot) {
   };
 
   const automaticStages = ["contract", "agent", "tool", "gate", "trace"];
+  const tourStages = ["contract", "agent", "tool", "gate", "trace", "human", "result"];
+  const tourTiming = Object.freeze({ releaseAt: 2300, stageDuration: 3400, resumeDelay: 9000 });
+  const focusZoomByStage = Object.freeze({
+    contract: 1.2,
+    agent: 1.17,
+    tool: 1.22,
+    gate: 1.18,
+    trace: 1.21,
+    human: 1.24,
+    result: 1.22,
+  });
 
   const updateExecution = (activeStage = "contract", gateCount = 0) => {
     const activeIndex = automaticStages.indexOf(activeStage);
@@ -366,7 +391,7 @@ if (stationRoot) {
     stationRoot.dataset.stationState = "fallback";
     setStatus(message);
     if (payload) payload.textContent = "Static station";
-    [...runButtons, inspectButton, ...humanDecisionButtons].forEach((button) => {
+    [...runButtons, inspectButton, tourButton, ...humanDecisionButtons].forEach((button) => {
       if (button) button.disabled = true;
     });
     setLeverState("locked");
@@ -376,6 +401,8 @@ if (stationRoot) {
   const modelURL = (filename) => new URL(`../models/hero-3d/${filename}`, import.meta.url).href;
 
   const requestRender = () => {
+    if (document.visibilityState !== "visible") return;
+    if (state.visibilityObserver && !state.tourVisible) return;
     if (!state.frame && state.renderer) state.frame = window.requestAnimationFrame(renderFrame);
   };
 
@@ -875,18 +902,27 @@ if (stationRoot) {
     });
 
     if (state.rig) {
-      const focusedModule = state.modules.get(focusModuleByStage[state.focusedStage]);
-      const focusedPosition = focusedModule?.position || new THREE.Vector3();
-      const panScale = state.isMobile ? 0.08 : 0.16;
-      state.rig.position.x = -focusedPosition.x * panScale * state.focusProgress;
-      state.rig.position.z = -focusedPosition.z * panScale * state.focusProgress;
+      state.rig.position.x = state.focusPanX;
+      state.rig.position.z = state.focusPanZ;
       state.rig.position.y = state.isMobile ? 0.04 : -0.27;
       state.rig.rotation.y = state.yaw;
     }
 
     if (state.camera) {
-      state.camera.zoom = mix(1, state.isMobile ? 1.1 : 1.18, state.focusProgress);
+      state.camera.zoom = state.cameraZoom;
       state.camera.updateProjectionMatrix();
+    }
+
+    const selectedModules = new Set(stageDetails[state.focusAnchorStage]?.modules || []);
+    state.modules.forEach((wrapper, moduleKey) => {
+      if (!state.focusAnchorStage || selectedModules.has(moduleKey)) finalizeOpacity(wrapper);
+      else setOpacity(wrapper, mix(1, 0.16, state.focusProgress));
+    });
+    if (state.particle) {
+      const specimenTarget = !state.focusAnchorStage || state.focusAnchorStage === "agent" ? 0.98 : 0.12;
+      const specimenOpacity = mix(0.98, specimenTarget, state.focusProgress);
+      state.particle.protein.material.opacity = specimenOpacity;
+      state.particle.ligand.material.opacity = specimenOpacity;
     }
   };
 
@@ -1051,40 +1087,45 @@ if (stationRoot) {
     if (note) note.textContent = open ? "restore complete instrument" : "separate + label modules";
   };
 
-  const setFocusedStage = (key = null) => {
+  const setFocusedStage = (key = null, { duration = 620, source = "interaction" } = {}) => {
     const previousStage = state.focusedStage;
     state.focusedStage = key && stageDetails[key] ? key : null;
+    if (state.focusedStage) state.focusAnchorStage = state.focusedStage;
     state.focusTarget = state.focusedStage ? 1 : 0;
+    const focusedModule = state.modules.get(focusModuleByStage[state.focusedStage]);
+    const focusedPosition = focusedModule?.position || new THREE.Vector3();
+    const panScale = state.isMobile ? 0.1 : 0.22;
+    const desktopZoom = focusZoomByStage[state.focusedStage] || 1.18;
+    const mobileZoom = 1 + (desktopZoom - 1) * 0.48;
     state.focusMotion = !state.focusedStage && !previousStage && state.focusProgress < 0.001
       ? null
       : {
           startedAt: window.performance.now(),
           from: state.focusProgress,
           to: state.focusTarget,
-          duration: motionIsReduced() ? 1 : 520,
+          fromPanX: state.focusPanX,
+          toPanX: state.focusedStage ? -focusedPosition.x * panScale : 0,
+          fromPanZ: state.focusPanZ,
+          toPanZ: state.focusedStage ? -focusedPosition.z * panScale : 0,
+          fromZoom: state.cameraZoom,
+          toZoom: state.focusedStage ? (state.isMobile ? mobileZoom : desktopZoom) : 1,
+          duration: motionIsReduced() ? 1 : duration,
         };
 
     if (state.focusedStage) stationRoot.dataset.moduleFocus = state.focusedStage;
     else delete stationRoot.dataset.moduleFocus;
 
-    const selectedModules = new Set(stageDetails[state.focusedStage]?.modules || []);
-    state.modules.forEach((wrapper, moduleKey) => {
-      if (!state.focusedStage || selectedModules.has(moduleKey)) finalizeOpacity(wrapper);
-      else setOpacity(wrapper, 0.16);
-    });
     stageMarkers.forEach((marker, markerKey) => {
       marker.classList.toggle("is-focused", markerKey === state.focusedStage);
       marker.classList.toggle("is-dimmed", Boolean(state.focusedStage && markerKey !== state.focusedStage));
     });
-    if (state.particle) {
-      const specimenOpacity = !state.focusedStage || state.focusedStage === "agent" ? 0.98 : 0.12;
-      state.particle.protein.material.opacity = specimenOpacity;
-      state.particle.ligand.material.opacity = specimenOpacity;
-    }
     if (state.focusedStage) {
       selectStage(state.focusedStage, { pause: false });
-      setStatus(`${stageDetails[state.focusedStage].title} focused · select it again or press Escape to assemble`);
+      setStatus(source === "tour"
+        ? `Auto tour · ${stageDetails[state.focusedStage].title}`
+        : `${stageDetails[state.focusedStage].title} focused · select it again or press Escape to assemble`);
     }
+    applyInspectionLayout();
   };
 
   const completeInspectionState = () => {
@@ -1165,15 +1206,153 @@ if (stationRoot) {
     }
     if (state.focusMotion) {
       const progress = clamp((now - state.focusMotion.startedAt) / state.focusMotion.duration, 0, 1);
-      state.focusProgress = mix(state.focusMotion.from, state.focusMotion.to, easeInOut(progress));
+      const eased = easeInOut(progress);
+      state.focusProgress = mix(state.focusMotion.from, state.focusMotion.to, eased);
+      state.focusPanX = mix(state.focusMotion.fromPanX, state.focusMotion.toPanX, eased);
+      state.focusPanZ = mix(state.focusMotion.fromPanZ, state.focusMotion.toPanZ, eased);
+      state.cameraZoom = mix(state.focusMotion.fromZoom, state.focusMotion.toZoom, eased);
       active = progress < 1 || active;
       if (progress >= 1) {
         state.focusProgress = state.focusMotion.to;
+        state.focusPanX = state.focusMotion.toPanX;
+        state.focusPanZ = state.focusMotion.toPanZ;
+        state.cameraZoom = state.focusMotion.toZoom;
         state.focusMotion = null;
+        if (!state.focusedStage && state.focusProgress < 0.001) state.focusAnchorStage = null;
       }
     }
     applyInspectionLayout();
     return active;
+  };
+
+  const updateTourControl = () => {
+    if (!tourButton) return;
+    const available = state.ready && !motionIsReduced();
+    const label = tourButton.querySelector("span");
+    const note = tourButton.querySelector("small");
+    tourButton.disabled = !available || state.running;
+    tourButton.setAttribute("aria-pressed", String(available && state.tourRequested));
+    if (label) label.textContent = state.tourRequested ? "Pause auto tour" : "Resume auto tour";
+    if (note) {
+      note.textContent = motionIsReduced()
+        ? "off for reduced motion"
+        : (state.tourActive
+          ? `${stageDetails[tourStages[state.tourStageIndex]].title} · ${state.tourStageIndex + 1} / ${tourStages.length}`
+          : "Contract → Result loop");
+    }
+  };
+
+  const clearTourResumeTimer = () => {
+    if (!state.tourResumeTimer) return;
+    window.clearTimeout(state.tourResumeTimer);
+    state.tourResumeTimer = 0;
+  };
+
+  const scheduleTourResume = () => {
+    clearTourResumeTimer();
+    if (!state.tourRequested || motionIsReduced()) return;
+    const delay = Math.max(0, state.tourPausedUntil - window.performance.now());
+    state.tourResumeTimer = window.setTimeout(() => {
+      state.tourResumeTimer = 0;
+      requestRender();
+    }, delay + 34);
+  };
+
+  const resetTourAmbient = () => {
+    if (state.rig) state.rig.rotation.y = state.yaw;
+    state.modules.forEach((wrapper) => {
+      if (wrapper.userData.baseRotationY !== undefined && !state.humanMotion) {
+        wrapper.rotation.y = wrapper.userData.baseRotationY;
+      }
+    });
+    if (state.particle) state.particle.group.rotation.y = 0.42;
+  };
+
+  const pauseAutoTour = ({ duration = tourTiming.resumeDelay, reason = "interaction" } = {}) => {
+    const now = window.performance.now();
+    state.tourActive = false;
+    state.tourStageStartedAt = 0;
+    state.tourPausedUntil = Math.max(state.tourPausedUntil, now + duration);
+    stationRoot.dataset.tourState = state.tourRequested ? "paused" : "off";
+    if (state.tourOwnsFocus) {
+      state.tourOwnsFocus = false;
+      setFocusedStage(null, { duration: 780, source: "tour" });
+    }
+    resetTourAmbient();
+    if (reason === "interaction" && state.ready && !state.running) {
+      setStatus("Auto tour paused · it will resume after interaction");
+    }
+    updateTourControl();
+    scheduleTourResume();
+    requestRender();
+  };
+
+  const canRunAutoTour = (now) => state.ready
+    && state.tourRequested
+    && state.tourVisible
+    && document.visibilityState === "visible"
+    && !motionIsReduced()
+    && now >= state.tourPausedUntil
+    && !state.running
+    && !state.dragging
+    && !state.pendingScenario
+    && !state.reviewReady
+    && !state.gateBlocked
+    && !state.humanDecision
+    && state.inspectTarget < 0.02
+    && state.inspectProgress < 0.02
+    && !state.inspectMotion;
+
+  const beginTourStage = (now) => {
+    const key = tourStages[state.tourStageIndex];
+    state.tourStageStartedAt = now;
+    state.tourOwnsFocus = true;
+    setFocusedStage(key, { duration: 900, source: "tour" });
+    stationRoot.dataset.tourStage = key;
+    setStatus(`Auto tour · ${stageDetails[key].title} · drag or select a control to take over`);
+    updateTourControl();
+  };
+
+  const updateAutoTour = (now) => {
+    if (!canRunAutoTour(now)) {
+      if (state.tourActive) {
+        state.tourActive = false;
+        state.tourStageStartedAt = 0;
+        stationRoot.dataset.tourState = state.tourRequested ? "paused" : "off";
+        updateTourControl();
+      }
+      return false;
+    }
+
+    if (!state.tourActive) {
+      state.tourActive = true;
+      stationRoot.dataset.tourState = "playing";
+      beginTourStage(now);
+      return true;
+    }
+
+    const elapsed = now - state.tourStageStartedAt;
+    if (elapsed >= tourTiming.releaseAt && state.tourOwnsFocus) {
+      state.tourOwnsFocus = false;
+      setFocusedStage(null, { duration: 900, source: "tour" });
+      setStatus(`Auto tour · returning to overview before ${stageDetails[tourStages[(state.tourStageIndex + 1) % tourStages.length]].title}`);
+    }
+    if (elapsed >= tourTiming.stageDuration) {
+      state.tourStageIndex = (state.tourStageIndex + 1) % tourStages.length;
+      beginTourStage(now);
+    }
+    return true;
+  };
+
+  const updateTourAmbient = (now) => {
+    if (!state.tourActive || !canRunAutoTour(now)) return false;
+    if (state.rig) state.rig.rotation.y = state.yaw + Math.sin(now * 0.00034) * 0.018;
+    const focusedModule = state.modules.get(focusModuleByStage[state.focusedStage]);
+    if (focusedModule?.userData.baseRotationY !== undefined) {
+      focusedModule.rotation.y = focusedModule.userData.baseRotationY + Math.sin(now * 0.0011) * 0.026;
+    }
+    if (state.particle) state.particle.group.rotation.y = 0.42 + Math.sin(now * 0.00042) * 0.035;
+    return true;
   };
 
   const updateReachedStages = (keys) => {
@@ -1262,11 +1441,14 @@ if (stationRoot) {
       });
       setStatus("Six gates passed · choose a human scope decision");
     }
+    updateTourControl();
     requestRender();
   };
 
   const beginRun = (scenario = "pass") => {
     if (!state.ready || state.running) return;
+    state.tourRequested = false;
+    pauseAutoTour({ duration: 0, reason: "workflow" });
     resetRunVisuals();
     state.scenario = scenario === "block" ? "block" : "pass";
     runButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.stationScenario === state.scenario)));
@@ -1283,6 +1465,7 @@ if (stationRoot) {
       if (button.dataset.stationScenario === state.scenario) button.querySelector("span").textContent = "Scenario running";
     });
     setStatus(`${state.scenario.toUpperCase()} example · TaskPacket seated`);
+    updateTourControl();
     updateExecution("contract", 0);
     selectStage("contract", { pause: false });
     requestRender();
@@ -1486,9 +1669,11 @@ if (stationRoot) {
     let active = false;
     active = updateRevealItems(now) || active;
     active = updateRun(now) || active;
+    active = updateAutoTour(now) || active;
     active = updateHumanMotion(now) || active;
     active = updateResultMotion(now) || active;
     active = updateInspectionMotion(now) || active;
+    active = updateTourAmbient(now) || active;
     if (state.particle && !motionIsReduced()) active = updateParticleField(false) || active;
     state.renderer.render(state.scene, state.camera);
     updateMarkers();
@@ -1573,15 +1758,42 @@ if (stationRoot) {
   const bindInteractions = () => {
     stageMarkers.forEach((marker, key) => {
       marker.querySelector("button")?.addEventListener("click", () => {
+        pauseAutoTour();
         if (state.running) selectStage(key, { pause: true });
         else focusInspectionStage(key);
       });
     });
     runButtons.forEach((button) => {
-      button.addEventListener("click", () => startRun(button.dataset.stationScenario || "pass"));
+      button.addEventListener("click", () => {
+        pauseAutoTour();
+        startRun(button.dataset.stationScenario || "pass");
+      });
     });
-    inspectButton?.addEventListener("click", toggleHarnessInspection);
+    inspectButton?.addEventListener("click", () => {
+      pauseAutoTour();
+      toggleHarnessInspection();
+    });
+    tourButton?.addEventListener("click", () => {
+      if (state.tourRequested) {
+        state.tourRequested = false;
+        pauseAutoTour({ duration: 0, reason: "toggle" });
+        setStatus("Auto tour paused · manual controls remain available");
+        return;
+      }
+
+      state.tourRequested = true;
+      if (state.reviewReady || state.gateBlocked || state.humanDecision) resetRunVisuals();
+      const inspectionOpen = state.inspectTarget > 0 || state.inspectProgress > 0.02 || state.inspectMotion;
+      state.tourPausedUntil = window.performance.now() + (inspectionOpen ? 900 : 0);
+      if (inspectionOpen) moveInspection(0);
+      stationRoot.dataset.tourState = "paused";
+      updateTourControl();
+      scheduleTourResume();
+      setStatus(inspectionOpen ? "Reassembling before auto tour" : "Auto tour resuming");
+      requestRender();
+    });
     humanButton?.addEventListener("click", (event) => {
+      pauseAutoTour();
       if (event.detail > 0 && state.leverMoved) {
         event.preventDefault();
         state.leverMoved = false;
@@ -1592,7 +1804,10 @@ if (stationRoot) {
     humanDecisionButtons
       .filter((button) => button !== humanButton)
       .forEach((button) => {
-        button.addEventListener("click", () => recordHumanDecision(button.dataset.humanDecision));
+        button.addEventListener("click", () => {
+          pauseAutoTour();
+          recordHumanDecision(button.dataset.humanDecision);
+        });
       });
     humanButton?.addEventListener("pointerdown", (event) => {
       if (!state.reviewReady || state.humanActive || humanButton.disabled) return;
@@ -1630,6 +1845,7 @@ if (stationRoot) {
 
     viewport?.addEventListener("pointerdown", (event) => {
       if (!state.ready || event.target.closest("button, [data-station-lever]")) return;
+      pauseAutoTour();
       state.dragging = true;
       state.pointerId = event.pointerId;
       state.pointerX = event.clientX;
@@ -1664,6 +1880,7 @@ if (stationRoot) {
       if (state.particle) state.particle.pointerActive = false;
     });
     viewport?.addEventListener("keydown", (event) => {
+      pauseAutoTour();
       if (event.key === "ArrowLeft") {
         event.preventDefault();
         setYaw(state.yaw - THREE.MathUtils.degToRad(3));
@@ -1761,17 +1978,22 @@ if (stationRoot) {
       state.ready = true;
       applyLayout();
       stationRoot.dataset.stationState = motionIsReduced() ? "reduced" : "ready";
-      [...runButtons, inspectButton].forEach((button) => {
+      [...runButtons, inspectButton, tourButton].forEach((button) => {
         if (button) button.disabled = false;
       });
       setLeverState("locked");
       updateExecution("contract", 0);
       setStatus(motionIsReduced()
         ? "Station assembled · reduced motion"
-        : "Station assembled · finite route ready");
+        : "Station assembled · auto tour starting");
       selectStage("contract", { pause: false });
+      updateTourControl();
       if (motionIsReduced()) applyMotionPreference();
-      else requestRender();
+      else {
+        state.tourPausedUntil = window.performance.now() + 1200;
+        scheduleTourResume();
+        requestRender();
+      }
 
     } catch (error) {
       console.error("Heroic Alpha Station could not be assembled.", error);
@@ -1782,6 +2004,16 @@ if (stationRoot) {
   const applyMotionPreference = () => {
     if (!state.renderer || !state.ready) return;
     if (motionIsReduced()) {
+      clearTourResumeTimer();
+      state.tourActive = false;
+      state.tourStageStartedAt = 0;
+      stationRoot.dataset.tourState = "off";
+      if (state.tourOwnsFocus) {
+        state.tourOwnsFocus = false;
+        setFocusedStage(null, { duration: 1, source: "tour" });
+        updateInspectionMotion(window.performance.now() + 2);
+      }
+      resetTourAmbient();
       state.running = false;
       state.revealItems = [];
       if (state.inspectTarget > 0 || state.inspectProgress > 0.02) {
@@ -1836,9 +2068,12 @@ if (stationRoot) {
         setStatus("Six gates passed · choose a human scope decision");
         setLeverState("ready");
       } else {
-        setStatus("Station assembled · choose PASS or BLOCK example");
+        state.tourPausedUntil = window.performance.now() + 600;
+        scheduleTourResume();
+        setStatus("Station assembled · auto tour resuming");
       }
     }
+    updateTourControl();
     requestRender();
   };
 
@@ -1846,6 +2081,25 @@ if (stationRoot) {
   selectStage("contract", { pause: false });
   updateExecution("contract", 0);
   updateLoadProgress();
+
+  if ("IntersectionObserver" in window) {
+    state.visibilityObserver = new IntersectionObserver((entries) => {
+      const entry = entries.find((item) => item.target === stationRoot);
+      if (!entry) return;
+      state.tourVisible = entry.isIntersecting;
+      if (state.tourVisible) {
+        requestRender();
+      } else if (state.tourActive) {
+        state.tourActive = false;
+        state.tourStageStartedAt = 0;
+        stationRoot.dataset.tourState = "paused";
+        updateTourControl();
+      }
+    }, { threshold: 0.06 });
+    state.visibilityObserver.observe(stationRoot);
+  } else {
+    state.tourVisible = true;
+  }
 
   if (forcedFallback || saveData) {
     loadStation();
@@ -1874,4 +2128,12 @@ if (stationRoot) {
   } else if (typeof reducedMotion.addListener === "function") {
     reducedMotion.addListener(applyMotionPreference);
   }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") requestRender();
+    else {
+      state.tourActive = false;
+      state.tourStageStartedAt = 0;
+    }
+  });
 }
