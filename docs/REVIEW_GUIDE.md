@@ -13,15 +13,15 @@ ten named interaction references, and an evidence-based output contract.
 ## Ten-minute review path
 
 1. Open `index.html` and follow the Narrative Workflow from the personal
-   masthead through the PASS/BLOCK Agent Harness, AI for Science grammar,
-   comparison matrix, four project stories, and methods credits.
+   masthead through the Inspect/PASS/BLOCK Agent Harness, AI for Science grammar,
+   comparison matrix, and four project stories.
 2. Read `design.md` for the information hierarchy, visual system, responsive
    rules, and motion contract.
 3. Inspect `js/hero-station.js`, `js/motion-library-showcase.js`, and
-   `js/site-motion.js` for the two bounded Hero
-   replays, named G1–G6 fields, post-verdict receipt, release/revise/reject Human
-   step, project-specific event/owner/outcome receipts, scroll-stage
-   synchronization, the exact five-library / 20-effect ledger, keyboard
+   `js/site-motion.js` for the finite exploded inspection, world-bound labels,
+   module focus, two bounded Hero replays, named G1–G6 fields, post-verdict
+   receipt, release/revise/reject Human step, project-specific
+   event/owner/outcome receipts, deterministic stage-image hydration, keyboard
    controls, and reduced-motion behavior.
 4. Compare `docs/hero-harness-module-manifest.md` with `models/hero-3d/` and
    `images/hero-3d-source/` to trace every published 3D module to its source
@@ -66,6 +66,8 @@ triangle counts, per-file limits, and the combined payload budget.
 | `images/hero-3d-source/*.png` | Hero scene, module, and particle references | retained as source evidence and fallback art |
 | `models/hero-3d/*.glb` | eight compressed web derivatives | published runtime assets |
 | `js/vendor/` | pinned Anime.js, ScrollMagic, Lottie Web, GSAP, and Three.js runtime files | published with upstream notices/licenses |
+| `fonts/` | selected Instrument and Geist WOFF2 files plus OFL notices | published local typography |
+| `proofs/typography/` | equal-content three-candidate type proof | published review artifact |
 | `.hallmark/` | design preflight and redesign log | retained as design provenance |
 
 The opaque master-quality GLB downloads are intentionally not committed. They
@@ -74,9 +76,10 @@ mapping, byte counts, and triangle counts are recorded in
 `docs/hero-harness-module-manifest.md`; the optimized derivatives required by
 the site are committed under `models/hero-3d/`.
 
-Local browser screenshots, Playwright traces, operating-system metadata, and
-temporary output are excluded by `.gitignore` because they are QA artifacts,
-not website resources.
+The bounded Brand Pass comparison screenshots under
+`docs/screenshots/brand-pass/` are committed as review evidence. Transient
+Playwright traces, dashboard state, operating-system metadata, and temporary
+output remain excluded by `.gitignore`.
 
 ## Evidence and scope checks
 

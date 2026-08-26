@@ -36,7 +36,6 @@
       ...document.querySelectorAll("[data-reveal]"),
       opening,
       document.querySelector(".decision-matrix"),
-      document.querySelector(".motion-source-map"),
       ...document.querySelectorAll(".project-spread__header"),
       ...document.querySelectorAll(".project-story__visual"),
     ].filter(Boolean);
@@ -162,6 +161,26 @@
     let manualLockUntil = 0;
 
     if (!nodes.length || nodes.length !== steps.length) return null;
+
+    const getStageImageSource = (art) => (
+      art?.getAttribute("src") || art?.dataset.src || ""
+    );
+
+    const applyStageImage = (index) => {
+      const art = stageArt[index];
+      const source = getStageImageSource(art);
+      if (!art || !source) return "";
+      if (!art.getAttribute("src")) art.setAttribute("src", source);
+      const cssSource = source.startsWith("images/") ? `../${source}` : source;
+      steps[index]?.style.setProperty("--step-image", `url("${cssSource}")`);
+      return cssSource;
+    };
+
+    const hydrateStageWindow = (index) => {
+      for (let candidate = index - 1; candidate <= index + 1; candidate += 1) {
+        if (candidate >= 0 && candidate < stageArt.length) applyStageImage(candidate);
+      }
+    };
 
     const cancelAnimations = () => {
       activeAnimations.forEach((animation) => {
@@ -333,8 +352,7 @@
       if (mobileStageIndex) mobileStageIndex.textContent = `${stageNumber} / ${String(nodes.length).padStart(2, "0")}`;
       if (mobileStageTitle) mobileStageTitle.textContent = strong;
       if (mobileStageFill) mobileStageFill.style.transform = `scaleX(${((index + 1) / nodes.length).toFixed(4)})`;
-      const stageImage = stageArt[index]?.getAttribute("src");
-      const cssStageImage = stageImage?.startsWith("images/") ? `../${stageImage}` : stageImage;
+      const cssStageImage = applyStageImage(index);
       if (mobileDock && cssStageImage) mobileDock.style.setProperty("--mobile-stage-image", `url("${cssStageImage}")`);
     };
 
@@ -364,7 +382,6 @@
       const stageBadge = `${String(index + 1).padStart(2, "0")} / ${String(nodes.length).padStart(2, "0")} · ${role}`;
       figure.dataset.stageBadge = stageBadge;
       canvas.dataset.stageBadge = stageBadge;
-      canvas.dataset.stageBadge = stageBadge;
       figure.dataset.stageKind = kind;
       if (focusLens) focusLens.dataset.stageKind = kind;
     };
@@ -374,6 +391,7 @@
       const previousIndex = activeIndex;
       const changed = nextIndex !== activeIndex;
       if (options.manual) manualLockUntil = Date.now() + 2400;
+      hydrateStageWindow(nextIndex);
       activeIndex = nextIndex;
       story.dataset.activeStage = String(nextIndex);
       story.style.setProperty("--story-progress", String(nextIndex / Math.max(1, nodes.length - 1)));
@@ -444,9 +462,6 @@
 
     steps.forEach((step, index) => {
       step.style.setProperty("--item-order", String(index));
-      const stepImage = stageArt[index]?.getAttribute("src");
-      const cssStepImage = stepImage?.startsWith("images/") ? `../${stepImage}` : stepImage;
-      if (cssStepImage) step.style.setProperty("--step-image", `url("${cssStepImage}")`);
       step.addEventListener("click", () => selectStage(index, { manual: true }));
       step.addEventListener("keydown", (event) => handleStageKey(event, index, "step"));
     });

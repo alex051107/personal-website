@@ -14,11 +14,13 @@ copied from these publications.
 - Quanta Magazine: <https://www.quantamagazine.org/>
 - The Pudding: <https://pudding.cool/>
 
-## Ten-template interaction set
+## Interaction source archive
 
-The home page adapts two named templates from each of five public catalogs. A
-visible source map and `data-template-source` / `data-template-name` hooks keep
-the ten adaptations auditable. "Adapt" has a precise meaning here: licensed
+The project reviewed two named templates from each of five public catalogs.
+Repository-level `data-template-source` / `data-template-name` hooks keep the
+adaptations still in production auditable without turning the public page into
+a source scorecard.
+"Adapt" has a precise meaning here: licensed
 runtime or component code is used only where its terms permit; otherwise the
 site independently reconstructs the interaction anatomy in scoped semantic
 HTML, CSS, SVG, and JavaScript. Catalog prompt copy, screenshots, video, and
@@ -39,7 +41,7 @@ status, and result relationships are adapted to the portfolio's scientific
 objects. MotionSites prompt text and preview media remain reference material and
 are not redistributed.
 
-### React Bits: Scroll Expand + Animated List
+### React Bits: Scroll Expand study + Animated List adaptation
 
 - **Scroll Expand**: <https://reactbits.dev/animations/scroll-expand>
 - **Animated List**: <https://reactbits.dev/components/animated-list>
@@ -47,9 +49,10 @@ are not redistributed.
   <https://github.com/DavidHDev/react-bits/blob/main/LICENSE>
 
 React Bits is licensed under MIT with Commons Clause License Condition v1.0.
-The website independently implements one finite plate expansion and an ordered
-execution-list transition in vanilla CSS and JavaScript. It does not bundle,
-sublicense, sell, or redistribute the React Bits components.
+The Brand Pass removed the earlier Scroll Expand behavior from the Hero. The
+ordered execution-list relationship remains independently implemented in
+vanilla CSS and JavaScript. The site does not bundle, sublicense, sell, or
+redistribute the React Bits components.
 
 ### Uiverse: Progress Status Card + Terminal Card
 
@@ -99,14 +102,13 @@ runtime or component is bundled.
 - Example: <https://reactflow.dev/examples/edges/animating-edges>
 - License: <https://github.com/xyflow/xyflow/blob/main/LICENSE>
 
-## Five-library / 20-effect motion score
+## Supporting motion runtimes and adapted patterns
 
 The Douyin reference names ScrollMagic, VueUse Motion, React Spring, Lottie Web,
-and GSAP. The home page uses four bounded effects from each source, recorded in
-`window.__PORTFOLIO_MOTION_LEDGER__` and repeated in the visible methods section.
-The effects are attached to real page semantics—section arrival, project-story
-progress, Contract, Agent, Gate, Receipt, active workflow node, and comparison
-scan—rather than presented as a detached animation gallery.
+and GSAP. Existing adaptations remain attached to section arrival,
+project-story progress, Contract, Agent, Gate, Receipt, active workflow node,
+and comparison states. They support the accepted project stories; the public
+page no longer presents them as an effect count or detached animation gallery.
 
 ### ScrollMagic 2.0.8
 
@@ -199,9 +201,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+## Instrument and Geist fonts
+
+The Brand Pass self-hosts four WOFF2 files under `fonts/`:
+
+- Instrument Serif Regular;
+- Instrument Sans Regular;
+- Instrument Sans SemiBold;
+- Geist Mono Medium.
+
+Instrument Serif and Instrument Sans are copyright The Instrument Project
+Authors. Geist is copyright Vercel, in collaboration with Basement Studio. All
+three families are distributed under the SIL Open Font License 1.1. The exact
+license texts shipped with the site are:
+
+- `fonts/licenses/Instrument-Serif-OFL.txt`
+- `fonts/licenses/Instrument-Sans-OFL.txt`
+- `fonts/licenses/Geist-OFL.txt`
+
+The equal-content typography proof also includes Newsreader and IBM Plex files
+under `proofs/typography/`; those candidates remain proof artifacts rather than
+production fonts, with their OFL texts stored beside the proof.
+
 ## Three.js 0.185.1 and Meshoptimizer 1.1
 
-The Heroic Alpha Station uses a local Three.js ES module build, `GLTFLoader`,
+The Exploded Scientific Agent Harness uses a local Three.js ES module build, `GLTFLoader`,
 and the small Meshoptimizer decoder required by the optimized GLB geometry.
 The website does not load these files from a CDN.
 

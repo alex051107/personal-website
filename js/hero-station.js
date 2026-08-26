@@ -55,6 +55,10 @@ if (stationRoot) {
     Array.from(stationRoot.querySelectorAll("[data-stage-marker]"))
       .map((marker) => [marker.dataset.stageMarker, marker]),
   );
+  const leaderLines = new Map(
+    Array.from(stationRoot.querySelectorAll("[data-leader-stage]"))
+      .map((line) => [line.dataset.leaderStage, line]),
+  );
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -164,6 +168,46 @@ if (stationRoot) {
     },
   ]);
 
+  const inspectOffsets = Object.freeze({
+    input: [-0.34, 0.03, -0.18],
+    chassis: [0, -0.02, -0.32],
+    locator: [-0.08, 0.22, 0.38],
+    tools: [-0.32, 0.06, 0.3],
+    gates: [0.32, 0.08, 0.31],
+    output: [0.4, 0.04, -0.16],
+    human: [0.34, 0.2, 0.36],
+  });
+
+  const focusModuleByStage = Object.freeze({
+    contract: "input",
+    agent: "locator",
+    tool: "tools",
+    gate: "gates",
+    trace: "output",
+    human: "human",
+    result: "output",
+  });
+
+  const stageByModule = Object.freeze({
+    input: "contract",
+    chassis: "agent",
+    locator: "agent",
+    tools: "tool",
+    gates: "gate",
+    output: "result",
+    human: "human",
+  });
+
+  const markerSide = Object.freeze({
+    contract: "left",
+    tool: "left",
+    trace: "left",
+    agent: "right",
+    gate: "right",
+    human: "right",
+    result: "right",
+  });
+
   const state = {
     renderer: null,
     scene: null,
@@ -213,6 +257,15 @@ if (stationRoot) {
     leverStartY: 0,
     leverPull: 0,
     leverMoved: false,
+    pointerMoved: false,
+    inspectProgress: 0,
+    inspectTarget: 0,
+    inspectMotion: null,
+    focusProgress: 0,
+    focusTarget: 0,
+    focusMotion: null,
+    focusedStage: null,
+    pendingScenario: null,
   };
 
   const setStatus = (message) => {
@@ -381,6 +434,7 @@ if (stationRoot) {
     const wrapper = new THREE.Group();
     wrapper.name = `station-${config.key}`;
     wrapper.userData.config = config;
+    wrapper.userData.moduleKey = config.key;
     wrapper.userData.sourceWidth = size.x;
     wrapper.userData.sourceHeight = size.y;
     wrapper.add(model);
@@ -807,20 +861,51 @@ if (stationRoot) {
     });
   };
 
+  const applyInspectionLayout = () => {
+    const distanceScale = state.isMobile ? 0.58 : 1;
+    state.modules.forEach((wrapper, moduleKey) => {
+      const base = wrapper.userData.basePosition;
+      const offset = inspectOffsets[moduleKey];
+      if (!base || !offset) return;
+      wrapper.position.set(
+        base.x + offset[0] * state.inspectProgress * distanceScale,
+        base.y + offset[1] * state.inspectProgress * distanceScale,
+        base.z + offset[2] * state.inspectProgress * distanceScale,
+      );
+    });
+
+    if (state.rig) {
+      const focusedModule = state.modules.get(focusModuleByStage[state.focusedStage]);
+      const focusedPosition = focusedModule?.position || new THREE.Vector3();
+      const panScale = state.isMobile ? 0.08 : 0.16;
+      state.rig.position.x = -focusedPosition.x * panScale * state.focusProgress;
+      state.rig.position.z = -focusedPosition.z * panScale * state.focusProgress;
+      state.rig.position.y = state.isMobile ? 0.04 : -0.27;
+      state.rig.rotation.y = state.yaw;
+    }
+
+    if (state.camera) {
+      state.camera.zoom = mix(1, state.isMobile ? 1.1 : 1.18, state.focusProgress);
+      state.camera.updateProjectionMatrix();
+    }
+  };
+
   const applyLayout = () => {
     state.modules.forEach((wrapper) => applyModuleLayout(wrapper));
     applySpecimenLayout();
     buildRoute();
-    if (state.rig) state.rig.rotation.y = state.yaw;
+    applyInspectionLayout();
   };
 
   const updateMarkers = () => {
-    if (!state.camera || !state.rig || state.isMobile) {
+    const inspectionOpen = state.inspectProgress > 0.04 || state.inspectTarget > 0;
+    if (!state.camera || !state.rig || (state.isMobile && !inspectionOpen)) {
       stageMarkers.forEach((marker) => {
         marker.classList.remove("is-projected");
         marker.style.removeProperty("--marker-x-px");
         marker.style.removeProperty("--marker-y-px");
       });
+      leaderLines.forEach((line) => line.removeAttribute("data-visible"));
       return;
     }
 
@@ -834,6 +919,7 @@ if (stationRoot) {
       result: { object: state.modules.get("output"), local: [0.18, 0.68, 0] },
     };
 
+    const projected = [];
     stageMarkers.forEach((marker, key) => {
       let point;
       if (key === "trace" && state.routeCurve) {
@@ -844,11 +930,53 @@ if (stationRoot) {
         point = anchor.object.localToWorld(new THREE.Vector3(...anchor.local));
       }
       point.project(state.camera);
-      const markerX = clamp((point.x * 0.5 + 0.5) * viewport.clientWidth, viewport.clientWidth * 0.05, viewport.clientWidth * 0.95);
-      const markerY = clamp((-point.y * 0.5 + 0.5) * viewport.clientHeight, viewport.clientHeight * 0.12, viewport.clientHeight * 0.88);
+      const anchorX = clamp((point.x * 0.5 + 0.5) * viewport.clientWidth, viewport.clientWidth * 0.035, viewport.clientWidth * 0.965);
+      const anchorY = clamp((-point.y * 0.5 + 0.5) * viewport.clientHeight, viewport.clientHeight * 0.08, viewport.clientHeight * 0.92);
+      projected.push({ key, marker, anchorX, anchorY, side: markerSide[key] || "left" });
+    });
+
+    const labelPositions = new Map();
+    if (inspectionOpen) {
+      const minimumY = state.isMobile ? 84 : 128;
+      const maximumY = viewport.clientHeight - (state.isMobile ? 64 : 74);
+      const gap = state.isMobile ? 64 : 82;
+      ["left", "right"].forEach((side) => {
+        const items = projected.filter((item) => item.side === side).sort((a, b) => a.anchorY - b.anchorY);
+        let nextY = minimumY;
+        items.forEach((item) => {
+          const labelY = clamp(Math.max(item.anchorY, nextY), minimumY, maximumY);
+          labelPositions.set(item.key, {
+            x: side === "left"
+              ? (state.isMobile ? 64 : 142)
+              : viewport.clientWidth - (state.isMobile ? 64 : 142),
+            y: labelY,
+          });
+          nextY = labelY + gap;
+        });
+        const overflow = nextY - gap - maximumY;
+        if (overflow > 0) {
+          items.forEach((item) => {
+            const current = labelPositions.get(item.key);
+            current.y = Math.max(minimumY, current.y - overflow);
+          });
+        }
+      });
+    }
+
+    projected.forEach(({ key, marker, anchorX, anchorY }) => {
+      const label = labelPositions.get(key) || { x: anchorX, y: anchorY };
       marker.classList.add("is-projected");
-      marker.style.setProperty("--marker-x-px", `${markerX.toFixed(2)}px`);
-      marker.style.setProperty("--marker-y-px", `${markerY.toFixed(2)}px`);
+      marker.style.setProperty("--marker-x-px", `${label.x.toFixed(2)}px`);
+      marker.style.setProperty("--marker-y-px", `${label.y.toFixed(2)}px`);
+      const line = leaderLines.get(key);
+      if (line) {
+        line.setAttribute("x1", anchorX.toFixed(2));
+        line.setAttribute("y1", anchorY.toFixed(2));
+        line.setAttribute("x2", label.x.toFixed(2));
+        line.setAttribute("y2", label.y.toFixed(2));
+        if (inspectionOpen) line.setAttribute("data-visible", "true");
+        else line.removeAttribute("data-visible");
+      }
     });
   };
 
@@ -912,6 +1040,140 @@ if (stationRoot) {
     });
     highlightStage(key);
     requestRender();
+  };
+
+  const setInspectControl = (open) => {
+    if (!inspectButton) return;
+    inspectButton.setAttribute("aria-pressed", String(open));
+    const label = inspectButton.querySelector("span");
+    const note = inspectButton.querySelector("small");
+    if (label) label.textContent = open ? "Assemble the harness" : "Inspect the harness";
+    if (note) note.textContent = open ? "restore complete instrument" : "separate + label modules";
+  };
+
+  const setFocusedStage = (key = null) => {
+    const previousStage = state.focusedStage;
+    state.focusedStage = key && stageDetails[key] ? key : null;
+    state.focusTarget = state.focusedStage ? 1 : 0;
+    state.focusMotion = !state.focusedStage && !previousStage && state.focusProgress < 0.001
+      ? null
+      : {
+          startedAt: window.performance.now(),
+          from: state.focusProgress,
+          to: state.focusTarget,
+          duration: motionIsReduced() ? 1 : 520,
+        };
+
+    if (state.focusedStage) stationRoot.dataset.moduleFocus = state.focusedStage;
+    else delete stationRoot.dataset.moduleFocus;
+
+    const selectedModules = new Set(stageDetails[state.focusedStage]?.modules || []);
+    state.modules.forEach((wrapper, moduleKey) => {
+      if (!state.focusedStage || selectedModules.has(moduleKey)) finalizeOpacity(wrapper);
+      else setOpacity(wrapper, 0.16);
+    });
+    stageMarkers.forEach((marker, markerKey) => {
+      marker.classList.toggle("is-focused", markerKey === state.focusedStage);
+      marker.classList.toggle("is-dimmed", Boolean(state.focusedStage && markerKey !== state.focusedStage));
+    });
+    if (state.particle) {
+      const specimenOpacity = !state.focusedStage || state.focusedStage === "agent" ? 0.98 : 0.12;
+      state.particle.protein.material.opacity = specimenOpacity;
+      state.particle.ligand.material.opacity = specimenOpacity;
+    }
+    if (state.focusedStage) {
+      selectStage(state.focusedStage, { pause: false });
+      setStatus(`${stageDetails[state.focusedStage].title} focused · select it again or press Escape to assemble`);
+    }
+  };
+
+  const completeInspectionState = () => {
+    const inspectionOpen = state.inspectProgress >= 0.999;
+    stationRoot.dataset.inspection = inspectionOpen ? "open" : "closed";
+    setInspectControl(inspectionOpen);
+    if (inspectionOpen) {
+      setStatus(state.focusedStage
+        ? `${stageDetails[state.focusedStage].title} focused · select it again or press Escape to assemble`
+        : "Harness separated · select a module to focus");
+    } else {
+      state.inspectProgress = 0;
+      state.inspectTarget = 0;
+      setFocusedStage(null);
+      setStatus("Harness assembled · choose Inspect, PASS, or BLOCK");
+      const pendingScenario = state.pendingScenario;
+      state.pendingScenario = null;
+      if (pendingScenario) window.queueMicrotask(() => beginRun(pendingScenario));
+    }
+  };
+
+  const moveInspection = (target, focusKey = null) => {
+    if (!state.ready || state.running) return;
+    state.inspectTarget = target;
+    state.inspectMotion = {
+      startedAt: window.performance.now(),
+      from: state.inspectProgress,
+      to: target,
+      duration: motionIsReduced() ? 1 : 760,
+    };
+    stationRoot.dataset.inspection = target ? "opening" : "closing";
+    setInspectControl(Boolean(target));
+    if (target) {
+      if (state.reviewReady || state.gateBlocked || state.humanDecision) resetRunVisuals();
+      stationRoot.dataset.stationState = motionIsReduced() ? "reduced" : "ready";
+      setFocusedStage(focusKey);
+      setStatus(focusKey
+        ? `${stageDetails[focusKey].title} separating from the harness`
+        : "Separating seven named modules");
+    } else {
+      setFocusedStage(null);
+      setStatus("Reassembling the harness");
+    }
+    if (motionIsReduced()) {
+      updateInspectionMotion(window.performance.now() + 1000);
+      requestRender();
+    } else {
+      requestRender();
+    }
+  };
+
+  const toggleHarnessInspection = () => {
+    const open = state.inspectTarget > 0 || state.inspectProgress > 0.05;
+    moveInspection(open ? 0 : 1);
+  };
+
+  const focusInspectionStage = (key) => {
+    if (!stageDetails[key] || !state.ready || state.running) return;
+    if (state.focusedStage === key) {
+      moveInspection(0);
+      return;
+    }
+    if (state.inspectTarget < 1 && state.inspectProgress < 0.95) moveInspection(1, key);
+    else setFocusedStage(key);
+  };
+
+  const updateInspectionMotion = (now) => {
+    let active = false;
+    if (state.inspectMotion) {
+      const progress = clamp((now - state.inspectMotion.startedAt) / state.inspectMotion.duration, 0, 1);
+      state.inspectProgress = mix(state.inspectMotion.from, state.inspectMotion.to, easeInOut(progress));
+      active = progress < 1;
+      if (progress >= 1) {
+        state.inspectProgress = state.inspectMotion.to;
+        state.inspectMotion = null;
+        completeInspectionState();
+      }
+    }
+    if (state.focusMotion) {
+      const progress = clamp((now - state.focusMotion.startedAt) / state.focusMotion.duration, 0, 1);
+      state.focusProgress = mix(state.focusMotion.from, state.focusMotion.to, easeInOut(progress));
+      active = progress < 1 || active;
+      if (progress >= 1) {
+        state.focusProgress = state.focusMotion.to;
+        state.focusMotion = null;
+      }
+    }
+    applyInspectionLayout();
+    return active;
   };
 
   const updateReachedStages = (keys) => {
@@ -1003,7 +1265,7 @@ if (stationRoot) {
     requestRender();
   };
 
-  const startRun = (scenario = "pass") => {
+  const beginRun = (scenario = "pass") => {
     if (!state.ready || state.running) return;
     resetRunVisuals();
     state.scenario = scenario === "block" ? "block" : "pass";
@@ -1024,6 +1286,17 @@ if (stationRoot) {
     updateExecution("contract", 0);
     selectStage("contract", { pause: false });
     requestRender();
+  };
+
+  const startRun = (scenario = "pass") => {
+    if (!state.ready || state.running) return;
+    if (state.inspectTarget > 0 || state.inspectProgress > 0.02 || state.inspectMotion) {
+      state.pendingScenario = scenario;
+      runButtons.forEach((button) => { button.disabled = true; });
+      moveInspection(0);
+      return;
+    }
+    beginRun(scenario);
   };
 
   const updateRun = (now) => {
@@ -1190,18 +1463,6 @@ if (stationRoot) {
     requestRender();
   };
 
-  const toggleInspect = () => {
-    if (!state.particle || !state.ready) return;
-    state.particle.inspectTarget = state.particle.inspectTarget ? 0 : 1;
-    inspectButton?.setAttribute("aria-pressed", String(Boolean(state.particle.inspectTarget)));
-    setStatus(state.particle.inspectTarget
-      ? "Ligand core isolated · nearby protein particles displaced"
-      : "Particle field returning to stored positions");
-    selectStage("agent", { pause: true });
-    if (motionIsReduced()) updateParticleField(true);
-    requestRender();
-  };
-
   const updateRevealItems = (now) => {
     if (!state.revealItems.length) return false;
     state.revealItems = state.revealItems.filter((item) => {
@@ -1227,6 +1488,7 @@ if (stationRoot) {
     active = updateRun(now) || active;
     active = updateHumanMotion(now) || active;
     active = updateResultMotion(now) || active;
+    active = updateInspectionMotion(now) || active;
     if (state.particle && !motionIsReduced()) active = updateParticleField(false) || active;
     state.renderer.render(state.scene, state.camera);
     updateMarkers();
@@ -1253,6 +1515,7 @@ if (stationRoot) {
     state.camera.lookAt(0, nextMobile ? 0.08 : 0.42, 0.18);
     state.camera.updateProjectionMatrix();
     if (layoutChanged || !state.route) applyLayout();
+    else applyInspectionLayout();
     requestRender();
   };
 
@@ -1284,14 +1547,40 @@ if (stationRoot) {
     requestRender();
   };
 
+  const focusModuleAtPointer = (event) => {
+    if (!state.ready || state.running || !state.camera) return;
+    const bounds = viewport.getBoundingClientRect();
+    const pointer = new THREE.Vector2(
+      (event.clientX - bounds.left) / bounds.width * 2 - 1,
+      -((event.clientY - bounds.top) / bounds.height) * 2 + 1,
+    );
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(pointer, state.camera);
+    const intersections = raycaster.intersectObjects(Array.from(state.modules.values()), true);
+    for (const intersection of intersections) {
+      let object = intersection.object;
+      while (object && object !== state.rig) {
+        if (object.userData?.moduleKey) {
+          const stageKey = stageByModule[object.userData.moduleKey];
+          if (stageKey) focusInspectionStage(stageKey);
+          return;
+        }
+        object = object.parent;
+      }
+    }
+  };
+
   const bindInteractions = () => {
     stageMarkers.forEach((marker, key) => {
-      marker.querySelector("button")?.addEventListener("click", () => selectStage(key, { pause: true }));
+      marker.querySelector("button")?.addEventListener("click", () => {
+        if (state.running) selectStage(key, { pause: true });
+        else focusInspectionStage(key);
+      });
     });
     runButtons.forEach((button) => {
       button.addEventListener("click", () => startRun(button.dataset.stationScenario || "pass"));
     });
-    inspectButton?.addEventListener("click", toggleInspect);
+    inspectButton?.addEventListener("click", toggleHarnessInspection);
     humanButton?.addEventListener("click", (event) => {
       if (event.detail > 0 && state.leverMoved) {
         event.preventDefault();
@@ -1344,6 +1633,7 @@ if (stationRoot) {
       state.dragging = true;
       state.pointerId = event.pointerId;
       state.pointerX = event.clientX;
+      state.pointerMoved = false;
       stationRoot.classList.add("is-dragging");
       viewport.setPointerCapture?.(event.pointerId);
       if (state.particle) state.particle.pointerActive = false;
@@ -1352,9 +1642,8 @@ if (stationRoot) {
       if (state.dragging && event.pointerId === state.pointerId) {
         const delta = event.clientX - state.pointerX;
         state.pointerX = event.clientX;
+        state.pointerMoved = state.pointerMoved || Math.abs(delta) > 2;
         setYaw(state.yaw + delta * 0.0026);
-      } else {
-        updateParticlePointer(event);
       }
     });
     const endDrag = (event) => {
@@ -1364,14 +1653,15 @@ if (stationRoot) {
         stationRoot.classList.remove("is-dragging");
       }
     };
-    viewport?.addEventListener("pointerup", endDrag);
+    viewport?.addEventListener("pointerup", (event) => {
+      const shouldFocus = state.dragging && !state.pointerMoved && event.pointerId === state.pointerId;
+      endDrag(event);
+      if (shouldFocus) focusModuleAtPointer(event);
+    });
     viewport?.addEventListener("pointercancel", endDrag);
     viewport?.addEventListener("pointerleave", (event) => {
       endDrag(event);
-      if (state.particle) {
-        state.particle.pointerActive = false;
-        requestRender();
-      }
+      if (state.particle) state.particle.pointerActive = false;
     });
     viewport?.addEventListener("keydown", (event) => {
       if (event.key === "ArrowLeft") {
@@ -1380,10 +1670,11 @@ if (stationRoot) {
       } else if (event.key === "ArrowRight") {
         event.preventDefault();
         setYaw(state.yaw + THREE.MathUtils.degToRad(3));
-      } else if (event.key.toLowerCase() === "r") {
+      } else if (event.key === "Escape" || event.key.toLowerCase() === "r") {
         event.preventDefault();
         setYaw(0);
-        setStatus("View reset · route state preserved");
+        if (state.inspectTarget > 0 || state.inspectProgress > 0.02 || state.focusedStage) moveInspection(0);
+        else setStatus("View reset · route state preserved");
       }
     });
   };
@@ -1493,6 +1784,22 @@ if (stationRoot) {
     if (motionIsReduced()) {
       state.running = false;
       state.revealItems = [];
+      if (state.inspectTarget > 0 || state.inspectProgress > 0.02) {
+        state.inspectProgress = 1;
+        state.inspectTarget = 1;
+        state.inspectMotion = null;
+        state.focusProgress = state.focusedStage ? 1 : 0;
+        state.focusTarget = state.focusProgress;
+        state.focusMotion = null;
+        stationRoot.dataset.stationState = "reduced";
+        stationRoot.dataset.inspection = "open";
+        setInspectControl(true);
+        applyInspectionLayout();
+        updateParticleField(true);
+        setStatus("Harness separated · reduced-motion inspection");
+        requestRender();
+        return;
+      }
       state.modules.forEach((wrapper) => {
         const base = wrapper.userData.basePosition;
         if (base) wrapper.position.copy(base);
@@ -1519,7 +1826,11 @@ if (stationRoot) {
       }
     } else {
       stationRoot.dataset.stationState = state.reviewReady ? "complete" : "ready";
-      if (state.humanDecision) {
+      if (state.inspectTarget > 0 || state.inspectProgress > 0.02) {
+        setStatus(state.focusedStage
+          ? `${stageDetails[state.focusedStage].title} focused`
+          : "Harness separated · select a module to focus");
+      } else if (state.humanDecision) {
         setStatus(`Human ${state.humanDecision} decision recorded`);
       } else if (state.reviewReady) {
         setStatus("Six gates passed · choose a human scope decision");

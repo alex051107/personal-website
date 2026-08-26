@@ -1,4 +1,36 @@
 /* Hallmark · custom theme · warm paper / carbon ink / muted-brass signal */
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("fonts/InstrumentSerif-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("fonts/InstrumentSans-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("fonts/InstrumentSans-SemiBold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("fonts/GeistMono-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
 
@@ -34,11 +66,11 @@
   --color-workflow-label: oklch(12% 0.012 66 / 0.90);
   --color-workflow-overlay: oklch(12% 0.012 66 / 0.94);
 
-  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, serif;
-  --font-body: "Avenir Next", "Segoe UI", sans-serif;
-  --font-outlier: "SFMono-Regular", "Cascadia Code", "Liberation Mono", monospace;
+  --font-display: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  --font-body: "Instrument Sans", "Avenir Next", "Segoe UI", sans-serif;
+  --font-outlier: "Geist Mono", "SFMono-Regular", "Cascadia Code", "Liberation Mono", monospace;
 
-  --display-weight: 600;
+  --display-weight: 400;
   --display-style: normal;
   --tracking-display: -0.035em;
   --tracking-label: 0.05em;

@@ -33,6 +33,7 @@ CONTENT_PAGES = {
     Path("research/dynamics-atlas.html"),
     Path("research/ligamd-pkoff.html"),
 }
+REVIEW_ARTIFACT_PAGES = {Path("proofs/typography/index.html")}
 REQUIRED_HERO_MODELS = {
     "hero-harness-input-dock-v1.glb",
     "hero-harness-chassis-v1.glb",
@@ -45,42 +46,10 @@ REQUIRED_HERO_MODELS = {
 }
 REQUIRED_TEMPLATE_NAMES = {
     "motionsites": {"ai-agent-pipeline", "agent-plan"},
-    "reactbits": {"scroll-expand", "animated-list"},
+    "reactbits": {"animated-list"},
     "uiverse": {"progress-status-card", "terminal-card"},
     "anime": {"create-drawable", "create-motion-path"},
     "aceternity": {"sticky-scroll-reveal", "tracing-beam"},
-}
-REQUIRED_MOTION_LIBRARY_EFFECTS = {
-    "scrollmagic": {
-        "sm-scene-toggle",
-        "sm-story-scrub",
-        "sm-hero-depth",
-        "sm-matrix-scan",
-    },
-    "vueuse": {
-        "vue-fade-visible",
-        "vue-roll-visible",
-        "vue-pointer-parallax",
-        "vue-press-variant",
-    },
-    "react-spring": {
-        "spring-basic-trail",
-        "spring-scrolling-wave",
-        "spring-dock",
-        "spring-active-node",
-    },
-    "lottie-web": {
-        "lottie-contract",
-        "lottie-agent",
-        "lottie-gate",
-        "lottie-receipt",
-    },
-    "gsap": {
-        "gsap-word-reveal",
-        "gsap-stage-timeline",
-        "gsap-state-transition",
-        "gsap-plate-reveal",
-    },
 }
 STALE_STRINGS = {
     "zwt233": "reference-site identity leaked into the portfolio",
@@ -219,7 +188,7 @@ class PageParser(HTMLParser):
         if tag == "meta" and values.get("http-equiv", "").lower() == "refresh":
             self.meta_refreshes.append(values.get("content", ""))
         if tag in {"img", "script", "link"}:
-            source = values.get("src") or values.get("href")
+            source = values.get("src") or values.get("data-src") or values.get("href")
             if source:
                 self.assets.append((tag, source))
         if tag == "img":
@@ -457,7 +426,7 @@ def main() -> int:
             ):
                 if needle not in page_text:
                     errors.append(f"{relative_page}: required metadata/accessibility hook missing: {needle}")
-        elif parser.scripts:
+        elif relative_page not in REVIEW_ARTIFACT_PAGES and parser.scripts:
             errors.append(f"{relative_page}: redirect/archive page has unexpected scripts")
 
     index_text = index.read_text(encoding="utf-8") if index.exists() else ""
@@ -476,11 +445,8 @@ def main() -> int:
                 f"found {home.decision_matrix_body_rows}"
             )
 
-        if home.motion_source_maps != 1:
-            errors.append(
-                "index.html: expected exactly one motion-source-map; "
-                f"found {home.motion_source_maps}"
-            )
+        if home.motion_source_maps:
+            errors.append("index.html: public motion-source-map must remain removed")
         for label, actual in (
             ("workflow status cards", home.workflow_statuses),
             ("workflow terminals", home.workflow_terminals),
@@ -510,18 +476,8 @@ def main() -> int:
                     f"found {sorted(actual_names)}"
                 )
 
-        actual_library_rows = dict(home.motion_library_rows)
-        if set(actual_library_rows) != set(REQUIRED_MOTION_LIBRARY_EFFECTS):
-            errors.append(
-                "index.html: motion library score must expose exactly "
-                f"{sorted(REQUIRED_MOTION_LIBRARY_EFFECTS)}; found {sorted(actual_library_rows)}"
-            )
-        for library, effect_ids in REQUIRED_MOTION_LIBRARY_EFFECTS.items():
-            if actual_library_rows.get(library) != str(len(effect_ids)):
-                errors.append(
-                    f"index.html: motion library {library!r} must declare {len(effect_ids)} effects; "
-                    f"found {actual_library_rows.get(library)!r}"
-                )
+        if home.motion_library_rows:
+            errors.append("index.html: public motion library score must remain removed")
 
         stories = home.project_stories
         if len(stories) != 4:
@@ -591,6 +547,18 @@ def main() -> int:
                     f"index.html: project story {story_name!r} has invalid result stages: "
                     f"{invalid_result_stages}"
                 )
+        stage_image_tags = re.findall(r'<img\s+[^>]*data-story-art="[0-5]"[^>]*>', index_text)
+        eager_stage_images = [tag for tag in stage_image_tags if re.search(r'\ssrc="images/project-stages/', tag)]
+        deferred_stage_images = [tag for tag in stage_image_tags if 'data-src="images/project-stages/' in tag]
+        if len(stage_image_tags) != 24 or len(eager_stage_images) != 8 or len(deferred_stage_images) != 16:
+            errors.append(
+                "index.html: project-stage loading window must expose 24 images as "
+                f"8 initial + 16 deferred; found total={len(stage_image_tags)}, "
+                f"initial={len(eager_stage_images)}, deferred={len(deferred_stage_images)}"
+            )
+        for class_name in ("project-story__what", "project-story__evidence"):
+            if index_text.count(f'class="{class_name}"') != 4:
+                errors.append(f"index.html: expected one {class_name} contract in each project story")
     if index_text.count('src="images/portrait.png"') != 1:
         errors.append("index.html: the unchanged portrait must appear exactly once")
     if index_text.count('class="index-opening__portrait"') != 1:
@@ -611,8 +579,8 @@ def main() -> int:
         'data-station-execution',
         'data-station-lever',
         'data-station-result',
-        'Agent Harness / bounded route',
-        'Gate × 6',
+        'Scientific Agent Harness / inspection plate',
+        'Gates × 6',
     ):
         if index_text.count(marker) != 1:
             errors.append(f"index.html: expected one readable Hero station marker: {marker}")
@@ -672,6 +640,7 @@ def main() -> int:
         ".project-story__step",
         ".hero-station",
         ".hero-station__markers",
+        ".hero-station__leaders",
         ".hero-station__execution",
         ".hero-station__lever",
         ".hero-station__result",
@@ -701,6 +670,8 @@ def main() -> int:
             "aria-pressed",
             "ArrowRight",
             "createMotionPath",
+            "hydrateStageWindow",
+            "dataset.src",
         ):
             if needle not in script_text:
                 errors.append(f"js/site-motion.js: missing progressive-motion guard: {needle}")
@@ -731,6 +702,11 @@ def main() -> int:
             "flowBeads",
             "dataset.stepState",
             "aria-pressed",
+            "applyInspectionLayout",
+            "setFocusedStage",
+            "moveInspection",
+            "pendingScenario",
+            "leaderLines",
         ):
             if needle not in station_text:
                 errors.append(f"js/hero-station.js: missing progressive-3D guard: {needle}")
@@ -744,14 +720,6 @@ def main() -> int:
         errors.append("js/hero-station.js: local Hero station runtime is missing")
     if library_motion_script.exists():
         library_motion_text = library_motion_script.read_text(encoding="utf-8")
-        expected_effects = set().union(*REQUIRED_MOTION_LIBRARY_EFFECTS.values())
-        actual_effects = set(re.findall(r'\{ id: "([a-z0-9-]+)", library:', library_motion_text))
-        if actual_effects != expected_effects:
-            errors.append(
-                "js/motion-library-showcase.js: expected the exact 20-effect ledger; "
-                f"missing={sorted(expected_effects - actual_effects)} "
-                f"extra={sorted(actual_effects - expected_effects)}"
-            )
         for needle in (
             "ScrollMagicRuntime.Scene",
             "IntersectionObserver",
@@ -771,7 +739,7 @@ def main() -> int:
                     f"{forbidden}"
                 )
     else:
-        errors.append("js/motion-library-showcase.js: 20-effect integration is missing")
+        errors.append("js/motion-library-showcase.js: supporting motion integration is missing")
     if not anime_script.exists() or "Anime.js - UMD minified bundle" not in anime_script.read_text(
         encoding="utf-8"
     ):
@@ -786,6 +754,19 @@ def main() -> int:
     for vendor_file in motion_vendor_files:
         if not vendor_file.exists() or vendor_file.stat().st_size == 0:
             errors.append(f"required local motion runtime or license is missing: {vendor_file.relative_to(ROOT)}")
+
+    production_font_files = {
+        ROOT / "fonts" / "InstrumentSerif-Regular.woff2",
+        ROOT / "fonts" / "InstrumentSans-Regular.woff2",
+        ROOT / "fonts" / "InstrumentSans-SemiBold.woff2",
+        ROOT / "fonts" / "GeistMono-Medium.woff2",
+        ROOT / "fonts" / "licenses" / "Instrument-Serif-OFL.txt",
+        ROOT / "fonts" / "licenses" / "Instrument-Sans-OFL.txt",
+        ROOT / "fonts" / "licenses" / "Geist-OFL.txt",
+    }
+    for font_file in production_font_files:
+        if not font_file.exists() or font_file.stat().st_size == 0:
+            errors.append(f"required production font or license is missing: {font_file.relative_to(ROOT)}")
 
     three_vendor_files = {
         ROOT / "js" / "vendor" / "three" / "three.module.min.js",

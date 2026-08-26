@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Brand Pass · Typography proof</title>
+    <link rel="stylesheet" href="proof.css" />
+  </head>
+  <body>
+    <header class="proof-nav">
+      <p>Brand Pass / Typography proof</p>
+      <nav aria-label="Typeface candidates">
+        <a href="?candidate=instrument" data-candidate-link="instrument">01 Instrument</a>
+        <a href="?candidate=plex" data-candidate-link="plex">02 Newsreader / Plex</a>
+        <a href="?candidate=current" data-candidate-link="current">03 Current system</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="proof-hero" aria-labelledby="proof-title">
+        <div class="proof-hero__copy">
+          <p class="eyebrow">AI for Science · Scientific software</p>
+          <h1 id="proof-title">The evidence around the answer.</h1>
+          <p class="thesis">
+            AI can search, draft, and compare. I build the scientific software
+            that keeps the evidence, stopping rules, and final decision in view.
+          </p>
+        </div>
+        <aside class="proof-hero__instrument" aria-label="Harness summary">
+          <p class="technical">HARNESS / INSPECTION PLATE 01</p>
+          <ol>
+            <li><span>Contract</span><strong>TaskPacket</strong></li>
+            <li><span>Agent</span><strong>Locator only</strong></li>
+            <li><span>Tool</span><strong>Registered call</strong></li>
+            <li><span>Gates</span><strong>6 deterministic checks</strong></li>
+            <li><span>Human</span><strong>Release / revise / reject</strong></li>
+          </ol>
+        </aside>
+      </section>
+
+      <section class="proof-section" aria-labelledby="matrix-title">
+        <header class="section-heading">
+          <p class="eyebrow">Comparison matrix</p>
+          <h2 id="matrix-title">Four systems, four scientific objects.</h2>
+        </header>
+        <div class="matrix" role="table" aria-label="Project comparison">
+          <div class="matrix__row matrix__row--head" role="row">
+            <span role="columnheader">Project</span><span role="columnheader">Object</span><span role="columnheader">Automated move</span><span role="columnheader">Stopping rule</span>
+          </div>
+          <div class="matrix__row" role="row">
+            <strong role="cell">EvidenceOps</strong><span role="cell">Scientific passage</span><span role="cell">Extract a claim</span><span role="cell">Exact source support</span>
+          </div>
+          <div class="matrix__row" role="row">
+            <strong role="cell">Dynamics Atlas</strong><span role="cell">Molecular dataset</span><span role="cell">Locate a compatible source</span><span role="cell">Six compatibility gates</span>
+          </div>
+          <div class="matrix__row" role="row">
+            <strong role="cell">HSP90 / LiGaMD</strong><span role="cell">Protein–ligand system</span><span role="cell">Compare grouped models</span><span role="cell">Uncertainty spans zero</span>
+          </div>
+          <div class="matrix__row" role="row">
+            <strong role="cell">CarePlan</strong><span role="cell">Synthetic order</span><span role="cell">Draft a typed plan</span><span role="cell">Eligibility and human authority</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof-section workflow-proof" aria-labelledby="workflow-title">
+        <header class="section-heading">
+          <p class="eyebrow">Workflow stage</p>
+          <h2 id="workflow-title">A route can stop before a result exists.</h2>
+        </header>
+        <div class="stage-grid">
+          <div class="stage-figure" aria-hidden="true">
+            <span class="stage-node">TaskPacket</span>
+            <span class="stage-line"></span>
+            <span class="stage-node stage-node--active">G3</span>
+            <span class="stage-line stage-line--blocked"></span>
+            <span class="stage-node stage-node--muted">Result</span>
+          </div>
+          <div class="stage-copy">
+            <p class="technical">GATE G3 / RESIDUE MAPPING</p>
+            <h3>The identifier resolves, but the residue map does not.</h3>
+            <p>
+              The tool call is recorded. The route stops at G3, before the
+              receipt can claim a compatible molecular bundle. Human review
+              sees the failed field and the exact stop reason.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof-section reading-proof" aria-labelledby="reading-title">
+        <header class="section-heading">
+          <p class="eyebrow">Long-form case paragraph</p>
+          <h2 id="reading-title">One simulation system still has one experimental label.</h2>
+        </header>
+        <p class="long-copy">
+          Thousands of simulation frames can describe one protein–ligand system,
+          but they do not create thousands of independent experimental outcomes.
+          I built replica-aware features and grouped evaluation so frames from the
+          same system stay together. On the current N31 panel, the strongest result
+          did not separate reliably from the comparison models, so no model was
+          selected. The useful output is the evaluation record: which systems were
+          held out together, which metric was measured, and where the uncertainty
+          remains.
+        </p>
+      </section>
+
+      <section class="proof-section receipt-proof" aria-labelledby="receipt-title">
+        <header class="section-heading">
+          <p class="eyebrow">Technical receipt</p>
+          <h2 id="receipt-title">A result carries its route.</h2>
+        </header>
+        <dl class="receipt">
+          <div><dt>OBJECT</dt><dd>EvidenceBundle / 0142</dd></div>
+          <div><dt>TOOL CALL</dt><dd>locate_registered_source()</dd></div>
+          <div><dt>GATE</dt><dd>G3 · residue_map · BLOCK</dd></div>
+          <div><dt>STOP REASON</dt><dd>Canonical residue mapping not resolved.</dd></div>
+          <div><dt>HUMAN STATE</dt><dd>Review required · no result emitted</dd></div>
+        </dl>
+      </section>
+    </main>
+
+    <footer class="proof-footer">
+      <p data-candidate-readout>Candidate 01 / Instrument Serif · Instrument Sans · Geist Mono</p>
+      <p>Same content · same layout · only the type system changes</p>
+    </footer>
+
+    <script>
+      const candidates = {
+        instrument: "Candidate 01 / Instrument Serif · Instrument Sans · Geist Mono",
+        plex: "Candidate 02 / Newsreader · IBM Plex Sans · IBM Plex Mono",
+        current: "Candidate 03 / Current system fonts"
+      };
+      const requested = new URLSearchParams(location.search).get("candidate");
+      const candidate = Object.hasOwn(candidates, requested) ? requested : "instrument";
+      document.body.dataset.candidate = candidate;
+      document.querySelector("[data-candidate-readout]").textContent = candidates[candidate];
+      document.querySelector(`[data-candidate-link="${candidate}"]`).setAttribute("aria-current", "page");
+    </script>
+  </body>
+</html>

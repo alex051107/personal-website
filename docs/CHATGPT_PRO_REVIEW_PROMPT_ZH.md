@@ -1,96 +1,119 @@
-### 目标
+# Personal Website Brand Pass 独立审查提示词
 
-审查这个个人网站是否真正把“AI for Science、Agent workflow 和可审查的工程证据”讲清楚，并判断当前版本应该保留后精修、重构首页，还是重做 Hero 与项目叙事。请直接检查线上页面和 GitHub 源码，不要根据 README 或下面的自述替实现辩护。
+请对 Zhenpeng Liu 的个人网站做一次独立、证据优先的设计与实现审查。本轮只审查已经完成的 **Brand Pass：Hero、字体、文案**。不要因为仓库文档说“完成”就替实现辩护；也不要因为早期需求曾要求大量动效，就把“增加更多效果”当成默认答案。
 
-当前版本可能存在结构性问题。不要因为已经制作了大量图片、3D 模型和动效就倾向保留，也不要因为提示词列出了参考来源就默认这些来源已经被有效使用。
-
-### 审查对象
+## 审查对象
 
 - 线上页面：<https://alex051107.github.io/personal-website/>
 - GitHub 仓库：<https://github.com/alex051107/personal-website>
-- 本轮实现基线：<https://github.com/alex051107/personal-website/commit/3281a26ab78e94a9e6e139a472a9633de0af4afe>
-- 审查入口：`docs/REVIEW_GUIDE.md`
-- 设计与动效合同：`design.md`
-- 第三方来源与许可：`THIRD_PARTY_NOTICES.md`
-- Hero 代码：`js/hero-station.js`
-- 滚动联动代码：`js/site-motion.js`
-- Hero 资源映射：`docs/hero-harness-module-manifest.md`
+- 本轮实现提交：`BRAND_PASS_IMPLEMENTATION_COMMIT`
+- Brand Pass 总纲：`docs/BRAND_PASS_BRIEF.md`
+- Hero 候选研究：`docs/HERO_REFERENCE_MATRIX.md`
+- 字体等内容证明：`docs/TYPOGRAPHY_PROOF.md`
+- 文案和 claim change log：`docs/COPY_STYLE_GUIDE.md`
+- 浏览器验收：`docs/BRAND_PASS_ACCEPTANCE.md`
+- 依赖与 payload：`docs/BRAND_PASS_PAYLOAD.md`
+- Hero 实现：`js/hero-station.js`
+- 项目滚动和阶段图加载：`js/site-motion.js`
+- 来源与许可：`THIRD_PARTY_NOTICES.md`
 
-如有浏览器或 Computer Use，请在 1440px 桌面宽度和约 390px 手机宽度实际操作。分别运行 Hero 的 PASS 和 BLOCK 示例，确认 BLOCK 在 G3 `residue_map` 停止，PASS 才开放 release / revise / reject；再滚动四个项目的全部 Step，尝试点击与键盘切换，并检查 reduced-motion。无法访问或无法操作的项目标记为 `CANNOT_VERIFY`，不要补写观察结果。
+若线上页面与固定提交不一致，以固定提交为源码证据，并把线上差异写成 deployment mismatch。
 
-### 原始设计目标
+## 已接受的基线，不要推翻
 
-这个网站不是普通的 AI SaaS 批发页。访问者应该在最初几秒看懂作者在做 AI for Science、科学工作流和 bounded Agent engineering；后续叙事需要说明四个项目分别解决什么问题、AI 或 Agent 做了什么、软件规则控制什么、人保留什么权力、结果留下什么证据。
+- 四个项目各有六张阶段图，共 24 张；图与原生滚动同步。
+- 纸张、碳黑、石墨、克制黄铜、自然头像和大图方向保留。
+- EvidenceOps、CarePlan、Dynamics Atlas、HSP90 / LiGaMD 是不同科学对象，不应被改写成四个同构 AI Agent 产品。
+- 本轮不该再生成一套项目配图，不该恢复“一张概念图 + 六段文字”，也不该增加 React、Spline、Lenis、shader 或新的生产动画 runtime。
 
-保留当前偏纸张、碳黑、暖灰和克制黄铜的编辑设计。不要建议紫色、蓝黑渐变、霓虹光晕、玻璃卡片、圆角卡片墙、假 Dashboard、机器人脑图标或通用粒子背景。作者喜欢现在的整体风格、自然头像和大幅项目图片，问题主要在信息是否清楚、动效是否与项目语义绑定、交互是否有高级感。
+## 本轮目标
 
-早期 “Good Move” 提案中值得保留的是 classical-art landing 的高端排版、明暗关系、触摸响应和克制的进入动效。后续反馈已经否决玻璃拟态、蓝黑 AI 配色和为了炫技而存在的特效。请按后续反馈判断，不要把早期提案当成必须恢复的视觉规范。
+陌生访问者在最初 8–10 秒应能理解：
 
-Hero 应该是一台能读懂的 3D Agent Harness，不是一组抽象模型。目标流程为 `TaskPacket → Locator Agent suggestion → registered tool → G1–G6 → accepted / needs input / blocked → DecisionTrace + RunReceipt → human scope decision → Result`。确认 Agent 标签绑定 locator carrier，不绑定粒子或中央 chassis；Trace 必须在 Gate verdict 之后开始；Result 必须是独立状态。粒子应该表达蛋白质或分子对象与 Agent Harness 的关系，不应只是“看起来像 AI”的装饰。
+1. 作者在做 AI for Science 和 scientific software；
+2. 核心工程观点是模型答案之外的 evidence、stopping rules、recorded state 和 human authority；
+3. Hero 是一台可理解的 Agent Harness，不是抽象 AI 雕塑；
+4. 网站像科学编辑作品集，而不是 SaaS 模板或动效组件展厅。
 
-四个项目的图片、流程图、Step、状态卡和正文必须使用同一个对象与同一条路线。图片要让人一眼看懂输入、AI 或 Agent 动作、工具、规则或 Gate、输出和人工边界。内容顺序应从一般问题与重要性进入具体实现，再到记录结果和限制，尤其要让没有生化背景的读者明白科学对象为什么重要。
+## 必须实际操作的 Hero 状态
 
-滚动应承担解释工作。进入一个项目后，页面可保持主场景可见；滚动到不同 Step 时，场景焦点、当前节点、进入该节点的光路、状态卡、运行记录和解释文字应同步变化。手机端可以改为紧凑的 Sticky Step Dock，但不能劫持原生滚动。
+请在 1440px 桌面和约 390px 手机宽度实际操作。无法操作的项目写 `CANNOT_VERIFY`，不要根据文档补观察。
 
-### 最初提供的灵感材料
+1. **ASSEMBLED**：页面静止；七个模块可识别；Contract、route 和 Human 面板不应遮住模型。
+2. **INSPECT**：点击 `Inspect the harness`；模块有限距离分离；七个 label 和 leader line 应绑定真实模块并避免重叠。
+3. **FOCUS**：选择 Gates 或另一个模块；目标保留，其他模块变暗；再次选择或 Escape 应恢复完整装置。
+4. **PASS**：装置先重新组装，再按 Contract → Agent → Tool → G1–G6 → Receipt 运行；Human release / revise / reject 只在六个 Gate 通过后开放；Human 选择必须改变 Result。
+5. **BLOCK**：在 G3 `residue_map` 停止；下游不得伪装成成功；receipt 应记录 block；release 不可用；Result 应为 `BLOCKED` 或 `NEEDS INPUT`。
+6. **边界**：检查 reduced motion、Save-Data static fallback、键盘 Enter/Escape、390px 触屏和原生滚动。
 
-这些抖音视频记录了最初的审美、3D 和粒子方向。若页面无法访问，保留 `CANNOT_VERIFY`，使用上面的文字目标完成审查。
+## Hero 参考选择的核验方式
 
-- Hallmark / 去通用 AI 味：<https://v.douyin.com/qdmmJMICz6A/>
-- 五个动效资源网站：<https://v.douyin.com/w5PBVIDOS8s/>
-- Motion Sites 等动态参考：<https://v.douyin.com/UvzxXpTvvZ8/>
-- Image-to-3D Hero 流程：<https://v.douyin.com/CO2PJSd3JjQ/>
-- 3D 粒子网站交互：<https://v.douyin.com/ZWMPFy8AflY/>
+不要要求页面把 10 个来源做成 10 个可识别特效。`docs/HERO_REFERENCE_MATRIX.md` 应记录至少 10 个候选及其依赖、许可/复用边界、输入方式、滚动所有权和 KEEP/ADAPT/REJECT。生产实现只应保留一个机制：
 
-### 必须逐项对照的 10 个动效参考
+> Exploded Scientific Agent Harness with world-bound leader labels
 
-五个资源目录为 Motion Sites <https://motionsites.org/>、React Bits <https://reactbits.dev/>、Uiverse <https://uiverse.io/>、Anime.js <https://animejs.com/> 和 Aceternity UI <https://ui.aceternity.com/>。Motion Sites 中的 “Future State” 与 “Exact” 也是审美检索词，但本轮需要核验的是下面十个已经声明适配的具体对象。
+重点参考：
 
-1. MotionSites AI Agent Pipeline：<https://motionsites.org/prompts/dani-0212bfb0-ai-agent-pipeline>
-2. MotionSites Agent Plan：<https://motionsites.org/prompts/user-2tkbbpfwyn8ymjznhwgiup3yzvd-agent-plan>
-3. React Bits Scroll Expand：<https://reactbits.dev/animations/scroll-expand>
-4. React Bits Animated List：<https://reactbits.dev/components/animated-list>
-5. Uiverse Progress Status Card：<https://uiverse.io/Cybercom682/ordinary-duck-36>
-6. Uiverse Terminal Card：<https://uiverse.io/Yaya12085/soft-jellyfish-99>
-7. Anime.js `createDrawable`：<https://animejs.com/documentation/svg/createdrawable/>
-8. Anime.js `createMotionPath`：<https://animejs.com/documentation/svg/createmotionpath/>
-9. Aceternity UI Sticky Scroll Reveal：<https://ui.aceternity.com/components/sticky-scroll-reveal>
-10. Aceternity UI Tracing Beam：<https://ui.aceternity.com/components/tracing-beam>
+- Motion Prompts — Exploded Product with Leader Labels：<https://motionprompts.dev/component/exploded-product-labels/>
+- Motion Prompts — Dotted Path Traveller：<https://motionprompts.dev/component/dotted-path-traveller/>
+- Three.js CSS2D label example：<https://threejs.org/examples/css2d_label>
+- Theatre.js：<https://www.theatrejs.com/>
+- Motion Primitives：<https://motion-primitives.com/>
+- Codrops：<https://tympanus.net/codrops/>
 
-另外检查这两个曾被提出、后来没有纳入的 21st.dev 参考。判断“拒绝其视觉外观，但保留其中某个交互机制”是否有价值。
+判断标准是“机制是否解释真实 scientific object”，不是“像不像参考网站”。不得建议恢复 Lenis、pinned scroll、自动循环、通用粒子、Aurora、霓虹、机器人核心或新的 runtime，除非你先证明当前方案有具体不可修复的问题。
 
-- Neon Nebula：<https://21st.dev/r/karthiksivacharan/neon-nebula>
-- N Ascii：<https://21st.dev/r/nblairwalker/n-ascii>
+## 字体审查
 
-### 待核验结论
+核验 `proofs/typography/index.html` 是否用同一份真实内容比较：
 
-- C1. 首屏在五秒内能让陌生访问者看懂作者方向是 AI for Science，而不是泛 AI 设计或纯计算生物学作品集。
-- C2. Hero 的物体、标签、PASS/BLOCK 动效和交互共同解释一条 Agent Harness workflow；用户能看懂 Locator Agent 的权限、六道 Gate、receipt 与人工决定为什么彼此分离。
-- C3. 3D、粒子和光路有项目语义；每个动作代表真实的输入、调用、检查、状态或人工决定。
-- C4. 滚动到不同 Step 时，主场景节点、进入路线、状态卡、`event / owner / outcome` receipt 和正文处于同一个项目阶段；手动点击不会立即被滚动抢回，也不会把四个项目改写成同一套空泛模板。
-- C5. EvidenceOps、Dynamics Atlas、HSP90 / LiGaMD、CarePlan 四个项目都有明确的 `why → input → AI/Agent/ML action → tool/rule/gate → output/record → limitation`，图片与文字逐项对应；“Compare the four systems” 使用统一且有意义的比较维度。
-- C6. 10 个参考动效在体验中各自可识别并承担信息功能，没有为了凑数量而重复实现同一种淡入、发光或进度条。
-- C7. 页面保留编辑感和自然头像，同时避免典型 AI 模板排版；大图获得足够空间，文字层级和留白没有掩盖信息缺口。
-- C8. 生化与科学内容先交代一般问题和决策意义，再进入术语与实现；非专业读者不会被碎片化字段挡在外面。
-- C9. 桌面、手机、键盘、触屏和 reduced-motion 都能完成核心叙事；没有横向溢出、焦点丢失、滚动卡顿或持续占用资源的动画。
-- C10. 仓库里的图片、GLB、vendored runtime、来源说明和 claim boundary 足够让第三方复查；网页表现与源码、文档没有互相矛盾。
+1. Instrument Serif + Instrument Sans + Geist Mono；
+2. Newsreader + IBM Plex Sans + IBM Plex Mono；
+3. 原来的系统字体。
 
-### 输出合同
+检查 1440px 和 390px 的 Hero、比较矩阵、workflow stage、长段落和 technical receipt。生产字体必须本地 WOFF2、有 OFL notice、只 preload 首屏必要字重、无 synthetic bold，并在 macOS / Windows 使用相同 primary family。不要只评价“更好看”；说明 display identity、长文阅读、technical state 区分和手机换行。
 
-输出以一个不超过 150 字的总判断开头，其余内容包括以下七项。
+## 文案与 claim 审查
 
-1. `C1–C10` 审查表。每项只能标记 `PASS`、`PARTIAL`、`FAIL` 或 `CANNOT_VERIFY`。证据必须指向具体页面区段、可见行为、CSS selector、源码路径或准确网址。
-2. 10 个动效参考对照表。每个参考写清当前实现在哪里、保留了什么交互机制、是否只是表面模仿，以及最小修改是什么。
-3. Hero 审查。画出当前用户实际能理解的流程，再画出目标流程；指出丢失、错序或看不懂的模块，并给出一份可执行的场景与动作修改说明。
-4. 四个项目逐项审查。分别检查图片、流程图、Step、正文和 claim boundary；为每个项目改写一句 `why it matters` 和一句最直白的系统说明。
-5. 视觉与内容问题清单。区分排版问题、配图问题、动效问题、内容逻辑问题和技术问题。不要用“更高级”“提高沉浸感”这类无法执行的建议，必须写出对象、状态变化、触发条件和预期结果。
-6. 最多 12 项的修复顺序，使用 `P0 / P1 / P2`。每项包含改动位置、改动内容、验收方法。P0 只放会让访问者看不懂项目或让关键交互失效的问题。
-7. 最后在 `KEEP_AND_REFINE`、`RESTRUCTURE_HOME`、`REBUILD_HERO_AND_STORIES` 中选择一个，并用一句话说明依据。
+首页 thesis 应先给观点，再给领域范围。每个项目开头必须有：
 
-### 停止条件
+1. 普通读者能懂的 `Why it matters`；
+2. 一句 `What the system does`，包含 input、AI/Agent/ML 动作、确定性检查和 output/decision；
+3. 一行 `Evidence and boundary`，包含记录结果、评估范围和不成立的结论。
 
-- C1–C10、10 个参考、4 个项目、Hero、移动端和 reduced-motion 都有结果。
-- 不把仓库说明当成页面已经做到的证据，不编造没有亲自看到的动画、截图、性能数据或许可结论。
-- 外部参考引用原始页面；源码结论固定到提交 `3281a26ab78e94a9e6e139a472a9633de0af4afe`。
-- 不直接改代码。这一轮只交审查结论和可验收的修改单。
-- 总输出不超过 4500 个中文字，表格计入总长度。
+逐项核验以下边界：
+
+- EvidenceOps：70/70 固定公开或标注合成案例，不等于开放式科学准确率或生产使用。
+- CarePlan：200/200 checks、120 synthetic orders；公开 harness 不调用模型服务，不是临床或生产系统。
+- Dynamics Atlas：13/13、24/24、42/42 是公开 harness / replay 记录，不是 held-out Agent benchmark。
+- HSP90：N31 / 27 exact-ligand groups、最低 group-equal MAE 0.8182；paired interval crossed zero；结论是 no model selected，不是 broad generalization 或 physical koff。
+
+查找并指出不必要的 `bounded / inspectable / reviewable / controlled / durable / explicit` 堆叠，以及未解释就出现的 P512、N31、TaskPacket 等缩写。不要通过删除关键限制来“让文案更自信”。
+
+## 性能与实现核验
+
+- 新增生产动画 runtime 应为 0。
+- Three.js 在静止和离开视口后应停止 `requestAnimationFrame`。
+- 24 张项目图在初始解析时只能有每个项目的当前和相邻图：8 个 `src`、16 个 `data-src`；后续只在成为当前或相邻阶段时补 `src`。
+- 保留 native scroll、fallback、reduced motion、keyboard 和 touch。
+- 检查 390px 横向溢出、标签遮挡、字体加载失败、404、console error 和 cache fingerprint。
+
+## 输出合同
+
+以一个不超过 120 字的总判断开头，然后输出：
+
+1. `CHANGES_REQUESTED` 或 `READY_TO_MERGE`。
+2. 最多 10 条 findings，按 P0 / P1 / P2 排序。每条必须包含可复现行为、具体 selector/文件/行或页面位置、为什么影响理解或正确性、最小修复和验收方法。
+3. Hero 五状态表：ASSEMBLED / INSPECT / FOCUS / PASS / BLOCK，每项标 `PASS / PARTIAL / FAIL / CANNOT_VERIFY`。
+4. 字体证明表：identity / reading / technical states / 390px / license / preload。
+5. 四项目三层文案表，并指出任何超出证据的 claim。
+6. 依赖和 payload 结论：新增 runtime、字体成本、阶段图初始窗口。
+7. 最后只给一个下一步：如果可合并，说明部署后读回；如果不可合并，说明最先修的一个根因。
+
+## 审查边界
+
+- 不把 README、截图或验收文档当成页面已做到的证明；必须读源码或实际操作。
+- 不编造五人陌生访客测试。没有真实参与者就标记为尚未验证。
+- 不把 designed / implemented / tested on 写成 proves / ensures / solves。
+- 不直接修改代码；本轮只输出独立审查结论。
+- 不建议为了数量增加更多图片、节点、扫描线或动画库。
