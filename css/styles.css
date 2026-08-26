@@ -9481,3 +9481,194 @@ html.motion-enabled .hero-station[data-scroll-expand] .hero-station__masthead > 
     box-shadow: none;
   }
 }
+
+/* Stage-image continuity: 24 semantic scenes share one camera and one scroll state. */
+
+.semantic-workflow__stage-art {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--workflow-surface);
+  pointer-events: none;
+}
+
+.semantic-workflow__stage-art::before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--story-progress, 0) * 100%);
+  width: var(--rule-fine);
+  background: color-mix(in oklab, var(--color-accent-soft) 78%, transparent);
+  box-shadow: 0 0 1.15rem color-mix(in oklab, var(--color-accent-soft) 38%, transparent);
+  opacity: 0.58;
+  transition: left 760ms var(--ease-out), opacity var(--dur-short) var(--ease-out);
+}
+
+.semantic-workflow__stage-art::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgb(10 10 8 / 0.24), rgb(10 10 8 / 0.52)),
+    linear-gradient(var(--color-workflow-edge) var(--rule-hair), transparent var(--rule-hair)),
+    linear-gradient(90deg, var(--color-workflow-edge) var(--rule-hair), transparent var(--rule-hair));
+  background-size: auto, 4rem 4rem, 4rem 4rem;
+}
+
+.semantic-workflow__stage-art img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  filter: saturate(0.78) contrast(1.04) brightness(0.84);
+  transform: scale(1.018);
+  transition:
+    opacity 620ms var(--ease-out),
+    filter 760ms var(--ease-out),
+    transform 960ms var(--ease-out);
+  will-change: opacity, clip-path, transform;
+}
+
+.semantic-workflow__stage-art img.is-active {
+  z-index: 1;
+  opacity: 1;
+  filter: saturate(0.92) contrast(1.04) brightness(0.9);
+  transform: scale(1);
+}
+
+.semantic-workflow__canvas::after {
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgb(9 9 7 / 0.06) 0%,
+    rgb(9 9 7 / 0.14) 48%,
+    rgb(9 9 7 / 0.58) 100%
+  );
+}
+
+.semantic-workflow__edges,
+.workflow-packet {
+  z-index: 2;
+}
+
+.workflow-branch,
+.workflow-side-note {
+  z-index: 3;
+  backdrop-filter: blur(0.42rem);
+}
+
+.workflow-node {
+  background: rgb(18 18 15 / 0.84);
+  backdrop-filter: blur(0.48rem);
+  box-shadow: 0 0.35rem 1.2rem rgb(0 0 0 / 0.14);
+}
+
+.workflow-node.is-active,
+.workflow-node[aria-pressed="true"] {
+  background: color-mix(in oklab, var(--color-accent) 24%, rgb(18 18 15 / 0.9));
+}
+
+.project-story__step {
+  --step-image: none;
+  padding-bottom: clamp(13.5rem, 22vw, 17rem);
+  align-content: start;
+  background-image:
+    linear-gradient(180deg, var(--color-paper) 0 52%, transparent 76%),
+    var(--step-image);
+  background-position: center, center calc(100% - var(--space-md));
+  background-repeat: no-repeat;
+  background-size: 100% 100%, calc(100% - 2 * var(--space-md)) auto;
+}
+
+.project-story__step[data-plan-status="active"],
+.project-story__step.is-active,
+.project-story__step[aria-current="step"] {
+  background-image:
+    linear-gradient(180deg, color-mix(in oklab, var(--color-accent-soft) 12%, var(--color-paper)) 0 48%, transparent 74%),
+    var(--step-image);
+}
+
+@media (max-width: 64rem) {
+  .project-story__mobile-dock {
+    min-height: 6.5rem;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .project-story__mobile-dock::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background-image:
+      linear-gradient(90deg, var(--color-paper) 0 calc(100% - 8rem), rgb(240 235 219 / 0.94) calc(100% - 6rem), transparent 100%),
+      var(--mobile-stage-image, none);
+    background-position: center, right center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%, 8rem auto;
+    filter: saturate(0.74) contrast(1.04);
+  }
+
+  .project-story__mobile-dock > strong {
+    padding-right: 6.25rem;
+  }
+
+  .project-story__step {
+    min-height: clamp(24rem, 68svh, 34rem);
+    padding-bottom: clamp(15rem, 54vw, 24rem);
+    background-size: 100% 100%, min(34rem, calc(100% - 2 * var(--space-md))) auto;
+  }
+}
+
+@media (max-width: 46rem) {
+  .semantic-workflow__stage-art {
+    position: relative;
+    inset: auto;
+    width: calc(100% + 2 * var(--space-md));
+    aspect-ratio: 4 / 3;
+    margin: calc(-1 * var(--space-md)) calc(-1 * var(--space-md)) var(--space-sm);
+    border-bottom: var(--rule-hair) solid var(--color-workflow-line-strong);
+  }
+
+  .semantic-workflow__stage-art::after {
+    background: linear-gradient(180deg, rgb(9 9 7 / 0.05), rgb(9 9 7 / 0.36));
+  }
+
+  .semantic-workflow__canvas::after {
+    display: none;
+  }
+
+  .project-story__step {
+    min-height: clamp(26rem, 76svh, 35rem);
+    padding-bottom: clamp(14rem, 67vw, 22rem);
+    background-position: center, center calc(100% - var(--space-sm));
+    background-size: 100% 100%, calc(100% - 2 * var(--space-sm)) auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .semantic-workflow__stage-art::before {
+    display: none;
+  }
+
+  .semantic-workflow__stage-art img {
+    transition: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .semantic-workflow__stage-art,
+  .project-story__step {
+    background-image: none;
+  }
+}

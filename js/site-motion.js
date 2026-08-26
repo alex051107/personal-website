@@ -13,6 +13,7 @@
       window.anime?.svg?.createMotionPath &&
       window.anime?.animate,
   );
+  const gsapReady = Boolean(window.gsap?.fromTo && window.gsap?.to);
   let revealObserver = null;
   let scrollFrame = 0;
 
@@ -132,6 +133,7 @@
   const setupProjectStory = (story) => {
     const nodes = Array.from(story.querySelectorAll("[data-story-node]"));
     const steps = Array.from(story.querySelectorAll("[data-story-step]"));
+    const stageArt = Array.from(story.querySelectorAll("[data-story-art]"));
     const edges = Array.from(story.querySelectorAll("[data-edge-stage]"));
     const results = Array.from(story.querySelectorAll("[data-story-result]"));
     const packet = story.querySelector("[data-flow-packet]");
@@ -150,6 +152,7 @@
       transcriptRows.map((row) => [row.dataset.storyLine || "", row]),
     );
     const nextButton = story.querySelector("[data-story-next]");
+    const mobileDock = story.querySelector("[data-story-mobile-dock]");
     const mobileStageIndex = story.querySelector("[data-mobile-stage-index]");
     const mobileStageTitle = story.querySelector("[data-mobile-stage-title]");
     const mobileStageFill = story.querySelector("[data-mobile-stage-fill]");
@@ -253,6 +256,59 @@
       if (valueNode) valueNode.textContent = value;
     };
 
+    const transitionStageArt = (index, previousIndex) => {
+      if (!stageArt.length) return;
+      const nextArt = stageArt[index];
+      const previousArt = stageArt[previousIndex];
+
+      stageArt.forEach((art, artIndex) => {
+        const active = artIndex === index;
+        art.classList.toggle("is-active", active);
+        art.setAttribute("aria-hidden", String(!active));
+      });
+
+      if (
+        reducedMotion.matches ||
+        !gsapReady ||
+        !nextArt ||
+        !previousArt ||
+        previousIndex === index
+      ) {
+        stageArt.forEach((art) => window.gsap?.set?.(art, { clearProps: "all" }));
+        return;
+      }
+
+      const direction = index > previousIndex ? 1 : -1;
+      window.gsap.killTweensOf([previousArt, nextArt]);
+      window.gsap.set(previousArt, { autoAlpha: 1, zIndex: 1 });
+      window.gsap.fromTo(
+        nextArt,
+        {
+          autoAlpha: 0,
+          zIndex: 2,
+          xPercent: direction * 2.25,
+          scale: 1.035,
+          clipPath: direction > 0 ? "inset(0 12% 0 0)" : "inset(0 0 0 12%)",
+        },
+        {
+          autoAlpha: 1,
+          xPercent: 0,
+          scale: 1,
+          clipPath: "inset(0 0% 0 0%)",
+          duration: 0.82,
+          ease: "power3.out",
+          onComplete: () => window.gsap.set(nextArt, { clearProps: "all" }),
+        },
+      );
+      window.gsap.to(previousArt, {
+        autoAlpha: 0,
+        scale: 0.992,
+        duration: 0.48,
+        ease: "power2.out",
+        onComplete: () => window.gsap.set(previousArt, { clearProps: "all" }),
+      });
+    };
+
     const writeRuntime = (index) => {
       const strong = steps[index]?.querySelector("strong")?.textContent?.trim() || "Stage selected.";
       const detail = steps[index]?.querySelector("small")?.textContent?.trim() || "";
@@ -277,6 +333,9 @@
       if (mobileStageIndex) mobileStageIndex.textContent = `${stageNumber} / ${String(nodes.length).padStart(2, "0")}`;
       if (mobileStageTitle) mobileStageTitle.textContent = strong;
       if (mobileStageFill) mobileStageFill.style.transform = `scaleX(${((index + 1) / nodes.length).toFixed(4)})`;
+      const stageImage = stageArt[index]?.getAttribute("src");
+      const cssStageImage = stageImage?.startsWith("images/") ? `../${stageImage}` : stageImage;
+      if (mobileDock && cssStageImage) mobileDock.style.setProperty("--mobile-stage-image", `url("${cssStageImage}")`);
     };
 
     const updateSceneFocus = (index) => {
@@ -311,6 +370,7 @@
 
     const selectStage = (index, options = {}) => {
       const nextIndex = clamp(index, 0, nodes.length - 1);
+      const previousIndex = activeIndex;
       const changed = nextIndex !== activeIndex;
       if (options.manual) manualLockUntil = Date.now() + 2400;
       activeIndex = nextIndex;
@@ -347,6 +407,7 @@
         result.classList.toggle("is-active", Number(result.dataset.storyResult) === nextIndex);
       });
 
+      transitionStageArt(nextIndex, previousIndex);
       writeRuntime(nextIndex);
       updateSceneFocus(nextIndex);
       if (changed && options.animate !== false) animateCurrentStage(nextIndex);
@@ -382,6 +443,9 @@
 
     steps.forEach((step, index) => {
       step.style.setProperty("--item-order", String(index));
+      const stepImage = stageArt[index]?.getAttribute("src");
+      const cssStepImage = stepImage?.startsWith("images/") ? `../${stepImage}` : stepImage;
+      if (cssStepImage) step.style.setProperty("--step-image", `url("${cssStepImage}")`);
       step.addEventListener("click", () => selectStage(index, { manual: true }));
       step.addEventListener("keydown", (event) => handleStageKey(event, index, "step"));
     });
