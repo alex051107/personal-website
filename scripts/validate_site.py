@@ -567,7 +567,7 @@ def main() -> int:
             "content pages: expected pause/resume controls for four homepage and four case films; "
             f"found {film_toggle_count}"
         )
-    if index_text.count('src="images/portrait-edge-clean-v4.png"') != 1:
+    if index_text.count('src="images/portrait-edge-clean-v5.png"') != 1:
         errors.append("index.html: the cleaned portrait must appear exactly once")
     if index_text.count('class="index-opening__portrait"') != 1:
         errors.append("index.html: the portrait must appear once in the opening")
@@ -821,7 +821,7 @@ def main() -> int:
                 errors.append(f"{path.relative_to(ROOT)}: {reason}: {stale!r}")
 
     size_limits = {
-        ROOT / "images" / "portrait-edge-clean-v4.png": 1_000_000,
+        ROOT / "images" / "portrait-edge-clean-v5.png": 1_000_000,
         ROOT / "images" / "hero-3d-source" / "hero-agent-harness-master-v2.jpg": 550_000,
         ROOT / "images" / "og-card.jpg": 1_000_000,
         ROOT / "images" / "project-visuals" / "evidenceops-editorial.jpg": 400_000,
