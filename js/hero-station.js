@@ -1969,11 +1969,11 @@ if (stationRoot) {
       setStatus("Central harness ready · loading six bounded modules");
       requestRender();
 
-      for (const config of moduleConfigs) {
-        if (config.key === "chassis") continue;
+      const remainingModules = moduleConfigs.filter((config) => config.key !== "chassis");
+      await Promise.all(remainingModules.map(async (config) => {
         await loadModule(config);
         setStatus(`Loading station · ${state.loaded} of 8 models verified`);
-      }
+      }));
 
       state.ready = true;
       applyLayout();
