@@ -15,6 +15,22 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("fonts/InstrumentSans-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("fonts/InstrumentSans-SemiBold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
 
@@ -51,7 +67,7 @@
   --color-workflow-overlay: oklch(12% 0.012 66 / 0.94);
 
   --font-display: "Onest", "Avenir Next", "Segoe UI", sans-serif;
-  --font-body: "Onest", "Avenir Next", "Segoe UI", sans-serif;
+  --font-body: "Instrument Sans", "Avenir Next", "Segoe UI", sans-serif;
   --font-outlier: "Geist Mono", "SFMono-Regular", "Cascadia Code", "Liberation Mono", monospace;
 
   --display-weight: 650;

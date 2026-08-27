@@ -1,0 +1,26 @@
+{
+  "state": "keyframes-confirmed",
+  "confirmedByUser": true,
+  "timestamp": "2026-08-26T14:42:00Z",
+  "confirmationEvidence": "User confirmed that the overview image remains the single continuous scene and that three to four important frames may also be prepared as references. The references must not become separate videos or require manual stitching.",
+  "trialFrames": [
+    "evidenceops/master-start-frame.png",
+    "careplan/master-start-frame.png",
+    "dynamics-atlas/master-start-frame.png",
+    "hsp90-ligamd/master-start-frame-v2.png"
+  ],
+  "referenceKeyframes": [
+    "evidenceops/keyframes/01-passage-input.png",
+    "evidenceops/keyframes/02-exact-support.png",
+    "evidenceops/keyframes/03-human-record.png",
+    "careplan/keyframes/01-eligibility-gate.png",
+    "careplan/keyframes/02-versioned-draft.png",
+    "careplan/keyframes/03-human-boundary.png",
+    "dynamics-atlas/keyframes/01-agent-suggestion.png",
+    "dynamics-atlas/keyframes/02-six-gates.png",
+    "dynamics-atlas/keyframes/03-bundle-human-scope.png",
+    "hsp90-ligamd/keyframes/01-system-replicas.png",
+    "hsp90-ligamd/keyframes/02-dynamic10-system-row.png",
+    "hsp90-ligamd/keyframes/03-grouped-validation.png"
+  ]
+}

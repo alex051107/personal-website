@@ -32,7 +32,7 @@
     "name": "Zhenpeng Liu",
     "alternateName": "刘振鹏",
     "url": "https://alex051107.github.io/personal-website/",
-    "image": "https://alex051107.github.io/personal-website/images/portrait-clean.png",
+    "image": "https://alex051107.github.io/personal-website/images/portrait-edge-clean-v4.png",
     "email": "mailto:liualex@unc.edu",
     "affiliation": {
       "@type": "CollegeOrUniversity",
@@ -52,15 +52,12 @@
   }
   </script>
 
-  <link rel="stylesheet" href="css/styles.css?v=873bb56">
-  <script defer src="js/vendor/ScrollMagic.min.js?v=003f0f9"></script>
-  <script defer src="js/vendor/lottie_light.min.js?v=0e5a569"></script>
+  <link rel="stylesheet" href="css/styles.css?v=e2f5e62">
   <script defer src="js/vendor/gsap.min.js?v=3c73d76"></script>
   <script defer src="js/vendor/anime.umd.min.js?v=6c1a3ca"></script>
-  <script type="module" src="js/hero-station.js?v=14a15a9"></script>
-  <script defer src="js/motion-library-showcase.js?v=58a5bcc"></script>
-  <script defer src="js/site-motion.js?v=445ccd5"></script>
-  <script defer src="js/project-mini-demos.js?v=91bf427"></script>
+  <script type="module" src="js/hero-station.js?v=3e78f32"></script>
+  <script defer src="js/site-motion.js?v=455b717"></script>
+  <script defer src="js/project-films.js?v=e3c2a12"></script>
 </head>
 <body>
   <div class="page-progress" aria-hidden="true"></div>
@@ -96,7 +93,7 @@
           </div>
           <figure class="index-opening__portrait">
             <div class="index-opening__portrait-frame">
-              <img src="images/portrait-clean.png" alt="Portrait of Zhenpeng Liu" width="768" height="1024" fetchpriority="high" decoding="async">
+              <img src="images/portrait-edge-clean-v4.png" alt="Portrait of Zhenpeng Liu" width="768" height="1024" fetchpriority="high" decoding="async">
             </div>
             <figcaption><span>Zhenpeng Liu / 刘振鹏</span><span>Chapel Hill, 2026</span></figcaption>
           </figure>
@@ -110,13 +107,13 @@
               <div class="hero-station__load" aria-hidden="true"><i></i></div>
             </header>
 
-            <div class="hero-station__viewport" data-station-viewport tabindex="0" role="region" aria-label="Interactive 3D Agent Harness. An automatic camera tour loops through Contract, Agent, Tool, Gates, Receipt, Human, and Result. Use Pause auto tour, drag, or choose a control to take over. Press Escape or R to restore the assembled view.">
-              <img class="hero-station__fallback" data-station-fallback src="images/hero-3d-source/hero-agent-harness-master-v2.png" alt="Concept illustration of a scientific Agent Harness with an input dock, particle specimen, tools, six gates, split outputs, and an external human authority lever" width="1536" height="1024" decoding="async">
+            <div class="hero-station__viewport" data-station-viewport tabindex="0" role="region" aria-label="Interactive 3D Agent Harness. An automatic camera tour continuously loops through Contract, Agent, Tool, Gates, Receipt, Human, and Result. Drag or choose a module to inspect it; the tour then resumes. Press Escape or R to restore the assembled view.">
+              <img class="hero-station__fallback" data-station-fallback src="images/hero-3d-source/hero-agent-harness-master-v2.jpg" alt="Concept illustration of a scientific Agent Harness with an input dock, particle specimen, tools, six gates, split outputs, and an external human authority lever" width="1536" height="1024" decoding="async">
               <canvas class="hero-station__canvas" data-station-canvas aria-hidden="true"></canvas>
               <span class="hero-station__reticle" aria-hidden="true"></span>
 
               <article class="hero-station__packet" data-station-packet aria-label="Contract entering the Agent Harness">
-                <header><span>TaskPacket / 01</span><b>Bounded contract</b><i class="motion-glyph motion-glyph--contract" data-lottie-glyph="contract" aria-hidden="true"></i></header>
+                <header><span>TaskPacket / 01</span><b>Bounded contract</b></header>
                 <strong>Locate compatible molecular data</strong>
                 <dl>
                   <div><dt>Scope</dt><dd>registered datasets</dd></div>
@@ -126,14 +123,13 @@
               </article>
 
               <aside class="hero-station__execution" data-station-execution data-template-source="motionsites" data-template-name="ai-agent-pipeline" aria-label="Illustrated Agent route" aria-live="polite">
-                <header><span>Route walkthrough</span><b data-execution-summary>Waiting for route</b><i class="motion-glyph motion-glyph--agent" data-lottie-glyph="agent" aria-hidden="true"></i></header>
+                <header><span>Route walkthrough</span><b data-execution-summary>Waiting for route</b></header>
                 <ol>
                   <li data-execution-step="contract"><i></i><span>Contract</span><strong>TaskPacket seated</strong></li>
                   <li data-execution-step="agent"><i></i><span>Agent</span><strong>Locator suggestion only</strong></li>
                   <li data-execution-step="tool"><i></i><span>Tool</span><strong>locate_registered_source</strong></li>
                   <li data-execution-step="gate">
                     <i></i><span>Gate</span><strong><b data-gate-count>0 / 6</b> resolved</strong>
-                    <i class="motion-glyph motion-glyph--gate" data-lottie-glyph="gate" aria-hidden="true"></i>
                     <span class="hero-station__gate-lamps" aria-label="Six compatibility checks">
                       <i title="G1 Source identity"></i><i title="G2 Usage rights"></i><i title="G3 Residue mapping"></i><i title="G4 Coverage"></i><i title="G5 Scientific meaning"></i><i title="G6 Data maturity"></i>
                     </span>
@@ -165,7 +161,7 @@
               </aside>
 
               <article class="hero-station__result" data-station-result aria-hidden="true" aria-live="polite">
-                <header><span>Independent result state</span><b data-result-status>Result</b><i class="motion-glyph motion-glyph--receipt" data-lottie-glyph="receipt" aria-hidden="true"></i></header>
+                <header><span>Independent result state</span><b data-result-status>Result</b></header>
                 <strong data-result-title>No result yet</strong>
                 <dl>
                   <div><dt>Route</dt><dd data-result-route>Not run</dd></div>
@@ -198,7 +194,7 @@
                 <output data-station-status aria-live="polite">Loading central harness</output>
                 <span data-station-payload>0 / 8 models</span>
               </div>
-              <p class="hero-station__hint">Auto tour loops · drag to take over · Esc / R assemble</p>
+              <p class="hero-station__hint">Camera loop active · drag to inspect · Esc / R assemble</p>
             </div>
 
             <div class="hero-station__console">
@@ -208,7 +204,7 @@
               </div>
               <div class="hero-station__controls" aria-label="Hero station controls">
                 <button type="button" data-station-tour aria-pressed="true" disabled>
-                  <span>Pause auto tour</span><small>Contract → Result loop</small>
+                  <span>Pause camera tour</span><small>Contract → Result loop</small>
                 </button>
                 <button type="button" data-station-inspect aria-pressed="false" disabled>
                   <span>Inspect the harness</span><small>separate + label modules</small>
@@ -223,8 +219,8 @@
             </div>
           </div>
           <figcaption>
-            <span>Interactive Agent Harness</span>
-            <p id="hero-station-copy">The camera tours Contract, Agent, Tool, Gates, Receipt, Human, and Result on a continuous loop. Pause it at any time, inspect the parts, or run a PASS or BLOCK route.</p>
+            <span>Continuously touring Agent Harness</span>
+            <p id="hero-station-copy">The camera continuously tours Contract, Agent, Tool, Gates, Receipt, Human, and Result. Inspect a part or run a PASS or BLOCK route; the assembled tour remains the default view.</p>
           </figcaption>
         </figure>
 
@@ -348,47 +344,26 @@
               <p class="project-spread__date">Jun 2026—Present</p>
             </header>
 
-            <figure class="project-mini-demo project-mini-demo--evidence" data-project-mini-demo="evidenceops" data-demo-phase="0" data-demo-interval="1850" aria-labelledby="evidence-mini-title">
-              <figcaption class="project-mini-demo__head">
-                <div>
-                  <span>Live product loop · Evidence inspection</span>
-                  <strong id="evidence-mini-title">A claim only advances with exact support.</strong>
-                </div>
-                <button class="project-mini-demo__toggle" type="button" data-demo-toggle aria-pressed="true">
-                  <span data-demo-toggle-label>Pause loop</span><small data-demo-counter>01 / 04</small>
-                </button>
+            <figure class="project-film" data-project-film data-film-duration="12" data-film-state="paused" aria-labelledby="evidence-film-title">
+              <div class="project-film__media">
+                <video muted loop playsinline preload="none" poster="videos/project-films/evidenceops-poster.jpg" aria-describedby="evidence-film-caption">
+                  <source src="videos/project-films/evidenceops.mp4" type="video/mp4">
+                </video>
+                <div class="project-film__label"><span>Project film · 12 sec</span><strong id="evidence-film-title">Find the sentence that can support the claim.</strong></div>
+                <button class="project-film__toggle" type="button" data-film-toggle aria-pressed="true" aria-label="Pause EvidenceOps film"><span>Pause motion</span></button>
+                <div class="project-film__progress" aria-hidden="true"><i data-film-progress></i></div>
+              </div>
+              <figcaption id="evidence-film-caption">
+                <p><span>System walkthrough</span>A paper set narrows to one passage, candidate fields face an exact-support check, and a source-linked record reaches human review.</p>
+                <ol class="project-film__chapters" aria-label="EvidenceOps film chapters">
+                  <li><button type="button" data-film-seek="0"><small>01 · Search</small><strong>Papers → passage</strong></button></li>
+                  <li><button type="button" data-film-seek="4"><small>02 · Check</small><strong>Exact support</strong></button></li>
+                  <li><button type="button" data-film-seek="8"><small>03 · Record</small><strong>Human reference</strong></button></li>
+                </ol>
+                <span class="visually-hidden" data-film-status aria-live="polite">Film loops automatically.</span>
               </figcaption>
-              <div class="project-mini-demo__scene">
-                <svg class="project-mini-demo__route" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
-                  <path data-demo-edge="1" d="M190 174 C245 174 250 104 315 104"></path>
-                  <path data-demo-edge="2" d="M470 104 C535 104 520 211 585 211"></path>
-                  <path data-demo-edge="3" d="M745 211 C805 211 798 139 855 139"></path>
-                  <circle data-demo-packet cx="0" cy="0" r="7"></circle>
-                </svg>
-                <div class="project-mini-demo__nodes project-mini-demo__nodes--four">
-                  <button class="mini-node mini-node--source" type="button" data-demo-node="0" data-demo-label="Versioned passage seated" aria-pressed="true">
-                    <small>Source</small><strong>Passage</strong>
-                    <span class="mini-paper" aria-hidden="true"><i></i><i></i><i></i><b></b></span>
-                  </button>
-                  <button class="mini-node mini-node--fields" type="button" data-demo-node="1" data-demo-label="Claim, value, unit, and context proposed" aria-pressed="false">
-                    <small>Model move</small><strong>4 fields</strong>
-                    <span class="mini-fields" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-                  </button>
-                  <button class="mini-node mini-node--exact" type="button" data-demo-node="2" data-demo-label="Exact-support rule checks every field" aria-pressed="false">
-                    <small>Rule</small><strong>Exact support</strong>
-                    <span class="mini-gate" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-                  </button>
-                  <button class="mini-node mini-node--record" type="button" data-demo-node="3" data-demo-label="Review record written; mismatch remains blocked" aria-pressed="false">
-                    <small>State</small><strong>Review record</strong>
-                    <span class="mini-record" aria-hidden="true"><i></i><i></i><i></i><b></b></span>
-                  </button>
-                </div>
-              </div>
-              <div class="project-mini-demo__foot">
-                <output data-demo-status>Versioned passage seated</output>
-                <span>Unsupported fields do not disappear; they stay blocked for review.</span>
-              </div>
             </figure>
+
 
             <div class="project-story" data-project-story="evidenceops" data-active-stage="0" data-template-source="aceternity" data-template-name="sticky-scroll-reveal">
               <div class="project-story__visual">
@@ -539,47 +514,26 @@
               <p class="project-spread__date">Feb 2026—Present</p>
             </header>
 
-            <figure class="project-mini-demo project-mini-demo--care" data-project-mini-demo="careplan" data-demo-phase="0" data-demo-interval="1750" aria-labelledby="care-mini-title">
-              <figcaption class="project-mini-demo__head">
-                <div>
-                  <span>Live product loop · Controlled drafting</span>
-                  <strong id="care-mini-title">The AI drafts; software and people control state.</strong>
-                </div>
-                <button class="project-mini-demo__toggle" type="button" data-demo-toggle aria-pressed="true">
-                  <span data-demo-toggle-label>Pause loop</span><small data-demo-counter>01 / 05</small>
-                </button>
+            <figure class="project-film" data-project-film data-film-duration="10" data-film-state="paused" aria-labelledby="careplan-film-title">
+              <div class="project-film__media">
+                <video muted loop playsinline preload="none" poster="videos/project-films/careplan-poster.jpg" aria-describedby="careplan-film-caption">
+                  <source src="videos/project-films/careplan.mp4" type="video/mp4">
+                </video>
+                <div class="project-film__label"><span>Project film · 10 sec</span><strong id="careplan-film-title">A draft moves forward only when the workflow allows it.</strong></div>
+                <button class="project-film__toggle" type="button" data-film-toggle aria-pressed="true" aria-label="Pause CarePlan film"><span>Pause motion</span></button>
+                <div class="project-film__progress" aria-hidden="true"><i data-film-progress></i></div>
+              </div>
+              <figcaption id="careplan-film-caption">
+                <p><span>System walkthrough</span>A synthetic order passes eligibility and version checks, enters a bounded drafting step, then stops in review-pending state for a person to decide.</p>
+                <ol class="project-film__chapters" aria-label="CarePlan film chapters">
+                  <li><button type="button" data-film-seek="0"><small>01 · Input</small><strong>Synthetic order</strong></button></li>
+                  <li><button type="button" data-film-seek="3.3"><small>02 · Control</small><strong>Rules + draft</strong></button></li>
+                  <li><button type="button" data-film-seek="6.7"><small>03 · Authority</small><strong>Human decision</strong></button></li>
+                </ol>
+                <span class="visually-hidden" data-film-status aria-live="polite">Film loops automatically.</span>
               </figcaption>
-              <div class="project-mini-demo__scene">
-                <svg class="project-mini-demo__route" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
-                  <path data-demo-edge="1" d="M150 178 C195 178 190 102 240 102"></path>
-                  <path data-demo-edge="2" d="M350 102 C400 102 390 205 440 205"></path>
-                  <path data-demo-edge="3" d="M555 205 C605 205 598 112 650 112"></path>
-                  <path data-demo-edge="4" d="M755 112 C810 112 808 178 860 178"></path>
-                  <circle data-demo-packet cx="0" cy="0" r="7"></circle>
-                </svg>
-                <div class="project-mini-demo__nodes project-mini-demo__nodes--five">
-                  <button class="mini-node mini-node--order" type="button" data-demo-node="0" data-demo-label="Synthetic order received with state and flags" aria-pressed="true">
-                    <small>Input</small><strong>Order</strong><span class="mini-ticket" aria-hidden="true"><i></i><i></i><b></b></span>
-                  </button>
-                  <button class="mini-node mini-node--stop" type="button" data-demo-node="1" data-demo-label="Eligibility hard stop resolves before the AI worker" aria-pressed="false">
-                    <small>Rule</small><strong>Hard stop</strong><span class="mini-barrier" aria-hidden="true"><i></i><b></b></span>
-                  </button>
-                  <button class="mini-node mini-node--draft" type="button" data-demo-node="2" data-demo-label="AI worker produces a typed draft only" aria-pressed="false">
-                    <small>AI worker</small><strong>Typed draft</strong><span class="mini-draft" aria-hidden="true"><i></i><i></i><i></i></span>
-                  </button>
-                  <button class="mini-node mini-node--schema" type="button" data-demo-node="3" data-demo-label="Schema and state transition validate" aria-pressed="false">
-                    <small>Software</small><strong>Validate</strong><span class="mini-lamps" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-                  </button>
-                  <button class="mini-node mini-node--human" type="button" data-demo-node="4" data-demo-label="Review-pending state recorded; a person decides" aria-pressed="false">
-                    <small>Human</small><strong>Review pending</strong><span class="mini-human" aria-hidden="true"><i></i><b></b></span>
-                  </button>
-                </div>
-              </div>
-              <div class="project-mini-demo__foot">
-                <output data-demo-status>Synthetic order received with state and flags</output>
-                <span>No autonomous approval: the loop ends at review pending.</span>
-              </div>
             </figure>
+
 
             <div class="project-story" data-project-story="careplan" data-active-stage="0" data-template-source="aceternity" data-template-name="sticky-scroll-reveal">
               <div class="project-story__visual">
@@ -718,47 +672,26 @@
               <p class="project-spread__date">Jun 2026—Present</p>
             </header>
 
-            <figure class="project-mini-demo project-mini-demo--dynamics" data-project-mini-demo="dynamics-atlas" data-demo-phase="0" data-demo-interval="1800" aria-labelledby="dynamics-mini-title">
-              <figcaption class="project-mini-demo__head">
-                <div>
-                  <span>Live product loop · Agent harness</span>
-                  <strong id="dynamics-mini-title">An Agent proposes a route; six gates decide if it runs.</strong>
-                </div>
-                <button class="project-mini-demo__toggle" type="button" data-demo-toggle aria-pressed="true">
-                  <span data-demo-toggle-label>Pause loop</span><small data-demo-counter>01 / 05</small>
-                </button>
+            <figure class="project-film" data-project-film data-film-duration="10" data-film-state="paused" aria-labelledby="dynamics-film-title">
+              <div class="project-film__media">
+                <video muted loop playsinline preload="none" poster="videos/project-films/dynamics-atlas-poster.jpg" aria-describedby="dynamics-film-caption">
+                  <source src="videos/project-films/dynamics-atlas.mp4" type="video/mp4">
+                </video>
+                <div class="project-film__label"><span>Project film · 10 sec</span><strong id="dynamics-film-title">The Agent proposes a route. The harness decides whether it can run.</strong></div>
+                <button class="project-film__toggle" type="button" data-film-toggle aria-pressed="true" aria-label="Pause Dynamics Atlas film"><span>Pause motion</span></button>
+                <div class="project-film__progress" aria-hidden="true"><i data-film-progress></i></div>
+              </div>
+              <figcaption id="dynamics-film-caption">
+                <p><span>System walkthrough</span>A TaskPacket reaches a locator Agent, registered tools compile the route, six deterministic gates resolve it, and the run receipt preserves the verdict.</p>
+                <ol class="project-film__chapters" aria-label="Dynamics Atlas film chapters">
+                  <li><button type="button" data-film-seek="0"><small>01 · Contract</small><strong>TaskPacket</strong></button></li>
+                  <li><button type="button" data-film-seek="3.3"><small>02 · Route</small><strong>Agent + six gates</strong></button></li>
+                  <li><button type="button" data-film-seek="6.7"><small>03 · Receipt</small><strong>Human scope</strong></button></li>
+                </ol>
+                <span class="visually-hidden" data-film-status aria-live="polite">Film loops automatically.</span>
               </figcaption>
-              <div class="project-mini-demo__scene">
-                <svg class="project-mini-demo__route" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
-                  <path data-demo-edge="1" d="M150 190 C205 190 185 88 245 88"></path>
-                  <path data-demo-edge="2" d="M355 88 C405 88 397 205 445 205"></path>
-                  <path data-demo-edge="3" d="M555 205 C610 205 595 112 650 112"></path>
-                  <path data-demo-edge="4" d="M758 112 C810 112 812 190 865 190"></path>
-                  <circle data-demo-packet cx="0" cy="0" r="7"></circle>
-                </svg>
-                <div class="project-mini-demo__nodes project-mini-demo__nodes--five">
-                  <button class="mini-node mini-node--datasets" type="button" data-demo-node="0" data-demo-label="TaskPacket names two molecular datasets" aria-pressed="true">
-                    <small>Input</small><strong>2 datasets</strong><span class="mini-datasets" aria-hidden="true"><i></i><i></i><b></b></span>
-                  </button>
-                  <button class="mini-node mini-node--locator" type="button" data-demo-node="1" data-demo-label="Locator Agent suggests a registered source" aria-pressed="false">
-                    <small>Agent</small><strong>Locate</strong><span class="mini-locator" aria-hidden="true"><i></i><b></b></span>
-                  </button>
-                  <button class="mini-node mini-node--compiler" type="button" data-demo-node="2" data-demo-label="Registered compiler builds one route" aria-pressed="false">
-                    <small>Tool call</small><strong>Compile</strong><span class="mini-compiler" aria-hidden="true"><i></i><i></i><i></i></span>
-                  </button>
-                  <button class="mini-node mini-node--six" type="button" data-demo-node="3" data-demo-label="Six compatibility gates resolve in sequence" aria-pressed="false">
-                    <small>Rules</small><strong>6 gates</strong><span class="mini-six" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
-                  </button>
-                  <button class="mini-node mini-node--bundle" type="button" data-demo-node="4" data-demo-label="EvidenceBundle or structured stop recorded" aria-pressed="false">
-                    <small>State</small><strong>Bundle / stop</strong><span class="mini-bundle" aria-hidden="true"><i></i><i></i><b></b></span>
-                  </button>
-                </div>
-              </div>
-              <div class="project-mini-demo__foot">
-                <output data-demo-status>TaskPacket names two molecular datasets</output>
-                <span>The locator cannot cross a failed compatibility gate.</span>
-              </div>
             </figure>
+
 
             <div class="project-story" data-project-story="dynamics-atlas" data-active-stage="0" data-template-source="aceternity" data-template-name="sticky-scroll-reveal">
               <div class="project-story__visual">
@@ -896,47 +829,26 @@
               <p class="project-spread__date">Jun 2025—Present</p>
             </header>
 
-            <figure class="project-mini-demo project-mini-demo--hsp90" data-project-mini-demo="hsp90-ligamd" data-demo-phase="0" data-demo-interval="1700" aria-labelledby="hsp90-mini-title">
-              <figcaption class="project-mini-demo__head">
-                <div>
-                  <span>Live product loop · Scientific ML evaluation</span>
-                  <strong id="hsp90-mini-title">Three replicas become one row before models compete.</strong>
-                </div>
-                <button class="project-mini-demo__toggle" type="button" data-demo-toggle aria-pressed="true">
-                  <span data-demo-toggle-label>Pause loop</span><small data-demo-counter>01 / 05</small>
-                </button>
+            <figure class="project-film" data-project-film data-film-duration="10" data-film-state="paused" aria-labelledby="hsp90-film-title">
+              <div class="project-film__media">
+                <video muted loop playsinline preload="none" poster="videos/project-films/hsp90-ligamd-poster.jpg" aria-describedby="hsp90-film-caption">
+                  <source src="videos/project-films/hsp90-ligamd.mp4" type="video/mp4">
+                </video>
+                <div class="project-film__label"><span>Project film · 10 sec</span><strong id="hsp90-film-title">Replicas become one scientific unit before models compete.</strong></div>
+                <button class="project-film__toggle" type="button" data-film-toggle aria-pressed="true" aria-label="Pause HSP90 LiGaMD film"><span>Pause motion</span></button>
+                <div class="project-film__progress" aria-hidden="true"><i data-film-progress></i></div>
+              </div>
+              <figcaption id="hsp90-film-caption">
+                <p><span>System walkthrough</span>Three LiGaMD replicas remain attached to one ligand system, features aggregate once, grouped folds compare fixed pipelines, and uncertainty can end in no selection.</p>
+                <ol class="project-film__chapters" aria-label="HSP90 and LiGaMD film chapters">
+                  <li><button type="button" data-film-seek="0"><small>01 · Science</small><strong>3 replicas</strong></button></li>
+                  <li><button type="button" data-film-seek="3.3"><small>02 · Evaluation</small><strong>Grouped folds</strong></button></li>
+                  <li><button type="button" data-film-seek="6.7"><small>03 · Decision</small><strong>No selection</strong></button></li>
+                </ol>
+                <span class="visually-hidden" data-film-status aria-live="polite">Film loops automatically.</span>
               </figcaption>
-              <div class="project-mini-demo__scene">
-                <svg class="project-mini-demo__route" viewBox="0 0 1000 300" preserveAspectRatio="none" aria-hidden="true">
-                  <path data-demo-edge="1" d="M145 88 C198 88 190 205 245 205"></path>
-                  <path data-demo-edge="2" d="M355 205 C405 205 400 108 450 108"></path>
-                  <path data-demo-edge="3" d="M555 108 C608 108 600 200 650 200"></path>
-                  <path data-demo-edge="4" d="M760 200 C812 200 812 102 862 102"></path>
-                  <circle data-demo-packet cx="0" cy="0" r="7"></circle>
-                </svg>
-                <div class="project-mini-demo__nodes project-mini-demo__nodes--five">
-                  <button class="mini-node mini-node--replicas" type="button" data-demo-node="0" data-demo-label="Three LiGaMD replicas stay attached to one system" aria-pressed="true">
-                    <small>Scientific unit</small><strong>3 replicas</strong><span class="mini-waves" aria-hidden="true"><i></i><i></i><i></i></span>
-                  </button>
-                  <button class="mini-node mini-node--features" type="button" data-demo-node="1" data-demo-label="Dynamic10 computed separately for each replica" aria-pressed="false">
-                    <small>Per-replica</small><strong>Features</strong><span class="mini-feature-bars" aria-hidden="true"><i></i><i></i><i></i></span>
-                  </button>
-                  <button class="mini-node mini-node--one-row" type="button" data-demo-node="2" data-demo-label="Three vectors aggregate into one system row" aria-pressed="false">
-                    <small>Evaluation unit</small><strong>1 system row</strong><span class="mini-one-row" aria-hidden="true"><i></i><i></i><i></i><b></b></span>
-                  </button>
-                  <button class="mini-node mini-node--models" type="button" data-demo-node="3" data-demo-label="Grouped folds compare four fixed model pipelines" aria-pressed="false">
-                    <small>Grouped CV</small><strong>4 models</strong><span class="mini-model-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-                  </button>
-                  <button class="mini-node mini-node--no-select" type="button" data-demo-node="4" data-demo-label="Uncertainty interval crosses zero; no model selected" aria-pressed="false">
-                    <small>Decision</small><strong>No selection</strong><span class="mini-interval" aria-hidden="true"><i></i><b></b></span>
-                  </button>
-                </div>
-              </div>
-              <div class="project-mini-demo__foot">
-                <output data-demo-status>Three LiGaMD replicas stay attached to one system</output>
-                <span>The interval crosses zero, so the current result is no selected model.</span>
-              </div>
             </figure>
+
 
             <div class="project-story" data-project-story="hsp90-ligamd" data-active-stage="0" data-template-source="aceternity" data-template-name="sticky-scroll-reveal">
               <div class="project-story__visual">

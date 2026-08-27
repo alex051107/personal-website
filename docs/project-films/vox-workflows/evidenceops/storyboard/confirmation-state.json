@@ -1,0 +1,18 @@
+{
+  "state": "trial-generated",
+  "confirmedByUser": false,
+  "timestamp": "2026-08-26T13:02:20Z",
+  "currentVersion": "vox-v2-paper-collage",
+  "currentTrial": [
+    "media/trial-vox-v2/SHOT-001.png",
+    "media/trial-vox-v2/SHOT-002.png",
+    "media/trial-vox-v2/SHOT-003.png"
+  ],
+  "reason": "The generated v1 video exposed a material style mismatch: the approved v1 keyframes were photorealistic miniature scenes rather than VOX paper collage. The materially different v2 keyframes require fresh explicit approval before new video prompts are authored.",
+  "previousConfirmation": {
+    "version": "v1-photorealistic-miniature",
+    "confirmedByUser": true,
+    "timestamp": "2026-08-26T13:02:20Z",
+    "confirmationEvidence": "User explicitly confirmed '三张视图是通过的，然后你写清楚就好' on 2026-08-26."
+  }
+}

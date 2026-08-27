@@ -16,8 +16,9 @@
   <meta property="og:image" content="https://alex051107.github.io/personal-website/images/project-visuals/careplan-editorial.jpg">
   <meta property="og:image:alt" content="Editorial model of a synthetic order moving through rules, drafting, validation, and approval">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="../css/styles.css?v=873bb56">
-  <script defer src="../js/site-motion.js?v=445ccd5"></script>
+  <link rel="stylesheet" href="../css/styles.css?v=e2f5e62">
+  <script defer src="../js/site-motion.js?v=455b717"></script>
+  <script defer src="../js/project-films.js?v=e3c2a12"></script>
 </head>
 <body class="case-page case-page--coral">
   <div class="page-progress" aria-hidden="true"></div>
@@ -47,9 +48,17 @@
               <a class="button" href="#system">See control flow <span aria-hidden="true">↓</span></a>
             </div>
           </div>
-          <figure class="case-hero__visual" data-project-plate="careplan">
-            <img src="../images/project-visuals/careplan-index-v4.jpg" alt="State-machine workflow in which synthetic state tiles pass rules, enter a bounded AI drafting chamber, and remain separate from human approval" width="1500" height="1000" fetchpriority="high">
+          <figure class="case-hero__visual project-film project-film--compact" data-project-plate="careplan" data-project-film data-film-duration="10" data-film-state="paused">
+            <div class="project-film__media">
+              <video muted loop playsinline preload="none" poster="../videos/project-films/careplan-poster.jpg" aria-label="CarePlan workflow film">
+                <source src="../videos/project-films/careplan.mp4" type="video/mp4">
+              </video>
+              <div class="project-film__label"><span>10-second system film</span><strong>Order → bounded draft → human decision</strong></div>
+              <button class="project-film__toggle" type="button" data-film-toggle aria-pressed="true" aria-label="Pause CarePlan film"><span>Pause motion</span></button>
+              <div class="project-film__progress" aria-hidden="true"><i data-film-progress></i></div>
+            </div>
             <figcaption><strong>Input</strong> synthetic order · <strong>AI worker</strong> drafts · <strong>Output</strong> review-pending state that only a reviewer can decide.</figcaption>
+            <span class="visually-hidden" data-film-status aria-live="polite">Film loops automatically.</span>
           </figure>
         </div>
       </header>

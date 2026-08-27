@@ -16,8 +16,9 @@
   <meta property="og:image" content="https://alex051107.github.io/personal-website/images/project-visuals/evidenceops-editorial.jpg">
   <meta property="og:image:alt" content="Editorial model of a source passage remaining connected to a reviewed scientific claim">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="../css/styles.css?v=873bb56">
-  <script defer src="../js/site-motion.js?v=445ccd5"></script>
+  <link rel="stylesheet" href="../css/styles.css?v=e2f5e62">
+  <script defer src="../js/site-motion.js?v=455b717"></script>
+  <script defer src="../js/project-films.js?v=e3c2a12"></script>
 </head>
 <body class="case-page case-page--blue">
   <div class="page-progress" aria-hidden="true"></div>
@@ -47,9 +48,17 @@
               <a class="button" href="https://github.com/alex051107/evidenceops-public-mvp" target="_blank" rel="noopener noreferrer">View repository <span aria-hidden="true">↗</span></a>
             </div>
           </div>
-          <figure class="case-hero__visual" data-project-plate="evidenceops">
-            <img src="../images/project-visuals/evidenceops-index-v4.jpg" alt="Evidence workflow in which a source passage enters an extraction chamber, passes support apertures, and reaches a separate review record" width="1500" height="1000" fetchpriority="high">
+          <figure class="case-hero__visual project-film project-film--compact" data-project-plate="evidenceops" data-project-film data-film-duration="12" data-film-state="paused">
+            <div class="project-film__media">
+              <video muted loop playsinline preload="none" poster="../videos/project-films/evidenceops-poster.jpg" aria-label="EvidenceOps workflow film">
+                <source src="../videos/project-films/evidenceops.mp4" type="video/mp4">
+              </video>
+              <div class="project-film__label"><span>12-second system film</span><strong>Papers → exact passage → human record</strong></div>
+              <button class="project-film__toggle" type="button" data-film-toggle aria-pressed="true" aria-label="Pause EvidenceOps film"><span>Pause motion</span></button>
+              <div class="project-film__progress" aria-hidden="true"><i data-film-progress></i></div>
+            </div>
             <figcaption><strong>Input</strong> versioned passage · <strong>AI</strong> extracts claim fields · <strong>Output</strong> support-checked review record.</figcaption>
+            <span class="visually-hidden" data-film-status aria-live="polite">Film loops automatically.</span>
           </figure>
         </div>
       </header>

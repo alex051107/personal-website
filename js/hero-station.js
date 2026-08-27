@@ -288,7 +288,7 @@ if (stationRoot) {
 
   const automaticStages = ["contract", "agent", "tool", "gate", "trace"];
   const tourStages = ["contract", "agent", "tool", "gate", "trace", "human", "result"];
-  const tourTiming = Object.freeze({ releaseAt: 2300, stageDuration: 3400, resumeDelay: 9000 });
+  const tourTiming = Object.freeze({ releaseAt: 2300, stageDuration: 3400, resumeDelay: 2400 });
   const focusZoomByStage = Object.freeze({
     contract: 1.2,
     agent: 1.17,
@@ -1232,7 +1232,7 @@ if (stationRoot) {
     const note = tourButton.querySelector("small");
     tourButton.disabled = !available || state.running;
     tourButton.setAttribute("aria-pressed", String(available && state.tourRequested));
-    if (label) label.textContent = state.tourRequested ? "Pause auto tour" : "Resume auto tour";
+    if (label) label.textContent = state.tourRequested ? "Pause camera tour" : "Resume camera tour";
     if (note) {
       note.textContent = motionIsReduced()
         ? "off for reduced motion"
@@ -1280,7 +1280,7 @@ if (stationRoot) {
     }
     resetTourAmbient();
     if (reason === "interaction" && state.ready && !state.running) {
-      setStatus("Auto tour paused · it will resume after interaction");
+      setStatus("Module inspection · camera loop resumes automatically");
     }
     updateTourControl();
     scheduleTourResume();
@@ -1309,7 +1309,7 @@ if (stationRoot) {
     state.tourOwnsFocus = true;
     setFocusedStage(key, { duration: 900, source: "tour" });
     stationRoot.dataset.tourStage = key;
-    setStatus(`Auto tour · ${stageDetails[key].title} · drag or select a control to take over`);
+    setStatus(`Camera loop · ${stageDetails[key].title} · drag or select a module to inspect`);
     updateTourControl();
   };
 
@@ -1335,7 +1335,7 @@ if (stationRoot) {
     if (elapsed >= tourTiming.releaseAt && state.tourOwnsFocus) {
       state.tourOwnsFocus = false;
       setFocusedStage(null, { duration: 900, source: "tour" });
-      setStatus(`Auto tour · returning to overview before ${stageDetails[tourStages[(state.tourStageIndex + 1) % tourStages.length]].title}`);
+      setStatus(`Camera loop · returning to overview before ${stageDetails[tourStages[(state.tourStageIndex + 1) % tourStages.length]].title}`);
     }
     if (elapsed >= tourTiming.stageDuration) {
       state.tourStageIndex = (state.tourStageIndex + 1) % tourStages.length;
@@ -1447,7 +1447,7 @@ if (stationRoot) {
 
   const beginRun = (scenario = "pass") => {
     if (!state.ready || state.running) return;
-    state.tourRequested = false;
+    state.tourRequested = true;
     pauseAutoTour({ duration: 0, reason: "workflow" });
     resetRunVisuals();
     state.scenario = scenario === "block" ? "block" : "pass";
@@ -1777,7 +1777,7 @@ if (stationRoot) {
       if (state.tourRequested) {
         state.tourRequested = false;
         pauseAutoTour({ duration: 0, reason: "toggle" });
-        setStatus("Auto tour paused · manual controls remain available");
+        setStatus("Camera tour paused · manual controls remain available");
         return;
       }
 
@@ -1789,7 +1789,7 @@ if (stationRoot) {
       stationRoot.dataset.tourState = "paused";
       updateTourControl();
       scheduleTourResume();
-      setStatus(inspectionOpen ? "Reassembling before auto tour" : "Auto tour resuming");
+      setStatus(inspectionOpen ? "Reassembling before camera tour" : "Camera tour resuming");
       requestRender();
     });
     humanButton?.addEventListener("click", (event) => {

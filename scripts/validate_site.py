@@ -187,10 +187,12 @@ class PageParser(HTMLParser):
             self.links.append(values)
         if tag == "meta" and values.get("http-equiv", "").lower() == "refresh":
             self.meta_refreshes.append(values.get("content", ""))
-        if tag in {"img", "script", "link"}:
+        if tag in {"img", "script", "link", "video", "source"}:
             source = values.get("src") or values.get("data-src") or values.get("href")
             if source:
                 self.assets.append((tag, source))
+        if tag == "video" and values.get("poster"):
+            self.assets.append(("poster", values["poster"]))
         if tag == "img":
             self.images.append(values)
         if tag == "script":
@@ -250,12 +252,9 @@ def main() -> int:
     css_path = ROOT / "css" / "styles.css"
     tokens_path = ROOT / "tokens.css"
     motion_script = ROOT / "js" / "site-motion.js"
-    mini_demo_script = ROOT / "js" / "project-mini-demos.js"
+    project_film_script = ROOT / "js" / "project-films.js"
     station_script = ROOT / "js" / "hero-station.js"
-    library_motion_script = ROOT / "js" / "motion-library-showcase.js"
     anime_script = ROOT / "js" / "vendor" / "anime.umd.min.js"
-    scrollmagic_script = ROOT / "js" / "vendor" / "ScrollMagic.min.js"
-    lottie_script = ROOT / "js" / "vendor" / "lottie_light.min.js"
     gsap_script = ROOT / "js" / "vendor" / "gsap.min.js"
     expected_token_import = f'@import url("../tokens.css?v={git_blob_sha(tokens_path)[:7]}");'
     css_text = css_path.read_text(encoding="utf-8")
@@ -286,24 +285,15 @@ def main() -> int:
         depth_prefix = "../" * (len(relative_page.parts) - 1)
         expected_page_css = f"{depth_prefix}css/styles.css?v={git_blob_sha(css_path)[:7]}"
         expected_page_motion = f"{depth_prefix}js/site-motion.js?v={git_blob_sha(motion_script)[:7]}"
-        expected_page_mini_demos = (
-            f"{depth_prefix}js/project-mini-demos.js?v={git_blob_sha(mini_demo_script)[:7]}"
+        expected_page_project_films = (
+            f"{depth_prefix}js/project-films.js?v={git_blob_sha(project_film_script)[:7]}"
         )
         expected_page_station = f"{depth_prefix}js/hero-station.js?v={git_blob_sha(station_script)[:7]}"
         expected_page_anime = (
             f"{depth_prefix}js/vendor/anime.umd.min.js?v={git_blob_sha(anime_script)[:7]}"
         )
-        expected_page_scrollmagic = (
-            f"{depth_prefix}js/vendor/ScrollMagic.min.js?v={git_blob_sha(scrollmagic_script)[:7]}"
-        )
-        expected_page_lottie = (
-            f"{depth_prefix}js/vendor/lottie_light.min.js?v={git_blob_sha(lottie_script)[:7]}"
-        )
         expected_page_gsap = (
             f"{depth_prefix}js/vendor/gsap.min.js?v={git_blob_sha(gsap_script)[:7]}"
-        )
-        expected_page_library_motion = (
-            f"{depth_prefix}js/motion-library-showcase.js?v={git_blob_sha(library_motion_script)[:7]}"
         )
         page_text = page.read_text(encoding="utf-8")
         if parser.duplicate_ids:
@@ -376,17 +366,14 @@ def main() -> int:
                     )
             expected_script_sources = (
                 [
-                    expected_page_scrollmagic,
-                    expected_page_lottie,
                     expected_page_gsap,
                     expected_page_anime,
                     expected_page_station,
-                    expected_page_library_motion,
                     expected_page_motion,
-                    expected_page_mini_demos,
+                    expected_page_project_films,
                 ]
                 if relative_page == Path("index.html")
-                else [expected_page_motion]
+                else [expected_page_motion, expected_page_project_films]
             )
             if parser.scripts_with_src != expected_script_sources:
                 errors.append(
@@ -397,16 +384,11 @@ def main() -> int:
                 script_path = urlsplit(script.get("src", "")).path
                 if script_path == urlsplit(expected_page_motion).path and "defer" not in script:
                     errors.append(f"{relative_page}: local motion script must be deferred: {script['src']}")
-                if script_path == urlsplit(expected_page_mini_demos).path and "defer" not in script:
-                    errors.append(f"{relative_page}: project mini-demo script must be deferred: {script['src']}")
+                if script_path == urlsplit(expected_page_project_films).path and "defer" not in script:
+                    errors.append(f"{relative_page}: project-film script must be deferred: {script['src']}")
                 if script_path == urlsplit(expected_page_anime).path and "defer" not in script:
                     errors.append(f"{relative_page}: local Anime.js script must be deferred: {script['src']}")
-                if script_path in {
-                    urlsplit(expected_page_scrollmagic).path,
-                    urlsplit(expected_page_lottie).path,
-                    urlsplit(expected_page_gsap).path,
-                    urlsplit(expected_page_library_motion).path,
-                } and "defer" not in script:
+                if script_path == urlsplit(expected_page_gsap).path and "defer" not in script:
                     errors.append(f"{relative_page}: local motion-library script must be deferred: {script['src']}")
                 if script_path == urlsplit(expected_page_station).path and script.get("type") != "module":
                     errors.append(f"{relative_page}: Hero station runtime must be an ES module: {script['src']}")
@@ -566,7 +548,26 @@ def main() -> int:
         for class_name in ("project-story__what", "project-story__evidence"):
             if index_text.count(f'class="{class_name}"') != 4:
                 errors.append(f"index.html: expected one {class_name} contract in each project story")
-    if index_text.count('src="images/portrait-clean.png"') != 1:
+        if "data-project-mini-demo" in index_text or "project-mini-demo" in index_text:
+            errors.append("index.html: redundant project mini demos must remain removed")
+        for retired_runtime in (
+            "ScrollMagic.min.js",
+            "lottie_light.min.js",
+            "motion-library-showcase.js",
+            "project-mini-demos.js",
+        ):
+            if retired_runtime in index_text:
+                errors.append(f"index.html: retired runtime must not be loaded: {retired_runtime}")
+    film_toggle_count = sum(
+        page.read_text(encoding="utf-8").count("data-film-toggle")
+        for page in (ROOT / relative for relative in CONTENT_PAGES)
+    )
+    if film_toggle_count != 8:
+        errors.append(
+            "content pages: expected pause/resume controls for four homepage and four case films; "
+            f"found {film_toggle_count}"
+        )
+    if index_text.count('src="images/portrait-edge-clean-v4.png"') != 1:
         errors.append("index.html: the cleaned portrait must appear exactly once")
     if index_text.count('class="index-opening__portrait"') != 1:
         errors.append("index.html: the portrait must appear once in the opening")
@@ -597,6 +598,8 @@ def main() -> int:
             errors.append(f"index.html: expected one readable Hero station marker: {marker}")
     if index_text.count('data-station-run data-station-scenario=') != 2:
         errors.append("index.html: expected separate PASS and BLOCK Hero replay controls")
+    if index_text.count("data-station-tour") != 1:
+        errors.append("index.html: expected one pause/resume control for the looping Hero tour")
     for scenario in ('data-station-scenario="pass"', 'data-station-scenario="block"'):
         if index_text.count(scenario) != 1:
             errors.append(f"index.html: expected one Hero scenario marker: {scenario}")
@@ -729,45 +732,39 @@ def main() -> int:
                 )
     else:
         errors.append("js/hero-station.js: local Hero station runtime is missing")
-    if library_motion_script.exists():
-        library_motion_text = library_motion_script.read_text(encoding="utf-8")
+    if project_film_script.exists():
+        project_film_text = project_film_script.read_text(encoding="utf-8")
         for needle in (
-            "ScrollMagicRuntime.Scene",
             "IntersectionObserver",
             "prefers-reduced-motion",
-            "pointermove",
-            "MutationObserver",
-            "lottieRuntime.loadAnimation",
-            "gsapRuntime.fromTo",
-            "portfolio:motion-ready",
+            "navigator.connection?.saveData",
+            "[data-film-toggle]",
+            "visibilitychange",
+            "aria-pressed",
         ):
-            if needle not in library_motion_text:
-                errors.append(f"js/motion-library-showcase.js: missing motion integration hook: {needle}")
-        for forbidden in ("fetch(", "XMLHttpRequest", "WebSocket", "import("):
-            if forbidden in library_motion_text:
+            if needle not in project_film_text:
+                errors.append(f"js/project-films.js: missing bounded playback hook: {needle}")
+        for forbidden in ("fetch(", "XMLHttpRequest", "WebSocket", "URL.createObjectURL"):
+            if forbidden in project_film_text:
                 errors.append(
-                    "js/motion-library-showcase.js: runtime network or dynamic dependency is forbidden: "
+                    "js/project-films.js: film playback must not duplicate the video payload: "
                     f"{forbidden}"
                 )
     else:
-        errors.append("js/motion-library-showcase.js: supporting motion integration is missing")
+        errors.append("js/project-films.js: project-film runtime is missing")
     if not anime_script.exists() or "Anime.js - UMD minified bundle" not in anime_script.read_text(
         encoding="utf-8"
     ):
         errors.append("js/vendor/anime.umd.min.js: official local Anime.js bundle is missing")
-    motion_vendor_files = {
-        scrollmagic_script,
-        lottie_script,
-        gsap_script,
-        ROOT / "js" / "vendor" / "licenses" / "scrollmagic-LICENSE.md",
-        ROOT / "js" / "vendor" / "licenses" / "lottie-web-LICENSE.md",
-    }
+    motion_vendor_files = {gsap_script}
     for vendor_file in motion_vendor_files:
         if not vendor_file.exists() or vendor_file.stat().st_size == 0:
             errors.append(f"required local motion runtime or license is missing: {vendor_file.relative_to(ROOT)}")
 
     production_font_files = {
         ROOT / "fonts" / "Onest-Variable-latin.woff2",
+        ROOT / "fonts" / "InstrumentSans-Regular.woff2",
+        ROOT / "fonts" / "InstrumentSans-SemiBold.woff2",
         ROOT / "fonts" / "GeistMono-Medium.woff2",
         ROOT / "fonts" / "licenses" / "Onest-OFL.txt",
         ROOT / "fonts" / "licenses" / "Geist-OFL.txt",
@@ -824,7 +821,8 @@ def main() -> int:
                 errors.append(f"{path.relative_to(ROOT)}: {reason}: {stale!r}")
 
     size_limits = {
-        ROOT / "images" / "portrait-clean.png": 1_000_000,
+        ROOT / "images" / "portrait-edge-clean-v4.png": 1_000_000,
+        ROOT / "images" / "hero-3d-source" / "hero-agent-harness-master-v2.jpg": 550_000,
         ROOT / "images" / "og-card.jpg": 1_000_000,
         ROOT / "images" / "project-visuals" / "evidenceops-editorial.jpg": 400_000,
         ROOT / "images" / "project-visuals" / "careplan-editorial.jpg": 400_000,

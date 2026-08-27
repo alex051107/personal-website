@@ -162,6 +162,10 @@
 
     if (!nodes.length || nodes.length !== steps.length) return null;
 
+    // The visual stage rail mirrors the fully keyboard-operable story buttons.
+    // Keep pointer selection without adding a second set of 24 tab stops.
+    nodes.forEach((node) => node.setAttribute("tabindex", "-1"));
+
     const getStageImageSource = (art) => (
       art?.getAttribute("src") || art?.dataset.src || ""
     );

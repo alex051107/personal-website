@@ -1,0 +1,46 @@
+[
+  {
+    "id": "SHOT-001",
+    "sceneTexts": ["SYNTHETIC DEMO", "PAPER A", "PASSAGE 03", "TEXT", "VALUE", "UNIT", "CONTEXT"],
+    "textMappings": [
+      {"text": "SYNTHETIC DEMO", "carrierId": "intake-status-tab", "carrierDescription": "warm-ivory paper tab attached to the incoming stack", "isGiantNumber": false, "typographyRole": "status-label", "textColor": "ink-black", "carrierColor": "warm-white", "lineCount": 1},
+      {"text": "PAPER A", "carrierId": "paper-a-tab", "carrierDescription": "small brass-edged ivory tab on the selected page", "isGiantNumber": false, "typographyRole": "machine-label", "textColor": "ink-black", "carrierColor": "archival-tan", "lineCount": 1},
+      {"text": "PASSAGE 03", "carrierId": "passage-header", "carrierDescription": "wide ivory header plate on the passage mount", "isGiantNumber": false, "typographyRole": "primary-title", "textColor": "ink-black", "carrierColor": "warm-white", "lineCount": 1},
+      {"text": "TEXT", "carrierId": "field-tab-text", "carrierDescription": "small ivory annotation tab physically attached to the selected passage", "isGiantNumber": false, "typographyRole": "annotation", "textColor": "ink-black", "carrierColor": "warm-white", "lineCount": 1},
+      {"text": "VALUE", "carrierId": "field-tab-value", "carrierDescription": "small ivory annotation tab physically attached to the selected passage", "isGiantNumber": false, "typographyRole": "annotation", "textColor": "ink-black", "carrierColor": "warm-white", "lineCount": 1},
+      {"text": "UNIT", "carrierId": "field-tab-unit", "carrierDescription": "small ivory annotation tab physically attached to the selected passage", "isGiantNumber": false, "typographyRole": "annotation", "textColor": "ink-black", "carrierColor": "warm-white", "lineCount": 1},
+      {"text": "CONTEXT", "carrierId": "field-tab-context", "carrierDescription": "small ivory annotation tab physically attached to the selected passage", "isGiantNumber": false, "typographyRole": "annotation", "textColor": "ink-black", "carrierColor": "warm-white", "lineCount": 1}
+    ],
+    "promptFields": ["style", "scene", "typography", "negative"],
+    "batch": "batch-01-shots-001-003.md"
+  },
+  {
+    "id": "SHOT-002",
+    "sceneTexts": ["PAPER A", "PAPER B", "PAPER C", "PAPER D", "TEXT", "VALUE", "UNIT", "CONTEXT", "EXACT SUPPORT", "REJECTED"],
+    "textMappings": [
+      {"text": "PAPER A", "carrierId": "candidate-a", "carrierDescription": "ivory candidate card seated on the comparison rail", "isGiantNumber": false, "typographyRole": "machine-label", "textColor": "ink-black", "carrierColor": "warm-white", "lineCount": 1},
+      {"text": "PAPER B", "carrierId": "candidate-b", "carrierDescription": "ivory candidate card seated on the comparison rail", "isGiantNumber": false, "typographyRole": "machine-label", "textColor": "ink-black", "carrierColor": "warm-white", "lineCount": 1},
+      {"text": "PAPER C", "carrierId": "candidate-c", "carrierDescription": "ivory candidate card seated on the comparison rail", "isGiantNumber": false, "typographyRole": "machine-label", "textColor": "ink-black", "carrierColor": "warm-white", "lineCount": 1},
+      {"text": "PAPER D", "carrierId": "candidate-d", "carrierDescription": "ivory candidate card seated on the comparison rail", "isGiantNumber": false, "typographyRole": "machine-label", "textColor": "ink-black", "carrierColor": "warm-white", "lineCount": 1},
+      {"text": "TEXT", "carrierId": "inspection-row-text", "carrierDescription": "first ivory field row fixed inside the exact-support inspection plate", "isGiantNumber": false, "typographyRole": "annotation", "textColor": "ink-black", "carrierColor": "warm-white", "lineCount": 1},
+      {"text": "VALUE", "carrierId": "inspection-row-value", "carrierDescription": "second ivory field row fixed inside the exact-support inspection plate", "isGiantNumber": false, "typographyRole": "annotation", "textColor": "ink-black", "carrierColor": "warm-white", "lineCount": 1},
+      {"text": "UNIT", "carrierId": "inspection-row-unit", "carrierDescription": "third ivory field row fixed inside the exact-support inspection plate", "isGiantNumber": false, "typographyRole": "annotation", "textColor": "ink-black", "carrierColor": "warm-white", "lineCount": 1},
+      {"text": "CONTEXT", "carrierId": "inspection-row-context", "carrierDescription": "fourth ivory field row fixed inside the exact-support inspection plate", "isGiantNumber": false, "typographyRole": "annotation", "textColor": "ink-black", "carrierColor": "warm-white", "lineCount": 1},
+      {"text": "EXACT SUPPORT", "carrierId": "inspection-header", "carrierDescription": "wide ivory title plate fixed above the field-inspection mechanism", "isGiantNumber": false, "typographyRole": "primary-title", "textColor": "ink-black", "carrierColor": "archival-tan", "lineCount": 1},
+      {"text": "REJECTED", "carrierId": "rejected-tray", "carrierDescription": "carbon-black status plate fixed to the mismatch side tray", "isGiantNumber": false, "typographyRole": "status-label", "textColor": "warm-white", "carrierColor": "ink-black", "lineCount": 1}
+    ],
+    "promptFields": ["style", "scene", "typography", "negative"],
+    "batch": "batch-01-shots-001-003.md"
+  },
+  {
+    "id": "SHOT-003",
+    "sceneTexts": ["HUMAN REVIEW", "SOURCE ATTACHED", "RECORDED"],
+    "textMappings": [
+      {"text": "HUMAN REVIEW", "carrierId": "review-desk-header", "carrierDescription": "wide ivory header plate above the reviewer-owned desk", "isGiantNumber": false, "typographyRole": "primary-title", "textColor": "ink-black", "carrierColor": "archival-tan", "lineCount": 1},
+      {"text": "SOURCE ATTACHED", "carrierId": "source-hinge-label", "carrierDescription": "small carbon-black machine plate fixed to the physical source-to-claim hinge", "isGiantNumber": false, "typographyRole": "machine-label", "textColor": "warm-white", "carrierColor": "ink-black", "lineCount": 1},
+      {"text": "RECORDED", "carrierId": "record-status-stamp", "carrierDescription": "restrained ochre-tinted paper stamp area on the durable record", "isGiantNumber": false, "typographyRole": "status-label", "textColor": "ink-black", "carrierColor": "archival-tan", "lineCount": 1}
+    ],
+    "promptFields": ["style", "scene", "typography", "negative"],
+    "batch": "batch-01-shots-001-003.md"
+  }
+]
